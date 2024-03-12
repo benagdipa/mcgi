@@ -66,3 +66,7 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ### code to run the development server
 php artisan serve
+
+### code to run the react UI development
+npm install &&
+npm run dev
