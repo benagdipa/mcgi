@@ -1,16 +1,6 @@
 :root {
     --primary-color: #f5cd06;
-    --black-color: #404040;
-}
-body {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: var(--black-color);
-    }
+    --black-color: #0f0f0f;
 }
 @import "inc/header";
 @import "inc/home";

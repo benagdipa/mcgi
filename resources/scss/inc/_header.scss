@@ -1,7 +1,16 @@
-.main-header{
-    .logo-wrapper{
-        @media screen and (max-width:767px) {
+.main-header {
+    .logo-wrapper {
+        @media screen and (max-width: 767px) {
             width: 200px;
         }
     }
+    .menu-wrapper {
+        ul {
+            li {
+                a {
+                    color: #0f0f0f;
+                }
+            }
+        }
+    }    
 }

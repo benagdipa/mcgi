@@ -21,7 +21,7 @@ export default function HomePage({ auth }) {
                 <div className="hero-slider">
                     <Slider {...settings}>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_1.png" className='w-full object-contain h-full' />
+                            <img src="/images/slider/slider_4.png" className='w-full object-contain h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
                             <img src="/images/slider/slider_2.jpg" className='w-full object-contain h-full' />
@@ -30,37 +30,202 @@ export default function HomePage({ auth }) {
                             <img src="/images/slider/slider_3.jpg" className='w-full object-contain h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_4.png" className='w-full object-contain h-full' />
+                            <img src="/images/slider/slider_1.png" className='w-full object-contain h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
                             <img src="/images/slider/slider_5.png" className='w-full object-contain h-full' />
                         </div>
                     </Slider>
                 </div>
-                <div className="welcome-section mt-16">
-                    <div className="w-full">
+                <div className="welcome-section py-20">
+                    <div className="w-full px-6">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="content">
-                                <div className="title-wrapper text-center"><h1 className="title text-4xl font-semibold mb-3">Welcome to MCGI Australia</h1></div>
-                                <div className="content pt-3">
-                                    <p className='mb-3 text-[#404040] font-normal'>
+                                <div className="title-wrapper text-center">
+                                    <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
+                                </div>
+                                <div className="content pt-3 text-center w-full lg:w-4/5 mx-auto px-6 lg:px-0">
+                                    <p className='mb-3 text-[#666B68] font-normal text-lg lg:text-xl leading-relaxed font-dmsans'>
                                         Welcome to Members Church of God International (MCGI) in Australia, a place where faith is nurtured, and spirituality flourishes. Our congregation is united by a shared belief in the teachings of Jesus Christ and a commitment to spreading His message of faith, hope and love. We embrace all who seek spiritual growth, offering a sanctuary of worship and a community of support.
                                     </p>
-                                    <blockquote className='border-l-4 pl-3 border-primary my-6'>
-                                        <p className='italic text-[#86592d] py-3'>
-                                            "Thus says the LORD: 'Stand in the ways and see, And ask for the old paths, where the good way is, And walk in it; Then you will find rest for your souls.'
-                                            <span className='block pt-2 font-bold text-text-primary'> - Jeremiah 6:16 KJV</span>
-                                        </p>
-                                    </blockquote>
-                                    <p className='mb-3 text-[#404040] font-normal'>
-                                        With a network of chapters across Australia, MCGI is a beacon of hope and spiritual guidance, providing a welcoming community for all seeking truth and spiritual growth. Our chapters offer a range of activities and services, including community outreach, Bible studies, and family support programs, all designed to foster a deeper understanding of faith and to nurture the spiritual well-being of our members and the broader community.
-                                    </p>
+                                    <div className="more-link pt-6">
+                                        <Link href='#' className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="beliefs-seciton mt-20">
+                <div className="event-section">
+                    <div className="w-full bg-[#0077CC] px-6 rounded-[50px] lg:rounded-[100px]">
+                        <div className="max-w-screen-xl mx-auto py-20 lg:py-36">
+                            <div className="title-wrapper text-white relative">
+                                <h1 className='text-white text-3xl lg:text-6xl font-bold uppercase font-marcellus'>Upcomming Events</h1>
+                                <p className='font-tangerine text-5xl lg:text-9xl text-[#ECECEC] opacity-35 absolute top-3'>join us in worship and fellowship</p>
+                            </div>
+                            <div className="events-wrapper pt-16 lg:pt-40 pb-10">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+                                    <div className="event-column grid grid-cols-1 gap-6">
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="event-column grid grid-cols-1 gap-6">
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="event-item text-white">
+                                            <div className="flex gap-6 items-center justify-start">
+                                                <div className="event-date text-center">
+                                                    <p className="text-2xl lg:text-3xl font-bold font-dmsans">Apr</p>
+                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 font-dmsans'>23</p>
+                                                </div>
+                                                <div className="pl-3 info">
+                                                    <div className="event-time"><p className='font-dmsans text-sm font-semibold'>8:00 AM - 5:00 PM</p></div>
+                                                    <div className="event-title pt-2">
+                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem ipsum dolor sit amet, consectetur</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="btn-wrapper">
+                                <Link className="inline-block text-white bg-[#f5cd06] px-6 py-4 font-semibold text-lg rounded-full capitalize font-dmsans">View more events</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="blogs-section py-20 lg:py-40">
+                    <div className="w-full px-6">
+                        <div className="max-w-screen-xl mx-auto">
+                            <div className="title-wrapper relative">
+                                <h1 className='text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f] font-marcellus'>Stories & <span className='text-[#f5cd06]'>Articles</span></h1>
+                                <p className='text-6xl lg:text-9xl font-tangerine text-[#000] absolute top-5 opacity-35'>find inspiration in God</p>
+                            </div>
+                            <div className="blog-items pt-16 lg:pt-32">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                                    <div className="blog-item font-dmsans">
+                                        <div className="image">
+                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                        </div>
+                                        <div className="content pt-3">
+                                            <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
+                                            <div className="title pt-1 pb-3"><h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4></div>
+                                            <div className="content mb-3">
+                                                <p className='text-[#666B68]'>The question of the origins of the Christian tradition called Baptist has been, and to some extent still is, a much-debated issue.</p>
+                                            </div>
+                                            <div className="link">
+                                                <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="blog-item font-dmsans">
+                                        <div className="image">
+                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                        </div>
+                                        <div className="content pt-3">
+                                            <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
+                                            <div className="title pt-1 pb-3"><h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4></div>
+                                            <div className="content mb-3">
+                                                <p className='text-[#666B68]'>The question of the origins of the Christian tradition called Baptist has been, and to some extent still is, a much-debated issue.</p>
+                                            </div>
+                                            <div className="link">
+                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="blog-item font-dmsans">
+                                        <div className="image">
+                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                        </div>
+                                        <div className="content pt-3">
+                                            <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
+                                            <div className="title pt-1 pb-3"><h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4></div>
+                                            <div className="content mb-3">
+                                                <p className='text-[#666B68]'>The question of the origins of the Christian tradition called Baptist has been, and to some extent still is, a much-debated issue.</p>
+                                            </div>
+                                            <div className="link">
+                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                {/* <div className="beliefs-seciton mt-20">
                     <div className="w-full">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="title-wrapper">
@@ -140,7 +305,7 @@ export default function HomePage({ auth }) {
                             referrerPolicy="no-referrer-when-downgrade"
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
         </GuestLayout>
     )

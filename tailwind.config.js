@@ -13,12 +13,11 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
-            },
-            colors: {
-                'primary': '#f5cd06',
-                'text-primary': '#404040',
-            },
+                sans: ['Epilogue', ...defaultTheme.fontFamily.sans],
+                tangerine: ['Tangerine', 'cursive'],
+                marcellus: ['Marcellus', 'sans-serif'],
+                dmsans: ['"DM Sans"', 'sans-serif'],
+            },            
         },
     },
 
