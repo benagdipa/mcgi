@@ -9,7 +9,7 @@ export default function Header() {
     return (
         <React.Fragment>
             <header className='main-header shadow-sm'>
-                <div className="w-full">
+                <div className="w-full border-b-2">
                     <div className="px-4 py-3 lg:max-w-screen-xl lg:mx-auto">
                         <div className="flex justify-between items-center">
                             <div className="logo-wrapper">
@@ -24,7 +24,7 @@ export default function Header() {
                                     <li className='px-4 font-semibold text-base'><Link href="#">Community Prayer</Link></li>
                                     <li className='px-4 font-semibold text-base'><Link href="#">Charities</Link></li>
                                     <li className='px-4 font-semibold text-base'><Link href="#">Contact Us</Link></li>
-                                    <li className='px-4 font-semibold text-base'><Link href="#"><span className='flex'><UserIcon size={24} strokeWidth={2} style={{ paddingRight: 4 }} /> Login</span></Link></li>
+                                    <li className='px-4 font-semibold text-base'><Link href={route('login')}><span className='flex'><UserIcon size={24} strokeWidth={2} style={{ paddingRight: 4 }} /> Login</span></Link></li>
                                 </ul>
                             </div>
                             <div className="mobile-menu lg:hidden">
@@ -32,7 +32,7 @@ export default function Header() {
                                     <MenuIcon size={32} strokeWidth='1' />
                                 </button>
                                 <div className={`${!toggle ? "hidden" : 'flex'} mobile-menu-items`}>
-                                    <ul className='absolute left-0 bg-white w-full top-[75px] md:top-[87px] border-t'>
+                                    <ul className='absolute left-0 bg-white w-full top-[75px] md:top-[87px] border-t z-[109]'>
                                         <li className='px-10 py-3 font-semibold text-base'><Link href="#">Home</Link></li>
                                         <li className='px-10 py-3 font-semibold text-base'><Link href="#">About Us</Link></li>
                                         <li className='px-10 py-3 font-semibold text-base'><Link href="#">Community Prayer</Link></li>
