@@ -16,4 +16,20 @@ class PageController extends Controller
             'canRegister' => Route::has('register'),
         ]);
     }
+    public function aboutPage()
+    {
+        return Inertia::render('AboutPage', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+    }
+
+    public function contactPage()
+    {
+        return Inertia::render('ContactPage', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+        ]);
+
+    }
 }

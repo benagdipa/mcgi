@@ -15,11 +15,11 @@ export default function Header() {
                             <div className="left-section w-2/5">
                                 <div className="menu-wrapper">
                                     <ul className='flex'>
-                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#">Home</Link></li>
-                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#">About Us</Link></li>
+                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href={route('home')}>Home</Link></li>
+                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href={route('about')}>About Us</Link></li>
                                         <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#">Community Prayer</Link></li>
                                         <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#">Charities</Link></li>
-                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#">Contact Us</Link></li>
+                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href={route('contact')}>Contact Us</Link></li>
                                     </ul>
                                 </div>
                             </div>
@@ -34,10 +34,10 @@ export default function Header() {
                                 <div className="menu-wrapper">
                                     <ul className='flex justify-end'>
                                         <li className='px-4 font-semibold text-lg font-dmsans'><Link href={route('login')}><span className='flex items-center justify-center'><UserIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /> Login</span></Link></li>
-                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href={route('login')}><span className='flex'><PhoneCallIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /> +61450780530</span></Link></li>
-                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href={route('login')}><span className='flex'><FacebookIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
-                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href={route('login')}><span className='flex'><InstagramIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
-                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href={route('login')}><span className='flex'><YoutubeIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
+                                        <li className='px-4 font-semibold text-lg font-dmsans'><Link href="#"><span className='flex'><PhoneCallIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /> +61450780530</span></Link></li>
+                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href="#"><span className='flex'><FacebookIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
+                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href="#"><span className='flex'><InstagramIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
+                                        <li className='px-3 font-semibold text-lg font-dmsans'><Link href="#"><span className='flex'><YoutubeIcon size={28} strokeWidth={2} style={{ paddingRight: 4 }} /></span></Link></li>
                                     </ul>
                                 </div>
                             </div>
