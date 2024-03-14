@@ -13,8 +13,11 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+                sans: ['Epilogue', ...defaultTheme.fontFamily.sans],
+                tangerine: ['Tangerine', 'cursive'],
+                marcellus: ['Marcellus', 'sans-serif'],
+                dmsans: ['"DM Sans"', 'sans-serif'],
+            },            
         },
     },
 
