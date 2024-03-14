@@ -37,7 +37,7 @@ export default function HomePage({ auth }) {
                         </div>
                     </Slider>
                 </div>
-                <div className="welcome-section py-20">
+                <div className="welcome-section py-36">
                     <div className="w-full px-6">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="content">
@@ -48,7 +48,7 @@ export default function HomePage({ auth }) {
                                     <p className='mb-3 text-[#666B68] font-normal text-lg lg:text-xl leading-relaxed font-dmsans'>
                                         Welcome to Members Church of God International (MCGI) in Australia, a place where faith is nurtured, and spirituality flourishes. Our congregation is united by a shared belief in the teachings of Jesus Christ and a commitment to spreading His message of faith, hope and love. We embrace all who seek spiritual growth, offering a sanctuary of worship and a community of support.
                                     </p>
-                                    <div className="more-link pt-6">
+                                    <div className="more-link pt-6 inline-flex">
                                         <Link href='#' className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
                                     </div>
                                 </div>
