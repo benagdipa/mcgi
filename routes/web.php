@@ -18,6 +18,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [PageController::class, 'homePage'])->name('home');
+Route::get('/about-us', [PageController::class, 'aboutPage'])->name('about');
+Route::get('/contact-us', [PageController::class, 'contactPage'])->name('contact');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
