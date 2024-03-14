@@ -23,26 +23,55 @@ export default function AboutPage({ auth }) {
                 <div className="page-content py-32">
                     <div className="welcome-section">
                         <div className="max-w-screen-xl mx-auto">
-                            <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f] text-center">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
-                            <div className="flex gap-6 py-16">                                
-                                <div className="w-full">
-                                    <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-xl leading-relaxed">
-                                        <p className='mb-3'>
-                                            Welcome to Members Church of God International (MCGI) in Australia. Our journey began in the Philippines, under the leadership of Bro Eli Soriano and Bro Daniel Razon, where the unadulterated teachings of the Lord Jesus Christ were first embraced and propagated. This strong foundation laid in the Philippines has been instrumental in our global expansion, reaching various countries and cultures, including Australia.
-                                        </p>
-
-                                        <p className='mb-3'>
-                                            In Australia, MCGI is committed to continuing this legacy by spreading the Gospel and fostering a community grounded in biblical truths. We aim to spiritually empower individuals and contribute positively to the moral and spiritual fabric of Australian society. Our mission here is deeply aligned with MCGI's global vision of sharing hope and love found in the Gospel, nurturing a community where truth and godly compassion thrive.
-                                        </p>
-
-                                        <p className='mb-3'>
-                                            Our activities in Australia range from regular worship services and Bible expositions to community outreach and charitable works. We are dedicated to nurturing our members spiritually while also focusing on social responsibilities, like aiding those in need within the Australian community. Our vibrant youth ministry and family counseling services play a crucial role in guiding individuals and families in their spiritual journey, aligning with Christian principles and values.
-                                        </p>
-
-                                        <p className='mb-3'>
-                                            MCGI Australia is a melting pot of believers from diverse backgrounds, united in faith and love for God. We embody the teachings and love of Christ, supporting and uplifting each other in our spiritual journey. We warmly welcome everyone to join us in our gatherings and experience the joy and peace that comes from understanding the Bible and living a life dedicated to God.
-                                        </p>
+                            <div className="flex gap-12 items-center justify-center">
+                                <div className="w-1/2">
+                                    <img src="/images/about-welcome.jpg" className='rounded-[30px]' />
+                                </div>
+                                <div className="w-1/2">
+                                    <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
+                                    <div className="flex gap-6 py-12">
+                                        <div className="w-full">
+                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                                <p className='mb-3'>
+                                                    Welcome to Members Church of God International (MCGI) in Australia. Our journey began in the Philippines, under the leadership of Bro Eli Soriano and Bro Daniel Razon, where the unadulterated teachings of the Lord Jesus Christ were first embraced and propagated. This strong foundation laid in the Philippines has been instrumental in our global expansion, reaching various countries and cultures, including Australia.
+                                                </p>
+                                                <p className='mb-3'>
+                                                    In Australia, MCGI is committed to continuing this legacy by spreading the Gospel and fostering a community grounded in biblical truths. We aim to spiritually empower individuals and contribute positively to the moral and spiritual fabric of Australian society. Our mission here is deeply aligned with MCGI's global vision of sharing hope and love found in the Gospel, nurturing a community where truth and godly compassion thrive.
+                                                </p>
+                                                <p className='mb-3'>
+                                                    Our activities in Australia range from regular worship services and Bible expositions to community outreach and charitable works. We are dedicated to nurturing our members spiritually while also focusing on social responsibilities, like aiding those in need within the Australian community. Our vibrant youth ministry and family counseling services play a crucial role in guiding individuals and families in their spiritual journey, aligning with Christian principles and values.
+                                                </p>
+                                                <p className='mb-3'>
+                                                    MCGI Australia is a melting pot of believers from diverse backgrounds, united in faith and love for God. We embody the teachings and love of Christ, supporting and uplifting each other in our spiritual journey. We warmly welcome everyone to join us in our gatherings and experience the joy and peace that comes from understanding the Bible and living a life dedicated to God.
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="welcome-section">
+                        <div className="max-w-screen-xl mx-auto">
+                            <div className="flex gap-12 items-center justify-center">
+                                <div className="w-1/2">
+                                    <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Our Beliefs and  <span className='text-[#f5cd06]'>Mission</span></h1>
+                                    <div className="py-8 items-center justify-center">
+                                        <div className="w-full">
+                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                                <p className='mb-4 italic text-[#86592d]'>
+                                                    "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them."
+                                                    <span className='block text-[#0f0f0f] font-semibold'>- Ephesians 2:10</span>
+                                                </p>
+                                                <p className='mb-3'>At MCGI Australia, our mission is deeply rooted in the teachings of the Bible, guiding our journey in faith and community service. We strive to live by Christ's teachings, fostering love, humility, and compassion within our diverse congregation. Our dedication to spreading the gospel and serving the community is unwavering, as we seek to embody the spirit of Christ in all our actions.</p>
+
+                                                <p className='mb-3'>Our congregation is built on a foundation of spiritual enlightenment and moral integrity. We focus on understanding and embodying God's Word, fostering an environment where faith, wisdom, and communal support thrive. We are committed to creating a welcoming and nurturing environment, where every individual can find solace, guidance, and a sense of belonging.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-1/2">
+                                    <img src='/images/events.jpg' className='rounded-[30px]' />
                                 </div>
                             </div>
                         </div>
