@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, Head } from '@inertiajs/react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { PlayIcon } from 'lucide-react';
+import Modal from '@/Components/Modal';
 
 
 export default function HomePage({ auth }) {
+
+    const [prayModalState, setPrayModalState] = useState(false)
+
+
     var settings = {
         dots: true,
         infinite: true,
@@ -14,6 +20,11 @@ export default function HomePage({ auth }) {
         slidesToShow: 1,
         slidesToScroll: 1,
     };
+
+    const togglePrayModal = () => {
+        setPrayModalState(!prayModalState)
+    }
+
     return (
         <GuestLayout>
             <Head title="Home" />
@@ -53,6 +64,58 @@ export default function HomePage({ auth }) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="beliefs-section py-32">
+                    <div className="w-full">
+                        <div className="max-w-screen-xl mx-auto">
+                            <div className="flex gap-8">
+                                <div className="w-1/2 text-white">
+                                    <div className="title-wrapper">
+                                        <h1 className='font-marcellus text-6xl pb-12 text-bold'>Our Beliefs and <br />Mission</h1>
+                                        <div className="content pl-20">
+                                            <p className='text-xl font-dmsans'>
+                                                At MCGI Australia, our mission is deeply rooted in the teachings of the Bible, guiding our journey in faith and community service. We strive to live by Christ's teachings, fostering love, humility, and compassion within our diverse congregation. Our dedication to spreading the gospel and serving the community is unwavering, as we seek to embody the spirit of Christ in all our actions.
+                                            </p>
+                                            <div className="more-link pt-10  inline-flex">
+                                                <Link href={''} target='_blank' className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-10 py-4 font-bold text-lg rounded-full font-dmsans'>View More</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-1/2">
+                                    <img src="/images/events.jpg" className='rounded-[30px] w-full h-auto' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="pray-section py-24">
+                    <div className="w-full">
+                        <div className="max-w-screen-lg mx-auto">
+                            <div className="title-wrapper pb-24"><h1 className='text-center text-6xl font-marcellus font-bold'>PRAY WITH US</h1></div>
+                            <div className="video-wrapper flex items-center justify-center">
+                                <div className="play-icon w-24 h-24 bg-white flex items-center justify-center rounded-full drop-shadow-md shadow-white cursor-pointer">
+                                    <PlayIcon color='#666B68' size={42} onClick={togglePrayModal} />
+                                </div>
+                            </div>
+                            <div className="content font-dmsans text-center text-xl text-[#666B68] mx-auto py-10">
+                                <p className='mb-3'>The Community Prayer broadcast aims to connect everyone across the globe to pray together at certain hours of the day (Matthew 18:19-20). Before the short prayer, everyone is invited to sing hymns and songs of praise to God (James 5:13).</p>
+                                <p className='mb-3'>The live prayer broadcast on this page is set in the Filipino language. Every day, participants can join the top-of-the-hour prayer that starts at 12 a.m. Philippine Time. The live prayer broadcast is also available in other languages.</p>
+                            </div>
+                            <div className="more-link pt-6  text-center flex items-center justify-center">
+                                <a href='https://mcgi.org/community-prayer/' target='_blank' className='bg-[#f5cd06] shadow-lg text-white px-10 py-4 font-bold text-lg rounded-full font-dmsans'>View More</a>
+                            </div>
+                            <Modal show={prayModalState} onClose={togglePrayModal} maxWidth={'xxl'}>
+                                <iframe
+                                    width="100%"
+                                    height="620"
+                                    src="https://www.youtube.com/embed/uOeK-LssfiM?si=4NQc4Gc7A0BwafuY"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                />
+                            </Modal>
                         </div>
                     </div>
                 </div>
@@ -307,6 +370,6 @@ export default function HomePage({ auth }) {
                     </div>
                 </div> */}
             </div>
-        </GuestLayout>
+        </GuestLayout >
     )
 }
