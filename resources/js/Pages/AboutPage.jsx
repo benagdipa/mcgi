@@ -51,7 +51,7 @@ export default function AboutPage({ auth }) {
                             </div>
                         </div>
                     </div>
-                    <div className="welcome-section">
+                    <div className="beliefs-section">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="flex gap-12 items-center justify-center">
                                 <div className="w-1/2">
@@ -72,6 +72,30 @@ export default function AboutPage({ auth }) {
                                 </div>
                                 <div className="w-1/2">
                                     <img src='/images/events.jpg' className='rounded-[30px]' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="beliefs-section">
+                        <div className="max-w-screen-xl mx-auto">
+                            <div className="flex gap-12 items-center justify-center">
+                                <div className="w-1/2">
+                                    <img src='/images/charity.png' className='rounded-[30px] w-full' />
+                                </div>
+                                <div className="w-1/2">
+                                    <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Charity and <span className='text-[#f5cd06]'>Community Service</span></h1>
+                                    <div className="py-8 items-center justify-center">
+                                        <div className="w-full">
+                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                                <p className='mb-4 italic text-[#86592d]'>
+                                                    "Give, and it will be given to you: good measure, pressed down, shaken together, and running over will be put into your bosom. For with the same measure that you use, it will be measured back to you."
+                                                    <span className='block text-[#0f0f0f] font-semibold'>- Luke 6:38</span>
+                                                </p>
+                                                <p className='mb-3'>At the heart of our church's ethos is a profound commitment to charity and service. MCGI Australia actively engages in outreach programs, community service, and humanitarian efforts, driven by a compassionate desire to help those in need and make a positive impact.</p>
+                                                <p className='mb-3'>Our commitment to charity and community service is a cornerstone of our faith. Through acts of kindness and generosity, we express our devotion and fulfill our mission to spread love and compassion, creating a better world for all.</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
