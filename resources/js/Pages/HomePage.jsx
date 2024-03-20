@@ -4,15 +4,13 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { PlayIcon } from 'lucide-react';
 import Modal from '@/Components/Modal';
+import { IconPlayerPlay } from '@tabler/icons-react';
 
 
 export default function HomePage({ auth }) {
 
     const [prayModalState, setPrayModalState] = useState(false)
-
-
     var settings = {
         dots: true,
         infinite: true,
@@ -108,7 +106,7 @@ export default function HomePage({ auth }) {
                             <div className="video-wrapper flex items-center justify-center">
                                 <div
                                     className="play-icon w-24 h-24 bg-white flex items-center justify-center rounded-full drop-shadow-md shadow-white cursor-pointer">
-                                    <PlayIcon color='#666B68' size={42} onClick={togglePrayModal} />
+                                    <IconPlayerPlay color='#666B68' size={42} onClick={togglePrayModal} />
                                 </div>
                             </div>
                             <div className="content font-dmsans text-center text-xl text-[#666B68] mx-auto py-10">
