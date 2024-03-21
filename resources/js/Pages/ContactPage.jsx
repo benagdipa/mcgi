@@ -15,7 +15,7 @@ export default function ContactPage({ auth }) {
         slidesToScroll: 1,
     };
     return (
-        <GuestLayout>
+        <GuestLayout user={auth?.user}>
             <Head title='Contact Us' />
             <div className="contact-page">
                 <div className="page-header pt-80 pb-28 ">

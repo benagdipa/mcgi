@@ -24,7 +24,7 @@ export default function HomePage({ auth }) {
     }
 
     return (
-        <GuestLayout>
+        <GuestLayout user={auth?.user}>
             <Head title="Home" />
             <div className='homepage-content'>
                 <div className="hero-slider">

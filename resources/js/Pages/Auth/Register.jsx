@@ -39,8 +39,8 @@ export default function Register() {
                     <div className="h-screen flex items-center">
                         <div className="left-screen w-2/5">
                             <div className="px-24">
-                                <ApplicationLogo />
-                                <div className="title-wrapper mt-8">
+                                <ApplicationLogo className="mx-auto"/>
+                                <div className="title-wrapper mt-12">
                                     <h1 className='font-bold text-3xl'>Create an Account</h1>
                                     <p className='font-dmsans'>Enter your credentials to create new account</p>
                                 </div>

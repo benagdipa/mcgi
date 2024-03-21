@@ -1,5 +1,6 @@
 import React from 'react'
 import { IconBrandFacebook, IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconMail, IconMapPin, IconPhoneCall } from '@tabler/icons-react'
+import { Link } from '@inertiajs/react'
 
 export default function Footer() {
     const currentRoute = route().current()
@@ -15,7 +16,7 @@ export default function Footer() {
                                     <div className="widget-title">
                                         <h2 className='text-white font-semibold text-xl'>Contact Us</h2>
                                     </div>
-                                    <div className="widget-content mt-4">
+                                    <div className="widget-content mt-4 font-dmsans">
                                         <ul>
                                             <li>
                                                 <div className="flex text-white mb-5">
@@ -46,11 +47,11 @@ export default function Footer() {
                                     <div className="widget-title">
                                         <h2 className='text-white font-semibold text-xl'>Our Websites</h2>
                                     </div>
-                                    <div className="widget-content mt-4">
+                                    <div className="widget-content mt-4 font-dmsans">
                                         <ul className='text-white'>
-                                            <li className='pb-2'><a href="#">About Us</a></li>
+                                            <li className='pb-2'><Link href={route('about')}>About Us</Link></li>
                                             <li className='pb-2'><a href="#"></a>Privacy Policy</li>
-                                            <li className='pb-2'><a href="#"></a>Contact Us</li>
+                                            <li className='pb-2'><Link href={route('contact')}>Contact Us</Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -60,10 +61,10 @@ export default function Footer() {
                                     </div>
                                     <div className="widget-content mt-4 text-white">
                                         <div className="icon-container flex gap-2">
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><IconBrandFacebook strokeWidth={1.5} size={22} /></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><IconBrandTwitter strokeWidth={1.5} size={22} /></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><IconBrandYoutube strokeWidth={1.5} size={22} /></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><IconBrandInstagram strokeWidth={1.5} size={22} /></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.facebook.com/MCGI.org/" target='_blank'><IconBrandFacebook strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://twitter.com/mcgidotorg" target='_blank'><IconBrandTwitter strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.youtube.com/mcgichannel" target='_blank'><IconBrandYoutube strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><IconBrandInstagram strokeWidth={1.5} size={22} /></a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +72,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="full bg-[#3e3d3d]">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className="max-w-screen-xl mx-auto font-dmsans">
                             <div className='text-white text-center py-6'>&copy; 2024 MCGI Australia. All Rights Reserved.</div>
                         </div>
                     </div>
