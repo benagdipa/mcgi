@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -16,10 +17,12 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'homePage')->name('home');
+    Route::get('/about-us', 'aboutPage')->name('about');
+    Route::get('/contact-us', 'contactPage')->name('contact');
 
-Route::get('/', [PageController::class, 'homePage'])->name('home');
-Route::get('/about-us', [PageController::class, 'aboutPage'])->name('about');
-Route::get('/contact-us', [PageController::class, 'contactPage'])->name('contact');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -31,4 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::controller(BlogsController::class)->group(function () {
+    Route::get('/blogs', 'index')->name('blogs.index');
+    Route::get('/blogs/{slug}', 'show')->name('blogs.show');
+});
+
+
+require __DIR__ . '/auth.php';

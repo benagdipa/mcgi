@@ -21,6 +21,8 @@
     },
     "dependencies": {
         "@tabler/icons-react": "^3.1.0",
+        "date-fns": "^3.6.0",
+        "luxon": "^3.4.4",
         "react-slick": "^0.30.2",
         "sass": "^1.71.1",
         "slick-carousel": "^1.8.1"

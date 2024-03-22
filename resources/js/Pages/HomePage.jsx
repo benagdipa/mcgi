@@ -320,7 +320,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +338,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -356,7 +356,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>

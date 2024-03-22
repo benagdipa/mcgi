@@ -30,13 +30,16 @@ export default function Header({ user }) {
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
-                                                <Link href={route('about')}>About Us</Link>
-                                            </li>
+                                                <Link href={route('blogs.index')}>Blogs</Link>
+                                            </li> 
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={prayerHref}>Community Prayer</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={charityHref}>Charities</Link>
+                                            </li>
+                                            <li className='font-semibold text-lg font-dmsans'>
+                                                <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={route('contact')}>Contact Us</Link>
