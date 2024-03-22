@@ -8,10 +8,13 @@ export default function Header({ user }) {
     const [toggle, setToggle] = useState(false);
     const currentRoute = route().current()
     const hideHeader = ['login', 'register']
+
+    const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
+    const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'
     return (
         <React.Fragment>
             {!hideHeader.includes(currentRoute) && (
-                <header className='main-header shadow-sm'>
+                <header className='main-header shadow-sm sticky top-0 bg-white z-50'>
                     <div className="w-full max-w-screen-2xl mx-auto">
                         <div className="py-3 lg:py-6">
                             <div className="desktop-header justify-between items-center hidden xl:flex">
@@ -19,7 +22,6 @@ export default function Header({ user }) {
                                     <div className="logo-wrapper">
                                         <ApplicationLogo />
                                     </div>
-
                                 </div>
                                 <div className="middle-section">
                                     <div className="menu-wrapper flex ">
@@ -31,10 +33,10 @@ export default function Header({ user }) {
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
-                                                <Link href="#">Community Prayer</Link>
+                                                <Link href={prayerHref}>Community Prayer</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
-                                                <Link href="#">Charities</Link>
+                                                <Link href={charityHref}>Charities</Link>
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={route('contact')}>Contact Us</Link>

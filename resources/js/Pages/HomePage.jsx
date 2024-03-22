@@ -58,7 +58,7 @@ export default function HomePage({ auth }) {
                                         Welcome to Members Church of God International (MCGI) in Australia, a place where faith is nurtured, and spirituality flourishes. Our congregation is united by a shared belief in the teachings of Jesus Christ and a commitment to spreading His message of faith, hope and love. We embrace all who seek spiritual growth, offering a sanctuary of worship and a community of support.
                                     </p>
                                     <div className="more-link pt-6 inline-flex">
-                                        <Link href='#' className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
+                                        <Link href={route('about')} className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ export default function HomePage({ auth }) {
                                                 the spirit of Christ in all our actions.
                                             </p>
                                             <div className="more-link pt-10  inline-flex">
-                                                <Link href={''} target='_blank'
+                                                <Link href={route('about')}
                                                     className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-10 py-4 font-bold text-lg rounded-full font-dmsans'>
                                                     View More</Link>
                                             </div>
@@ -97,7 +97,7 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="pray-section py-36">
+                <div className="pray-section py-36" id='prayer'>
                     <div className="w-full">
                         <div className="max-w-screen-lg mx-auto">
                             <div className="title-wrapper pb-24">
@@ -131,7 +131,7 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="charity-section pt-36 pb-52  lg:rounded-tl-[80px] lg:rounded-tr-[80px]">
+                <div className="charity-section pt-36 pb-52  lg:rounded-tl-[80px] lg:rounded-tr-[80px]" id="charity">
                     <div className="w-full">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="title-wrapper relative">
@@ -157,7 +157,7 @@ export default function HomePage({ auth }) {
                                                     mission to spread love and compassion, creating a better world for all.</p>
                                             </div>
                                             <div className="more-link pt-6 inline-flex">
-                                                <a href='https://mcgi.org/community-prayer/' target='_blank'
+                                                <a href='https://www.mcgi.org/charities/' target='_blank'
                                                     className='bg-[#f5cd06] text-[#0f0f0f] shadow-lg px-10 py-4 font-bold text-lg rounded-full font-dmsans'>View
                                                     More</a>
                                             </div>
