@@ -288,7 +288,7 @@ export default function HomePage({ auth }) {
                                 </div>
                             </div>
                             <div className="btn-wrapper">
-                                <Link
+                                <Link href={route('events.index')}
                                     className="inline-block bg-[#f5cd06] text-[#0f0f0f] px-6 py-4 font-semibold text-lg rounded-full capitalize font-dmsans">
                                     View more events</Link>
                             </div>

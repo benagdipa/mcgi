@@ -8,3 +8,12 @@
 @import 'inc/contact';
 @import 'inc/login';
 @import 'inc/register';
+
+.events-page{
+    .page-header {
+        background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: color;
+    }
+}

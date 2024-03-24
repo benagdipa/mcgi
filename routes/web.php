@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -37,6 +38,10 @@ Route::middleware('auth')->group(function () {
 Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
+});
+
+Route::controller(EventsController::class)->group(function () {
+    Route::get('/events', 'index')->name('events.index');
 });
 
 

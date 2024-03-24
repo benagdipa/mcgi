@@ -15,7 +15,7 @@ export default function BlogsPage({ auth }) {
                                 <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
                                     <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
                                     <div className="divider"> | </div>
-                                    <div className="item"><Link href={route('blogs.index')} className="breadcrumb-link text-gray-200">Blogs</Link></div>
+                                    <div className="item"><Link href={route('blogs.index')} className="breadcrumb-link text-gray-200">Articles</Link></div>
                                 </div>
                             </div>
                         </div>
