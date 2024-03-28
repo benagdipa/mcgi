@@ -1,28 +1,44 @@
-import Header from "@/Components/Header";
 import React from "react";
-import { Link } from "@inertiajs/react";
+import Sidebar from "@/Components/Sidebar";
+import AdminHeader from "@/Components/Admin/AdminHeader";
 
 export default function Authenticated({ user, header, children }) {
 
+    const currentRoute = route().current()
+
+    const findCategoryIndex = (searchString) => {
+        const categoryMap = {
+            'blogs': 1,
+            'events': 2
+        };
+        const routesArray = ["admin.blogs.index", "admin.blogs.add", "admin.blogs.categories.index", "admin.blogs.tags.index", "events.index"];
+        for (let i = 0; i < routesArray.length; i++) {
+            if (routesArray[i].includes(searchString)) {
+                const parts = searchString.split('.');
+                for (const category in categoryMap) {
+                    if (parts.includes(category)) {
+                        return categoryMap[category];
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
     return (
         <React.Fragment>
-            <Header user={user} />
-            <div className="bottom-header shadow-sm">
-                <div className="w-full max-w-screen-2xl mx-auto">
-                    <ul className='flex gap-6 py-3'>
-                        <li className='font-semibold text-lg font-dmsans'>
-                            <Link href={'#'}>Content Management</Link>
-                        </li>
-                        <li className='font-semibold text-lg font-dmsans'>
-                            <Link href={'#'}>Event Management</Link>
-                        </li>
-                        <li className='font-semibold text-lg font-dmsans'>
-                            <Link href={route('profile.edit')}>Profile</Link>
-                        </li>
-                    </ul>
+            <div className="flex h-screen">
+                <aside>
+                    <Sidebar current={findCategoryIndex(currentRoute)} />
+                </aside>
+                <div className="w-full">
+                    <AdminHeader user={user} />
+                    <div className="main-content">
+                        {children}
+                    </div>
                 </div>
             </div>
-            <main>{children}</main>
+
         </React.Fragment>
     );
 }

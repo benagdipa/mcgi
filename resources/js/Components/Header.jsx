@@ -25,7 +25,7 @@ export default function Header({ user }) {
                                 </div>
                                 <div className="middle-section">
                                     <div className="menu-wrapper flex ">
-                                        <ul className='flex gap-6'>
+                                        <ul className='flex gap-4'>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
@@ -74,7 +74,7 @@ export default function Header({ user }) {
                                                 </a>
                                             </li>
                                         </ul>
-                                        <div className="menu-wrapper pl-10">
+                                        <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
                                                 <li className='font-semibold text-lg font-dmsans'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
                                                 <li className='font-semibold text-lg font-dmsans'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>

@@ -6,7 +6,7 @@ export default function ApplicationLogo(props) {
     return (
         <React.Fragment>
             <Link href="/">
-                <img src='/images/logo.png' width={250} className={className}/>
+                <img src='/images/logo.png' width={200} className={className}/>
             </Link>
         </React.Fragment>
     );

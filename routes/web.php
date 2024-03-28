@@ -32,12 +32,20 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');    
 });
 
 Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/blogs','admin_blogs_index')->name('admin.blogs.index');
+        Route::get('/dashboard/blogs/add','admin_blogs_add')->name('admin.blogs.add');
+        
+        Route::get('/dashboard/blogs/categories','admin_categories_index')->name('admin.blogs.categories.index');
+        Route::get('/dashboard/blogs/tags','admin_tags_index')->name('admin.blogs.tags.index');
+    });
 });
 
 Route::controller(EventsController::class)->group(function () {
