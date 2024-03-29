@@ -32,7 +32,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');    
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::controller(BlogsController::class)->group(function () {
@@ -40,11 +40,18 @@ Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
 
     Route::middleware('auth')->group(function () {
-        Route::get('/dashboard/blogs','admin_blogs_index')->name('admin.blogs.index');
-        Route::get('/dashboard/blogs/add','admin_blogs_add')->name('admin.blogs.add');
-        
-        Route::get('/dashboard/blogs/categories','admin_categories_index')->name('admin.blogs.categories.index');
-        Route::get('/dashboard/blogs/tags','admin_tags_index')->name('admin.blogs.tags.index');
+        Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
+        Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
+
+        Route::get('/dashboard/blogs/categories', 'admin_categories_index')->name('admin.blogs.categories.index');
+        Route::post('/dashboard/blogs/categories/store', 'admin_categories_store')->name('admin.blogs.categories.store');
+        Route::post('/dashboard/blogs/categories/{id}', 'admin_categories_update')->name('admin.blogs.categories.update');
+        Route::delete('/dashboard/blogs/categories/{id}', 'admin_categories_delete')->name('admin.blogs.categories.delete');
+
+        Route::get('/dashboard/blogs/tags', 'admin_tags_index')->name('admin.blogs.tags.index');
+        Route::post('/dashboard/blogs/tags/store', 'admin_tags_store')->name('admin.blogs.tags.store');
+        Route::post('/dashboard/blogs/tags/{id}', 'admin_tags_update')->name('admin.blogs.tags.update');
+        Route::delete('/dashboard/blogs/tags/{id}', 'admin_tags_delete')->name('admin.blogs.categories.delete');
     });
 });
 

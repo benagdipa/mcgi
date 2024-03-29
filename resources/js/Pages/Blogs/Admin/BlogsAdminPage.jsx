@@ -1,6 +1,6 @@
 import React from 'react'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
 
 export default function BlogsAdminPage({ auth }) {
@@ -9,7 +9,11 @@ export default function BlogsAdminPage({ auth }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Blogs' />
-            <div>
+            <div className=''>
+                <div className="p-6 flex justify-between">
+                    <h1 className='font-bold font-xl'>Blogs</h1>
+                    <Link href={route('admin.blogs.add')}>Add New</Link>
+                </div>
                 <Card className="h-full w-full overflow-scroll rounded-none">
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>

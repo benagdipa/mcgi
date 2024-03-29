@@ -39,7 +39,7 @@ export default function Sidebar({ current }) {
                                         <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">All Blogs</Typography>
                                     </ListItem>
                                 </Link>
-                                <Link href={route('admin.blogs.add')} className={`${currentRoute === 'admin.blogs.add' ? 'bg-blue-gray-50/50' : ''}`} preserveState preserveScroll>
+                                <Link href={route('admin.blogs.add')} className={`${currentRoute === 'admin.blogs.add' ? 'bg-blue-gray-50/50' : ''}`} preserveState replace preserveScroll>
                                     <ListItem>
                                         <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
                                         <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">Add New</Typography>

@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-ckeditor .ck-editor__editable {
+    height: 650px;
+    /* Set the desired height */
+}
