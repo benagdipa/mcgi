@@ -1,12 +1,57 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head } from '@inertiajs/react'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Head, router, useForm } from '@inertiajs/react'
+import InputError from '@/Components/InputError'
+import { Editor } from '@tinymce/tinymce-react';
 
-export default function BlogsAddAdminPage({ auth }) {
+
+export default function BlogsAddAdminPage({ auth, categories, tags }) {
+
+    const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
+        title: '',
+        slug: '',
+        content: '',
+        categories: [],
+        tags: [],
+        featureImage: null,
+        status: '',
+    });
+
+    const [previewFile, setPreviewFile] = useState('')
+    const [fileName, setFileName] = useState('');
+
+    const hiddenFileInput = useRef(null);
+    const handleClick = (event) => {
+        hiddenFileInput.current.click();
+    };
+    const handleFileChange = event => {
+        const url = URL.createObjectURL(event.target.files[0])
+        setData('featureImage', event.target.files[0])
+        setFileName(event.target.files[0].name)
+        setPreviewFile(url)
+    };
+
+    const handleCheckBoxChange = (name, value) => {
+        const prevItems = data[name];
+        setData(name, [...prevItems, value])
+    }
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+        post(route('admin.blogs.store'), {
+            _method: 'put',
+            avatar: data.avatar,
+        })
+    }
+
+    const editorRef = useRef(null);
+    const log = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent());
+        }
+    };
 
 
 
@@ -18,29 +63,144 @@ export default function BlogsAddAdminPage({ auth }) {
                     <h1 className='font-bold font-xl'>Add New Blog</h1>
                 </div>
                 <div className="form-wrapper px-6">
-                    <div className="flex">
-                        <div className="w-7/12">
-                            <div className="form-item mb-4">
-                                <InputLabel value={'Title'} className='mb-1 font-dmsans' />
-                                <TextInput
-                                    className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
-                                />
-                            </div>
-                            <div className="form-item">
-                                <InputLabel value={'Content'} className='mb-1 font-dmsans' />
-                                <div className="custom-ckeditor" style={{ height: '400px' }}>
-                                    <CKEditor
-                                        editor={ClassicEditor}
-                                        data="<p>Hello, CKEditor!</p>"                                        
-                                        onChange={(event, editor) => {
-                                            const data = editor.getData();
-                                            console.log({ event, editor, data });
-                                        }}
-                                    />
+                    <div className="max-w-screen-2xl">
+                        <form onSubmit={formSubmit}>
+                            <div className="flex gap-6">
+                                <div className="w-9/12">
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'Title'} className='mb-1 font-dmsans' />
+                                        <TextInput
+                                            name="title"
+                                            value={data.title}
+                                            onChange={(e) => setData('title', e.target.value)}
+                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                        />
+                                        <InputError message={errors.title} className="mt-2" />
+                                    </div>
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'Slug'} className='mb-1 font-dmsans' />
+                                        <TextInput
+                                            name="slug"
+                                            value={data.slug}
+                                            onChange={(e) => setData('slug', e.target.value)}
+                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                        />
+                                        <InputError message={errors.slug} className="mt-2" />
+                                    </div>
+                                    <div className="form-item">
+                                        <InputLabel value={'Content'} className='mb-1 font-dmsans' />
+                                        <div className="custom-ckeditor" style={{ height: '400px' }}>
+                                            <Editor
+                                                apiKey='h9mpgdcvlxaa94b8rwqpagapahot2x6w7urfs0dtyswd2qtj'
+                                                onInit={(evt, editor) => editorRef.current = editor}
+                                                initialValue="<p>This is the initial content of the editor.</p>"
+                                                init={{
+                                                    height: 500,
+                                                    menubar: false,
+                                                    plugins: [
+                                                        'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                                                        'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                                                        'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                                                    ],
+                                                    toolbar: 'undo redo | casechange blocks | bold italic backcolor | media ' +
+                                                        'alignleft aligncenter alignright alignjustify | ' +
+                                                        'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
+                                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                                }}
+                                            />
+                                            <InputError message={errors.content} className="mt-2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-3/12">
+                                    <div className="border rounded p-4">
+                                        <div className="form-item mb-4">
+                                            <div className="status">
+                                                <div className="status text-xl font-bold mb-2 font-dmsans">Status</div>
+                                                <select
+                                                    name="status"
+                                                    className='w-full'
+                                                    value={data.status}
+                                                    onChange={(e) => setData('status', e.target.value)}
+                                                >
+                                                    <option value="">Select</option>
+                                                    <option value="draft">Draft</option>
+                                                    <option value="publish">Publish</option>
+                                                </select>
+                                                <InputError message={errors.status} className="mt-2" />
+                                            </div>
+                                        </div>
+                                        <div className="form-item mb-4">
+                                            <div className="categories">
+                                                <p className='text-xl font-bold mb-3 font-dmsans'>Categories</p>
+                                                <div className="categories-items border p-4 rounded">
+                                                    {categories.length && categories.map((item, index) => {
+                                                        return (
+                                                            <div className="" key={index}>
+                                                                <label className='pb-3 block'>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name='categories[]'
+                                                                        value={item.id}
+                                                                        className='rounded w-5 h-5'
+                                                                        onChange={(e) => handleCheckBoxChange('categories', e.target.value)}
+                                                                    />
+                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                </label>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-item mb-4">
+                                            <div className="tags">
+                                                <p className='text-xl font-bold mb-3 font-dmsans'>Tags</p>
+                                                <div className="categories-items border p-4 rounded">
+                                                    {tags.length && tags.map((item, index) => {
+                                                        return (
+                                                            <div className="" key={index}>
+                                                                <label className='pb-3 block'>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name='tags[]'
+                                                                        value={item.id}
+                                                                        className='rounded w-5 h-5'
+                                                                        onChange={(e) => handleCheckBoxChange('tags', e.target.value)}
+                                                                    />
+                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                </label>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-item mb-4">
+                                            <div className="featured-image">
+                                                <p className='text-xl font-bold mb-3 font-dmsans'>Featured Image</p>
+                                                <div className="categories-items border p-4 rounded">
+                                                    <img src={previewFile} />
+                                                    <input
+                                                        type="file"
+                                                        name='featureImage'
+                                                        hidden
+                                                        onChange={handleFileChange}
+                                                        ref={hiddenFileInput}
+                                                        value={''}
+                                                    />
+
+                                                    <a className='bg-transparent cursor-pointer' onClick={handleClick}>Set Featured Image</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-item">
+                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans'>Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="w-5/12"></div>
+                        </form>
                     </div>
                 </div>
             </div>

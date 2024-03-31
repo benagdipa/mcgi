@@ -42,6 +42,7 @@ Route::controller(BlogsController::class)->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
         Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
+        Route::post('/dashboard/blogs/add', 'admin_blogs_store')->name('admin.blogs.store');
 
         Route::get('/dashboard/blogs/categories', 'admin_categories_index')->name('admin.blogs.categories.index');
         Route::post('/dashboard/blogs/categories/store', 'admin_categories_store')->name('admin.blogs.categories.store');
@@ -52,6 +53,10 @@ Route::controller(BlogsController::class)->group(function () {
         Route::post('/dashboard/blogs/tags/store', 'admin_tags_store')->name('admin.blogs.tags.store');
         Route::post('/dashboard/blogs/tags/{id}', 'admin_tags_update')->name('admin.blogs.tags.update');
         Route::delete('/dashboard/blogs/tags/{id}', 'admin_tags_delete')->name('admin.blogs.categories.delete');
+
+        Route::post('upload_image', 'admin_image_upload')->name('admin.image.upload');
+
+
     });
 });
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Posts;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogsController extends Controller
 {
@@ -31,7 +33,41 @@ class BlogsController extends Controller
 
     public function admin_blogs_add()
     {
-        return Inertia::render('Blogs/Admin/BlogsAddAdminPage');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return Inertia::render('Blogs/Admin/BlogsAddAdminPage', [
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function admin_blogs_store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:' . Posts::class,
+            'status' => 'required',
+            'featureImage' => 'required|mimes:png,jpg,jpeg'
+        ]);
+        $file_path = '';
+        if ($request->hasFile('featureImage')) {
+            $name = now()->timestamp . "_{$request->file('featureImage')->getClientOriginalName()}";
+            $path = $request->file('featureImage')->storeAs('post_images', $name, 'public');
+            $file_path = "/storage/{$path}";
+        }
+        $post = Posts::create([
+            'title' => $request->input('title'),
+            'slug' => $request->input('slug'),
+            'featured_image' => $file_path,
+            'content' => $request->input('content'),
+            'categories' => $request->input('categories') ? implode(',', $request->input('categories')) : '',
+            'tags' => $request->input('tags') ? implode(',', $request->input('tags')) : '',
+            'author' => Auth::id(),
+            'status' => $request->input('status'),
+        ]);
+        if ($post) {
+            return to_route('admin.blogs.index');
+        }
     }
 
     public function admin_categories_index()
@@ -138,5 +174,9 @@ class BlogsController extends Controller
     }
 
 
+    public function upload_image(Request $request)
+    {
+        dd($request->all());
+    }
 
 }
