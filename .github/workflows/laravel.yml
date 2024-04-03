@@ -25,5 +25,5 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Install node packages
-      run: npm run build
+      run: npm install && npm run build
     
