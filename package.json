@@ -20,7 +20,11 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "lucide-react": "^0.356.0",
+        "@material-tailwind/react": "^2.1.9",
+        "@tabler/icons-react": "^3.1.0",
+        "@tinymce/tinymce-react": "^5.0.0",
+        "date-fns": "^3.6.0",
+        "luxon": "^3.4.4",
         "react-slick": "^0.30.2",
         "sass": "^1.71.1",
         "slick-carousel": "^1.8.1"

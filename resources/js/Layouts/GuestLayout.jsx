@@ -1,19 +1,14 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
-import { Link } from '@inertiajs/react';
 import React from 'react';
-export default function Guest({ children }) {
+export default function Guest({ user, children }) {
     return (
         <React.Fragment>
-            <Header />
+            <Header user={user} />
             <div className="page-content">
-                <div className="">
-                    {children}
-                </div>
+                {children}
             </div>
             <Footer />
         </React.Fragment>
-
     );
 }

@@ -4,15 +4,13 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { PlayIcon } from 'lucide-react';
 import Modal from '@/Components/Modal';
+import { IconPlayerPlay } from '@tabler/icons-react';
 
 
 export default function HomePage({ auth }) {
 
     const [prayModalState, setPrayModalState] = useState(false)
-
-
     var settings = {
         dots: true,
         infinite: true,
@@ -26,7 +24,7 @@ export default function HomePage({ auth }) {
     }
 
     return (
-        <GuestLayout>
+        <GuestLayout user={auth?.user}>
             <Head title="Home" />
             <div className='homepage-content'>
                 <div className="hero-slider">
@@ -60,7 +58,7 @@ export default function HomePage({ auth }) {
                                         Welcome to Members Church of God International (MCGI) in Australia, a place where faith is nurtured, and spirituality flourishes. Our congregation is united by a shared belief in the teachings of Jesus Christ and a commitment to spreading His message of faith, hope and love. We embrace all who seek spiritual growth, offering a sanctuary of worship and a community of support.
                                     </p>
                                     <div className="more-link pt-6 inline-flex">
-                                        <Link href='#' className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
+                                        <Link href={route('about')} className='bg-[#0077CC] text-white px-6 py-4 font-bold text-lg rounded-full font-dmsans'>More About Us</Link>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +82,7 @@ export default function HomePage({ auth }) {
                                                 the spirit of Christ in all our actions.
                                             </p>
                                             <div className="more-link pt-10  inline-flex">
-                                                <Link href={''} target='_blank'
+                                                <Link href={route('about')}
                                                     className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-10 py-4 font-bold text-lg rounded-full font-dmsans'>
                                                     View More</Link>
                                             </div>
@@ -99,7 +97,7 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="pray-section py-36">
+                <div className="pray-section py-36" id='prayer'>
                     <div className="w-full">
                         <div className="max-w-screen-lg mx-auto">
                             <div className="title-wrapper pb-24">
@@ -108,7 +106,7 @@ export default function HomePage({ auth }) {
                             <div className="video-wrapper flex items-center justify-center">
                                 <div
                                     className="play-icon w-24 h-24 bg-white flex items-center justify-center rounded-full drop-shadow-md shadow-white cursor-pointer">
-                                    <PlayIcon color='#666B68' size={42} onClick={togglePrayModal} />
+                                    <IconPlayerPlay color='#666B68' size={42} onClick={togglePrayModal} />
                                 </div>
                             </div>
                             <div className="content font-dmsans text-center text-xl text-[#666B68] mx-auto py-10">
@@ -133,7 +131,7 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="charity-section pt-36 pb-52  lg:rounded-tl-[80px] lg:rounded-tr-[80px]">
+                <div className="charity-section pt-36 pb-52  lg:rounded-tl-[80px] lg:rounded-tr-[80px]" id="charity">
                     <div className="w-full">
                         <div className="max-w-screen-xl mx-auto">
                             <div className="title-wrapper relative">
@@ -159,7 +157,7 @@ export default function HomePage({ auth }) {
                                                     mission to spread love and compassion, creating a better world for all.</p>
                                             </div>
                                             <div className="more-link pt-6 inline-flex">
-                                                <a href='https://mcgi.org/community-prayer/' target='_blank'
+                                                <a href='https://www.mcgi.org/charities/' target='_blank'
                                                     className='bg-[#f5cd06] text-[#0f0f0f] shadow-lg px-10 py-4 font-bold text-lg rounded-full font-dmsans'>View
                                                     More</a>
                                             </div>
@@ -290,7 +288,7 @@ export default function HomePage({ auth }) {
                                 </div>
                             </div>
                             <div className="btn-wrapper">
-                                <Link
+                                <Link href={route('events.index')}
                                     className="inline-block bg-[#f5cd06] text-[#0f0f0f] px-6 py-4 font-semibold text-lg rounded-full capitalize font-dmsans">
                                     View more events</Link>
                             </div>
@@ -322,7 +320,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -340,7 +338,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +356,7 @@ export default function HomePage({ auth }) {
                                                     called Baptist has been, and to some extent still is, a much-debated issue.</p>
                                             </div>
                                             <div className="link">
-                                                <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
                                         </div>
                                     </div>

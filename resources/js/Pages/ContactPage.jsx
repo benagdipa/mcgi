@@ -15,7 +15,7 @@ export default function ContactPage({ auth }) {
         slidesToScroll: 1,
     };
     return (
-        <GuestLayout>
+        <GuestLayout user={auth?.user}>
             <Head title='Contact Us' />
             <div className="contact-page">
                 <div className="page-header pt-80 pb-28 ">
@@ -63,7 +63,6 @@ export default function ContactPage({ auth }) {
                                         style={{ border: 0 }}
                                         allowFullScreen=""
                                         loading="lazy"
-                                        referrerPolicy="no-referrer-when-downgrade"
                                         className='rounded-3xl  overflow-hidden'
                                     />
                                 </div>
@@ -88,8 +87,7 @@ export default function ContactPage({ auth }) {
                                                     height="350"
                                                     allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerPolicy="no-referrer-when-downgrade"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
+                                                    style={{ border: 0, }}
                                                 />
                                             </div>
                                             <div className="content pt-5">
@@ -102,13 +100,13 @@ export default function ContactPage({ auth }) {
                                         <div className="slider-item p-4">
                                             <div className="image-wrapper drop-shadow-lg rounded-lg overflow-hidden">
                                                 <iframe
-                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32a257c9a04b5d%3A0x68e1f29d3975e491!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484357419!5m2!1sen!2sau"
+                                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13526.147516042003!2d115.810026500224!3d-32.0547247754278!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32a257c9a04b5d%3A0x68e1f29d3975e491!2sMembers%20Church%20of%20God%20International!5e0!3m2!1sen!2sau!4v1711105330947!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Kardinya WA </h3>
@@ -117,13 +115,13 @@ export default function ContactPage({ auth }) {
                                         </div>
                                         <div className="slider-item p-4">
                                             <div className="image-wrapper drop-shadow-lg rounded-lg overflow-hidden">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b685a6c0cb85%3A0xb182f26719f42eb8!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484664755!5m2!1sen!2sau"
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1637.8636351373423!2d138.6316603308535!3d-34.81280276499753!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0b685a6c0cb85%3A0xb182f26719f42eb8!2sMembers%20Church%20of%20God%20International!5e0!3m2!1sen!2sau!4v1711106417947!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Pooraka SA</h3>
@@ -132,13 +130,13 @@ export default function ContactPage({ auth }) {
                                         </div>
                                         <div className="slider-item p-4">
                                             <div className="image-wrapper drop-shadow-lg rounded-lg overflow-hidden">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65ddec930a85d%3A0x5dd6bada26c7ef75!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484698309!5m2!1sen!2sau"
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12605.060969345099!2d144.86854405663243!3d-37.83067591550003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65ddec930a85d%3A0x5dd6bada26c7ef75!2sMembers%20Church%20of%20God%20International!5e0!3m2!1sen!2sau!4v1711106475855!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Altona North VIC </h3>
@@ -147,13 +145,13 @@ export default function ContactPage({ auth }) {
                                         </div>
                                         <div className="slider-item p-4">
                                             <div className="image-wrapper drop-shadow-lg rounded-lg overflow-hidden">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b17acfb9a5bffff%3A0xc652c92361e7c8fc!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484729026!5m2!1sen!2sau"
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d815.0172071018211!2d149.0663315571005!3d-35.204754496451606!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b17acfb9a5bffff%3A0xc652c92361e7c8fc!2sMembers%20Church%20of%20God%20International!5e0!3m2!1sen!2sau!4v1711106549974!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Spence ACT </h3>
@@ -165,10 +163,10 @@ export default function ContactPage({ auth }) {
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12855363455555%3A0x37acca018561e9bc!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484754010!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - St Marys NSW </h3>
@@ -180,10 +178,10 @@ export default function ContactPage({ auth }) {
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b0cafe66243ffff%3A0x45f6a7e06c57abd8!2sMembers%20Church%20of%20God%20International%20(MCGI)%20Singleton!5e1!3m2!1sen!2sau!4v1710484783360!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Singleton NSW </h3>
@@ -195,10 +193,10 @@ export default function ContactPage({ auth }) {
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b914c0a68c80c4b%3A0x4ddedd3121f401f8!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484812161!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Coopers Plains QLD </h3>
@@ -210,10 +208,10 @@ export default function ContactPage({ auth }) {
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39760489.45571153!2d114.69544796219445!3d-26.83308941846558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6bc300c25c96aaab%3A0x9a192505fb1cb7fd!2sMembers%20Church%20of%20God%20International!5e1!3m2!1sen!2sau!4v1710484833111!5m2!1sen!2sau"
                                                     width="100%"
                                                     height="350"
-                                                    style={{ border: 0, pointerEvents: 'none' }}
-                                                    allowfullscreen=""
+                                                    style={{ border: 0, }}
+                                                    allowFullScreen=""
                                                     loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade" />
+                                                />
                                             </div>
                                             <div className="content pt-5">
                                                 <h3 className='font-bold text-2xl mb-2'>MCGI - Park Avenue QLD </h3>

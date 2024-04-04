@@ -4,7 +4,7 @@ import { Head, Link } from '@inertiajs/react';
 
 export default function AboutPage({ auth }) {
     return (
-        <GuestLayout>
+        <GuestLayout user={auth?.user}>
             <Head title="About" />
             <div className="about-page">
                 <div className="page-header pt-80 pb-28 ">
