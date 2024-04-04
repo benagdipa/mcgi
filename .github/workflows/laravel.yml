@@ -25,5 +25,5 @@ jobs:
     - name: Install lftp
       run: sudo apt-get update && sudo apt-get install -y lftp
     - name: Deploy files to Live server
-      run: lftp -c "set ssl:verify-certificate false; open -u dev@mcgi.org.au,'Pcsoftnepal@123' ftp.mcgi.org.au; mirror -R --parallel=5 -n -p -v . /dev.mcgi.org.au/public_html"
+      run: lftp -c "set ssl:verify-certificate false; open -u dev@mcgi.org.au,'Pcsoftnepal@123' ftp.mcgi.org.au; mirror -R --parallel=5 -X=node_modules,.git,.github -n -p -v . /dev.mcgi.org.au/public_html"
     
