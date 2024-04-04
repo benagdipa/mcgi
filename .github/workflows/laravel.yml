@@ -1,29 +1,25 @@
-name: Laravel
+name: MCGI Production
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  laravel-deploy:
-
+  deployment:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.1'
-    - uses: actions/checkout@v3
-    - name: Install Dependencies
-      run: composer install --ignore-platform-reqs
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-    - name: Install node packages
-      run: npm install && npm run build
-    - name: Install lftp
-      run: sudo apt-get update && sudo apt-get install -y lftp
-    - name: Deploy files to Live server
-      run: lftp -c "set ssl:verify-certificate false; open -u dev@mcgi.org.au,'Pcsoftnepal@123' ftp.mcgi.org.au; mirror -R --parallel=10 --exclude-glob node_modules/ --exclude-glob .git/ --exclude-glob .github/ -n -p -v --ignore-time . /dev.mcgi.org.au/public_html"
-    
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ssh.mcgi.org.au
+          username: u27-nmpjtziggxux
+          key: ${{ secrets.KEY }}
+          port: 18765
+          script: |
+            whoami
+            # cd ~/dataalchemist
+            # git pull origin main
+            # docker stop appseed-app
+            # # docker stop appseed-db
+            # docker system prune -af
+            # docker compose --env-file .env up -d appseed-app --build --force-recreate
