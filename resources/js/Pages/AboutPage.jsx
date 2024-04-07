@@ -7,8 +7,8 @@ export default function AboutPage({ auth }) {
         <GuestLayout user={auth?.user}>
             <Head title="About" />
             <div className="about-page">
-                <div className="page-header pt-80 pb-28 ">
-                    <div className="max-w-screen-xl mx-auto">
+                <div className="page-header pt-[70px] md:pt-80 pb-28 ">
+                    <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                         <h1 className='font-bold text-7xl text-white'>About Us</h1>
                         <div className="breadcrumbs pt-5">
                             <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
@@ -20,14 +20,14 @@ export default function AboutPage({ auth }) {
                     </div>
                 </div>
 
-                <div className="page-content py-32">
+                <div className="page-content py-20 md:py-32">
                     <div className="welcome-section">
-                        <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-12 items-center justify-center">
-                                <div className="w-1/2">
-                                    <img src="/images/about-welcome.jpg" className='rounded-[30px]' />
+                        <div className="lg:max-w-screen-xl  w-11/12  mx-auto">
+                            <div className="flex gap-12 lg:flex-row flex-col items-center justify-center">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
+                                    <img src="/images/about-welcome.jpg" className='lg:rounded-[30px] rounded-[15px]' />
                                 </div>
-                                <div className="w-1/2">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
                                     <div className="flex gap-6 py-12">
                                         <div className="w-full">
@@ -51,10 +51,10 @@ export default function AboutPage({ auth }) {
                             </div>
                         </div>
                     </div>
-                    <div className="beliefs-section">
-                        <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-12 items-center justify-center">
-                                <div className="w-1/2">
+                    <div className="beliefs-section pb-10 lg:pb-0">
+                        <div className="lg:max-w-screen-xl  w-11/12 mx-auto">
+                            <div className="flex gap-12 lg:flex-row flex-col-reverse items-center justify-center">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Our Beliefs and  <span className='text-[#f5cd06]'>Mission</span></h1>
                                     <div className="py-8 items-center justify-center">
                                         <div className="w-full">
@@ -70,19 +70,19 @@ export default function AboutPage({ auth }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-1/2">
-                                    <img src='/images/events.jpg' className='rounded-[30px]' />
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
+                                    <img src='/images/events.jpg' className='lg:rounded-[30px] rounded-[15px]' />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="beliefs-section">
-                        <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-12 items-center justify-center">
-                                <div className="w-1/2">
-                                    <img src='/images/charity.png' className='rounded-[30px] w-full' />
+                        <div className="lg:max-w-screen-xl  w-11/12  mx-auto">
+                            <div className="flex gap-12 lg:flex-row flex-col items-center justify-center">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
+                                    <img src='/images/charity.png' className='lg:rounded-[30px] rounded-[15px] w-full' />
                                 </div>
-                                <div className="w-1/2">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Charity and <span className='text-[#f5cd06]'>Community Service</span></h1>
                                     <div className="py-8 items-center justify-center">
                                         <div className="w-full">
@@ -101,13 +101,13 @@ export default function AboutPage({ auth }) {
                         </div>
                     </div>
                     <div className="discover-section pt-32">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="title-wrapper relative">
-                                <h1 className='text-[#0f0f0f] text-6xl font-bold font-marcellus'>DISCOVER THE CHURCH</h1>
-                                <p className='font-tangerine text-8xl text-[#787777] opacity-35 absolute top-4'>information and guidelines</p>
+                                <h1 className='text-[#0f0f0f] md:text-6xl text-5xl font-bold font-marcellus'>DISCOVER THE CHURCH</h1>
+                                <p className='font-tangerine md:text-8xl text-6xl text-[#787777] opacity-35 absolute md:top-4 top-[8] '>information and guidelines</p>
                             </div>
-                            <div className="content py-32">
-                                <div className="grid grid-cols-3 gap-12">
+                            <div className="content py-16 lg:py-32">
+                                <div className="grid grid-cols- md:grid-cols-3 gap-12">
                                     <div className="discover-item">
                                         <div className="item-image">
                                             <img src="/images/about/about-1.jpg" alt="" className='rounded-lg' />
