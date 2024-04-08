@@ -32,10 +32,10 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
             <div className="login-page">
                 <div className="w-full">
-                    <div className="h-screen flex items-center">
-                        <div className="left-section w-2/3 h-screen flex items-center justify-center ">
+                    <div className="h-screen flex lg:flex-row flex-col items-center">
+                        <div className="left-section lg:w-2/3 w-full h-screen flex items-center justify-center ">
                             <div className="max-w-screen-lg mx-auto">
-                                <h1 className='text-white text-5xl font-bold text-left mb-4'>What's New In MCGI Australia</h1>
+                                <h1 className='text-white md:text-5xl text-4xl font-bold text-left mb-4 m-4 md:m-0'>What's New In MCGI Australia</h1>
                                 <div className="content font-dmsans bg-white p-4 rounded-md">
                                     <h3 className='text-[#333] text-xl font-bold tracking-tight mb-3'>Brother Daniel Gifts 300 Small-Scale Livelihood Grants on His 40th Sabbath Anniversary</h3>
                                     <p className='text-gray-500 text-base mb-3'>Brother Daniel Gifts 300 Small-Scale Livelihood Grants on His 40th Sabbath...</p>
@@ -43,10 +43,10 @@ export default function Login({ status, canResetPassword }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-1/3">
-                            <div className="px-24">
+                        <div className="lg:w-1/3 w-10/12 pb-14">
+                            <div className="lg:px-24 px-0">
                                 <ApplicationLogo className="mx-auto"/>
-                                <div className="title-wrapper mt-10">
+                                <div className="title-wrapper text-center mt-10">
                                     <h1 className='font-bold text-3xl'>Welcome back</h1>
                                     <p className='font-dmsans'>Enter your credentials to login</p>
                                 </div>
