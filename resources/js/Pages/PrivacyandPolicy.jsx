@@ -8,7 +8,7 @@ export default function PrivacyandPolicy({ auth }) {
             <div className="privacy-policy-page">
                 <div className="page-header pt-[70px] md:pt-80 pb-28 ">
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                        <h1 className='font-bold text-7xl text-white'>Privacy and Policy</h1>
+                        <h1 className='font-bold lg:text-7xl text-6xl text-white'>Privacy and Policy</h1>
                         <div className="breadcrumbs pt-5">
                             <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
                                 <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
