@@ -50,7 +50,7 @@ export default function Footer() {
                                     <div className="widget-content mt-4 font-dmsans">
                                         <ul className='text-white'>
                                             <li className='pb-2'><Link href={route('about')}>About Us</Link></li>
-                                            <li className='pb-2'><a href="#"></a>Privacy Policy</li>
+                                            <li className='pb-2'><Link href={route('privacy-and-policy')}>Privacy Policy</Link></li>
                                             <li className='pb-2'><Link href={route('contact')}>Contact Us</Link></li>
                                         </ul>
                                     </div>
