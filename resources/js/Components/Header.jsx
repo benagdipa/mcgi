@@ -7,7 +7,7 @@ import Dropdown from './Dropdown';
 export default function Header({ user }) {
     const [toggle, setToggle] = useState(false);
     const currentRoute = route().current()
-    const hideHeader = ['login', 'register']
+    const hideHeader = ['login', 'register','password.request']
 
     const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
     const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'

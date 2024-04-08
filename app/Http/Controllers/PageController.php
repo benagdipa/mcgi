@@ -35,4 +35,7 @@ class PageController extends Controller
     public function privacyPage(){
         return Inertia::render('PrivacyandPolicy');
     }
+    public function conditionPage(){
+        return Inertia::render('TermsandCondition');
+    }
 }
