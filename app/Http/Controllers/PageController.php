@@ -32,4 +32,7 @@ class PageController extends Controller
         ]);
 
     }
+    public function privacyPage(){
+        return Inertia::render('PrivacyandPolicy');
+    }
 }
