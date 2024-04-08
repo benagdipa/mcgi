@@ -13,22 +13,34 @@ class BlogsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Blogs/BlogsPage');
+        $posts = Posts::all();
+        return Inertia::render('Blogs/BlogsPage', [
+            'posts' => $posts,
+        ]);
     }
 
     public function show($slug)
     {
-        $response = file_get_contents('https://jsonplaceholder.org/posts/1');
-        $post = json_decode($response);
-        ;
+        $post = Posts::where('slug', $slug)->firstOrFail();
+        $categories = Category::all();
+        $tags = Tag::all();
         return Inertia::render('Blogs/SingleBlogPage', [
-            'post' => $post
+            'post' => $post,
+            'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
     public function admin_blogs_index()
     {
-        return Inertia::render('Blogs/Admin/BlogsAdminPage');
+        $posts = Posts::all();
+        $categories = Category::all();
+        $tags = Tag::all();
+        return Inertia::render('Blogs/Admin/BlogsAdminPage', [
+            'posts' => $posts,
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
     }
 
     public function admin_blogs_add()
@@ -68,6 +80,62 @@ class BlogsController extends Controller
         if ($post) {
             return to_route('admin.blogs.index');
         }
+    }
+
+    public function admin_blogs_edit($id)
+    {
+        $post = Posts::findOrFail($id);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return Inertia::render('Blogs/Admin/BlogsEditAdminPage', [
+            'item' => $post,
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function admin_blogs_update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|',
+            'status' => 'required',
+        ]);
+
+        $file_path = '';
+        if ($request->hasFile('featureImage')) {
+            if ($request->file('featureImage') !== null) {
+                $request->validate([
+                    'featureImage' => 'required|mimes:png,jpg,jpeg'
+                ]);
+
+                $name = now()->timestamp . "_{$request->file('featureImage')->getClientOriginalName()}";
+                $path = $request->file('featureImage')->storeAs('post_images', $name, 'public');
+                $file_path = "/storage/{$path}";
+            }
+        }
+
+        $post = Posts::findOrFail($id);
+        if ($post) {
+            $post->title = $request->input('title');
+            $post->slug = $request->input('slug');
+            $post->content = $request->input('content');
+            $post->categories = $request->input('categories') ? implode(',', $request->input('categories')) : '';
+            $post->tags = $request->input('tags') ? implode(',', $request->input('tags')) : '';
+            $post->status = $request->input('status');
+            if ($request->hasFile('featureImage')) {
+                $post->featured_image = $file_path;
+            }
+            $post->save();
+        }
+        return to_route('admin.blogs.index');
+    }
+
+    public function admin_blogs_delete($id)
+    {
+        $post = Posts::findOrFail($id);
+        $post->delete();
+        return to_route('admin.blogs.index');
     }
 
     public function admin_categories_index()
@@ -171,12 +239,6 @@ class BlogsController extends Controller
         $tag = Tag::findOrFail($id);
         $tag->delete();
         return to_route('admin.blogs.tags.index');
-    }
-
-
-    public function upload_image(Request $request)
-    {
-        dd($request->all());
     }
 
 }

@@ -1,11 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, Link } from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
+import Modal from '@/Components/Modal';
+import { IconX } from '@tabler/icons-react';
+import { router } from '@inertiajs/react'
 
-export default function BlogsAdminPage({ auth }) {
-    const TABLE_HEAD = ["Post Title", "Categories", "Tags", "Status", "Action"];
-    const TABLE_ROWS = [];
+
+export default function BlogsAdminPage({ auth, posts, categories, tags }) {
+    const TABLE_HEAD = ["SN", "Post Title", "Categories", "Tags", "Status", "Action"];
+    const TABLE_ROWS = posts;
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [selectedItem, setSelectedItem] = useState('')
+
+    const ShowCategories = ({ list }) => {
+        const postCategories = list.split(',')
+        return postCategories?.map((cat) => {
+            const postCategory = categories.filter(item => item.id === parseInt(cat))
+            return (
+                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postCategory[0].id}>{postCategory[0].title}</span>
+            )
+        })
+    }
+
+    const ShowTags = ({ list }) => {
+        const postTags = list.split(',')
+        return postTags?.map((tag) => {
+            const postTag = tags.filter(item => item.id === parseInt(tag))
+            return (
+                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postTag[0].id}>{postTag[0].title}</span>
+            )
+        })
+    }
+    const openDeleteModal = (id) => {
+        setSelectedItem(id)
+        setDeleteModal(true)
+    }
+    const closeDeleteModal = () => {
+        setDeleteModal(false)
+    }
+
+    const handleDeleteFunc = () => {
+        if (selectedItem) {
+            router.delete(route('admin.blogs.delete', selectedItem), {
+                onSuccess: () => {
+                    closeDeleteModal()
+                }
+            })
+        }
+    }
+
     return (
         <Authenticated user={auth?.user}>
             <Head title='Blogs' />
@@ -14,7 +58,7 @@ export default function BlogsAdminPage({ auth }) {
                     <h1 className='font-bold font-xl'>Blogs</h1>
                     <Link href={route('admin.blogs.add')}>Add New</Link>
                 </div>
-                <Card className="h-full w-full overflow-scroll rounded-none">
+                <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>
                             <tr>
@@ -26,25 +70,35 @@ export default function BlogsAdminPage({ auth }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {TABLE_ROWS.map(({ name, job, date }, index) => {
+                            {TABLE_ROWS.map(({ id, title, categories, tags, status }, index) => {
                                 const isLast = index === TABLE_ROWS.length - 1;
                                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                 return (
-                                    <tr key={name}>
+                                    <tr key={id}>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{name}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal">{index + 1}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{job}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal">{title}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{date}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                                <span className='space-x-2'><ShowCategories list={categories} /></span>
+                                            </Typography>
+                                        </td>
+                                        <td className={classes}>
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                                <span className='space-x-2'><ShowTags list={tags} /></span>
+                                            </Typography>
                                         </td>
                                         <td className={classes}>
                                             <Typography variant="small" color="blue-gray" className="font-normal">{status}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">Edit</Typography>
+                                            <div className="flex gap-2">
+                                                <Link href={route('admin.blogs.edit', id)}>Edit</Link>
+                                                <button className='text-red-500 text-sm font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 );
@@ -53,6 +107,20 @@ export default function BlogsAdminPage({ auth }) {
                     </table>
                 </Card>
             </div>
+            {/* Delete Modal */}
+
+            <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
+                <div className="delete-modal px-6 py-8 relative">
+                    <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
+                    <div className="absolute -top-8 -right-8 text-white cursor-pointer">
+                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                    </div>
+                    <div className="flex justify-center gap-2 pt-6">
+                        <button className='bg-red-500 text-white px-4 py-2 font-bold rounded' onClick={closeDeleteModal}>Cancel</button>
+                        <button className='bg-blue-500 text-white px-4 py-2 font-bold rounded' onClick={handleDeleteFunc}>Confirm</button>
+                    </div>
+                </div>
+            </Modal>
         </Authenticated>
     )
 }
