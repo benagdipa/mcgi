@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react'
 
 export default function Footer() {
     const currentRoute = route().current()
-    const hideFooter = ['login', 'register']
+    const hideFooter = ['login', 'register','password.request']
     return (
         <React.Fragment>
             {!hideFooter.includes(currentRoute) && (
