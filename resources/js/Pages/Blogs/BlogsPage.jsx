@@ -1,8 +1,17 @@
 import Guest from '@/Layouts/GuestLayout'
 import { Head, Link } from '@inertiajs/react'
 import React from 'react'
+import { DateTime } from 'luxon';
 
-export default function BlogsPage({ auth }) {
+export default function BlogsPage({ auth, posts }) {
+
+    const extractWords = (inputString, numWords) => {
+        let words = inputString.split(/\s+/);
+        let extractedWords = words.slice(0, numWords);
+        let result = extractedWords.join(" ");
+        return result;
+    }
+
     return (
         <Guest user={auth?.user}>
             <Head title='Blogs' />
@@ -24,168 +33,34 @@ export default function BlogsPage({ auth }) {
                 <div className="max-w-screen-xl mx-auto">
                     <div className="blog-items py-16 lg:py-32">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href={route('blogs.show', 'random-post')} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="blog-item font-dmsans">
-                                <div className="image">
-                                    <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
-                                </div>
-                                <div className="content pt-3">
-                                    <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
-                                    <div className="title pt-1 pb-3">
-                                        <h4 className='text-[#0f0f0f] font-bold text-2xl'>Fourth Sunday of Great Lent</h4>
-                                    </div>
-                                    <div className="content mb-3">
-                                        <p className='text-[#666B68]'>The question of the origins of the Christian tradition
-                                            called Baptist has been, and to some extent still is, a much-debated issue.</p>
-                                    </div>
-                                    <div className="link">
-                                        <Link className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                    </div>
-                                </div>
-                            </div>
+                            {posts?.length && posts.map((post) => {
+                                const date = DateTime.fromISO(post?.created_at, { zone: 'utc' })
+                                return (
+                                    <React.Fragment key={post?.id}>
+                                        <div className="blog-item font-dmsans">
+                                            <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
+                                                <div className="image">
+                                                    <img src={post?.featured_image} className='h-[250px] object-cover rounded-3xl w-full' />
+                                                </div>
+                                            </Link>
+                                            <div className="content pt-3">
+                                                <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                <div className="title pt-1 pb-3">
+                                                    <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
+                                                        <h4 className='text-[#0f0f0f] font-bold text-2xl capitalize'>
+                                                            {post?.title}
+                                                        </h4>
+                                                    </Link>
+                                                </div>
+                                                <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div>
+                                                <div className="link">
+                                                    <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

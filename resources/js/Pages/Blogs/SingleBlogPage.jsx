@@ -3,8 +3,27 @@ import { Head } from '@inertiajs/react';
 import { DateTime } from 'luxon';
 import React from 'react'
 
-export default function SingleBlogPage({ auth, post }) {
-    const date = DateTime.fromFormat(post?.publishedAt, 'MM/dd/yyyy HH:mm:ss')
+export default function SingleBlogPage({ auth, post, categories, tags }) {
+    const date = DateTime.fromISO(post?.created_at, 'MM/dd/yyyy HH:mm:ss')
+    const ShowCategories = ({ list }) => {
+        const postCategories = list.split(',')
+        return postCategories?.map((cat, index) => {
+            const postCategory = categories.filter(item => item.id === parseInt(cat))
+            return (
+                <span className='text-white font-bold font-dmsans rounded text-xl' key={postCategory[0].id}>{postCategory[0].title} {index < postCategories.length - 1 ? ',' : ''}</span>
+            )
+        })
+    }
+
+    const ShowTags = ({ list }) => {
+        const postTags = list.split(',')
+        return postTags?.map((tag) => {
+            const postTag = tags.filter(item => item.id === parseInt(tag))
+            return (
+                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postTag[0].id}>{postTag[0].title}</span>
+            )
+        })
+    }
     return (
         <Guest user={auth?.user}>
             <Head title={post.title} />
@@ -30,20 +49,31 @@ export default function SingleBlogPage({ auth, post }) {
                                 {date.toFormat('LLLL dd, yyyy')}
                             </div>
                         </div>
+                        <div className="categories flex items-center justify-center pt-5">
+                            <div className="space-x-1">
+                                <ShowCategories list={post?.categories} />
+                            </div>
+                        </div>
                         <div className="post-image">
                             <div className="image-wrapper pt-12">
-                                <img src={post?.image} alt="" className='mx-auto w-full rounded-2xl' />
+                                <img src={post?.featured_image} alt="" className='mx-auto w-full rounded-2xl max-h-[400px] object-contain' />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="content-section">
+                <div className="content-section pt-20 mb-20">
                     <div className="max-w-screen-xl mx-auto">
-                        <div className="content-wrapper p-20">
+                        <div className="content-wrapper">
                             <p className='font-dmsans text-[#666B68]/80 text-xl leading-relaxed font-normal'>{post?.content}</p>
+                        </div>
+                        <div className='tags pt-10'>
+                            <div className=" space-x-3">
+                                <ShowTags list={post?.tags} />
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </Guest>
     )

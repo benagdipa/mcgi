@@ -44,6 +44,9 @@ Route::controller(BlogsController::class)->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
         Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
         Route::post('/dashboard/blogs/add', 'admin_blogs_store')->name('admin.blogs.store');
+        Route::get('/dashboard/blogs/{id}/edit', 'admin_blogs_edit')->name('admin.blogs.edit');
+        Route::post('/dashboard/blogs/{id}/edit', 'admin_blogs_update')->name('admin.blogs.update');
+        Route::delete('/dashboard/blogs/{id}', 'admin_blogs_delete')->name('admin.blogs.delete');
 
         Route::get('/dashboard/blogs/categories', 'admin_categories_index')->name('admin.blogs.categories.index');
         Route::post('/dashboard/blogs/categories/store', 'admin_categories_store')->name('admin.blogs.categories.store');
@@ -56,8 +59,6 @@ Route::controller(BlogsController::class)->group(function () {
         Route::delete('/dashboard/blogs/tags/{id}', 'admin_tags_delete')->name('admin.blogs.categories.delete');
 
         Route::post('upload_image', 'admin_image_upload')->name('admin.image.upload');
-
-
     });
 });
 

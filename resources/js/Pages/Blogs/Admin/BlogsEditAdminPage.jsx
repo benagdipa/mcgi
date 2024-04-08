@@ -1,25 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
-import InputLabel from '@/Components/InputLabel'
-import TextInput from '@/Components/TextInput'
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, router, useForm } from '@inertiajs/react'
-import InputError from '@/Components/InputError'
+import { Head, useForm } from '@inertiajs/react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 
-
-export default function BlogsAddAdminPage({ auth, categories, tags }) {
-
+export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        title: '',
-        slug: '',
-        content: '',
-        categories: [],
-        tags: [],
+        title: item.title,
+        slug: item.slug,
+        content: item.content,
+        categories: item?.categories ? item.categories.split(',') : [],
+        tags: item?.tags ? item.tags.split(',') : [],
         featureImage: null,
-        status: '',
+        status: item.status,
     });
+    console.log('errors', errors);
     const editorRef = useRef(null);
-    const [previewFile, setPreviewFile] = useState('')
+    const [previewFile, setPreviewFile] = useState(item.featured_image)
     const [fileName, setFileName] = useState('');
     const hiddenFileInput = useRef(null);
 
@@ -28,8 +27,6 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
         const slug = value.replace(/\s+/g, '-').toLowerCase();
         setData('slug', slug)
     }, [data.title])
-
-
 
     const handleClick = (event) => {
         hiddenFileInput.current.click();
@@ -55,15 +52,15 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
 
     const formSubmit = (e) => {
         e.preventDefault();
-        post(route('admin.blogs.store'))
+        post(route('admin.blogs.update', item.id))
     }
 
     return (
         <Authenticated user={auth?.user}>
-            <Head title='Add New Blogs' />
+            <Head title='Edit blog' />
             <div className="">
                 <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Add New Blog</h1>
+                    <h1 className='font-bold font-xl'>Edit Blog</h1>
                 </div>
                 <div className="form-wrapper px-6">
                     <div className="max-w-screen-2xl">
@@ -167,6 +164,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                                         value={item.id}
                                                                         className='rounded w-5 h-5'
                                                                         onChange={(ele) => handleCheckBoxChange('categories', ele)}
+                                                                        checked={data.categories.includes(item.id.toString())}
                                                                     />
                                                                     <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
                                                                 </label>
@@ -190,6 +188,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                                         value={item.id}
                                                                         className='rounded w-5 h-5'
                                                                         onChange={(ele) => handleCheckBoxChange('tags', ele)}
+                                                                        checked={data.tags.includes(item.id.toString())}
                                                                     />
                                                                     <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
                                                                 </label>
@@ -212,13 +211,12 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                         ref={hiddenFileInput}
                                                         value={''}
                                                     />
-
                                                     <a className='bg-transparent cursor-pointer' onClick={handleClick}>Set Featured Image</a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-item">
-                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans'>Submit</button>
+                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans' disabled={processing}>Submit</button>
                                         </div>
                                     </div>
                                 </div>
