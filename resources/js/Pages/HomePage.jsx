@@ -27,7 +27,7 @@ export default function HomePage({ auth }) {
         <GuestLayout user={auth?.user}>
             <Head title="Home" />
             <div className='homepage-content'>
-                <div className="hero-slider">
+                <div className="hero-slider hidden md:block">
                     <Slider {...settings}>
                         <div className='slider-item lg:h-full'>
                             <img src="/images/slider/slider_4.png" className='w-full object-contain h-full' />
@@ -46,6 +46,25 @@ export default function HomePage({ auth }) {
                         </div>
                     </Slider>
                 </div>
+                <div className="mobile-hero-slider block md:hidden">
+                    <Slider {...settings}>
+                        <div className='slider-item lg:h-full'>
+                            <img src="/images/slider/slider_4.png" className='w-full object-cover h-full' />
+                        </div>
+                        <div className='slider-item lg:h-full'>
+                            <img src="/images/slider/slider_2.jpg" className='w-full object-cover h-full' />
+                        </div>
+                        <div className='slider-item lg:h-full'>
+                            <img src="/images/slider/slider_3.jpg" className='w-full object-cover h-full' />
+                        </div>
+                        <div className='slider-item lg:h-full'>
+                            <img src="/images/slider/slider_1.png" className='w-full object-cover h-full' />
+                        </div>
+                        <div className='slider-item lg:h-full'>
+                            <img src="/images/slider/slider_5.png" className='w-full object-cover h-full' />
+                        </div>
+                    </Slider>
+                </div>
                 <div className="welcome-section py-36">
                     <div className="w-full px-6">
                         <div className="max-w-screen-xl mx-auto">
@@ -53,7 +72,7 @@ export default function HomePage({ auth }) {
                                 <div className="title-wrapper text-center">
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
                                 </div>
-                                <div className="content pt-3 text-center w-full lg:w-4/5 mx-auto px-6 lg:px-0">
+                                <div className="content pt-3 text-justify md:text-center w-full lg:w-4/5 mx-auto md:px-6 lg:px-0">
                                     <p className='mb-3 text-[#666B68] font-normal text-lg lg:text-xl leading-relaxed font-dmsans'>
                                         Welcome to Members Church of God International (MCGI) in Australia, a place where faith is nurtured, and spirituality flourishes. Our congregation is united by a shared belief in the teachings of Jesus Christ and a commitment to spreading His message of faith, hope and love. We embrace all who seek spiritual growth, offering a sanctuary of worship and a community of support.
                                     </p>
@@ -66,15 +85,15 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="beliefs-section py-48 rounded-[80px]">
+                <div className="beliefs-section py-20 md:py-48 rounded-[20px] md:rounded-[80px]">
                     <div className="w-full">
                         <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-8">
-                                <div className="w-1/2 text-white">
+                            <div className="flex flex-col lg:flex-row gap-8">
+                                <div className="w-11/12 lg:w-1/2 text-white mx-auto">
                                     <div className="title-wrapper">
-                                        <h1 className='font-marcellus text-6xl pb-12 font-bold'>Our Beliefs and <br />Mission</h1>
-                                        <div className="content pl-16">
-                                            <p className='text-xl font-dmsans'>
+                                        <h1 className='font-marcellus text-5xl md:text-6xl pb-12 font-bold'>Our Beliefs and <br />Mission</h1>
+                                        <div className="content pl-8 md:pl-16">
+                                            <p className='text-xl text-left font-dmsans'>
                                                 At MCGI Australia, our mission is deeply rooted in the teachings of the Bible, guiding
                                                 our journey in faith and community service. We strive to live by Christ's teachings,
                                                 fostering love, humility, and compassion within our diverse congregation. Our dedication
@@ -89,7 +108,7 @@ export default function HomePage({ auth }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-1/2">
+                                <div className="w-11/12 lg:w-1/2 mx-auto">
                                     <img src="/images/events.jpg" className='rounded-[30px] w-full h-auto' />
                                 </div>
                             </div>
@@ -98,10 +117,10 @@ export default function HomePage({ auth }) {
                 </div>
 
                 <div className="pray-section py-36" id='prayer'>
-                    <div className="w-full">
+                    <div className="lg:w-full w-11/12 mx-auto">
                         <div className="max-w-screen-lg mx-auto">
                             <div className="title-wrapper pb-24">
-                                <h1 className='text-center text-6xl font-marcellus font-bold'>PRAY WITH US</h1>
+                                <h1 className='text-center text-5xl md:text-6xl font-marcellus font-bold'>PRAY WITH US</h1>
                             </div>
                             <div className="video-wrapper flex items-center justify-center">
                                 <div
@@ -110,10 +129,10 @@ export default function HomePage({ auth }) {
                                 </div>
                             </div>
                             <div className="content font-dmsans text-center text-xl text-[#666B68] mx-auto py-10">
-                                <p className='mb-3'>The Community Prayer broadcast aims to connect everyone across the globe to pray
+                                <p className='mb-3 text-justify md:text-center'>The Community Prayer broadcast aims to connect everyone across the globe to pray
                                     together at certain hours of the day (Matthew 18:19-20). Before the short prayer, everyone is
                                     invited to sing hymns and songs of praise to God (James 5:13).</p>
-                                <p className='mb-3'>The live prayer broadcast on this page is set in the Filipino language. Every day,
+                                <p className='mb-3 text-justify md:text-center'>The live prayer broadcast on this page is set in the Filipino language. Every day,
                                     participants can join the top-of-the-hour prayer that starts at 12 a.m. Philippine Time. The live
                                     prayer broadcast is also available in other languages.</p>
                             </div>
@@ -131,22 +150,22 @@ export default function HomePage({ auth }) {
                     </div>
                 </div>
 
-                <div className="charity-section pt-36 pb-52  lg:rounded-tl-[80px] lg:rounded-tr-[80px]" id="charity">
+                <div className="charity-section pt-36 pb-52 rounded-tl-[30px] rounded-tr-[30px] md:rounded-tl-[80px] md:rounded-tr-[80px]" id="charity">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className="w-11/12 md:max-w-screen-xl mx-auto">
                             <div className="title-wrapper relative">
-                                <h1 className='text-6xl font-bold text-white font-marcellus'>Charity and Community Service</h1>
-                                <p className='font-tangerine text-5xl lg:text-9xl text-[#ECECEC] opacity-35 absolute top-5'>Give, and it
+                                <h1 className='md:text-6xl text-4xl font-bold text-white font-marcellus'>Charity and Community Service</h1>
+                                <p className='font-tangerine text-6xl lg:text-9xl text-[#ECECEC] opacity-35 absolute md:top-5 top-12'>Give, and it
                                     will be given to you</p>
                             </div>
                             <div className="content pt-32">
                                 <div className="bg-white rounded-[30px]">
-                                    <div className="flex gap-6 items-center justify-center">
-                                        <div className="w-1/2">
+                                    <div className="flex flex-col md:flex-row gap-6 items-center py-10 md:py-0 justify-center">
+                                        <div className="md:w-1/2 w-11/12">
                                             <img src="/images/charity.png"
-                                                className='w-full rounded-tl-[30px] rounded-bl-[30px] h-[600px] object-cover' />
+                                                className='w-full rounded-[20px] md:rounded-tl-[30px] md:rounded-bl-[30px] md:rounded-tr-[0px] md:rounded-br-[0px] md:h-[600px] object-cover' />
                                         </div>
-                                        <div className="w-1/2">
+                                        <div className="md:w-1/2 w-11/12">
                                             <div className="text-xl font-dmsans text-[#666B68]">
                                                 <p className='mb-3'>At the heart of our church's ethos is a profound commitment to
                                                     charity and service. MCGI Australia actively engages in outreach programs, community
@@ -308,7 +327,7 @@ export default function HomePage({ auth }) {
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                                     <div className="blog-item font-dmsans">
                                         <div className="image">
-                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                            <img src="/images/slider/slider_1.png" className='h-[260px] object-cover rounded-3xl' />
                                         </div>
                                         <div className="content pt-3">
                                             <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
@@ -326,7 +345,7 @@ export default function HomePage({ auth }) {
                                     </div>
                                     <div className="blog-item font-dmsans">
                                         <div className="image">
-                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                            <img src="/images/slider/slider_1.png" className='h-[260px] object-cover rounded-3xl' />
                                         </div>
                                         <div className="content pt-3">
                                             <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
@@ -344,7 +363,7 @@ export default function HomePage({ auth }) {
                                     </div>
                                     <div className="blog-item font-dmsans">
                                         <div className="image">
-                                            <img src="/images/slider/slider_1.png" className='h-[250px] object-cover rounded-3xl' />
+                                            <img src="/images/slider/slider_1.png" className='h-[260px] object-cover rounded-3xl' />
                                         </div>
                                         <div className="content pt-3">
                                             <div className="date text-[#9f9f9f] font-medium">January 19, 2024</div>
