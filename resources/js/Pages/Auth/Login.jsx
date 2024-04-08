@@ -30,9 +30,9 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-            <div className="login-page">
+            <div className="login-page py-24 md:py-0 ">
                 <div className="w-full">
-                    <div className="h-screen flex lg:flex-row flex-col items-center">
+                    <div className="h-screen flex lg:flex-row flex-col-reverse items-center">
                         <div className="left-section lg:w-2/3 w-full h-screen flex items-center justify-center ">
                             <div className="max-w-screen-lg mx-auto">
                                 <h1 className='text-white md:text-5xl text-4xl font-bold text-left mb-4 m-4 md:m-0'>What's New In MCGI Australia</h1>
