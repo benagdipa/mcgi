@@ -31,7 +31,7 @@ export default function Header({ user }) {
                                             </li>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={route('blogs.index')}>Articles</Link>
-                                            </li> 
+                                            </li>
                                             <li className='font-semibold text-lg font-dmsans'>
                                                 <Link href={prayerHref}>Community Prayer</Link>
                                             </li>
@@ -95,12 +95,12 @@ export default function Header({ user }) {
                                     </button>
                                     <div className={`${!toggle ? "hidden" : 'flex'} mobile-menu-items absolute left-0 top-[75px] md:top-[87px] w-full`}>
                                         <ul className='bg-white w-full border-t z-[109]'>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Home</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">About Us</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Community Prayer</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Charities</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Contact Us</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Login</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('home')}>Home</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={prayerHref}>Community Prayer</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={charityHref}>Charities</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('contact')}>Contact Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
                                         </ul>
                                     </div>
                                 </div>
