@@ -18,7 +18,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
         return postCategories?.map((cat) => {
             const postCategory = categories.filter(item => item.id === parseInt(cat))
             return (
-                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postCategory[0].id}>{postCategory[0].title}</span>
+                <span className='px-2 bg-gray-300 py-2 rounded font-poppins' key={postCategory[0].id}>{postCategory[0].title}</span>
             )
         })
     }
@@ -28,7 +28,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
         return postTags?.map((tag) => {
             const postTag = tags.filter(item => item.id === parseInt(tag))
             return (
-                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postTag[0].id}>{postTag[0].title}</span>
+                <span className='px-2 bg-gray-300 py-2 rounded font-poppins' key={postTag[0].id}>{postTag[0].title}</span>
             )
         })
     }
@@ -56,7 +56,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
             <div className=''>
                 <div className="p-6 pb-0 pt-4 flex justify-between font-poppins">
                     <h1 className='font-semibold text-gray-800 text-3xl'>Blogs</h1>
-                    <Link href={route('admin.blogs.add')}>Add New</Link>
+                    <p className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-2 rounded-xl font-bold text-lg font-poppins'><Link href={route('admin.blogs.add')}>Add New</Link></p>
                 </div>
                 <div className="pt-2 p-6 font-poppins">
                         <ul className='flex gap-1 text-gray-600 text-sm'>
@@ -65,13 +65,13 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                             <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
                         </ul>
                     </div>
-                <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
+                <Card className="h-full w-full overflow-scroll rounded-none font-poppins">
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>
                             <tr>
                                 {TABLE_HEAD.map((head) => (
                                     <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-dmsans text-lg font-bold" >{head}</Typography>
+                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-poppins text-lg font-bold" >{head}</Typography>
                                     </th>
                                 ))}
                             </tr>
@@ -83,28 +83,28 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                                 return (
                                     <tr key={id}>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{index + 1}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{index + 1}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{title}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{title}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">
                                                 <span className='space-x-2'><ShowCategories list={categories} /></span>
                                             </Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">
                                                 <span className='space-x-2'><ShowTags list={tags} /></span>
                                             </Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{status}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{status}</Typography>
                                         </td>
                                         <td className={classes}>
                                             <div className="flex gap-2">
-                                                <Link href={route('admin.blogs.edit', id)}>Edit</Link>
-                                                <button className='text-red-500 text-sm font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                <Link className='font-poppins text-base' href={route('admin.blogs.edit', id)}>Edit</Link>
+                                                <button className='text-red-500  font-medium font-poppins text-base' onClick={() => { openDeleteModal(id) }}>Delete</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -117,7 +117,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
             {/* Delete Modal */}
 
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
-                <div className="delete-modal px-6 py-8 relative">
+                <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />

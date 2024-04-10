@@ -83,52 +83,52 @@ export default function EventsAddAdmin({ auth }) {
                             <div className="flex gap-6">
                                 <div className="w-9/12">
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Title'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Title'} className='mb-1 font-poppins text-base' />
                                         <TextInput
                                             name="title"
                                             value={data.title}
                                             onChange={(e) => setData('title', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                         />
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Slug'} className='mb-1 font-poppins text-base' />
                                         <TextInput
                                             name="slug"
                                             value={data.slug}
                                             onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                         />
                                         <InputError message={errors.slug} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Start Date'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Start Date'} className='mb-1 font-poppins text-base' />
                                         <DatePicker
                                             selected={new Date(data.start_date)}
                                             onChange={(date) => setData('start_date', formatDateToYMDHIS(date))}
                                             showTimeSelect
                                             dateFormat="Pp"
-                                            className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
+                                            className='w-full rounded-sm font-poppins placeholder:font-poppins'
                                             minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'End Date'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'End Date'} className='mb-1 font-poppins text-base' />
                                         <DatePicker
                                             selected={new Date(data.end_date)}
                                             onChange={(date) => setData('end_date', formatDateToYMDHIS(date))}
                                             showTimeSelect
                                             dateFormat="Pp"
-                                            className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
+                                            className='w-full rounded-sm font-poppins placeholder:font-poppins'
                                             minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
 
                                     <div className="form-item">
-                                        <InputLabel value={'Content'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Content'} className='mb-1 font-poppins text-base' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
                                             <Editor
                                                 apiKey='h9mpgdcvlxaa94b8rwqpagapahot2x6w7urfs0dtyswd2qtj'
@@ -176,7 +176,7 @@ export default function EventsAddAdmin({ auth }) {
                                     <div className="border rounded p-4">
                                         <div className="form-item mb-4">
                                             <div className="status">
-                                                <div className="status text-xl font-bold mb-2 font-dmsans">Status</div>
+                                                <div className="status text-xl font-bold mb-2 font-poppins ">Status</div>
                                                 <select
                                                     name="status"
                                                     className='w-full'
@@ -192,7 +192,7 @@ export default function EventsAddAdmin({ auth }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="featured-image">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Featured Image</p>
+                                                <p className='text-xl font-bold mb-3 font-poppins'>Featured Image</p>
                                                 <div className="categories-items border p-4 rounded">
                                                     <img src={previewFile} />
                                                     <input
@@ -209,7 +209,7 @@ export default function EventsAddAdmin({ auth }) {
                                             </div>
                                         </div>
                                         <div className="form-item">
-                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans'>Submit</button>
+                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-poppins'>Submit</button>
                                         </div>
                                     </div>
                                 </div>
