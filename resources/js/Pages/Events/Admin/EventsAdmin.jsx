@@ -36,7 +36,7 @@ export default function EventsAdmin({ auth, events }) {
             <div className=''>
                 <div className="p-6 pb-0 py-4 flex justify-between font-poppins">
                     <h1 className='font-semibold text-gray-800 text-3xl'>Events</h1>
-                    <Link href={route('admin.events.add')}>Add New</Link>
+                    <p className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-2 rounded-xl font-bold text-lg font-dmsans'><Link href={route('admin.events.add')}>Add New</Link></p>
                 </div>
                 <div class="p-6 pt-2 font-poppins">
                     <ul class="flex gap-1 text-gray-600 text-sm">
@@ -63,24 +63,24 @@ export default function EventsAdmin({ auth, events }) {
                                 return (
                                     <tr key={id}>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{index + 1}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{index + 1}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{title}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{title}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{start_date}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{start_date}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{end_date}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{end_date}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{status}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{status}</Typography>
                                         </td>
                                         <td className={classes}>
                                             <div className="flex gap-2">
-                                                <Link href={route('admin.events.edit', id)}>Edit</Link>
-                                                <button className='text-red-500 text-sm font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                <Link className='font-poppins' href={route('admin.events.edit', id)}>Edit</Link>
+                                                <button className='text-red-500 font-poppins text-base font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
                                             </div>
                                         </td>
                                     </tr>

@@ -2,7 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, Link } from '@inertiajs/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -59,8 +59,17 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
         <Authenticated user={auth?.user}>
             <Head title='Edit blog' />
             <div className="">
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Edit Blog</h1>
+                <div className="p-6 pb-0 pt-4 flex justify-between">
+                    <h1 className='font-semibold text-gray-800 text-3xl'>Edit Blog</h1>
+                </div>
+                <div className="pt-2 p-6 font-poppins">
+                        <ul className='flex gap-1 text-gray-600 text-sm'>
+                            <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                            <li>/</li>
+                            <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                            <li>/</li>
+                            <li>Edit Blog</li>
+                        </ul>
                 </div>
                 <div className="form-wrapper px-6">
                     <div className="max-w-screen-2xl">
@@ -68,27 +77,27 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                             <div className="flex gap-6">
                                 <div className="w-9/12">
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Title'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Title'} className='mb-1 font-poppins text-lg font-medium' />
                                         <TextInput
                                             name="title"
                                             value={data.title}
                                             onChange={(e) => setData('title', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                         />
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Slug'} className='mb-1 font-poppins text-lg font-medium' />
                                         <TextInput
                                             name="slug"
                                             value={data.slug}
                                             onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                         />
                                         <InputError message={errors.slug} className="mt-2" />
                                     </div>
                                     <div className="form-item">
-                                        <InputLabel value={'Content'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Content'} className='mb-1 font-poppins text-lg font-medium' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
                                             <Editor
                                                 apiKey='h9mpgdcvlxaa94b8rwqpagapahot2x6w7urfs0dtyswd2qtj'
@@ -136,7 +145,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                     <div className="border rounded p-4">
                                         <div className="form-item mb-4">
                                             <div className="status">
-                                                <div className="status text-xl font-bold mb-2 font-dmsans">Status</div>
+                                                <div className="status text-xl font-bold mb-2 font-poppins">Status</div>
                                                 <select
                                                     name="status"
                                                     className='w-full'
@@ -152,7 +161,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="categories">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Categories</p>
+                                                <p className='text-xl font-bold mb-3 font-poppins'>Categories</p>
                                                 <div className="categories-items border p-4 rounded">
                                                     {categories.length && categories.map((item, index) => {
                                                         return (
@@ -166,7 +175,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                                         onChange={(ele) => handleCheckBoxChange('categories', ele)}
                                                                         checked={data.categories.includes(item.id.toString())}
                                                                     />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                    <span className='pl-2 font-poppins font-medium'>{item.title}</span>
                                                                 </label>
                                                             </div>
                                                         )
@@ -176,7 +185,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="tags">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Tags</p>
+                                                <p className='text-xl font-bold mb-3 font-poppins'>Tags</p>
                                                 <div className="categories-items border p-4 rounded">
                                                     {tags.length && tags.map((item, index) => {
                                                         return (
@@ -190,7 +199,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                                         onChange={(ele) => handleCheckBoxChange('tags', ele)}
                                                                         checked={data.tags.includes(item.id.toString())}
                                                                     />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                    <span className='pl-2 font-poppins font-medium'>{item.title}</span>
                                                                 </label>
                                                             </div>
                                                         )
@@ -200,7 +209,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="featured-image">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Featured Image</p>
+                                                <p className='text-xl font-bold mb-3 font-poppins'>Featured Image</p>
                                                 <div className="categories-items border p-4 rounded">
                                                     <img src={previewFile} />
                                                     <input
@@ -216,7 +225,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             </div>
                                         </div>
                                         <div className="form-item">
-                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans' disabled={processing}>Submit</button>
+                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-poppins' disabled={processing}>Submit</button>
                                         </div>
                                     </div>
                                 </div>

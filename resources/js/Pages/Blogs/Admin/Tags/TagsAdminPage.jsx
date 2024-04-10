@@ -83,7 +83,7 @@ export default function TagsAdminPage({ auth, tags }) {
             <div className="">
                 <div className="p-6 pb-0 py-4 flex justify-between font-poppins">
                     <h1 className='font-semibold text-gray-800 text-3xl'>Tags</h1>
-                    <button onClick={() => { openAddEditModal('add') }}>Add New</button>
+                    <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-2 rounded-xl font-bold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
                 </div>
                 <div class="p-6 pt-2 font-poppins">
                     <ul class="flex gap-1 text-gray-600 text-sm">
@@ -100,7 +100,7 @@ export default function TagsAdminPage({ auth, tags }) {
                             <tr>
                                 {TABLE_HEAD.map((head) => (
                                     <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4" >
-                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-dmsans text-lg font-bold">{head}</Typography>
+                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-poppins text-lg font-bold">{head}</Typography>
                                     </th>
                                 ))}
                             </tr>
@@ -112,21 +112,21 @@ export default function TagsAdminPage({ auth, tags }) {
                                 return (
                                     <tr key={index}>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{index + 1}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{index + 1}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{title}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{title}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{slug}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{slug}</Typography>
                                         </td>
                                         <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{status}</Typography>
+                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{status}</Typography>
                                         </td>
                                         <td className={classes}>
                                             <div className="flex gap-2">
-                                                <Typography as="button" variant="small" color="blue-gray" className="font-medium" onClick={() => { openAddEditModal('edit', id) }}>Edit</Typography>
-                                                <button className='text-red-500 text-sm font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                <Typography as="button" variant="small" color="blue-gray" className="font-medium font-poppins text-base" onClick={() => { openAddEditModal('edit', id) }}>Edit</Typography>
+                                                <button className='text-red-500 font-poppins text-base font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -147,12 +147,12 @@ export default function TagsAdminPage({ auth, tags }) {
                     <div className="modal-content pt-6">
                         <form onSubmit={addSubmit}>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tag Title" className='mb-1 font-dmsans' />
+                                <InputLabel value="Tag Title" className='mb-1 font-poppins text-base' />
                                 <TextInput
                                     id="title"
                                     type="text"
                                     name="title"
-                                    className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                    className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                     placeholder="Tag Title..."
                                     onChange={(e) => setData('title', e.target.value)}
                                     value={data.title}
@@ -160,12 +160,12 @@ export default function TagsAdminPage({ auth, tags }) {
                                 <InputError message={errors.title} className="mt-2" />
                             </div>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tag Slug" className='mb-1 font-dmsans' />
+                                <InputLabel value="Tag Slug" className='mb-1 font-poppins text-base' />
                                 <TextInput
                                     id="slug"
                                     type="text"
                                     name="slug"
-                                    className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                    className="w-full rounded-sm font-poppins placeholder:font-poppins"
                                     placeholder="Tag Slug..."
                                     onChange={(e) => setData('slug', e.target.value)}
                                     value={data.slug}
@@ -173,11 +173,11 @@ export default function TagsAdminPage({ auth, tags }) {
                                 <InputError message={errors.slug} className="mt-2" />
                             </div>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tags Status" className='mb-1 font-dmsans' />
+                                <InputLabel value="Tags Status" className='mb-1 font-poppins text-base' />
                                 <select
                                     name="status"
                                     id="status"
-                                    className='border-gray-300 rounded-sm w-full font-dmsans placeholder:font-dmsans focus:border-yellow-500 focus:ring-0'
+                                    className='border-gray-300 rounded-sm w-full font-poppins placeholder:font-poppins focus:border-yellow-500 focus:ring-0'
                                     onChange={(e) => setData('status', e.target.value)}
                                     value={data.status}
                                 >
@@ -189,7 +189,7 @@ export default function TagsAdminPage({ auth, tags }) {
                             </div>
                             <input type='hidden' name='type' value={formType} />
                             <div className="font-item mb-4 text-right">
-                                <button className='bg-blue-500 text-white px-6 py-2 font-dmsans rounded-sm font-bold' disabled={processing}>Submit</button>
+                                <button className='bg-blue-500 text-white px-6 py-2 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
                             </div>
                         </form>
                     </div>
