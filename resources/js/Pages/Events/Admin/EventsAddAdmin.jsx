@@ -2,7 +2,7 @@ import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, Link } from '@inertiajs/react'
 import { Editor } from '@tinymce/tinymce-react'
 import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from "react-datepicker";
@@ -63,8 +63,19 @@ export default function EventsAddAdmin({ auth }) {
         <Authenticated user={auth?.user}>
             <Head title='Add New Events' />
             <div className="">
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Add New Event</h1>
+                <div className="p-6 py-4 flex justify-between font-poppins">
+                <div className="page-title">
+                    <h1 className='font-semibold text-gray-800 text-3xl'>Add New Event</h1>
+                    <div class="pt-2 font-poppins">
+                        <ul class="flex gap-1 text-gray-600 text-sm">
+                            <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                            <li>/</li>
+                            <li><Link href={route('admin.events.index')}>Events</Link></li>
+                            <li>/</li>
+                            <li>Add New Event</li>
+                        </ul>
+                    </div>
+                </div>
                 </div>
                 <div className="form-wrapper px-6">
                     <div className="max-w-screen-2xl">

@@ -54,10 +54,17 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
         <Authenticated user={auth?.user}>
             <Head title='Blogs' />
             <div className=''>
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Blogs</h1>
+                <div className="p-6 pb-0 pt-4 flex justify-between font-poppins">
+                    <h1 className='font-semibold text-gray-800 text-3xl'>Blogs</h1>
                     <Link href={route('admin.blogs.add')}>Add New</Link>
                 </div>
+                <div className="pt-2 p-6 font-poppins">
+                        <ul className='flex gap-1 text-gray-600 text-sm'>
+                            <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                            <li>/</li>
+                            <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                        </ul>
+                    </div>
                 <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>

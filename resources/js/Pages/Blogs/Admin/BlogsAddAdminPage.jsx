@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, router, useForm } from '@inertiajs/react'
+import { Head, router, useForm, Link } from '@inertiajs/react'
 import InputError from '@/Components/InputError'
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -61,9 +61,20 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Add New Blogs' />
-            <div className="">
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Add New Blog</h1>
+            <div className="content font-poppins">
+                <div className="p-6 pt-4 flex justify-between font-poppins">
+                    <div className="page-title">
+                        <h1 className='font-semibold text-gray-800 text-3xl'>Add New Blog</h1>
+                        <div class="pt-2">
+                            <ul class="flex gap-1 text-gray-600 text-sm">
+                                <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                                <li>/</li>
+                                <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                                <li>/</li>
+                                <li>Add New Blog</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div className="form-wrapper px-6">
                     <div className="max-w-screen-2xl">

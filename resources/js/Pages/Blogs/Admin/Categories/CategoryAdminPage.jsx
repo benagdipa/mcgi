@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm , Link} from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
 import InputLabel from '@/Components/InputLabel';
@@ -82,9 +82,18 @@ export default function CategoryAdminPage({ auth, categories }) {
         <Authenticated user={auth?.user}>
             <Head title='Categories' />
             <div className="">
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Categories</h1>
+                <div className="p-6 pb-0 py-4 flex justify-between font-poppins">
+                    <h1 className='font-semibold text-gray-800 text-3xl'>Categories</h1>
                     <button onClick={() => { openAddEditModal('add') }}>Add New</button>
+                </div>
+                <div class="p-6 pt-2 font-poppins">
+                    <ul class="flex gap-1 text-gray-600 text-sm">
+                        <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                        <li>/</li>
+                        <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                        <li>/</li>
+                        <li>Categories</li>
+                    </ul>
                 </div>
                 <Card className="h-full w-full overflow-scroll rounded-none">
                     <table className="w-full min-w-max table-auto text-left">
