@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -66,10 +67,16 @@ Route::controller(EventsController::class)->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
         Route::get('/dashboard/events/add', 'admin_events_add')->name('admin.events.add');
-        Route::post('/dashboard/events/store','admin_events_store')->name('admin.events.store');
-        Route::get('/dashboard/events/{id}/edit','admin_events_edit')->name('admin.events.edit');
-        Route::post('/dashboard/events/{id}/edit','admin_events_update')->name('admin.events.update');
+        Route::post('/dashboard/events/store', 'admin_events_store')->name('admin.events.store');
+        Route::get('/dashboard/events/{id}/edit', 'admin_events_edit')->name('admin.events.edit');
+        Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
+    });
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/users','admin_user_index')->name('admin.user.index');
     });
 });
 
