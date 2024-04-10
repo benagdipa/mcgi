@@ -76,7 +76,8 @@ Route::controller(EventsController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::middleware('auth')->group(function () {
-        Route::get('/dashboard/users','admin_user_index')->name('admin.user.index');
+        Route::get('/dashboard/users', 'admin_user_index')->name('admin.users.index');
+        Route::delete('/dashboard/users/{id}', 'admin_user_delete')->name('admin.users.delete');
     });
 });
 

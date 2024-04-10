@@ -16,4 +16,11 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function admin_user_delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return to_route('admin.users.index');
+    }
 }

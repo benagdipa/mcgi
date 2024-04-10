@@ -1,5 +1,5 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, router } from '@inertiajs/react'
 import React, { useState } from 'react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
@@ -7,7 +7,7 @@ import { IconX } from '@tabler/icons-react';
 import InputLabel from '@/Components/InputLabel';
 
 export default function UserAdmin({ auth, users }) {
-    const TABLE_HEAD = ["Full Name", 'Email', "Branch", "Phone", "Roles & Permissions", "Actions"];
+    const TABLE_HEAD = ["SN", "Full Name", 'Email', "Branch", "Phone", "Roles & Permissions", "Actions"];
     const [permissionModal, setPermissionModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false)
     const [selectedUser, setSelectedUser] = useState('')
@@ -29,6 +29,16 @@ export default function UserAdmin({ auth, users }) {
         setPermissionModal(false)
     }
 
+    const handleDeleteFunc = () => {
+        if (selectedItem) {
+            router.delete(route('admin.users.delete', selectedItem), {
+                onSuccess: () => {
+                    closeDeleteModal()
+                }
+            })
+        }
+    }
+
     return (
         <Authenticated user={auth?.user}>
             <Head title='Users' />
@@ -40,7 +50,7 @@ export default function UserAdmin({ auth, users }) {
                             <ul className='flex gap-1 text-gray-600 text-sm'>
                                 <li><Link href={route('dashboard')}>Dashboard</Link></li>
                                 <li>/</li>
-                                <li><Link href={route('admin.user.index')}>Users</Link></li>
+                                <li><Link href={route('admin.users.index')}>Users</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -63,6 +73,7 @@ export default function UserAdmin({ auth, users }) {
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
                                         <tr key={id}>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${first_name} ${last_name}`}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{email}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{local}</Typography></td>
@@ -151,7 +162,7 @@ export default function UserAdmin({ auth, users }) {
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>
-                        <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={() => { }}>Confirm</button>
+                        <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={handleDeleteFunc}>Confirm</button>
                     </div>
                 </div>
             </Modal>

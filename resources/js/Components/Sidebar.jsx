@@ -68,7 +68,7 @@ export default function Sidebar({ current }) {
                                     <Link href={route('admin.blogs.tags.index')} className={`${currentRoute === 'admin.blogs.tags.index' ? 'bg-blue-gray-50/50 rounded-lg' : ''}`} >
                                         <ListItem>
                                             <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
-                                            <Typography color="white" className="mr-auto font-poppins font-medium">Tags</Typography>
+                                            <Typography className="mr-auto font-poppins font-medium">Tags</Typography>
                                         </ListItem>
                                     </Link>
                                 </List>
@@ -112,7 +112,7 @@ export default function Sidebar({ current }) {
                             </AccordionBody>
                         </Accordion>
 
-                        <Link href={route('admin.user.index')} className={`${currentRoute === 'admin.user.index' ? 'bg-blue-gray-50/50 rounded-lg' : ''}`}>
+                        <Link href={route('admin.users.index')} className={`${currentRoute === 'admin.users.index' ? 'bg-blue-gray-50/50 rounded-lg' : ''}`}>
                             <ListItem>
                                 <ListItemPrefix><IconUsers strokeWidth={1.5} /></ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">Users</Typography>
