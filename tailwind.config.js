@@ -21,6 +21,7 @@ export default withMT({
                 tangerine: ['Tangerine', 'cursive'],
                 marcellus: ['Marcellus', 'sans-serif'],
                 dmsans: ['"DM Sans"', 'sans-serif'],
+                poppins: ['Poppins', 'sans-serif'],
             },
         },
     },

@@ -33,67 +33,80 @@ export default function EventsAdmin({ auth, events }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Events' />
-            <div className=''>
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Events</h1>
-                    <Link href={route('admin.events.add')}>Add New</Link>
+            <div className="content py-4 font-poppins">
+                <div className="content-header px-6 flex justify-between items-center">
+                    <div className="left">
+                        <h1 className='font-semibold text-gray-800 text-3xl'>Events</h1>
+                        <div className="pt-2">
+                            <ul className='flex gap-1 text-gray-600 text-sm'>
+                                <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                                <li>/</li>
+                                <li><Link href={route('admin.events.index')}>Events</Link></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="right">
+                        <Link href={route('admin.events.add')} className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins'>Add New</Link>
+                    </div>
                 </div>
-                <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
-                    <table className="w-full min-w-max table-auto text-left">
-                        <thead>
-                            <tr>
-                                {TABLE_HEAD.map((head) => (
-                                    <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-dmsans text-lg font-bold" >{head}</Typography>
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {TABLE_ROWS.map(({ id, title, status, start_date, end_date }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
-                                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-                                return (
-                                    <tr key={id}>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{index + 1}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{title}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{start_date}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{end_date}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal">{status}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <div className="flex gap-2">
-                                                <Link href={route('admin.events.edit', id)}>Edit</Link>
-                                                <button className='text-red-500 text-sm font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </Card>
+                <div className="page-content pt-8">
+                    <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
+                        <table className="w-full min-w-max table-auto text-left">
+                            <thead>
+                                <tr>
+                                    {TABLE_HEAD.map((head) => (
+                                        <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                            <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins">{head}</Typography>
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {TABLE_ROWS.map(({ id, title, status, start_date, end_date }, index) => {
+                                    const isLast = index === TABLE_ROWS.length - 1;
+                                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                                    return (
+                                        <tr key={id}>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{index + 1}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{title}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{start_date}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{end_date}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins capitalize">{status}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <div className="flex gap-2">
+                                                    <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.events.edit', id)}>Edit</Link>
+                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </Card>
+                </div>
             </div>
             {/* Delete Modal */}
 
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
-                <div className="delete-modal px-6 py-8 relative">
+                <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
-                        <button className='bg-red-500 text-white px-4 py-2 font-bold rounded' onClick={closeDeleteModal}>Cancel</button>
-                        <button className='bg-blue-500 text-white px-4 py-2 font-bold rounded' onClick={handleDeleteFunc}>Confirm</button>
+                        <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>
+                        <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={handleDeleteFunc}>Confirm</button>
                     </div>
                 </div>
             </Modal>
