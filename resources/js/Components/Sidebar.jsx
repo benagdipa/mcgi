@@ -6,9 +6,11 @@ import { Link } from '@inertiajs/react';
 
 export default function Sidebar({ current }) {
     const [open, setOpen] = useState(current);
+
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
     };
+    
     const currentRoute = route().current()
     return (
         <div className='main-sidebar'>
@@ -73,14 +75,18 @@ export default function Sidebar({ current }) {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem>
-                                    <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
-                                    <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">All Events</Typography>
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
-                                    <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">Add New</Typography>
-                                </ListItem>
+                                <Link href={route('admin.events.index')} className={`${currentRoute === 'admin.events.index' ? 'bg-blue-gray-50/50' : ''}`} preserveState preserveScroll>
+                                    <ListItem>
+                                        <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
+                                        <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">All Events</Typography>
+                                    </ListItem>
+                                </Link>
+                                <Link href={route('admin.events.add')} className={`${currentRoute === 'admin.events.add' ? 'bg-blue-gray-50/50' : ''}`} preserveState preserveScroll>
+                                    <ListItem>
+                                        <ListItemPrefix><IconChevronRight strokeWidth={3} className="h-3 w-5" /></ListItemPrefix>
+                                        <Typography color="blue-gray" className="mr-auto font-dmsans font-semibold">Add New</Typography>
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>

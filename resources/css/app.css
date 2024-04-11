@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.form-item .react-datepicker-popper{
+    z-index: 9;
+}
+.form-item .react-datepicker-wrapper{
+    @apply w-full
+}

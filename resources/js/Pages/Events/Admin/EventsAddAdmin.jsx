@@ -1,26 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react'
+import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, router, useForm } from '@inertiajs/react'
-import InputError from '@/Components/InputError'
-import { Editor } from '@tinymce/tinymce-react';
+import { Head, useForm } from '@inertiajs/react'
+import { Editor } from '@tinymce/tinymce-react'
+import React, { useEffect, useRef, useState } from 'react'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
-export default function BlogsAddAdminPage({ auth, categories, tags }) {
+
+export default function EventsAddAdmin({ auth }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         slug: '',
-        content: '',
-        categories: [],
-        tags: [],
+        start_date: new Date(),
+        end_date: new Date(),
         featureImage: null,
+        content: '',
         status: '',
     });
+
     const editorRef = useRef(null);
     const [previewFile, setPreviewFile] = useState('')
-    const [fileName, setFileName] = useState('');
     const hiddenFileInput = useRef(null);
 
     useEffect(() => {
@@ -29,8 +32,6 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
         setData('slug', slug)
     }, [data.title])
 
-
-
     const handleClick = (event) => {
         hiddenFileInput.current.click();
     };
@@ -38,32 +39,32 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
     const handleFileChange = event => {
         const url = URL.createObjectURL(event.target.files[0])
         setData('featureImage', event.target.files[0])
-        setFileName(event.target.files[0].name)
         setPreviewFile(url)
     };
 
-    const handleCheckBoxChange = (name, ele) => {
-        const { value, checked } = ele.target;
-        if (checked) {
-            const prevItems = data[name];
-            setData(name, [...prevItems, value]);
-        } else {
-            const filteredItems = data[name].filter(item => item !== value)
-            setData(name, filteredItems);
-        }
-    }
-
     const formSubmit = (e) => {
         e.preventDefault();
-        post(route('admin.blogs.store'))
+        post(route('admin.events.store'))
     }
+
+    function formatDateToYMDHIS(date) {
+        var year = date.getFullYear();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var day = ('0' + date.getDate()).slice(-2);
+        var hours = ('0' + date.getHours()).slice(-2);
+        var minutes = ('0' + date.getMinutes()).slice(-2);
+        var seconds = ('0' + date.getSeconds()).slice(-2);
+
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    }
+
 
     return (
         <Authenticated user={auth?.user}>
-            <Head title='Add New Blogs' />
+            <Head title='Add New Events' />
             <div className="">
                 <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Add New Blog</h1>
+                    <h1 className='font-bold font-xl'>Add New Event</h1>
                 </div>
                 <div className="form-wrapper px-6">
                     <div className="max-w-screen-2xl">
@@ -90,6 +91,31 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                         />
                                         <InputError message={errors.slug} className="mt-2" />
                                     </div>
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'Start Date'} className='mb-1 font-dmsans' />
+                                        <DatePicker
+                                            selected={new Date(data.start_date)}
+                                            onChange={(date) => setData('start_date', formatDateToYMDHIS(date))}
+                                            showTimeSelect
+                                            dateFormat="Pp"
+                                            className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
+                                            minDate={data.start_date}
+                                        />
+                                        <InputError message={errors.start_date} className="mt-2" />
+                                    </div>
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'End Date'} className='mb-1 font-dmsans' />
+                                        <DatePicker
+                                            selected={new Date(data.end_date)}
+                                            onChange={(date) => setData('end_date', formatDateToYMDHIS(date))}
+                                            showTimeSelect
+                                            dateFormat="Pp"
+                                            className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
+                                            minDate={data.end_date}
+                                        />
+                                        <InputError message={errors.end_date} className="mt-2" />
+                                    </div>
+
                                     <div className="form-item">
                                         <InputLabel value={'Content'} className='mb-1 font-dmsans' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
@@ -99,7 +125,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                 onChange={() => setData('content', editorRef.current.getContent())}
                                                 initialValue={data.content}
                                                 init={{
-                                                    height: 800,
+                                                    height: 600,
                                                     menubar: false,
                                                     plugins: [
                                                         'a11ychecker',
@@ -151,52 +177,6 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     <option value="publish">Publish</option>
                                                 </select>
                                                 <InputError message={errors.status} className="mt-2" />
-                                            </div>
-                                        </div>
-                                        <div className="form-item mb-4">
-                                            <div className="categories">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Categories</p>
-                                                <div className="categories-items border p-4 rounded">
-                                                    {categories.length && categories.map((item, index) => {
-                                                        return (
-                                                            <div className="" key={index}>
-                                                                <label className='pb-3 block'>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        name='categories[]'
-                                                                        value={item.id}
-                                                                        className='rounded w-5 h-5'
-                                                                        onChange={(ele) => handleCheckBoxChange('categories', ele)}
-                                                                    />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
-                                                                </label>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="form-item mb-4">
-                                            <div className="tags">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Tags</p>
-                                                <div className="categories-items border p-4 rounded">
-                                                    {tags.length && tags.map((item, index) => {
-                                                        return (
-                                                            <div className="" key={index}>
-                                                                <label className='pb-3 block'>
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        name='tags[]'
-                                                                        value={item.id}
-                                                                        className='rounded w-5 h-5'
-                                                                        onChange={(ele) => handleCheckBoxChange('tags', ele)}
-                                                                    />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
-                                                                </label>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </div>
                                             </div>
                                         </div>
                                         <div className="form-item mb-4">
