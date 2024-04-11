@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +11,11 @@ class PageController extends Controller
 {
     public function homePage()
     {
+        $posts = Posts::take(3)->get();
+        return Inertia::render('HomePage', [
+            'posts' => $posts,
+        ]);
+
         return Inertia::render('HomePage', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
