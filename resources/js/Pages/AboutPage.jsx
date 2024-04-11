@@ -11,7 +11,7 @@ export default function AboutPage({ auth }) {
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                         <h1 className='font-bold text-7xl text-white'>About Us</h1>
                         <div className="breadcrumbs pt-5">
-                            <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
+                            <div className="flex gap-4 font-semibold uppercase  text-white">
                                 <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
                                 <div className="divider"> | </div>
                                 <div className="item"><Link href={route('about')} className="breadcrumb-link text-gray-200">About Us</Link></div>
@@ -31,7 +31,7 @@ export default function AboutPage({ auth }) {
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Welcome to <span className='text-[#f5cd06]'>MCGI Australia</span></h1>
                                     <div className="flex gap-6 py-12">
                                         <div className="w-full">
-                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                            <div className="content text-lg  mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
                                                 <p className='mb-3'>
                                                     Welcome to Members Church of God International (MCGI) in Australia. Our journey began in the Philippines, under the leadership of Bro Eli Soriano and Bro Daniel Razon, where the unadulterated teachings of the Lord Jesus Christ were first embraced and propagated. This strong foundation laid in the Philippines has been instrumental in our global expansion, reaching various countries and cultures, including Australia.
                                                 </p>
@@ -58,7 +58,7 @@ export default function AboutPage({ auth }) {
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Our Beliefs and  <span className='text-[#f5cd06]'>Mission</span></h1>
                                     <div className="py-8 items-center justify-center">
                                         <div className="w-full">
-                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                            <div className="content text-lg  mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
                                                 <p className='mb-4 italic text-[#86592d]'>
                                                     "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them."
                                                     <span className='block text-[#0f0f0f] font-semibold'>- Ephesians 2:10</span>
@@ -86,7 +86,7 @@ export default function AboutPage({ auth }) {
                                     <h1 className="text-4xl lg:text-6xl font-extrabold mb-3 text-[#0f0f0f]">Charity and <span className='text-[#f5cd06]'>Community Service</span></h1>
                                     <div className="py-8 items-center justify-center">
                                         <div className="w-full">
-                                            <div className="content text-lg font-dmsans mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
+                                            <div className="content text-lg  mb-3 text-[#666B68] font-normal lg:text-lg leading-relaxed">
                                                 <p className='mb-4 italic text-[#86592d]'>
                                                     "Give, and it will be given to you: good measure, pressed down, shaken together, and running over will be put into your bosom. For with the same measure that you use, it will be measured back to you."
                                                     <span className='block text-[#0f0f0f] font-semibold'>- Luke 6:38</span>
@@ -103,8 +103,8 @@ export default function AboutPage({ auth }) {
                     <div className="discover-section pt-32">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="title-wrapper relative">
-                                <h1 className='text-[#0f0f0f] md:text-6xl text-5xl font-bold font-marcellus'>DISCOVER THE CHURCH</h1>
-                                <p className='font-tangerine md:text-8xl text-6xl text-[#787777] opacity-35 absolute md:top-4 top-[8] '>information and guidelines</p>
+                                <h1 className='text-[#0f0f0f] md:text-6xl text-3xl font-bold '>DISCOVER THE CHURCH</h1>
+                                <p className='md:text-8xl text-2xl text-[#787777] opacity-35 absolute md:top-12 top-[8] '>information and guidelines</p>
                             </div>
                             <div className="content py-16 lg:py-32">
                                 <div className="grid grid-cols- md:grid-cols-3 gap-12">
@@ -114,9 +114,9 @@ export default function AboutPage({ auth }) {
                                         </div>
                                         <div className="content py-2">
                                             <div className="title py-2">
-                                                <h2 className='font-dmsans font-bold text-2xl'>Church History</h2>
+                                                <h2 className=' font-bold text-2xl'>Church History</h2>
                                             </div>
-                                            <p className='font-dmsans mb-3'>Trace back the humble roots of MCGI. From a small-town group of Christians to a religious organization recognized all over the world.</p>
+                                            <p className=' mb-3'>Trace back the humble roots of MCGI. From a small-town group of Christians to a religious organization recognized all over the world.</p>
                                             <div className="link">
                                                 <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
@@ -129,9 +129,9 @@ export default function AboutPage({ auth }) {
                                         <div className="content">
                                             <div className="content py-2">
                                                 <div className="title py-2">
-                                                    <h2 className='font-dmsans font-bold text-2xl'>Our Belief</h2>
+                                                    <h2 className=' font-bold text-2xl'>Our Belief</h2>
                                                 </div>
-                                                <p className='font-dmsans mb-3'>What does MCGI believe in? Guided by the Holy Scriptures, the Church believes in the Almighty God, His begotten Son the Lord Jesus Christ, and the Holy Spirit, albeit it adopts a nontrinitarianism orientation. Learn more about the beliefs and doctrines of the Church through this section.</p>
+                                                <p className=' mb-3'>What does MCGI believe in? Guided by the Holy Scriptures, the Church believes in the Almighty God, His begotten Son the Lord Jesus Christ, and the Holy Spirit, albeit it adopts a nontrinitarianism orientation. Learn more about the beliefs and doctrines of the Church through this section.</p>
                                                 <div className="link">
                                                     <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                                 </div>
@@ -144,9 +144,9 @@ export default function AboutPage({ auth }) {
                                         </div>
                                         <div className="content py-2">
                                             <div className="title py-2">
-                                                <h2 className='font-dmsans font-bold text-2xl'>Church Ministries</h2>
+                                                <h2 className=' font-bold text-2xl'>Church Ministries</h2>
                                             </div>
-                                            <p className='font-dmsans mb-3'>Have glimpse of what is happening inside the Church. MCGI has different ministries which pertain to the endeavors member undertake to make the words of God be heard and felt by all through various means. Among these are the Propagation Ministry, the Music Ministry, and the Youth Ministry.</p>
+                                            <p className=' mb-3'>Have glimpse of what is happening inside the Church. MCGI has different ministries which pertain to the endeavors member undertake to make the words of God be heard and felt by all through various means. Among these are the Propagation Ministry, the Music Ministry, and the Youth Ministry.</p>
                                             <div className="link">
                                                 <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
@@ -158,9 +158,9 @@ export default function AboutPage({ auth }) {
                                         </div>
                                         <div className="content py-2">
                                             <div className="title py-2">
-                                                <h2 className='font-dmsans font-bold text-2xl'>Public Services</h2>
+                                                <h2 className=' font-bold text-2xl'>Public Services</h2>
                                             </div>
-                                            <p className='font-dmsans mb-3'>Central to the works of Members Church of God International (MCGI) are charitable projects that seek to more effectively and efficiently provide free social services for people needing help.</p>
+                                            <p className=' mb-3'>Central to the works of Members Church of God International (MCGI) are charitable projects that seek to more effectively and efficiently provide free social services for people needing help.</p>
                                             <div className="link">
                                                 <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
@@ -172,9 +172,9 @@ export default function AboutPage({ auth }) {
                                         </div>
                                         <div className="content py-2">
                                             <div className="title py-2">
-                                                <h2 className='font-dmsans font-bold text-2xl'>Propagation and Evangelization Efforts</h2>
+                                                <h2 className=' font-bold text-2xl'>Propagation and Evangelization Efforts</h2>
                                             </div>
-                                            <p className='font-dmsans mb-3'>With the mission to bring salvation closer to mankind, MCGI Servants Bro. Eli Soriano and Bro. Daniel Razon, explored various avenues to make the propagation of the Lord Jesus Christ’s Gospel more accessible.</p>
+                                            <p className=' mb-3'>With the mission to bring salvation closer to mankind, MCGI Servants Bro. Eli Soriano and Bro. Daniel Razon, explored various avenues to make the propagation of the Lord Jesus Christ’s Gospel more accessible.</p>
                                             <div className="link">
                                                 <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
@@ -186,9 +186,9 @@ export default function AboutPage({ auth }) {
                                         </div>
                                         <div className="content py-2">
                                             <div className="title py-2">
-                                                <h2 className='font-dmsans font-bold text-2xl'>Religious Services</h2>
+                                                <h2 className=' font-bold text-2xl'>Religious Services</h2>
                                             </div>
-                                            <p className='font-dmsans mb-3'>Members Church of God International (MCGI) holds regular and special Church services and events not only to strengthen members’ spirituality and faith, but also to create opportunities to see brethren face to face and care for each other’s well-being (Heb 10:24).</p>
+                                            <p className=' mb-3'>Members Church of God International (MCGI) holds regular and special Church services and events not only to strengthen members’ spirituality and faith, but also to create opportunities to see brethren face to face and care for each other’s well-being (Heb 10:24).</p>
                                             <div className="link">
                                                 <Link href='#' className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                             </div>
