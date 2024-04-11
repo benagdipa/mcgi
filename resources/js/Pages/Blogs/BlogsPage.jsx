@@ -16,9 +16,9 @@ export default function BlogsPage({ auth, posts }) {
         <Guest user={auth?.user}>
             <Head title='Blogs' />
             <div className="contact-page">
-                <div className="page-header pt-80 pb-28 ">
+                <div className="page-header pt-40 lg:pt-80 pb-28 ">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <h1 className='font-bold text-7xl text-white'>Articles</h1>
                             <div className="breadcrumbs pt-5">
                                 <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
@@ -30,7 +30,7 @@ export default function BlogsPage({ auth, posts }) {
                         </div>
                     </div>
                 </div>
-                <div className="max-w-screen-xl mx-auto">
+                <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                     <div className="blog-items py-16 lg:py-32">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                             {posts?.length && posts.map((post) => {
