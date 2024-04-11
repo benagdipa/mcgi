@@ -8,8 +8,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-
 export default function EventsAddAdmin({ auth, event }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -59,71 +57,73 @@ export default function EventsAddAdmin({ auth, event }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Add New Events' />
-            <div className="">
-                <div className="p-6 pb-0 pt-4 flex justify-between">
-                    <h1 className='font-semibold text-gray-800 text-3xl'>Edit Event</h1>
+            <div className="content py-4 font-poppins">
+                <div className="content-header px-6 flex justify-between items-center">
+                    <div className="left">
+                        <h1 className='font-semibold text-gray-800 text-3xl'>Edit Event</h1>
+                        <div className="pt-2">
+                            <ul className='flex gap-1 text-gray-600 text-sm'>
+                                <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                                <li>/</li>
+                                <li><Link href={route('admin.blogs.index')}>Events</Link></li>
+                                <li>/</li>
+                                <li>Edit Event</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div className="pt-2 p-6 font-poppins">
-                        <ul className='flex gap-1 text-gray-600 text-sm'>
-                            <li><Link href={route('dashboard')}>Dashboard</Link></li>
-                            <li>/</li>
-                            <li><Link href={route('admin.blogs.index')}>Events</Link></li>
-                            <li>/</li>
-                            <li>Edit Event</li>
-                        </ul>
-                </div>
-                <div className="form-wrapper px-6">
-                    <div className="max-w-screen-2xl">
+                <div className="page-content pt-8">
+                    <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
                             <div className="flex gap-6">
                                 <div className="w-9/12">
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Title'} className='mb-1 font-poppins text-base' />
+                                        <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
                                             name="title"
                                             value={data.title}
                                             onChange={(e) => setData('title', e.target.value)}
-                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
+                                            className="w-full rounded-md font-poppins"
                                         />
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-poppins text-base' />
+                                        <InputLabel value={'Slug'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
                                             name="slug"
                                             value={data.slug}
                                             onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-sm font-poppins placeholder:font-poppins"
+                                            className="w-full rounded-md font-poppins"
                                         />
                                         <InputError message={errors.slug} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Start Date'} className='mb-1 font-poppins text-base' />
+                                        <InputLabel value={'Start Date'} className='mb-1 font-poppins font-semibold' />
                                         <DatePicker
                                             selected={new Date(data.start_date)}
                                             onChange={(date) => setData('start_date', formatDateToYMDHIS(date))}
                                             showTimeSelect
                                             dateFormat="Pp"
-                                            className='w-full rounded-sm font-poppins placeholder:font-poppins'
+                                            className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                             minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'End Date'} className='mb-1 font-poppins text-base' />
+                                        <InputLabel value={'End Date'} className='mb-1 font-poppins font-semibold' />
                                         <DatePicker
                                             selected={new Date(data.end_date)}
                                             onChange={(date) => setData('end_date', formatDateToYMDHIS(date))}
                                             showTimeSelect
                                             dateFormat="Pp"
-                                            className='w-full rounded-sm font-poppins placeholder:font-poppins'
+                                            className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                             minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
 
                                     <div className="form-item">
-                                        <InputLabel value={'Content'} className='mb-1 font-poppins text-base' />
+                                        <InputLabel value={'Content'} className='mb-1 font-poppins font-semibold' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
                                             <Editor
                                                 apiKey='h9mpgdcvlxaa94b8rwqpagapahot2x6w7urfs0dtyswd2qtj'
@@ -171,10 +171,10 @@ export default function EventsAddAdmin({ auth, event }) {
                                     <div className="border rounded p-4">
                                         <div className="form-item mb-4">
                                             <div className="status">
-                                                <div className="status text-xl font-bold mb-2 font-poppins text-base">Status</div>
+                                                <InputLabel value={'Status'} className='mb-1 font-poppins font-semibold' />
                                                 <select
                                                     name="status"
-                                                    className='w-full'
+                                                    className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                                     value={data.status}
                                                     onChange={(e) => setData('status', e.target.value)}
                                                 >
@@ -187,7 +187,7 @@ export default function EventsAddAdmin({ auth, event }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="featured-image">
-                                                <p className='text-xl font-bold mb-3 font-poppins text-base'>Featured Image</p>
+                                                <InputLabel value={'Featured Image'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
                                                     <img src={previewFile} />
                                                     <input

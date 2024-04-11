@@ -6,23 +6,27 @@ import React from 'react'
 export default function SingleBlogPage({ auth, post, categories, tags }) {
     const date = DateTime.fromISO(post?.created_at, 'MM/dd/yyyy HH:mm:ss')
     const ShowCategories = ({ list }) => {
-        const postCategories = list.split(',')
-        return postCategories?.map((cat, index) => {
-            const postCategory = categories.filter(item => item.id === parseInt(cat))
-            return (
-                <span className='text-white font-bold font-dmsans rounded text-xl' key={postCategory[0].id}>{postCategory[0].title} {index < postCategories.length - 1 ? ',' : ''}</span>
-            )
-        })
+        if (list) {
+            const postCategories = list.split(',')
+            return postCategories?.map((cat, index) => {
+                const postCategory = categories.filter(item => item.id === parseInt(cat))
+                return (
+                    <span className='text-white font-bold font-dmsans rounded text-xl' key={postCategory[0].id}>{postCategory[0].title} {index < postCategories.length - 1 ? ',' : ''}</span>
+                )
+            })
+        }
     }
 
     const ShowTags = ({ list }) => {
-        const postTags = list.split(',')
-        return postTags?.map((tag) => {
-            const postTag = tags.filter(item => item.id === parseInt(tag))
-            return (
-                <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postTag[0].id}>{postTag[0].title}</span>
-            )
-        })
+        if (list) {
+            const postTags = list.split(',')
+            return postTags?.map((tag) => {
+                const postTag = tags.filter(item => item.id === parseInt(tag))
+                return (
+                    <span className='px-2 bg-gray-300 py-2 rounded font-dmsans' key={postTag[0].id}>{postTag[0].title}</span>
+                )
+            })
+        }
     }
     return (
         <Guest user={auth?.user}>
@@ -64,7 +68,7 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                 <div className="content-section pt-20 mb-20">
                     <div className="max-w-screen-xl mx-auto">
                         <div className="content-wrapper">
-                            <p className='font-dmsans text-[#666B68]/80 text-xl leading-relaxed font-normal'>{post?.content}</p>
+                            <div dangerouslySetInnerHTML={{ __html: post?.content }} />
                         </div>
                         <div className='tags pt-10'>
                             <div className=" space-x-3">
