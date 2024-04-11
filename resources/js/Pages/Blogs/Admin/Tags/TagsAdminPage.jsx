@@ -80,66 +80,72 @@ export default function TagsAdminPage({ auth, tags }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Tags' />
-            <div className="">
-                <div className="p-6 pb-0 py-4 flex justify-between font-poppins">
-                    <h1 className='font-semibold text-gray-800 text-3xl'>Tags</h1>
-                    <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-2 rounded-xl font-bold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
+            <div className="content py-4 font-poppins">
+                <div className="content-header px-6 flex justify-between items-center">
+                    <div className="left">
+                        <h1 className='font-semibold text-gray-800 text-3xl'>Tags</h1>
+                        <div className="pt-2">
+                            <ul className='flex gap-1 text-gray-600 text-sm'>
+                                <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                                <li>/</li>
+                                <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                                <li>/</li>
+                                <li>Tags</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="right">
+                        <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
+                    </div>
                 </div>
-                <div class="p-6 pt-2 font-poppins">
-                    <ul class="flex gap-1 text-gray-600 text-sm">
-                        <li><Link href={route('dashboard')}>Dashboard</Link></li>
-                        <li>/</li>
-                        <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
-                        <li>/</li>
-                        <li>Tags</li>
-                    </ul>
+                <div className="page-content pt-8">
+                    <Card className="h-full w-full overflow-scroll rounded-none">
+                        <table className="w-full min-w-max table-auto text-left">
+                            <thead>
+                                <tr>
+                                    {TABLE_HEAD.map((head) => (
+                                        <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4" >
+                                            <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins">{head}</Typography>
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {TABLE_ROWS.length > 0 && TABLE_ROWS.map(({ id, title, slug, status }, index) => {
+                                    const isLast = index === TABLE_ROWS.length - 1;
+                                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                                    return (
+                                        <tr key={index}>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{index + 1}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{title}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{slug}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins capitalize">{status}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <div className="flex gap-2">
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
+                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </Card>
                 </div>
-                <Card className="h-full w-full overflow-scroll rounded-none">
-                    <table className="w-full min-w-max table-auto text-left">
-                        <thead>
-                            <tr>
-                                {TABLE_HEAD.map((head) => (
-                                    <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4" >
-                                        <Typography variant="small" color="blue-gray" className="leading-none opacity-70 font-poppins text-lg font-bold">{head}</Typography>
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {TABLE_ROWS.length > 0 && TABLE_ROWS.map(({ id, title, slug, status }, index) => {
-                                const isLast = index === TABLE_ROWS.length - 1;
-                                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-                                return (
-                                    <tr key={index}>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{index + 1}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{title}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{slug}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <Typography variant="small" color="blue-gray" className="font-normal font-poppins text-base">{status}</Typography>
-                                        </td>
-                                        <td className={classes}>
-                                            <div className="flex gap-2">
-                                                <Typography as="button" variant="small" color="blue-gray" className="font-medium font-poppins text-base" onClick={() => { openAddEditModal('edit', id) }}>Edit</Typography>
-                                                <button className='text-red-500 font-poppins text-base font-medium' onClick={() => { openDeleteModal(id) }}>Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </Card>
             </div>
             <Modal show={addEditModal} onClose={closeAddEditModal} maxWidth={'2xl'}>
-                <div className="add-modal px-6 py-4">
+                <div className="add-modal px-6 py-4 font-poppins">
                     <div className="modal-header relative">
-                        <h1 className='font-bold text-2xl'>{modalTitle} Tag</h1>
+                        <h1 className='font-bold text-2xl '>{modalTitle} Tag</h1>
                         <div className="absolute -top-14 -right-14 text-white cursor-pointer">
                             <IconX strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
                         </div>
@@ -147,12 +153,12 @@ export default function TagsAdminPage({ auth, tags }) {
                     <div className="modal-content pt-6">
                         <form onSubmit={addSubmit}>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tag Title" className='mb-1 font-poppins text-base' />
+                                <InputLabel value="Title" className='mb-1 font-poppins font-semibold' />
                                 <TextInput
                                     id="title"
                                     type="text"
                                     name="title"
-                                    className="w-full rounded-sm font-poppins placeholder:font-poppins"
+                                    className="w-full rounded-md font-poppins"
                                     placeholder="Tag Title..."
                                     onChange={(e) => setData('title', e.target.value)}
                                     value={data.title}
@@ -160,12 +166,12 @@ export default function TagsAdminPage({ auth, tags }) {
                                 <InputError message={errors.title} className="mt-2" />
                             </div>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tag Slug" className='mb-1 font-poppins text-base' />
+                                <InputLabel value="Slug" className='mb-1 font-poppins font-semibold' />
                                 <TextInput
                                     id="slug"
                                     type="text"
                                     name="slug"
-                                    className="w-full rounded-sm font-poppins placeholder:font-poppins"
+                                    className="w-full rounded-md font-poppins"
                                     placeholder="Tag Slug..."
                                     onChange={(e) => setData('slug', e.target.value)}
                                     value={data.slug}
@@ -173,11 +179,11 @@ export default function TagsAdminPage({ auth, tags }) {
                                 <InputError message={errors.slug} className="mt-2" />
                             </div>
                             <div className="form-item mb-4">
-                                <InputLabel value="Tags Status" className='mb-1 font-poppins text-base' />
+                                <InputLabel value="Status" className='mb-1 font-poppins font-semibold' />
                                 <select
                                     name="status"
                                     id="status"
-                                    className='border-gray-300 rounded-sm w-full font-poppins placeholder:font-poppins focus:border-yellow-500 focus:ring-0'
+                                    className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                     onChange={(e) => setData('status', e.target.value)}
                                     value={data.status}
                                 >
@@ -189,7 +195,7 @@ export default function TagsAdminPage({ auth, tags }) {
                             </div>
                             <input type='hidden' name='type' value={formType} />
                             <div className="font-item mb-4 text-right">
-                                <button className='bg-blue-500 text-white px-6 py-2 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
+                                <button className='bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -200,13 +206,13 @@ export default function TagsAdminPage({ auth, tags }) {
 
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
                 <div className="delete-modal px-6 py-8 relative">
-                    <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
+                    <h1 className='font-bold text-3xl text-center font-poppins'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
-                        <button className='bg-red-500 text-white px-4 py-2 font-bold rounded' onClick={closeDeleteModal}>Cancel</button>
-                        <button className='bg-blue-500 text-white px-4 py-2 font-bold rounded' onClick={handleDeleteFunc}>Confirm</button>
+                        <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>
+                        <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={handleDeleteFunc}>Confirm</button>
                     </div>
                 </div>
             </Modal>

@@ -13,8 +13,8 @@ export default function Sidebar({ current }) {
 
     const currentRoute = route().current()
     return (
-        <div className='main-sidebar'>
-            <Card className="h-screen w-full max-w-[20rem] rounded-none bg-[#212b36] text-white">
+        <div className='main-sidebar h-screen'>
+            <Card className="h-screen w-full  rounded-none bg-[#212b36] text-white">
                 <div className="mb-2 bg-white p-4 ">
                     <ApplicationLogo />
                 </div>
