@@ -16,7 +16,7 @@ export default function Header({ user }) {
             {!hideHeader.includes(currentRoute) && (
                 <header className='main-header shadow-sm sticky top-0 bg-white z-50'>
                     <div className="w-full max-w-screen-2xl mx-auto">
-                        <div className="py-3 lg:py-6">
+                        <div className="py-3 px-3 lg:px-0 lg:py-6">
                             <div className="desktop-header justify-between items-center hidden xl:flex">
                                 <div className="left-section">
                                     <div className="logo-wrapper">
