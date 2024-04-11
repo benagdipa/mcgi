@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card, Typography, List, ListItem, ListItemPrefix, Accordion, AccordionHeader, AccordionBody, } from "@material-tailwind/react";
-import { IconCalendar, IconCategory, IconChevronDown, IconChevronRight, IconPin, IconUsers } from '@tabler/icons-react';
+import { IconCalendar, IconCategory, IconChevronDown, IconChevronRight, IconLocation, IconPin, IconUsers } from '@tabler/icons-react';
 import ApplicationLogo from './ApplicationLogo';
 import { Link } from '@inertiajs/react';
 
@@ -117,7 +117,12 @@ export default function Sidebar({ current }) {
                             <Typography className="mr-auto font-poppins font-medium">Users</Typography>
                         </ListItem>
                     </Link>
-
+                    <Link href={route('admin.locale.index')} className={`${currentRoute === 'admin.locale.index' ? 'bg-blue-gray-50/50 rounded-lg' : ''}`}>
+                        <ListItem>
+                            <ListItemPrefix><IconLocation strokeWidth={1.2} /></ListItemPrefix>
+                            <Typography className="mr-auto font-poppins font-medium">Locale</Typography>
+                        </ListItem>
+                    </Link>
                 </List>
             </div>
         </Card>
