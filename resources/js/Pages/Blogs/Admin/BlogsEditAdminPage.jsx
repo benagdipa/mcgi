@@ -2,7 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, Link } from '@inertiajs/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -58,37 +58,48 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
     return (
         <Authenticated user={auth?.user}>
             <Head title='Edit blog' />
-            <div className="">
-                <div className="p-6 flex justify-between">
-                    <h1 className='font-bold font-xl'>Edit Blog</h1>
+            <div className="content py-4 font-poppins">
+                <div className="content-header px-6 flex justify-between items-center">
+                    <div className="left">
+                        <h1 className='font-semibold text-gray-800 text-3xl'>Edit Blog</h1>
+                        <div className="pt-2">
+                            <ul className='flex gap-1 text-gray-600 text-sm'>
+                                <li><Link href={route('dashboard')}>Dashboard</Link></li>
+                                <li>/</li>
+                                <li><Link href={route('admin.blogs.index')}>Blogs</Link></li>
+                                <li>/</li>
+                                <li>Edit Blog</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-wrapper px-6">
-                    <div className="max-w-screen-2xl">
+                <div className="page-content pt-8">
+                    <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
                             <div className="flex gap-6">
                                 <div className="w-9/12">
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Title'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
                                             name="title"
                                             value={data.title}
                                             onChange={(e) => setData('title', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-md font-poppins"
                                         />
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Slug'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
                                             name="slug"
                                             value={data.slug}
                                             onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-sm font-dmsans placeholder:font-dmsans"
+                                            className="w-full rounded-md font-poppins"
                                         />
                                         <InputError message={errors.slug} className="mt-2" />
                                     </div>
                                     <div className="form-item">
-                                        <InputLabel value={'Content'} className='mb-1 font-dmsans' />
+                                        <InputLabel value={'Content'} className='mb-1 font-poppins font-semibold' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
                                             <Editor
                                                 apiKey='h9mpgdcvlxaa94b8rwqpagapahot2x6w7urfs0dtyswd2qtj'
@@ -123,7 +134,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                         'help',
                                                         'wordcount'
                                                     ],
-                                                    toolbar: 'undo redo | casechange blocks | bold italic backcolor | image | ' + 'alignleft aligncenter alignright alignjustify | ' + 'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
+                                                    toolbar: 'undo redo | casechange blocks | bold italic backcolor | image media| ' + 'alignleft aligncenter alignright alignjustify | ' + 'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
                                                     images_upload_url: 'upload.php',
                                                     automatic_uploads: false,
                                                 }}
@@ -136,10 +147,10 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                     <div className="border rounded p-4">
                                         <div className="form-item mb-4">
                                             <div className="status">
-                                                <div className="status text-xl font-bold mb-2 font-dmsans">Status</div>
+                                                <InputLabel value={'Status'} className='mb-1 font-poppins font-semibold' />
                                                 <select
                                                     name="status"
-                                                    className='w-full'
+                                                    className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                                     value={data.status}
                                                     onChange={(e) => setData('status', e.target.value)}
                                                 >
@@ -152,7 +163,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="categories">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Categories</p>
+                                                <InputLabel value={'Categories'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
                                                     {categories.length && categories.map((item, index) => {
                                                         return (
@@ -166,7 +177,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                                         onChange={(ele) => handleCheckBoxChange('categories', ele)}
                                                                         checked={data.categories.includes(item.id.toString())}
                                                                     />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                    <span className='pl-2 font-poppins font-medium'>{item.title}</span>
                                                                 </label>
                                                             </div>
                                                         )
@@ -176,7 +187,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="tags">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Tags</p>
+                                                <InputLabel value={'Tags'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
                                                     {tags.length && tags.map((item, index) => {
                                                         return (
@@ -190,7 +201,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                                         onChange={(ele) => handleCheckBoxChange('tags', ele)}
                                                                         checked={data.tags.includes(item.id.toString())}
                                                                     />
-                                                                    <span className='pl-2 font-dmsans font-medium'>{item.title}</span>
+                                                                    <span className='pl-2 font-poppins font-medium'>{item.title}</span>
                                                                 </label>
                                                             </div>
                                                         )
@@ -200,7 +211,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                         </div>
                                         <div className="form-item mb-4">
                                             <div className="featured-image">
-                                                <p className='text-xl font-bold mb-3 font-dmsans'>Featured Image</p>
+                                                <InputLabel value={'Featured Image'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
                                                     <img src={previewFile} />
                                                     <input
@@ -216,7 +227,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             </div>
                                         </div>
                                         <div className="form-item">
-                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-dmsans' disabled={processing}>Submit</button>
+                                            <button className='bg-blue-500 text-white px-6 py-3 font-bold rounded font-poppins' disabled={processing}>Submit</button>
                                         </div>
                                     </div>
                                 </div>
