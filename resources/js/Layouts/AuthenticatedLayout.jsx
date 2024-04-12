@@ -27,12 +27,23 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <React.Fragment>
-            <div className="flex h-screen w-full">
+            <div className="desktop-view hidden xl:flex h-screen w-full">
                 <aside className="main-sidebar bg-[#212b36] w-[20rem] fixed h-screen">
                     <Sidebar current={findCategoryIndex(currentRoute)} />
                 </aside>
                 <div className="w-full ml-[20rem]">
                     <AdminHeader user={user} />
+                    <div className="main-content">
+                        {children}
+                    </div>
+                </div>
+            </div>
+            <div className="mobile-view xl:hidden flex h-screen w-full">
+                <aside className="main-sidebar w-full fixed h-screen">
+                    <Sidebar current={findCategoryIndex(currentRoute)} />
+                </aside>
+                <div className="w-full mt-[5rem] xl:mt-[0rem] xl:ml-[20rem]">
+                    {/* <AdminHeader user={user} /> */}
                     <div className="main-content">
                         {children}
                     </div>
