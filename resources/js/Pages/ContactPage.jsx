@@ -13,15 +13,25 @@ export default function ContactPage({ auth }) {
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint:1024,
+                settings: {
+                    slidesToShow: 1,
+                    dots: true,
+                    arrows: false,
+                }
+            }
+        ]
     };
     return (
         <GuestLayout user={auth?.user}>
             <Head title='Contact Us' />
             <div className="contact-page">
-                <div className="page-header pt-80 pb-28 ">
+                <div className="page-header  pt-[70px] md:pt-80 pb-28 ">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
-                            <h1 className='font-bold text-7xl text-white'>Contact Us</h1>
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <h1 className='font-bold md:text-7xl text-5xl text-white'>Contact Us</h1>
                             <div className="breadcrumbs pt-5">
                                 <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
                                     <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
@@ -34,20 +44,20 @@ export default function ContactPage({ auth }) {
                 </div>
                 <div className="contact-info-section py-32">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-6 items-center justify-center">
-                                <div className="w-1/2">
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <div className="flex gap-6  lg:flex-row flex-col items-center justify-center">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
                                     <div className="title-wrapper">
-                                        <h1 className='text=[#0f0f0f] text-6xl font-bold mb-6'>Contact Information</h1>
+                                        <h1 className='text=[#0f0f0f] lg:text-6xl text-5xl font-bold mb-6'>Contact Information</h1>
                                         <p className='text-[#666B68] text-lg font-dmsans'>If you are ready to join our community,<br /> you can leave your contacts.</p>
                                     </div>
                                     <div className="information pt-6">
                                         <div className="flex gap-8">
-                                            <div className="item w-1/2">
+                                            <div className="item lg:w-1/2 w-11/12 mx-auto">
                                                 <div className="title font-bold text-xl mb-3">Address:</div>
                                                 <p className='text-[#666B68] font-dmsans text-lg'>Unit 5, 230 Blackshaws Rd, Altona North 3025 Victoria</p>
                                             </div>
-                                            <div className="item w-1/2">
+                                            <div className="item lg:w-1/2 w-11/12 mx-auto">
                                                 <div className="title font-bold text-xl mb-3">Connect With:</div>
                                                 <p className='text-[#666B68] mb-3 font-dmsans text-lg'>info@mcgi.org.au</p>
                                                 <p className='text-[#666B68] font-dmsans text-lg'>+61450780530</p>
@@ -55,11 +65,11 @@ export default function ContactPage({ auth }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-1/2">
+                                <div className="lg:w-1/2 w-11/12 mx-auto">
                                     <iframe
                                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d787.8046067061722!2d144.86154379894032!3d-37.83177203958394!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65ddec930a85d%3A0x5dd6bada26c7ef75!2sMembers%20Church%20of%20God%20International!5e0!3m2!1sen!2sau!4v1710479783328!5m2!1sen!2sau"
-                                        width="600"
-                                        height="450"
+                                        width="100%"
+                                        height="400"
                                         style={{ border: 0 }}
                                         allowFullScreen=""
                                         loading="lazy"
@@ -72,9 +82,9 @@ export default function ContactPage({ auth }) {
                 </div>
                 <div className="location-section">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="title-wrapper">
-                                <h1 className='text=[#0f0f0f] text-6xl font-bold mb-6 text-center'>All Locations</h1>
+                                <h1 className='text=[#0f0f0f] md:text-6xl text-5xl font-bold mb-6 text-center'>All Locations</h1>
                             </div>
                             <div className="location-slider-wrapper">
                                 <div className="location-slider">
@@ -227,14 +237,14 @@ export default function ContactPage({ auth }) {
 
                 <div className="question-section py-32">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
-                            <div className="flex gap-12 items-center justify-center">
-                                <div className="w-1/2">
-                                    <img src="/images/contacts.jpg" className='w-full rounded-2xl' />
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <div className="flex gap-12 lg:flex-row flex-col items-center justify-center">
+                                <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                                    <img src="/images/contacts.jpg" className='w-full rounded-2xl lg:h-auto h-[450px] object-cover' />
                                 </div>
-                                <div className="w-1/2">
+                                <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                                     <div className="title-wrapper">
-                                        <h1 className='text=[#0f0f0f] text-6xl font-bold mb-6'>Ask a Question</h1>
+                                        <h1 className='text=[#0f0f0f] md:text-6xl text-4xl font-bold mb-6'>Ask a Question</h1>
                                         <p className='text-[#666B68] text-lg font-dmsans'>If you have any questions, you can contact us.<br /> Please, fill out the form below.</p>
                                     </div>
                                     <div className="form-wrapper py-8 text-black">

@@ -34,11 +34,11 @@ export default function Register({ locale }) {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <div className="register-page">
+            <div className="register-page pt-24 md:pt-0">
                 <div className="w-full">
-                    <div className="h-screen flex items-center">
-                        <div className="left-screen w-2/5">
-                            <div className="px-24">
+                    <div className="h-screen flex gap-10 lg:gap-0 lg:flex-row flex-col items-center">
+                        <div className="left-screen lg:w-2/5 w-11/12 mx-auto">
+                            <div className="lg:px-24">
                                 <ApplicationLogo className="mx-auto" />
                                 <div className="title-wrapper mt-12">
                                     <h1 className='font-bold text-3xl'>Create an Account</h1>
@@ -47,7 +47,7 @@ export default function Register({ locale }) {
                                 <form onSubmit={submit}>
                                     <div className="mt-4 flex gap-6">
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="first_name" value="First Name" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="first_name" value="First Name" className='font-semibold md:md:text-lg text-base' />
                                             <TextInput
                                                 id="first_name"
                                                 name="first_name"
@@ -61,7 +61,7 @@ export default function Register({ locale }) {
                                             <InputError message={errors.first_name} className="mt-2" />
                                         </div>
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="last_name" value="Last Name" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="last_name" value="Last Name" className='font-semibold md:text-lg text-base' />
                                             <TextInput
                                                 id="last_name"
                                                 name="last_name"
@@ -78,7 +78,7 @@ export default function Register({ locale }) {
 
                                     <div className="mt-4 flex gap-6">
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="email" value="Email Address" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="email" value="Email Address" className='font-semibold md:text-lg text-base' />
                                             <TextInput
                                                 id="email"
                                                 type="email"
@@ -92,7 +92,7 @@ export default function Register({ locale }) {
                                             <InputError message={errors.email} className="mt-2" />
                                         </div>
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="phone" value="Phone Number" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="phone" value="Phone Number" className='font-semibold md:text-lg text-base' />
                                             <TextInput
                                                 id="phone"
                                                 type="text"
@@ -109,7 +109,7 @@ export default function Register({ locale }) {
 
                                     <div className="mt-4 flex gap-6">
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="password" value="Password" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="password" value="Password" className='font-semibold md:text-lg text-base' />
                                             <TextInput
                                                 id="password"
                                                 type="password"
@@ -123,7 +123,7 @@ export default function Register({ locale }) {
                                             <InputError message={errors.password} className="mt-2" />
                                         </div>
                                         <div className="item w-full">
-                                            <InputLabel htmlFor="password_confirmation" value="Confirm Password" className='font-semibold text-lg' />
+                                            <InputLabel htmlFor="password_confirmation" value="Confirm Password" className='font-semibold md:text-lg text-base' />
                                             <TextInput
                                                 id="password_confirmation"
                                                 type="password"
@@ -139,7 +139,7 @@ export default function Register({ locale }) {
                                     </div>
 
                                     <div className="mt-4">
-                                        <InputLabel htmlFor="local" value="Select Locale" className='font-semibold text-lg' />
+                                        <InputLabel htmlFor="local" value="Select Locale" className='font-semibold md:text-lg text-base' />
                                         <select
                                             name="local"
                                             id="local"
@@ -165,11 +165,11 @@ export default function Register({ locale }) {
                                                 checked={data.privacy}
                                                 onChange={(e) => setData('privacy', e.target.checked)}
                                             />
-                                            <span className="ms-2 text-[#333] font-semibold text-lg"><Link href='#'>Privacy Policy</Link></span>
+                                            <span className="ms-2 text-[#333] font-semibold md:text-lg text-base"><Link href='#'>Privacy Policy</Link></span>
                                         </label>
                                     </div>
                                     <div className="flex items-center justify-between mt-4">
-                                        <PrimaryButton className="bg-[#f5cd06] shadow-lg text-[#0f0f0f] font-bold text-lg rounded-lg font-dmsans px-6 py-2" disabled={processing}>
+                                        <PrimaryButton className="bg-[#f5cd06] shadow-lg text-[#0f0f0f] font-bold md:text-lg text-base rounded-lg font-dmsans px-6 py-2" disabled={processing}>
                                             Register
                                         </PrimaryButton>
                                         <Link href={route('login')} className="font-dmsans underline">
@@ -179,7 +179,7 @@ export default function Register({ locale }) {
                                 </form>
                             </div>
                         </div>
-                        <div className="right-section w-3/5 h-screen"></div>
+                        <div className="right-section  w-11/12 lg:w-3/5 md:block hidden mx-auto h-screen"></div>
                     </div>
                 </div>
             </div>

@@ -16,11 +16,17 @@ export default withMT({
 
     theme: {
         extend: {
+            // fontFamily: {
+            //     sans: ['Epilogue', ...defaultTheme.fontFamily.sans],
+            //     tangerine: ['Tangerine', 'cursive'],
+            //     marcellus: ['Marcellus', 'sans-serif'],
+            //     dmsans: ['"DM Sans"', 'sans-serif'],
+            // },
             fontFamily: {
-                sans: ['Epilogue', ...defaultTheme.fontFamily.sans],
-                tangerine: ['Tangerine', 'cursive'],
-                marcellus: ['Marcellus', 'sans-serif'],
-                dmsans: ['"DM Sans"', 'sans-serif'],
+                montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
+                roboto: ['Roboto', 'sans-serif'],
+                raleway: ['Raleway', 'sans-serif'],
+                roboto: ['"Roboto"', 'sans-serif'],
                 poppins: ['Poppins', 'sans-serif'],
             },
         },

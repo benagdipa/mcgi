@@ -7,7 +7,7 @@ import Dropdown from './Dropdown';
 export default function Header({ user }) {
     const [toggle, setToggle] = useState(false);
     const currentRoute = route().current()
-    const hideHeader = ['login', 'register']
+    const hideHeader = ['login', 'register','password.request']
 
     const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
     const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'
@@ -16,7 +16,7 @@ export default function Header({ user }) {
             {!hideHeader.includes(currentRoute) && (
                 <header className='main-header shadow-sm sticky top-0 bg-white z-50'>
                     <div className="w-full max-w-screen-2xl mx-auto">
-                        <div className="py-3 lg:py-6">
+                        <div className="py-3 px-3 lg:px-0 lg:py-6">
                             <div className="desktop-header justify-between items-center hidden xl:flex">
                                 <div className="left-section">
                                     <div className="logo-wrapper">
@@ -26,25 +26,25 @@ export default function Header({ user }) {
                                 <div className="middle-section">
                                     <div className="menu-wrapper flex ">
                                         <ul className='flex gap-4'>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('blogs.index')}>Articles</Link>
-                                            </li> 
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            </li>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={prayerHref}>Community Prayer</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={charityHref}>Charities</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('contact')}>Contact Us</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 {user ? (
                                                     <Dropdown>
                                                         <Dropdown.Trigger>
@@ -68,7 +68,7 @@ export default function Header({ user }) {
                                                     </Link>
                                                 )}
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <a href="tel:+61450780530">
                                                     <span className='flex items-center'><IconPhoneCall size={22} strokeWidth={1.5} /> <span className='pl-2'>+61450780530</span></span>
                                                 </a>
@@ -76,10 +76,10 @@ export default function Header({ user }) {
                                         </ul>
                                         <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><IconBrandInstagram size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><IconBrandYoutube size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><IconBrandInstagram size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><IconBrandYoutube size={26} strokeWidth={1.5} /></span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -95,12 +95,12 @@ export default function Header({ user }) {
                                     </button>
                                     <div className={`${!toggle ? "hidden" : 'flex'} mobile-menu-items absolute left-0 top-[75px] md:top-[87px] w-full`}>
                                         <ul className='bg-white w-full border-t z-[109]'>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Home</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">About Us</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Community Prayer</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Charities</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Contact Us</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href="#">Login</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('home')}>Home</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={prayerHref}>Community Prayer</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={charityHref}>Charities</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('contact')}>Contact Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
                                         </ul>
                                     </div>
                                 </div>

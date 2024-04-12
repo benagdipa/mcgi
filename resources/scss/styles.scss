@@ -8,7 +8,9 @@
 @import 'inc/contact';
 @import 'inc/login';
 @import 'inc/register';
-
+@import 'inc/forget-password';
+@import 'inc/privacy-policy';
+@import 'inc/termsandcondition';
 .events-page{
     .page-header {
         background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
