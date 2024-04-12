@@ -18,4 +18,9 @@ class Posts extends Model
         'author',
         'status',
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author'); // Assuming the foreign key is 'author_id'
+    }
 }

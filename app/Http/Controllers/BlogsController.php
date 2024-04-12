@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class BlogsController extends Controller
 {
     public function index()
-    {
-        $posts = Posts::all();
+    { 
+        $posts = Posts::with('author')->get();
         return Inertia::render('Blogs/BlogsPage', [
             'posts' => $posts,
         ]);

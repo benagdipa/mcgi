@@ -27,6 +27,7 @@ export default withMT({
                 roboto: ['Roboto', 'sans-serif'],
                 raleway: ['Raleway', 'sans-serif'],
                 roboto: ['"Roboto"', 'sans-serif'],
+                poppins: ['Poppins', 'sans-serif'],
             },
         },
     },

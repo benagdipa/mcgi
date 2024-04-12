@@ -15,7 +15,7 @@ export default function BlogsPage({ auth, posts }) {
     return (
         <Guest user={auth?.user}>
             <Head title='Blogs' />
-            <div className="contact-page">
+            <div className="contact-page blog-page">
                 <div className="page-header pt-40 lg:pt-80 pb-28 ">
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
@@ -51,8 +51,14 @@ export default function BlogsPage({ auth, posts }) {
                                                             {post?.title}
                                                         </h4>
                                                     </Link>
-                                                </div>
-                                                <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div>
+                                                 </div>
+                                                 <div dangerouslySetInnerHTML={{ __html: post?.content? post.content.replace(/<img.*?>/g, '') // Remove image tags
+                                                                            .replace(/<[^>]+>/g, '') // Remove all other HTML tags
+                                                                            .split(' ').slice(0, 20).join(' ')
+                                                            : ''
+                                                        }}
+                                                />
+                                                {/* <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div> */}
                                                 <div className="link">
                                                     <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                                 </div>
