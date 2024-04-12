@@ -35,7 +35,7 @@ class EventsController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:' . Events::class,
             'status' => 'required',
-            'featureImage' => 'required|mimes:png,jpg,jpeg',
+            // 'featureImage' => 'required|mimes:png,jpg,jpeg',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
         ]);
