@@ -99,7 +99,7 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
-                                            minDate={data.start_date}
+                                            // minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
                                     </div>
@@ -111,7 +111,7 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full rounded-sm font-dmsans placeholder:font-dmsans'
-                                            minDate={data.end_date}
+                                            // minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
