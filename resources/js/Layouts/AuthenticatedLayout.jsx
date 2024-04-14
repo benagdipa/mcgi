@@ -1,9 +1,9 @@
-import React from "react";
+import React,{ useState }  from "react";
 import Sidebar from "@/Components/Sidebar";
 import AdminHeader from "@/Components/Admin/AdminHeader";
 
 export default function Authenticated({ user, header, children }) {
-
+    const [toggle, setToggle] =useState(false);
     const currentRoute = route().current()
 
     const findCategoryIndex = (searchString) => {
@@ -27,7 +27,7 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <React.Fragment>
-            <div className="desktop-view hidden xl:flex h-screen w-full">
+            <div className="desktop-view hidden md:flex h-screen w-full">
                 <aside className="main-sidebar bg-[#212b36] w-[20rem] fixed h-screen">
                     <Sidebar current={findCategoryIndex(currentRoute)} />
                 </aside>
@@ -38,16 +38,17 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
             </div>
-            <div className="mobile-view xl:hidden flex h-screen w-full">
-                <aside className="main-sidebar w-full fixed h-screen">
-                    <Sidebar current={findCategoryIndex(currentRoute)} />
-                </aside>
-                <div className="w-full mt-[5rem] xl:mt-[0rem] xl:ml-[20rem]">
+            <div className="mobile-view-main md:hidden  flex h-screen w-full">
+                <aside className="main-sidebar w-full fixed ">
+                    <Sidebar setToggle={setToggle} toggle={toggle} current={findCategoryIndex(currentRoute)} />
+                    <div className="w-full content-details-admin h-[550px] overflow-auto md:ml-[20rem]">
                     {/* <AdminHeader user={user} /> */}
-                    <div className="main-content">
+                    <div className={`main-content ${toggle && 'when-slide'}`}>
                         {children}
                     </div>
                 </div>
+                </aside>
+
             </div>
 
         </React.Fragment>

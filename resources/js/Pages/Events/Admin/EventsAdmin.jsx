@@ -50,7 +50,7 @@ export default function EventsAdmin({ auth, events }) {
                     </div>
                 </div>
                 <div className="page-content pt-8">
-                    <Card className="h-full w-full overflow-scroll rounded-none font-dmsans">
+                    <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none font-dmsans">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>

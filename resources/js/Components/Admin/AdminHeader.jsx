@@ -6,11 +6,11 @@ import { Badge } from '@material-tailwind/react'
 
 export default function AdminHeader({ user }) {
     return (
-        <div className='admin-header flex justify-between items-center py-5 px-6 border-b font-poppins bg-white z-50'>
-            <div className='left-section'>
+        <div className='admin-header w-full fixed flex justify-between items-center py-5 px-6 border-b font-poppins bg-white z-50'>
+            <div className='left-section w-[50%]'>
                 <input type="text" placeholder='Search...' className='rounded border-gray-400/80 w-[300px] focus:ring-0 ring-0' />
             </div>
-            <div className="right-section">
+            <div className="right-section w-[50%]">
                 <div className="flex gap-4 items-center justify-center">
                     <Badge color="red">
                         <div className=" w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center">

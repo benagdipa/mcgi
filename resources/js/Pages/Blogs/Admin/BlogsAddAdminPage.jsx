@@ -76,8 +76,8 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                 <div className="page-content pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
-                            <div className="flex gap-12">
-                                <div className="w-9/12">
+                            <div className="flex md:flex-row flex-col gap-12">
+                                <div className="md:w-9/12">
                                     <div className="form-item mb-4">
                                         <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
@@ -143,7 +143,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-3/12">
+                                <div className="md:w-3/12">
                                     <div className="border rounded-md py-6 px-8">
                                         <div className="form-item mb-6">
                                             <div className="status">

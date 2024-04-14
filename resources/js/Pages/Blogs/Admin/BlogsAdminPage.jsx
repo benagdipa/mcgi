@@ -74,7 +74,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                     </div>
                 </div>
                 <div className="page-content pt-8">
-                    <Card className="h-full w-full overflow-scroll rounded-none font-poppins">
+                    <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none font-poppins">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>
