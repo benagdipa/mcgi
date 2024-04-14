@@ -344,7 +344,10 @@ export default function HomePage({ auth, posts }) {
                                                         </div>
                                                     </Link>
                                                     <div className="content pt-3">
-                                                        <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                        <div className="flex items-center gap-4">
+                                                            <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                            <div className="text-[#9f9f9f] font-medium">{`${post?.author?.first_name} ${post?.author?.last_name}`}</div>
+                                                        </div>
                                                         <div className="title pt-1 pb-3">
                                                             <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
                                                                 <h4 className='text-[#0f0f0f] font-bold text-2xl capitalize'>

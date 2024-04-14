@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -11,14 +12,9 @@ class PageController extends Controller
 {
     public function homePage()
     {
-        $posts = Posts::take(3)->get();
+        $posts = Posts::with('author')->take(3)->get();
         return Inertia::render('HomePage', [
             'posts' => $posts,
-        ]);
-
-        return Inertia::render('HomePage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
         ]);
     }
     public function aboutPage()
@@ -37,10 +33,12 @@ class PageController extends Controller
         ]);
 
     }
-    public function privacyPage(){
+    public function privacyPage()
+    {
         return Inertia::render('PrivacyandPolicy');
     }
-    public function conditionPage(){
+    public function conditionPage()
+    {
         return Inertia::render('TermsandCondition');
     }
 }
