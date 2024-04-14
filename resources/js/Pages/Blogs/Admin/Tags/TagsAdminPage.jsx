@@ -99,6 +99,7 @@ export default function TagsAdminPage({ auth, tags }) {
                     </div>
                 </div>
                 <div className="page-content pt-8">
+                    <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none">
                     <Card className="h-full w-full overflow-scroll rounded-none">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>

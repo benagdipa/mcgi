@@ -1,10 +1,17 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
+
+import { Head, Link, router } from '@inertiajs/react'
 import { Head, Link, router, useForm } from '@inertiajs/react'
+
 import React, { useState } from 'react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
 import { IconX } from '@tabler/icons-react';
 import InputLabel from '@/Components/InputLabel';
+
+
+export default function UserAdmin({ auth, users }) {
+    const TABLE_HEAD = ["SN", "Full Name", 'Email', "Branch", "Phone", "Roles & Permissions", "Actions"];
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 
@@ -18,12 +25,19 @@ export default function UserAdmin({ auth, users, locale }) {
     const [modalTitle, setModalTitle] = useState('');
     const [formType, setFormType] = useState('');
     const [selectedItem, setSelectedItem] = useState('')
-
     const [permissionModal, setPermissionModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false)
     const [selectedUser, setSelectedUser] = useState('')
     const allPermissions = ['create-users', 'edit-users', 'delete-users', 'create-blog-posts', 'edit-blog-posts', 'delete-blog-posts',]
 
+
+    const openDeleteModal = (user_id) => {
+        setSelectedUser(user_id)
+        setDeleteModal(true)
+    }
+    const closeDeleteModal = () => {
+        setDeleteModal(false)
+    }
 
     const openPermissionModal = (user_id) => {
         setSelectedUser(user_id)
@@ -32,6 +46,7 @@ export default function UserAdmin({ auth, users, locale }) {
     const closePermissionModal = () => {
         setPermissionModal(false)
     }
+
 
     const getLocale = (id) => {
         if (id) {
@@ -95,6 +110,10 @@ export default function UserAdmin({ auth, users, locale }) {
                             </ul>
                         </div>
                     </div>
+
+                </div>
+                <div className="page-content pt-8">
+                    <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none font-poppins">
                     <div className="right">
                         <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
                     </div>
@@ -118,6 +137,31 @@ export default function UserAdmin({ auth, users, locale }) {
                                     return (
                                         <tr key={id}>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{`${first_name} ${last_name}`}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{email}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{local}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{phone}</Typography></td>
+                                            <td className={`${classes} max-w-52`}>
+                                                {roles.length && roles.map((item) => {
+                                                    return (
+                                                        <React.Fragment key={item.id}>
+                                                            <Typography className="font-medium font-poppins capitalize">{item.name}</Typography>
+                                                            <div className="flex gap-1 w-full flex-wrap pt-2">
+                                                                {item.permissions.length && item.permissions.map((permission) => {
+                                                                    return (
+                                                                        <React.Fragment key={permission.id}>
+                                                                            <p className='text-[12px] bg-gray-600 text-white rounded px-2'>{permission.name}</p>
+                                                                        </React.Fragment>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </React.Fragment>
+                                                    )
+                                                })}
+                                            </td>
+                                            <td className={classes}>
+                                                <div className="flex gap-2">
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openPermissionModal(id) }}>Permissions</button>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${first_name}`}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${last_name}`}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{email}</Typography></td>
@@ -126,6 +170,7 @@ export default function UserAdmin({ auth, users, locale }) {
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins'>Edit</button>
+
                                                     <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
                                                 </div>
                                             </td>
@@ -314,7 +359,6 @@ export default function UserAdmin({ auth, users, locale }) {
                     </div>
                 </div>
             </Modal>
-
 
             {/* Delete Modal */}
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
