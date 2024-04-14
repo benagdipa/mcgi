@@ -8,7 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Checkbox from '@/Components/Checkbox';
 
-export default function Register() {
+export default function Register({ locale }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         first_name: '',
         last_name: '',
@@ -39,7 +39,7 @@ export default function Register() {
                     <div className="h-screen flex gap-10 lg:gap-0 lg:flex-row flex-col items-center">
                         <div className="left-screen lg:w-2/5 w-11/12 mx-auto">
                             <div className="lg:px-24">
-                                <ApplicationLogo className="mx-auto"/>
+                                <ApplicationLogo className="mx-auto" />
                                 <div className="title-wrapper mt-12">
                                     <h1 className='font-bold text-3xl'>Create an Account</h1>
                                     <p className='font-dmsans'>Enter your credentials to create new account</p>
@@ -139,7 +139,7 @@ export default function Register() {
                                     </div>
 
                                     <div className="mt-4">
-                                        <InputLabel htmlFor="local" value="Confirm Password" className='font-semibold md:text-lg text-base' />
+                                        <InputLabel htmlFor="local" value="Select Locale" className='font-semibold md:text-lg text-base' />
                                         <select
                                             name="local"
                                             id="local"
@@ -149,8 +149,12 @@ export default function Register() {
                                             onChange={(e) => setData('local', e.target.value)}
                                             required
                                         >
-                                            <option value="">Select Local</option>
-                                            <option value="1">Melbourme</option>
+                                            <option value="">Select Locale</option>
+                                            {locale.length && locale.map((item, index) => {
+                                                return (
+                                                    <option value={item.id} key={item.id}>{item.title}</option>
+                                                )
+                                            })}
                                         </select>
                                         <InputError message={errors.local} className="mt-2" />
                                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Locale;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,6 +15,11 @@ class UserController extends Controller
         $users = User::with('roles.permissions')->get();
         return Inertia::render('Users/UserAdmin', [
             'users' => $users
+        $locale = Locale::all();
+        $users = User::with('roles.permissions')->get();
+        return Inertia::render('Users/UserAdmin', [
+            'users' => $users,
+            'locale' => $locale
         ]);
     }
 

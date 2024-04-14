@@ -26,25 +26,25 @@ export default function Header({ user }) {
                                 <div className="middle-section">
                                     <div className="menu-wrapper flex ">
                                         <ul className='flex gap-4'>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('blogs.index')}>Articles</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={prayerHref}>Community Prayer</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={charityHref}>Charities</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('contact')}>Contact Us</Link>
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 {user ? (
                                                     <Dropdown>
                                                         <Dropdown.Trigger>
@@ -68,7 +68,7 @@ export default function Header({ user }) {
                                                     </Link>
                                                 )}
                                             </li>
-                                            <li className='font-semibold text-lg font-dmsans'>
+                                            <li className='font-semibold text-lg font-montserrat'>
                                                 <a href="tel:+61450780530">
                                                     <span className='flex items-center'><IconPhoneCall size={22} strokeWidth={1.5} /> <span className='pl-2'>+61450780530</span></span>
                                                 </a>
@@ -76,10 +76,10 @@ export default function Header({ user }) {
                                         </ul>
                                         <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><IconBrandInstagram size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-lg font-dmsans'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><IconBrandYoutube size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><IconBrandInstagram size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-lg font-montserrat'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><IconBrandYoutube size={26} strokeWidth={1.5} /></span></a></li>
                                             </ul>
                                         </div>
                                     </div>

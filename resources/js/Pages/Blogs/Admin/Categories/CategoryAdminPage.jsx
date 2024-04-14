@@ -58,6 +58,7 @@ export default function CategoryAdminPage({ auth, categories }) {
     }
     const closeAddEditModal = (type) => {
         setAddEditModal(false)
+        reset();
     }
 
     const openDeleteModal = (id) => {
@@ -83,6 +84,7 @@ export default function CategoryAdminPage({ auth, categories }) {
             <Head title='Categories' />
             <div className="content py-4 font-poppins">
                 <div className="content-header md:px-6 px-4 flex justify-between items-center">
+                <div className="content-header px-6 flex justify-between items-center">
                     <div className="left">
                         <h1 className='font-semibold text-gray-800 text-3xl'>Categories</h1>
                         <div className="pt-2">
@@ -101,6 +103,11 @@ export default function CategoryAdminPage({ auth, categories }) {
                 </div>
                 <div className="page-content pt-8">
                     <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none">
+                        <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
+                    </div>
+                </div>
+                <div className="page-content pt-8">
+                    <Card className="h-full w-full overflow-scroll rounded-none">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>

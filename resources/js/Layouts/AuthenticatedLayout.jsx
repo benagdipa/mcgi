@@ -28,6 +28,7 @@ export default function Authenticated({ user, header, children }) {
     return (
         <React.Fragment>
             <div className="desktop-view hidden md:flex h-screen w-full">
+            <div className="flex h-screen w-full">
                 <aside className="main-sidebar bg-[#212b36] w-[20rem] fixed h-screen">
                     <Sidebar current={findCategoryIndex(currentRoute)} />
                 </aside>

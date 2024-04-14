@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -73,6 +74,13 @@ Route::controller(EventsController::class)->group(function () {
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
     });
+});
+
+Route::controller(LocaleController::class)->group(function () {
+    Route::get('/dashboard/locale', 'admin_index')->name('admin.locale.index');
+    Route::post('/dashboard/locale', 'admin_store')->name('admin.locale.store');
+    Route::post('/dashboard/locale/{id}/edit', 'admin_update')->name('admin.locale.update');
+    Route::delete('/dashboard/locale/{id}', 'admin_delete')->name('admin.locale.delete');
 });
 
 Route::controller(UserController::class)->group(function () {

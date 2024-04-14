@@ -111,6 +111,7 @@ export default function EventsAddAdmin({ auth }) {
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                             minDate={data.start_date}
+                                            // minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
                                     </div>
@@ -123,6 +124,7 @@ export default function EventsAddAdmin({ auth }) {
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
                                             minDate={data.end_date}
+                                            // minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
