@@ -231,7 +231,7 @@ export default function CategoryAdminPage({ auth, categories }) {
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
-                    <div className="absolute -top-8 -right-8 text-white cursor-pointer">
+                    <div className="absolute-top-8 -right-8 text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
