@@ -240,6 +240,6 @@ export default function CategoryAdminPage({ auth, categories }) {
                     </div>
                 </div>
             </Modal>
-        </Authenticated >
+        </Authenticated>
     )
 }
