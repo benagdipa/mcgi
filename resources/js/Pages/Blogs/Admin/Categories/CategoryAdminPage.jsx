@@ -104,7 +104,7 @@ export default function CategoryAdminPage({ auth, categories }) {
                 <div className="page-content pt-8">
                     <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none">
                         <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
-                    </div>
+                    </Card>
                 </div>
                 <div className="page-content pt-8">
                     <Card className="h-full w-full overflow-scroll rounded-none">
