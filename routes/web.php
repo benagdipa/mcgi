@@ -26,6 +26,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/contact-us', 'contactPage')->name('contact');
     Route::get('/privacy-policy','privacyPage')->name('privacy-and-policy');
     Route::get('/terms-conditions','conditionPage')->name('terms-and-condition');
+    Route::get('/gallery','gallery_page')->name('gallery');
 });
 
 Route::get('/dashboard', function () {
