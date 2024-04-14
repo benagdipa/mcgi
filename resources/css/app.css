@@ -7,3 +7,8 @@
 .form-item .react-datepicker-wrapper{
     @apply w-full
 }
+@media screen and (max-width:767px) {
+    .custom-ckeditor .tox-tinymce{
+        height: 400px !important;
+    }
+}

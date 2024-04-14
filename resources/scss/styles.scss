@@ -11,7 +11,8 @@
 @import "inc/forget-password";
 @import "inc/privacy-policy";
 @import "inc/termsandcondition";
-.events-page {
+@import 'inc/sidebar-menu-admin';
+.events-page{
     .page-header {
         background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
         background-size: cover;

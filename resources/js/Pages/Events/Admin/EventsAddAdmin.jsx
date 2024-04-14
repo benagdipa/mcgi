@@ -80,8 +80,8 @@ export default function EventsAddAdmin({ auth }) {
                 <div className="page-content pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
-                            <div className="flex gap-6">
-                                <div className="w-9/12">
+                            <div className="flex md:flex-row flex-col gap-6">
+                                <div className="md:w-9/12">
                                     <div className="form-item mb-4">
                                         <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
                                         <TextInput
@@ -110,6 +110,7 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
+                                            minDate={data.start_date}
                                             // minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
@@ -122,6 +123,7 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
+                                            minDate={data.end_date}
                                             // minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
@@ -172,7 +174,7 @@ export default function EventsAddAdmin({ auth }) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-3/12">
+                                <div className="md:w-3/12">
                                     <div className="border rounded p-4">
                                         <div className="form-item mb-4">
                                             <div className="status">
