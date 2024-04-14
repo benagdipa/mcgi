@@ -83,7 +83,7 @@ export default function CategoryAdminPage({ auth, categories }) {
         <Authenticated user={auth?.user}>
             <Head title='Categories' />
             <div className="content py-4 font-poppins">
-                <div className="content-header md:px-6 px-4 flex justify-between items-center">
+                {/* <div className="content-header md:px-6 px-4 flex justify-between items-center"> */}
                 <div className="content-header px-6 flex justify-between items-center">
                     <div className="left">
                         <h1 className='font-semibold text-gray-800 text-3xl'>Categories</h1>
