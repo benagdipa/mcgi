@@ -5,8 +5,26 @@ on:
     branches: [main]
 
 jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ssh.mcgi.org.au
+          username: u27-nmpjtziggxux
+          key: ${{ secrets.KEY }}
+          port: 18765
+          script: |
+             cd ~/www/dev.mcgi.org.au/public_html
+             git pull origin main
+             composer install
+             php artisan migrate
+
   build:
     runs-on: ubuntu-latest
+    needs: deployment
     steps:
     - uses: actions/checkout@v4
       with:
@@ -21,30 +39,16 @@ jobs:
     - name: Create local changes
       run: |
         npm install && npm run build
-    - name: Commit files
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add -A
-        git commit -a -m "Add changes"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    - name: SFTP uploader
+      uses: wangyucode/sftp-upload-action@v2.0.2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
-  deployment:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@master
-        with:
-          host: ssh.mcgi.org.au
-          username: u27-nmpjtziggxux
-          key: ${{ secrets.KEY }}
-          port: 18765
-          script: |
-             cd ~/www/dev.mcgi.org.au/public_html
-             git pull origin main
-             composer install
-             php artisan migrate
+        host: ssh.mcgi.org.au
+        username: u27-nmpjtziggxux
+        privateKey: ${{ secrets.KEY }}
+        localDir: 'public/build'
+        remoteDir: '~/www/dev.mcgi.org.au/public_html/public/build'
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: ${{ github.ref }}
