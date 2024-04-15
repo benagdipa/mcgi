@@ -12,14 +12,9 @@ class PageController extends Controller
 {
     public function homePage()
     {
-        $posts = Posts::take(3)->get();
+        $posts = Posts::with('author')->take(3)->get();
         return Inertia::render('HomePage', [
             'posts' => $posts,
-        ]);
-
-        return Inertia::render('HomePage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
         ]);
     }
     public function aboutPage()

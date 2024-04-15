@@ -45,7 +45,7 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                                         <img src="https://randomuser.me/api/portraits/men/1.jpg" className='w-20 h-20 rounded-full' />
                                     </div>
                                     <div className="author border-r-2 pr-4">
-                                        <p className='text-2xl font-dmsans font-semibold'>John Doe</p>
+                                        <p className='text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
                                     </div>
                                 </div>
                             </div>
