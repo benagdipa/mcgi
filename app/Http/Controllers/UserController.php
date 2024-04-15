@@ -12,9 +12,6 @@ class UserController extends Controller
 {
     public function admin_user_index()
     {
-        $users = User::with('roles.permissions')->get();
-        return Inertia::render('Users/UserAdmin', [
-            'users' => $users
         $locale = Locale::all();
         $users = User::with('roles.permissions')->get();
         return Inertia::render('Users/UserAdmin', [
