@@ -369,7 +369,7 @@ export default function HomePage({ auth, posts }) {
                         </div>
                     </div>
                     <div className="link pt-24 text-center">
-                        <button className="bg-[#f5cd06] text-[#0f0f0f] shadow-lg px-10 py-4 font-bold text-lg rounded-full "><Link href='#'>View More Posts</Link></button>
+                        <button className="bg-[#f5cd06] text-[#0f0f0f] shadow-lg px-10 py-4 font-bold text-lg rounded-full "><Link href='/blogs'>View More Posts</Link></button>
                     </div>
                 </div>
             </div>
