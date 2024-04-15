@@ -58,7 +58,6 @@ export default function CategoryAdminPage({ auth, categories }) {
     }
     const closeAddEditModal = (type) => {
         setAddEditModal(false)
-        reset();
     }
 
     const openDeleteModal = (id) => {
@@ -83,8 +82,7 @@ export default function CategoryAdminPage({ auth, categories }) {
         <Authenticated user={auth?.user}>
             <Head title='Categories' />
             <div className="content py-4 font-poppins">
-                {/* <div className="content-header md:px-6 px-4 flex justify-between items-center"> */}
-                <div className="content-header px-6 flex justify-between items-center">
+                <div className="content-header md:px-6 px-4 flex justify-between items-center">
                     <div className="left">
                         <h1 className='font-semibold text-gray-800 text-3xl'>Categories</h1>
                         <div className="pt-2">
@@ -103,11 +101,6 @@ export default function CategoryAdminPage({ auth, categories }) {
                 </div>
                 <div className="page-content pt-8">
                     <Card className="h-full md:w-full w-11/12 mx-auto overflow-scroll rounded-none">
-                        <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
-                    </Card>
-                </div>
-                <div className="page-content pt-8">
-                    <Card className="h-full w-full overflow-scroll rounded-none">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>
@@ -154,7 +147,7 @@ export default function CategoryAdminPage({ auth, categories }) {
                 </div>
             </div>
             <Modal show={addEditModal} onClose={closeAddEditModal} maxWidth={'2xl'}>
-                <div className="add-modal  px-6 py-4">
+                <div className="add-modal px-6 py-4">
                     <div className="modal-header relative">
                         <h1 className='font-bold text-2xl font-poppins'>{modalTitle} Category</h1>
                         <div className="absolute -top-14 -right-14 text-white cursor-pointer">
@@ -231,7 +224,7 @@ export default function CategoryAdminPage({ auth, categories }) {
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
-                    <div className="absolute-top-8 -right-8 text-white cursor-pointer">
+                    <div className="absolute -top-8 -right-8 text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
@@ -240,6 +233,6 @@ export default function CategoryAdminPage({ auth, categories }) {
                     </div>
                 </div>
             </Modal>
-        </Authenticated>
+        </Authenticated >
     )
 }
