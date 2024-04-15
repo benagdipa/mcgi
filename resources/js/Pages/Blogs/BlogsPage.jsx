@@ -11,7 +11,7 @@ export default function BlogsPage({ auth, posts }) {
         let result = extractedWords.join(" ");
         return result;
     }
-
+    console.log(posts);
     return (
         <Guest user={auth?.user}>
             <Head title='Blogs' />
@@ -44,19 +44,23 @@ export default function BlogsPage({ auth, posts }) {
                                                 </div>
                                             </Link>
                                             <div className="content pt-3">
-                                                <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                <div className="flex gap-4">
+                                                    <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                    <div className="text-[#9f9f9f] font-medium">{`${post?.author?.first_name} ${post?.author?.last_name}`}</div>
+                                                </div>
                                                 <div className="title pt-1 pb-3">
                                                     <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
                                                         <h4 className='text-[#0f0f0f] font-bold text-2xl capitalize'>
                                                             {post?.title}
                                                         </h4>
                                                     </Link>
-                                                 </div>
-                                                 <div dangerouslySetInnerHTML={{ __html: post?.content? post.content.replace(/<img.*?>/g, '') // Remove image tags
-                                                                            .replace(/<[^>]+>/g, '') // Remove all other HTML tags
-                                                                            .split(' ').slice(0, 20).join(' ')
-                                                            : ''
-                                                        }}
+                                                </div>
+                                                <div dangerouslySetInnerHTML={{
+                                                    __html: post?.content ? post.content.replace(/<img.*?>/g, '') // Remove image tags
+                                                        .replace(/<[^>]+>/g, '') // Remove all other HTML tags
+                                                        .split(' ').slice(0, 20).join(' ')
+                                                        : ''
+                                                }}
                                                 />
                                                 {/* <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div> */}
                                                 <div className="link">

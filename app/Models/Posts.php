@@ -21,6 +21,6 @@ class Posts extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author'); // Assuming the foreign key is 'author_id'
+        return $this->belongsTo(User::class, 'author');
     }
 }
