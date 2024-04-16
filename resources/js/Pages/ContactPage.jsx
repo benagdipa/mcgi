@@ -80,7 +80,7 @@ export default function ContactPage({ auth }) {
                         </div>
                     </div>
                 </div>
-                <div className="location-section">
+                {/* <div className="location-section">
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="title-wrapper">
@@ -233,14 +233,14 @@ export default function ContactPage({ auth }) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="question-section py-32">
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="flex gap-12 lg:flex-row flex-col items-center justify-center">
                                 <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                                    <img src="/images/contacts.jpg" className='w-full rounded-2xl lg:h-auto h-[450px] object-cover' />
+                                    <img src="/images/kuya-edited.jpg" className='w-full rounded-2xl lg:h-auto h-[450px] object-cover' />
                                 </div>
                                 <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                                     <div className="title-wrapper">

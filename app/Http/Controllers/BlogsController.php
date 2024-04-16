@@ -21,7 +21,7 @@ class BlogsController extends Controller
 
     public function show($slug)
     {
-        $post = Posts::where('slug', $slug)->firstOrFail();
+        $post = Posts::with('author')->where('slug', $slug)->firstOrFail();
         $categories = Category::all();
         $tags = Tag::all();
         return Inertia::render('Blogs/SingleBlogPage', [

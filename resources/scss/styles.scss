@@ -4,13 +4,15 @@
 }
 @import "inc/header";
 @import "inc/home";
-@import 'inc/about';
-@import 'inc/contact';
-@import 'inc/login';
-@import 'inc/register';
-@import 'inc/forget-password';
-@import 'inc/privacy-policy';
-@import 'inc/termsandcondition';
+@import "inc/about";
+@import "inc/contact";
+@import "inc/login";
+@import "inc/register";
+@import "inc/forget-password";
+@import "inc/privacy-policy";
+@import "inc/termsandcondition";
+@import 'inc/sidebar-menu-admin';
+@import "inc/events";
 .events-page{
     .page-header {
         background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
@@ -18,4 +20,16 @@
         background-position: center;
         background-blend-mode: color;
     }
+}
+
+.image-gallery-page {
+    .page-header {
+        background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: color;
+    }
+}
+.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    object-fit: contain;
 }
