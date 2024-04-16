@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 
 export default function EventsAdmin({ auth, events }) {
 
-    const TABLE_HEAD = ["SN", "Event Title", "Start Date", "End Date", "Status", "Action"];
+    const TABLE_HEAD = ["SN", "Event Title", "Start Date", "End Date", "Address", "Status", "Action"];
     const TABLE_ROWS = events;
 
     const [deleteModal, setDeleteModal] = useState(false)
@@ -62,7 +62,7 @@ export default function EventsAdmin({ auth, events }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {TABLE_ROWS.map(({ id, title, status, start_date, end_date }, index) => {
+                                {TABLE_ROWS.map(({ id, title, status, start_date, end_date, address }, index) => {
                                     const isLast = index === TABLE_ROWS.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
@@ -78,6 +78,9 @@ export default function EventsAdmin({ auth, events }) {
                                             </td>
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins">{end_date}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{address}</Typography>
                                             </td>
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins capitalize">{status}</Typography>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Events;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -12,14 +13,11 @@ class PageController extends Controller
     public function homePage()
     {
         $posts = Posts::take(3)->get();
+        $events = Events::take(9)->get();
         return Inertia::render('HomePage', [
             'posts' => $posts,
-        ]);
-
-        return Inertia::render('HomePage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-        ]);
+            'events' =>$events,
+        ]);        
     }
     public function aboutPage()
     {
