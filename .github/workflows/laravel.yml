@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 18765
           script: |
-             cd ~/www/dev.mcgi.org.au/public_html
+             cd ~/www/mcgi.org.au/public_html
              git pull origin main
              composer install
              php artisan migrate
