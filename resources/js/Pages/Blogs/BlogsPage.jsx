@@ -33,7 +33,7 @@ export default function BlogsPage({ auth, posts }) {
                 <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                     <div className="blog-items py-16 lg:py-32">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                            {posts?.length && posts.map((post) => {
+                            {posts?.length > 0 && posts.map((post) => {
                                 const date = DateTime.fromISO(post?.created_at, { zone: 'utc' })
                                 return (
                                     <React.Fragment key={post?.id}>
