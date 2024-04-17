@@ -16,6 +16,8 @@ import {
     IconChevronDown,
     IconChevronRight,
     IconLocation,
+    IconMap,
+    IconMenu2,
     IconPin,
     IconUsers,
 } from "@tabler/icons-react";
@@ -40,11 +42,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
                     <List className="text-white">
                         <Link
                             href={route("dashboard")}
-                            className={`${
-                                currentRoute === "dashboard"
-                                    ? "bg-blue-gray-50/50 rounded-lg"
-                                    : ""
-                            }`}
+                            className={`${currentRoute === "dashboard"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
                         >
                             <ListItem>
                                 <ListItemPrefix>
@@ -61,9 +62,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             icon={
                                 <IconChevronDown
                                     strokeWidth={2.5}
-                                    className={`mx-auto h-4 w-4 transition-transform ${
-                                        open === 1 ? "rotate-180" : ""
-                                    }`}
+                                    className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""
+                                        }`}
                                 />
                             }
                         >
@@ -84,11 +84,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 <List className="p-0 text-white">
                                     <Link
                                         href={route("admin.blogs.index")}
-                                        className={`${
-                                            currentRoute === "admin.blogs.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.blogs.index"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -104,11 +103,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                     </Link>
                                     <Link
                                         href={route("admin.blogs.add")}
-                                        className={`${
-                                            currentRoute === "admin.blogs.add"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.blogs.add"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -126,12 +124,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                         href={route(
                                             "admin.blogs.categories.index"
                                         )}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.blogs.categories.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -147,12 +144,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                     </Link>
                                     <Link
                                         href={route("admin.blogs.tags.index")}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.blogs.tags.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -174,9 +170,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             icon={
                                 <IconChevronDown
                                     strokeWidth={2.5}
-                                    className={`mx-auto h-4 w-4 transition-transform ${
-                                        open === 2 ? "rotate-180" : ""
-                                    }`}
+                                    className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""
+                                        }`}
                                 />
                             }
                         >
@@ -197,12 +192,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 <List className="p-0 text-white">
                                     <Link
                                         href={route("admin.events.index")}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.events.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -219,11 +213,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
                                     <Link
                                         href={route("admin.events.add")}
-                                        className={`${
-                                            currentRoute === "admin.events.add"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.events.add"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem>
                                             <ListItemPrefix>
@@ -243,11 +236,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
                         <Link
                             href={route("admin.users.index")}
-                            className={`${
-                                currentRoute === "admin.users.index"
-                                    ? "bg-blue-gray-50/50 rounded-lg"
-                                    : ""
-                            }`}
+                            className={`${currentRoute === "admin.users.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
                         >
                             <ListItem>
                                 <ListItemPrefix>
@@ -255,6 +247,22 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">
                                     Users
+                                </Typography>
+                            </ListItem>
+                        </Link>
+                        <Link
+                            href={route('admin.location.index')}
+                            className={`${currentRoute === "admin.location.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
+                        >
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <IconMap strokeWidth={1.5} />
+                                </ListItemPrefix>
+                                <Typography className="mr-auto font-poppins font-medium">
+                                    Church Locations
                                 </Typography>
                             </ListItem>
                         </Link>
@@ -269,37 +277,20 @@ export default function Sidebar({ current, toggle, setToggle }) {
                     className="hamburger-menu-mobile"
                     onClick={() => setToggle(!toggle)}
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="black"
-                        stroke-width="1"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="tabler-icon tabler-icon-menu-2"
-                    >
-                        <path d="M4 6l16 0"></path>
-                        <path d="M4 12l16 0"></path>
-                        <path d="M4 18l16 0"></path>
-                    </svg>
+                    <IconMenu2 color="black" size={32} strokeWidth={1.5} />
                 </button>
                 <div
-                    className={`${
-                        !toggle ? "close" : "open"
-                    } bg-[#212b36] side-menu ptphg-4 absolute left-0 top-[92px] h-screen w-[190px] md:top-[87px]`}
+                    className={`${!toggle ? "close" : "open"
+                        } bg-[#212b36] side-menu ptphg-4 absolute left-0 top-[92px] h-screen w-[190px] md:top-[87px]`}
                     style={{ display: toggle ? "flex" : "none" }}
                 >
                     <List className="text-white">
                         <Link
                             href={route("dashboard")}
-                            className={`${
-                                currentRoute === "dashboard"
-                                    ? "bg-blue-gray-50/50 rounded-lg w-[175px]"
-                                    : ""
-                            }`}
+                            className={`${currentRoute === "dashboard"
+                                ? "bg-blue-gray-50/50 rounded-lg w-[175px]"
+                                : ""
+                                }`}
                         >
                             <ListItem>
                                 <ListItemPrefix>
@@ -316,9 +307,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             icon={
                                 <IconChevronDown
                                     strokeWidth={2.5}
-                                    className={`mx-auto h-4 w-4 transition-transform ${
-                                        open === 1 ? "rotate-180" : ""
-                                    }`}
+                                    className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""
+                                        }`}
                                 />
                             }
                         >
@@ -342,11 +332,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 <List className="p-0 text-white">
                                     <Link
                                         href={route("admin.blogs.index")}
-                                        className={`${
-                                            currentRoute === "admin.blogs.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.blogs.index"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -362,11 +351,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                     </Link>
                                     <Link
                                         href={route("admin.blogs.add")}
-                                        className={`${
-                                            currentRoute === "admin.blogs.add"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.blogs.add"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -384,12 +372,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                         href={route(
                                             "admin.blogs.categories.index"
                                         )}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.blogs.categories.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -405,12 +392,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                     </Link>
                                     <Link
                                         href={route("admin.blogs.tags.index")}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.blogs.tags.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -432,9 +418,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             icon={
                                 <IconChevronDown
                                     strokeWidth={2.5}
-                                    className={`mx-auto h-4 w-4 transition-transform ${
-                                        open === 2 ? "rotate-180" : ""
-                                    }`}
+                                    className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""
+                                        }`}
                                 />
                             }
                         >
@@ -458,12 +443,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 <List className="p-0 text-white menu-details">
                                     <Link
                                         href={route("admin.events.index")}
-                                        className={`${
-                                            currentRoute ===
+                                        className={`${currentRoute ===
                                             "admin.events.index"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -480,11 +464,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
                                     <Link
                                         href={route("admin.events.add")}
-                                        className={`${
-                                            currentRoute === "admin.events.add"
-                                                ? "bg-blue-gray-50/50 rounded-lg"
-                                                : ""
-                                        }`}
+                                        className={`${currentRoute === "admin.events.add"
+                                            ? "bg-blue-gray-50/50 rounded-lg"
+                                            : ""
+                                            }`}
                                     >
                                         <ListItem className="menu-details">
                                             <ListItemPrefix>
@@ -504,11 +487,10 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
                         <Link
                             href={route("admin.users.index")}
-                            className={`${
-                                currentRoute === "admin.users.index"
-                                    ? "bg-blue-gray-50/50 rounded-lg"
-                                    : ""
-                            }`}
+                            className={`${currentRoute === "admin.users.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
                         >
                             <ListItem className="menu-details">
                                 <ListItemPrefix>
