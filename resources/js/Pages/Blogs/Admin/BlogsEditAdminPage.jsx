@@ -165,7 +165,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             <div className="categories">
                                                 <InputLabel value={'Categories'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {categories.length && categories.map((item, index) => {
+                                                    {categories.length > 0 && categories.map((item, index) => {
                                                         return (
                                                             <div className="" key={index}>
                                                                 <label className='pb-3 block'>
@@ -189,7 +189,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             <div className="tags">
                                                 <InputLabel value={'Tags'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {tags.length && tags.map((item, index) => {
+                                                    {tags.length > 0 && tags.map((item, index) => {
                                                         return (
                                                             <div className="" key={index}>
                                                                 <label className='pb-3 block'>

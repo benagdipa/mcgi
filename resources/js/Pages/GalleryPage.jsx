@@ -136,7 +136,7 @@ export default function GalleryPage({ auth }) {
                                 <p>Inspirational Bible Verses (KJV)</p>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {desktop_inspirational.length && desktop_inspirational.map((item, index) => {
+                                        {desktop_inspirational.length > 0 && desktop_inspirational.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item
@@ -157,7 +157,7 @@ export default function GalleryPage({ auth }) {
                                 <p className='py-4'>Inspirational Quotes</p>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {desktop_quote.length && desktop_quote.map((item, index) => {
+                                        {desktop_quote.length > 0 && desktop_quote.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item
@@ -183,7 +183,7 @@ export default function GalleryPage({ auth }) {
                                 <p>Inspirational Bible Verses (KJV)</p>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {mobile_insp.length && mobile_insp.map((item, index) => {
+                                        {mobile_insp.length > 0 && mobile_insp.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item
@@ -204,7 +204,7 @@ export default function GalleryPage({ auth }) {
                                 <p>Inspirational Quotes</p>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {mobile_quote.length && mobile_quote.map((item, index) => {
+                                        {mobile_quote.length > 0 && mobile_quote.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item
@@ -229,7 +229,7 @@ export default function GalleryPage({ auth }) {
                                 <h1 className='text-2xl font-semibold'>Backgrounds</h1>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {backgrounds.length && backgrounds.map((item, index) => {
+                                        {backgrounds.length > 0 && backgrounds.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item
@@ -254,7 +254,7 @@ export default function GalleryPage({ auth }) {
                                 <h1 className='text-2xl font-semibold'>Templates</h1>
                                 <div className="grid grid-cols-3 gap-3 mt-4">
                                     <Gallery>
-                                        {templates.length && templates.map((item, index) => {
+                                        {templates.length > 0 && templates.map((item, index) => {
                                             return (
                                                 <React.Fragment key={index}>
                                                     <Item

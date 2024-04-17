@@ -150,7 +150,7 @@ export default function Register({ locale }) {
                                             required
                                         >
                                             <option value="">Select Locale</option>
-                                            {locale.length && locale.map((item, index) => {
+                                            {locale.length > 0 && locale.map((item, index) => {
                                                 return (
                                                     <option value={item.id} key={item.id}>{item.title}</option>
                                                 )

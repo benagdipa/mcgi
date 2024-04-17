@@ -49,7 +49,7 @@ export default function EventsPage({ auth, events }) {
                                     <span className='block border-t h w-full border-black'></span>
                                 </div>
                                 <div className="events my-12">
-                                    {events.length && events?.map((item, index) => {
+                                    {events.length > 0 && events?.map((item, index) => {
                                         const date = new Date(item?.start_date)
                                         const dayOfWeek = date.getDay();
 

@@ -223,7 +223,7 @@ export default function HomePage({ auth, posts, events }) {
                             </div>
                             <div className="events-wrapper pt-16 lg:pt-40 pb-10">
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-                                    {events.length && events?.map((item, index) => {
+                                    {events.length > 0 && events?.map((item, index) => {
                                         const date = new Date(item?.start_date)
                                         const dayOfWeek = date.getDay();
                                         return (
@@ -267,7 +267,7 @@ export default function HomePage({ auth, posts, events }) {
                             </div>
                             <div className="blog-items pt-16 lg:pt-32">
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                                    {posts?.length && posts.map((post) => {
+                                    {posts?.length > 0 && posts.map((post) => {
                                         const date = DateTime.fromISO(post?.created_at, { zone: 'utc' })
                                         return (
                                             <React.Fragment key={post?.id}>
