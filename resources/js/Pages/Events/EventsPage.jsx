@@ -3,7 +3,25 @@ import { Head, Link } from '@inertiajs/react'
 import { IconMapPin } from '@tabler/icons-react'
 import React from 'react'
 
-export default function EventsPage({ auth }) {
+export default function EventsPage({ auth, events }) {
+
+    const daysList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function formatDateRange(start_date_str, end_date_str) {
+        const startDateObj = new Date(start_date_str);
+        const endDateObj = new Date(end_date_str);
+        const startDateFormat = startDateObj.toLocaleString('default', { month: 'long', day: 'numeric' });
+        const endDateFormat = endDateObj.toLocaleString('default', { month: 'long', day: 'numeric' });
+        const startTimeFormat = startDateObj.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true });
+        const endTimeFormat = endDateObj.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true });
+        if (startDateObj.toDateString() === endDateObj.toDateString()) {
+            return `${startDateFormat} @ ${startTimeFormat} - ${endTimeFormat}`;
+        } else {
+            return `${startDateFormat} @ ${startTimeFormat} - ${endDateFormat} @ ${endTimeFormat}`;
+        }
+    }
+
+
     return (
         <Guest user={auth?.user}>
             <Head title='Events' />
@@ -31,212 +49,36 @@ export default function EventsPage({ auth }) {
                                     <span className='block border-t h w-full border-black'></span>
                                 </div>
                                 <div className="events my-12">
-                                    <div className="event-wrapper">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
+                                    {events.length && events?.map((item, index) => {
+                                        const date = new Date(item?.start_date)
+                                        const dayOfWeek = date.getDay();
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
+                                        return (
+                                            <React.Fragment key={item?.id}>
+                                                <div className="event-wrapper mb-8">
+                                                    <div className="flex gap-4">
+                                                        <div className="date basis-1/12">
+                                                            <div className="text-center font-dmsans">
+                                                                <p className='text-lg text-black'>{daysList[dayOfWeek]} <span className='block text-4xl font-bold'>{date.getDate()}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="event-content basis-11/12">
+                                                            <div className="flex">
+                                                                <div className="w-full">
+                                                                    <span className='font-dmsans'>{formatDateRange(item?.start_date, item?.end_date)}</span>
+                                                                    <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>{item?.title}</h1>
+                                                                    <div className='mt-4 text-gray-500 text-base'>
+                                                                        <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span>{item?.address}</div>
+                                                                        <div dangerouslySetInnerHTML={{ __html: item?.content }} />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
                                                 </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="monthly-events">
-                                <div className="flex items-center relative">
-                                    <span className='w-32 font-bold text-xl font-dmsans'>May 2024</span>
-                                    <span className='block border-t h w-full border-black'></span>
-                                </div>
-                                <div className="events my-12">
-                                    <div className="event-wrapper">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-wrapper mt-4">
-                                        <div className="flex">
-                                            <div className="date basis-1/12">
-                                                <div className="text-center font-dmsans">
-                                                    <p className='text-lg text-black'>Tue <span className='block text-4xl font-bold'>2</span></p>
-                                                </div>
-                                            </div>
-                                            <div className="event-content basis-11/12">
-                                                <div className="flex">
-                                                    <div className="w-2/3 font-dmsans">
-                                                        <span className='font-dmsans'>April 2 @ 8:00 am - 5:00 pm</span>
-                                                        <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                                        <div className='mt-4 text-gray-500 text-base'>
-                                                            <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span> Church 350 5th Ave, New York, NY, United States</div>
-                                                            <p>All mothers are invited to our February MOM's Group meeting!</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="image-wrapper w-1/3">
-                                                        <img src="/images/events.jpg" alt="" className='w-full h-[300px] object-contain' />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </React.Fragment>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
