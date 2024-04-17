@@ -14,33 +14,14 @@ export default function EventsAddAdmin({ auth }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
-        slug: '',
-        start_date: new Date(),
-        end_date: new Date(),
-        featureImage: null,
+        start_date: formatDateToYMDHIS(new Date()),
+        end_date: formatDateToYMDHIS(new Date()),
+        address: '',
         content: '',
         status: '',
     });
 
     const editorRef = useRef(null);
-    const [previewFile, setPreviewFile] = useState('')
-    const hiddenFileInput = useRef(null);
-
-    useEffect(() => {
-        const value = data?.title
-        const slug = value.replace(/\s+/g, '-').toLowerCase();
-        setData('slug', slug)
-    }, [data.title])
-
-    const handleClick = (event) => {
-        hiddenFileInput.current.click();
-    };
-
-    const handleFileChange = event => {
-        const url = URL.createObjectURL(event.target.files[0])
-        setData('featureImage', event.target.files[0])
-        setPreviewFile(url)
-    };
 
     const formSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +35,6 @@ export default function EventsAddAdmin({ auth }) {
         var hours = ('0' + date.getHours()).slice(-2);
         var minutes = ('0' + date.getMinutes()).slice(-2);
         var seconds = ('0' + date.getSeconds()).slice(-2);
-
         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
@@ -93,16 +73,6 @@ export default function EventsAddAdmin({ auth }) {
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-poppins font-semibold' />
-                                        <TextInput
-                                            name="slug"
-                                            value={data.slug}
-                                            onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-md font-poppins"
-                                        />
-                                        <InputError message={errors.slug} className="mt-2" />
-                                    </div>
-                                    <div className="form-item mb-4">
                                         <InputLabel value={'Start Date'} className='mb-1 font-poppins font-semibold' />
                                         <DatePicker
                                             selected={new Date(data.start_date)}
@@ -110,8 +80,6 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
-                                            minDate={data.start_date}
-                                            // minDate={data.start_date}
                                         />
                                         <InputError message={errors.start_date} className="mt-2" />
                                     </div>
@@ -123,12 +91,19 @@ export default function EventsAddAdmin({ auth }) {
                                             showTimeSelect
                                             dateFormat="Pp"
                                             className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
-                                            minDate={data.end_date}
-                                            // minDate={data.end_date}
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
-
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'Address'} className='mb-1 font-poppins font-semibold' />
+                                        <TextInput
+                                            name="address"
+                                            value={data.address}
+                                            onChange={(e) => setData('address', e.target.value)}
+                                            className="w-full rounded-md font-poppins"
+                                        />
+                                        <InputError message={errors.address} className="mt-2" />
+                                    </div>
                                     <div className="form-item">
                                         <InputLabel value={'Content'} className='mb-1 font-poppins font-semibold' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
@@ -138,7 +113,7 @@ export default function EventsAddAdmin({ auth }) {
                                                 onChange={() => setData('content', editorRef.current.getContent())}
                                                 initialValue={data.content}
                                                 init={{
-                                                    height: 600,
+                                                    height: 450,
                                                     menubar: false,
                                                     plugins: [
                                                         'a11ychecker',
@@ -190,24 +165,6 @@ export default function EventsAddAdmin({ auth }) {
                                                     <option value="publish">Publish</option>
                                                 </select>
                                                 <InputError message={errors.status} className="mt-2" />
-                                            </div>
-                                        </div>
-                                        <div className="form-item mb-4">
-                                            <div className="featured-image">
-                                                <InputLabel value={'Featured Image'} className='mb-1 font-poppins font-semibold' />
-                                                <div className="categories-items border p-4 rounded">
-                                                    <img src={previewFile} />
-                                                    <input
-                                                        type="file"
-                                                        name='featureImage'
-                                                        hidden
-                                                        onChange={handleFileChange}
-                                                        ref={hiddenFileInput}
-                                                        value={''}
-                                                    />
-                                                    <a className='bg-transparent cursor-pointer' onClick={handleClick}>Set Featured Image</a>
-                                                    <InputError message={errors.featureImage} className="mt-2" />
-                                                </div>
                                             </div>
                                         </div>
                                         <div className="form-item">
