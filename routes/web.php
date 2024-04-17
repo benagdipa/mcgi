@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LocaleController;
@@ -28,6 +28,8 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/terms-conditions','conditionPage')->name('terms-and-condition');
     Route::get('/gallery','gallery_page')->name('gallery');
 });
+
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
