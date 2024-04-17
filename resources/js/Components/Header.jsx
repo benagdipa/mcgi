@@ -25,7 +25,7 @@ export default function Header({ user }) {
                                 </div>
                                 <div className="middle-section">
                                     <div className="menu-wrapper flex ">
-                                        <ul className='flex gap-4'>
+                                        <ul className='flex gap-8'>
                                             <li className='font-semibold text-lg font-montserrat'>
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
@@ -68,11 +68,11 @@ export default function Header({ user }) {
                                                     </Link>
                                                 )}
                                             </li>
-                                            <li className='font-semibold text-lg font-montserrat'>
+                                            {/* <li className='font-semibold text-lg font-montserrat'>
                                                 <a href="tel:+61450780530">
                                                     <span className='flex items-center'><IconPhoneCall size={22} strokeWidth={1.5} /> <span className='pl-2'>+61450780530</span></span>
                                                 </a>
-                                            </li>
+                                            </li> */}
                                         </ul>
                                         <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
