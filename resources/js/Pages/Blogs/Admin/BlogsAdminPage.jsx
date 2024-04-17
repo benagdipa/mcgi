@@ -230,7 +230,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     className="mb-1 font-poppins font-semibold"
                                                 />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {categories.length &&
+                                                    {categories.length > 0 &&
                                                         categories.map(
                                                             (item, index) => {
                                                                 return (
@@ -277,7 +277,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     className="mb-1 font-poppins font-semibold"
                                                 />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {tags.length &&
+                                                    {tags.length > 0 &&
                                                         tags.map(
                                                             (item, index) => {
                                                                 return (
