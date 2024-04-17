@@ -4,7 +4,7 @@ import TextInput from '@/Components/TextInput'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, useForm, Link } from '@inertiajs/react'
 import { Editor } from '@tinymce/tinymce-react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -12,34 +12,14 @@ export default function EventsAddAdmin({ auth, event }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         title: event.title,
-        slug: event.slug,
         start_date: event.start_date,
         end_date: event.end_date,
-        featureImage: null,
+        address: event.address,
         content: event.content,
         status: event.status,
     });
 
     const editorRef = useRef(null);
-    const [previewFile, setPreviewFile] = useState(event.featured_image)
-    const hiddenFileInput = useRef(null);
-
-    useEffect(() => {
-        const value = data?.title
-        const slug = value.replace(/\s+/g, '-').toLowerCase();
-        setData('slug', slug)
-    }, [data.title])
-
-    const handleClick = (event) => {
-        hiddenFileInput.current.click();
-    };
-
-    const handleFileChange = event => {
-        const url = URL.createObjectURL(event.target.files[0])
-        setData('featureImage', event.target.files[0])
-        setPreviewFile(url)
-    };
-
     const formSubmit = (e) => {
         e.preventDefault();
         post(route('admin.events.update', event.id))
@@ -88,16 +68,6 @@ export default function EventsAddAdmin({ auth, event }) {
                                         <InputError message={errors.title} className="mt-2" />
                                     </div>
                                     <div className="form-item mb-4">
-                                        <InputLabel value={'Slug'} className='mb-1 font-poppins font-semibold' />
-                                        <TextInput
-                                            name="slug"
-                                            value={data.slug}
-                                            onChange={(e) => setData('slug', e.target.value)}
-                                            className="w-full rounded-md font-poppins"
-                                        />
-                                        <InputError message={errors.slug} className="mt-2" />
-                                    </div>
-                                    <div className="form-item mb-4">
                                         <InputLabel value={'Start Date'} className='mb-1 font-poppins font-semibold' />
                                         <DatePicker
                                             selected={new Date(data.start_date)}
@@ -121,7 +91,16 @@ export default function EventsAddAdmin({ auth, event }) {
                                         />
                                         <InputError message={errors.end_date} className="mt-2" />
                                     </div>
-
+                                    <div className="form-item mb-4">
+                                        <InputLabel value={'Address'} className='mb-1 font-poppins font-semibold' />
+                                        <TextInput
+                                            name="address"
+                                            value={data.address}
+                                            onChange={(e) => setData('address', e.target.value)}
+                                            className="w-full rounded-md font-poppins"
+                                        />
+                                        <InputError message={errors.address} className="mt-2" />
+                                    </div>
                                     <div className="form-item">
                                         <InputLabel value={'Content'} className='mb-1 font-poppins font-semibold' />
                                         <div className="custom-ckeditor" style={{ height: '400px' }}>
@@ -131,7 +110,7 @@ export default function EventsAddAdmin({ auth, event }) {
                                                 onChange={() => setData('content', editorRef.current.getContent())}
                                                 initialValue={data.content}
                                                 init={{
-                                                    height: 600,
+                                                    height: 450,
                                                     menubar: false,
                                                     plugins: [
                                                         'a11ychecker',
@@ -183,24 +162,6 @@ export default function EventsAddAdmin({ auth, event }) {
                                                     <option value="publish">Publish</option>
                                                 </select>
                                                 <InputError message={errors.status} className="mt-2" />
-                                            </div>
-                                        </div>
-                                        <div className="form-item mb-4">
-                                            <div className="featured-image">
-                                                <InputLabel value={'Featured Image'} className='mb-1 font-poppins font-semibold' />
-                                                <div className="categories-items border p-4 rounded">
-                                                    <img src={previewFile} />
-                                                    <input
-                                                        type="file"
-                                                        name='featureImage'
-                                                        hidden
-                                                        onChange={handleFileChange}
-                                                        ref={hiddenFileInput}
-                                                        value={''}
-                                                    />
-                                                    <a className='bg-transparent cursor-pointer text-base' onClick={handleClick}>Set Featured Image</a>
-                                                    <InputError message={errors.featureImage} className="mt-2" />
-                                                </div>
                                             </div>
                                         </div>
                                         <div className="form-item">

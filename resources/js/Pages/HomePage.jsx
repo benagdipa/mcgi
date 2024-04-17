@@ -9,7 +9,8 @@ import { IconPlayerPlay } from '@tabler/icons-react';
 import { DateTime } from 'luxon';
 
 
-export default function HomePage({ auth, posts }) {
+export default function HomePage({ auth, posts, events }) {
+    console.log(events);
 
     const extractWords = (inputString, numWords) => {
         let words = inputString.split(/\s+/);
@@ -29,6 +30,22 @@ export default function HomePage({ auth, posts }) {
 
     const togglePrayModal = () => {
         setPrayModalState(!prayModalState)
+    }
+
+    const daysList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function formatDateRange(start_date_str, end_date_str) {
+        const startDateObj = new Date(start_date_str);
+        const endDateObj = new Date(end_date_str);
+        const startDateFormat = startDateObj.toLocaleString('default', { month: 'long', day: 'numeric' });
+        const endDateFormat = endDateObj.toLocaleString('default', { month: 'long', day: 'numeric' });
+        const startTimeFormat = startDateObj.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true });
+        const endTimeFormat = endDateObj.toLocaleString('default', { hour: 'numeric', minute: 'numeric', hour12: true });
+        if (startDateObj.toDateString() === endDateObj.toDateString()) {
+            return `${startDateFormat} @ ${startTimeFormat} - ${endTimeFormat}`;
+        } else {
+            return `${startDateFormat} @ ${startTimeFormat} - ${endDateFormat} @ ${endTimeFormat}`;
+        }
     }
 
     return (
@@ -206,112 +223,29 @@ export default function HomePage({ auth, posts }) {
                             </div>
                             <div className="events-wrapper pt-16 lg:pt-40 pb-10">
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-                                    <div className="event-column grid grid-cols-1 gap-6">
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
+                                    {events.length && events?.map((item, index) => {
+                                        const date = new Date(item?.start_date)
+                                        const dayOfWeek = date.getDay();
+                                        return (
+                                            <div className="event-item text-white" key={index}>
+                                                <div className="flex gap-6 items-start justify-start">
+                                                    <div className="event-date text-center">
+                                                        <p className="text-2xl lg:text-3xl font-bold ">{daysList[dayOfWeek]}</p>
+                                                        <p className='text-4xl lg:text-6xl font-normal pt-4 '>{date.getDate()}</p>
                                                     </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
-                                                    </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
+                                                    <div className="pl-3 info">
+                                                        <div className="event-time">
+                                                            <p className=' text-sm font-semibold'>{formatDateRange(item?.start_date, item?.end_date)}</p>
+                                                        </div>
+                                                        <div className="event-title pt-2">
+                                                            <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>{item?.title}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
-                                                    </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="event-column grid grid-cols-1 gap-6">
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
-                                                    </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
-                                                    </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="event-item text-white">
-                                            <div className="flex gap-6 items-center justify-start">
-                                                <div className="event-date text-center">
-                                                    <p className="text-2xl lg:text-3xl font-bold ">Apr</p>
-                                                    <p className='text-4xl lg:text-6xl font-normal pt-4 '>23</p>
-                                                </div>
-                                                <div className="pl-3 info">
-                                                    <div className="event-time">
-                                                        <p className=' text-sm font-semibold'>8:00 AM - 5:00 PM</p>
-                                                    </div>
-                                                    <div className="event-title pt-2">
-                                                        <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>Lorem
-                                                            ipsum dolor sit amet, consectetur</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        )
+                                    })}
+
                                 </div>
                             </div>
                             <div className="btn-wrapper">
