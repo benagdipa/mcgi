@@ -3,6 +3,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -24,9 +25,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/', 'homePage')->name('home');
     Route::get('/about-us', 'aboutPage')->name('about');
     Route::get('/contact-us', 'contactPage')->name('contact');
-    Route::get('/privacy-policy','privacyPage')->name('privacy-and-policy');
-    Route::get('/terms-conditions','conditionPage')->name('terms-and-condition');
-    Route::get('/gallery','gallery_page')->name('gallery');
+    Route::get('/privacy-policy', 'privacyPage')->name('privacy-and-policy');
+    Route::get('/terms-conditions', 'conditionPage')->name('terms-and-condition');
+    Route::get('/gallery', 'gallery_page')->name('gallery');
 });
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
@@ -84,6 +85,13 @@ Route::controller(LocaleController::class)->group(function () {
     Route::post('/dashboard/locale', 'admin_store')->name('admin.locale.store');
     Route::post('/dashboard/locale/{id}/edit', 'admin_update')->name('admin.locale.update');
     Route::delete('/dashboard/locale/{id}', 'admin_delete')->name('admin.locale.delete');
+});
+
+Route::controller(LocationController::class)->group(function () {
+    Route::get('/dashboard/locations', 'admin_index')->name('admin.location.index');
+    Route::post('/dashboard/locations', 'admin_store')->name('admin.location.store');
+    Route::post('/dashboard/locations/{id}/edit', 'admin_update')->name('admin.location.update');
+    Route::delete('/dashboard/locations/{id}', 'admin_delete')->name('admin.location.delete');
 });
 
 Route::controller(UserController::class)->group(function () {
