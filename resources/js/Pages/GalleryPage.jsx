@@ -115,7 +115,7 @@ export default function GalleryPage({ auth }) {
         <Guest user={auth?.user}>
             <Head>
                 <title>Wallpaper Image Gallery</title>
-                <meta name="title" content="Wallpapers"/>
+                <meta name="title" content="Wallpapers Image Gallery"/>
                 <meta name="keywords" content="Wallpaper Image Gallery"/>
                 <meta name="descriptions" content="May these Bible verses and quotes remind us that we are not alone, and that we have God on our side. Download these wallpapers on your mobile and desktop devices today. May God keep you all safe!"/>
             </Head>
