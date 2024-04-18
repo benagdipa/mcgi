@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
@@ -101,5 +102,13 @@ Route::controller(UserController::class)->group(function () {
     });
 });
 
-
+Route::controller(AlbumController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/albums', 'admin_album_index')->name('admin.album.index');
+        Route::post('/dashboard/albums', 'admin_album_store')->name('admin.album.store');
+        Route::get('/dashboard/albums/{id}/view', 'admin_album_view')->name('admin.album.view');
+        Route::post('/dashboard/albums/{id}/edit', 'admin_album_update')->name('admin.album.update');
+        Route::delete('/dashboard/albums/{id}', 'admin_album_delete')->name('admin.album.delete');
+    });
+});
 require __DIR__ . '/auth.php';

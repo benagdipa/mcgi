@@ -11,6 +11,7 @@ import {
 } from "@material-tailwind/react";
 
 import {
+    IconAlbum,
     IconCalendar,
     IconCategory,
     IconChevronDown,
@@ -263,6 +264,22 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">
                                     Church Locations
+                                </Typography>
+                            </ListItem>
+                        </Link>
+                        <Link
+                            href={route('admin.album.index')}
+                            className={`${currentRoute === "admin.album.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
+                        >
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <IconAlbum strokeWidth={1.5} />
+                                </ListItemPrefix>
+                                <Typography className="mr-auto font-poppins font-medium">
+                                    Albums
                                 </Typography>
                             </ListItem>
                         </Link>
