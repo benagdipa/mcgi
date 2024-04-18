@@ -30,7 +30,12 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
     }
     return (
         <Guest user={auth?.user}>
-            <Head title={post.title} />
+            <Head>
+                <title>{post.title}</title>
+                <meta name="title" content={post.title} />
+                <meta name="keywords" content={post.keyword} />
+                <meta name="description" content={post.description} />
+            </Head>
             <div className="single-post">
                 <div className="top-section bg-[#0077CC] py-20">
                     <div className="max-w-screen-xl mx-auto">
