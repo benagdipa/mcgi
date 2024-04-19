@@ -16,7 +16,6 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
         featureImage: null,
         status: item.status,
     });
-    console.log('errors', errors);
     const editorRef = useRef(null);
     const [previewFile, setPreviewFile] = useState(item.featured_image)
     const [fileName, setFileName] = useState('');
