@@ -7,7 +7,7 @@ import Dropdown from './Dropdown';
 export default function Header({ user }) {
     const [toggle, setToggle] = useState(false);
     const currentRoute = route().current()
-    const hideHeader = ['login', 'register','password.request']
+    const hideHeader = ['login', 'register', 'password.request']
 
     const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
     const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'
@@ -42,7 +42,7 @@ export default function Header({ user }) {
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
-                                                <link href={route('gallery')}>Gallery</link>
+                                                <Link href={route('gallery')}>Gallery</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
                                                 <Link href={route('contact')}>Contact Us</Link>

@@ -11,7 +11,6 @@ export default function BlogsPage({ auth, posts }) {
         let result = extractedWords.join(" ");
         return result;
     }
-    console.log(posts);
     return (
         <Guest user={auth?.user}>
             <Head>
