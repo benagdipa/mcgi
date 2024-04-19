@@ -14,7 +14,12 @@ export default function BlogsPage({ auth, posts }) {
     console.log(posts);
     return (
         <Guest user={auth?.user}>
-            <Head title='Blogs' />
+            <Head>
+                <title>News, Blogs and Features</title>
+                <meta name="title" content="News, Blogs and Features"/>
+                <meta name="keywords" content="News, Blogs and Features"/>
+                <meta name="descriptions" content="Be informed and stay updated with the latest news and features from and about the Members Church of God International."/>
+            </Head>
             <div className="contact-page blog-page">
                 <div className="page-header pt-40 lg:pt-80 pb-28 ">
                     <div className="w-full">

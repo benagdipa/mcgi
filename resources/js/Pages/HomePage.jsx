@@ -12,6 +12,8 @@ import { DateTime } from 'luxon';
 export default function HomePage({ auth, posts, events }) {
     console.log(events);
 
+    const title = "Home";
+
     const extractWords = (inputString, numWords) => {
         let words = inputString.split(/\s+/);
         let extractedWords = words.slice(0, numWords);
@@ -50,7 +52,12 @@ export default function HomePage({ auth, posts, events }) {
 
     return (
         <GuestLayout user={auth?.user}>
-            <Head title="Home" />
+            <Head>
+                <title>Home</title>
+                <meta name="title" content="Members Church of God International Australia"></meta>              
+                <meta name="keywords" content="Members Church of God International MCGI Australia Christian Community Australia Spiritual Guidance Biblical Teachings Christian Fellowship Religious Services Australia Christian Charity Work Bible Study Sessions Faith-Based Community"></meta>
+                <meta name="description" content="oin the Members Church of God International in Australia for spiritual growth and community service. Explore our faith-based teachings, Bible study sessions, and opportunities for Christian fellowship and charity work. Discover a welcoming community dedicated to spreading love, hope, and the teachings of the Bible."></meta>
+            </Head>
             <div className='homepage-content'>
                 <div className="hero-slider hidden md:block">
                     <Slider {...settings}>

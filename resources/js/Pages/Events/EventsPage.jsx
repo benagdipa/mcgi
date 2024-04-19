@@ -24,7 +24,12 @@ export default function EventsPage({ auth, events }) {
 
     return (
         <Guest user={auth?.user}>
-            <Head title='Events' />
+            <Head>
+                <title>Members Church of God International Calendar of Events</title>
+                <meta name="title" content="Members Church of God International Calendar of Events"/>
+                <meta name="keywords" content="Events"/>
+                <meta name="descriptions" content="Keep updated with the schedule of Church Services and forthcoming Events of the Members Church of God International (MCGI). Add important dates to your Google calendar for reminders."/>
+            </Head>
             <div className="events-page">
                 <div className="page-header pt-80 pb-28 ">
                     <div className="w-full">
