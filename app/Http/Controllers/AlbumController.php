@@ -6,13 +6,17 @@ use Inertia\Inertia;
 use App\Models\Album;
 use App\Models\Attachment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
     public function admin_album_index()
     {
-        $albums = Album::all();
+        $albums = Album::select('albums.*', DB::raw('COUNT(attachments.id) as attachment_count'))
+            ->leftJoin('attachments', 'albums.id', '=', 'attachments.album_id')
+            ->groupBy('albums.id')
+            ->get();
         return Inertia::render('Album/AlbumAdmin', [
             'albums' => $albums
         ]);

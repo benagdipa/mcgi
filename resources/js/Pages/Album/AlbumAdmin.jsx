@@ -137,7 +137,7 @@ export default function AlbumAdmin({ auth, albums }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {albums.map(({ id, name }, index) => {
+                                {albums.map(({ id, name, attachment_count }, index) => {
                                     const isLast = index === albums.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
@@ -149,7 +149,7 @@ export default function AlbumAdmin({ auth, albums }) {
                                                 <Typography className="font-medium font-poppins">{name}</Typography>
                                             </td>
                                             <td className={classes}>
-                                                <Typography className="font-medium font-poppins">{0}</Typography>
+                                                <Typography className="font-medium font-poppins">{attachment_count}</Typography>
                                             </td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
