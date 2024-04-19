@@ -4,8 +4,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -18,8 +19,20 @@ class ContactController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);
-        // Create a new Contact instance and fill it with the validated data
+        $data = array(
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'form_message' => $request->message,
+        );
         Contact::create($validatedData);
+        Mail::send('mails/contact', $data, function ($message) {
+            $message->to('support@mcgi.org.au')->subject
+            ('New Contact Form Submission');
+            $message->from('support@mcgi.org.au', 'MCGI');
+        });
+        return to_route('contact');
+
     }
 
 }

@@ -1,9 +1,11 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link,useForm } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InputError';
 
 export default function ContactPage({ auth }) {
     const { data, setData, post, reset, errors } = useForm({
@@ -13,11 +15,7 @@ export default function ContactPage({ auth }) {
         message: ''
     });
     const [successMessage, setSuccessMessage] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [nameError, setNameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [subjectError, setSubjectError] = useState('');
-    const [messageError, setMessageError] = useState('');
+
     var settings = {
         dots: false,
         arrows: true,
@@ -27,7 +25,7 @@ export default function ContactPage({ auth }) {
         slidesToScroll: 1,
         responsive: [
             {
-                breakpoint:1024,
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 1,
                     dots: true,
@@ -39,49 +37,15 @@ export default function ContactPage({ auth }) {
 
     const formSubmit = (e) => {
         e.preventDefault();
-        let nameError = '';
-        let emailError = '';
-        let subjectError = '';
-        let messageError = '';
+        setSuccessMessage('')
+        post(route("contact.store"), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset()
+                setSuccessMessage('Message sent successfully!');
+            },
+        });
 
-        // Check if name field is empty
-        if (data.name.trim() === '') {
-            nameError = 'Please enter your name.';
-        }
-
-        // Check if email field is empty
-        if (data.email.trim() === '') {
-            emailError = 'Please enter your email address.';
-        }
-
-        // Check if subject field is empty
-        if (data.subject.trim() === '') {
-            subjectError = 'Please enter a subject.';
-        }
-
-        // Check if message field is empty
-        if (data.message.trim() === '') {
-            messageError = 'Please enter a message.';
-        }
-
-        // If there are errors, display them
-        if (nameError || emailError || subjectError || messageError) {
-            setNameError(nameError);
-            setEmailError(emailError);
-            setSubjectError(subjectError);
-            setMessageError(messageError);
-        } else {
-            // If no errors, submit the form
-            post(route("contact.store"), {
-                onSuccess: () => {
-                    reset('name', 'email', 'message', 'subject');
-                    setSuccessMessage('Message sent successfully!');
-                },
-                onError: (errors) => {
-                    setErrorMessage('An error occurred while submitting the form.');
-                }
-            });
-        }
     };
 
 
@@ -318,50 +282,50 @@ export default function ContactPage({ auth }) {
                                         <div className="form-wrapper py-8 text-black">
                                             <div className="form-row flex gap-4 mb-6">
                                                 <div className="form-item w-full">
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    placeholder="Name..."
-                                                    value={data.name}
-                                                    onChange={(e) => setData('name', e.target.value)}
-                                                    className='w-full rounded-md border-gray-300'
-                                                />
-                                                {nameError && <div className="error-message text-sm text-red-400">{nameError}</div>}
+                                                    <TextInput
+                                                        type="text"
+                                                        name="name"
+                                                        placeholder="Name..."
+                                                        value={data.name}
+                                                        onChange={(e) => setData('name', e.target.value)}
+                                                        className='w-full rounded-md border-gray-300'
+                                                    />
+                                                    <InputError message={errors.name} className="mt-2" />
                                                 </div>
                                                 <div className="form-item w-full">
-                                                <input
-                                                    type="email"
-                                                    name="email"
-                                                    placeholder="Email Address..."
-                                                    value={data.email}
-                                                    onChange={(e) => setData('email', e.target.value)}
-                                                    className='w-full rounded-md border-gray-300'
-                                                />
-                                                {emailError && <div className="error-message text-sm text-red-400">{emailError}</div>}
+                                                    <TextInput
+                                                        type="email"
+                                                        name="email"
+                                                        placeholder="Email Address..."
+                                                        value={data.email}
+                                                        onChange={(e) => setData('email', e.target.value)}
+                                                        className='w-full rounded-md border-gray-300'
+                                                    />
+                                                    <InputError message={errors.email} className="mt-2" />
                                                 </div>
                                             </div>
                                             <div className="form-row mb-6">
-                                            <input
-                                                type="text"
-                                                name="subject"
-                                                placeholder="Subject..."
-                                                value={data.subject}
-                                                onChange={(e) => setData('subject', e.target.value)}
-                                                className='w-full rounded-md border-gray-300'
-                                            />
-                                            {subjectError && <div className="error-message text-sm text-red-400">{subjectError}</div>}
+                                                <TextInput
+                                                    type="text"
+                                                    name="subject"
+                                                    placeholder="Subject..."
+                                                    value={data.subject}
+                                                    onChange={(e) => setData('subject', e.target.value)}
+                                                    className='w-full rounded-md border-gray-300'
+                                                />
+                                                <InputError message={errors.subject} className="mt-2" />
                                             </div>
                                             <div className="form-row mb-6">
-                                            <textarea
-                                                name="message"
-                                                cols="30"
-                                                rows="10"
-                                                placeholder="Message..."
-                                                value={data.message}
-                                                onChange={(e) => setData('message', e.target.value)}
-                                                className='w-full rounded-md border-gray-300'
-                                            ></textarea>
-                                            {messageError && <div className="error-message text-sm text-red-400">{messageError}</div>}
+                                                <textarea
+                                                    name="message"
+                                                    cols="30"
+                                                    rows="10"
+                                                    placeholder="Message..."
+                                                    value={data.message}
+                                                    onChange={(e) => setData('message', e.target.value)}
+                                                    className='w-full rounded-md border-gray-300'
+                                                />
+                                                <InputError message={errors.message} className="mt-2" />
                                             </div>
                                             <div className="form-row">
                                                 <div className="inline-flex">
@@ -373,11 +337,6 @@ export default function ContactPage({ auth }) {
                                     {successMessage && (
                                         <div className="success-message text-green-500 font-bold">
                                             {successMessage}
-                                        </div>
-                                    )}
-                                    {errorMessage && (
-                                        <div className="error-message text-red-500 font-bold">
-                                            {errorMessage}
                                         </div>
                                     )}
                                 </div>
