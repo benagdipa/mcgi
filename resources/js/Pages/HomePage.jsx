@@ -217,7 +217,7 @@ export default function HomePage({ auth, posts, events }) {
                     <div className="w-full bg-[#10102e] px-6 rounded-[50px] lg:rounded-[80px]">
                         <div className="max-w-screen-xl mx-auto py-20 lg:py-36">
                             <div className="title-wrapper text-white relative">
-                                <h1 className='text-white text-3xl lg:text-6xl font-bold uppercase font-marcellus'>Upcomming Events</h1>
+                                <h1 className='text-white text-3xl lg:text-6xl font-bold uppercase font-marcellus'>Upcoming Events</h1>
                                 <p className='text-3xl lg:text-7xl text-[#ECECEC] opacity-35 absolute top-6 md:top-12'>join us in
                                     worship and fellowship</p>
                             </div>
