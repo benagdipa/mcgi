@@ -10,8 +10,6 @@ import { DateTime } from 'luxon';
 
 
 export default function HomePage({ auth, posts, events }) {
-    console.log(events);
-
     const title = "Home";
 
     const extractWords = (inputString, numWords) => {
