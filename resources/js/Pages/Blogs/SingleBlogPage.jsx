@@ -72,7 +72,7 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                 <div className="content-section pt-20 mb-20">
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                         <div className="content-wrapper">
-                            <div dangerouslySetInnerHTML={{ __html: post?.content }} />
+                            <div class="description" dangerouslySetInnerHTML={{ __html: post?.content }} />
                         </div>
                         <div className='tags pt-10'>
                             <div className=" space-x-3">
