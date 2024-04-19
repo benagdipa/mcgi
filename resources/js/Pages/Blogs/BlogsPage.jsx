@@ -55,13 +55,17 @@ export default function BlogsPage({ auth, posts }) {
                                                         </h4>
                                                     </Link>
                                                 </div>
-                                                <div dangerouslySetInnerHTML={{
-                                                    __html: post?.content ? post.content.replace(/<img.*?>/g, '') // Remove image tags
+                                                <div class="description" dangerouslySetInnerHTML={{
+                                                    __html: post?.content ? post.content
+                                                        .replace(/<img.*?>/g, '') // Remove image tags
                                                         .replace(/<[^>]+>/g, '') // Remove all other HTML tags
-                                                        .split(' ').slice(0, 20).join(' ')
-                                                        : ''
-                                                }}
-                                                />
+                                                        .replace(/&nbsp;/g, ' ') // Replace &nbsp; with regular space
+                                                        .split(' ')
+                                                        .slice(0, 20)
+                                                        .join(' ')
+                                                    : ''
+                                                }} />
+
                                                 {/* <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div> */}
                                                 <div className="link">
                                                     <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
