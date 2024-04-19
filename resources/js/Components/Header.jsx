@@ -42,6 +42,9 @@ export default function Header({ user }) {
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
+                                                <link href={route('gallery')}>Gallery</link>
+                                            </li>
+                                            <li className='font-semibold text-base font-montserrat'>
                                                 <Link href={route('contact')}>Contact Us</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
@@ -99,6 +102,7 @@ export default function Header({ user }) {
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={prayerHref}>Community Prayer</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={charityHref}>Charities</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('gallery')}>Gallery</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('contact')}>Contact Us</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
                                         </ul>
