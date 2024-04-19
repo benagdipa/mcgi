@@ -5,7 +5,12 @@ import { Head, Link } from '@inertiajs/react';
 export default function AboutPage({ auth }) {
     return (
         <GuestLayout user={auth?.user}>
-            <Head title="About" />
+            <Head>
+                <title>About Us</title>
+                <meta name="title" content="About Us"/>
+                <meta name="keywords" content="About Us"/>
+                <meta name="description" content="Welcome to Members Church of God International (MCGI) Australia. As part of our global mission, we invite Australians to explore our enriching doctrines rooted in the Bible. Our activities extend beyond spiritual teachings, encompassing public services like charity and community support. Guided by Bro. Eli Soriano and Bro. Daniel Razon, we aim to foster a deeper understanding of God's word, encouraging personal growth and community welfare. Join us in our quest for truth and spirituality, and be part of a journey that uplifts and serves both soul and society."/>
+            </Head>
             <div className="about-page">
                 <div className="page-header pt-[70px] md:pt-80 pb-28 ">
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">

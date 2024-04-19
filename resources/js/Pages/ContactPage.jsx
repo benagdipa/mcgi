@@ -88,7 +88,12 @@ export default function ContactPage({ auth }) {
 
     return (
         <GuestLayout user={auth?.user}>
-            <Head title='Contact Us' />
+            <Head>
+                <title>Contact Us</title>
+                <meta name="title" content="Contact Us"/>
+                <meta name="keywords" content=""/>
+                <meta name="description" content=""/>
+            </Head>
             <div className="contact-page">
                 <div className="page-header  pt-[70px] md:pt-80 pb-28 ">
                     <div className="w-full">

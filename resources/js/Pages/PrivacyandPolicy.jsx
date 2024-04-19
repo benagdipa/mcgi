@@ -4,7 +4,12 @@ import { Head, Link } from '@inertiajs/react'
 export default function PrivacyandPolicy({ auth }) {
     return (
         <GuestLayout user={auth?.user}>
-            <Head title="Privacy and Policy" />
+            <Head>
+                <title>Privacy Policy</title>
+                <meta name="title" content="Privacy Policy"/>
+                <meta name="keywords" content="Privacy Policy"/>
+                <meta name="descriptions" content="Privacy Policy"/>
+            </Head>
             <div className="privacy-policy-page">
                 <div className="page-header pt-[70px] md:pt-80 pb-28 ">
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">
