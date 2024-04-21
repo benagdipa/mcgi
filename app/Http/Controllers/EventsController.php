@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use DateTimeZone;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Events;
 use Illuminate\Http\Request;
@@ -93,5 +94,16 @@ class EventsController extends Controller
         $event = Events::findOrFail($id);
         $event->delete();
         return to_route('admin.events.index');
+    }
+
+    public function search_user(Request $request)
+    {
+        $search = $request->input('query');
+        if (!empty($search)) {
+            $users = User::where('email', 'like', "%$search%")
+                ->orWhere('phone', 'like', "%$search%")
+                ->get();
+            return $users;
+        }
     }
 }
