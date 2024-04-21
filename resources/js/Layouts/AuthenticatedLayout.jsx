@@ -4,6 +4,9 @@ import AdminHeader from "@/Components/Admin/AdminHeader";
 
 export default function Authenticated({ user, header, children }) {
     const [toggle, setToggle] = useState(false);
+    const onSetToggleHandler=()=>{
+        setToggle(!toggle);
+    }
     const currentRoute = route().current()
 
     const findCategoryIndex = (searchString) => {
@@ -28,13 +31,13 @@ export default function Authenticated({ user, header, children }) {
     return (
         <React.Fragment>
             <div className="desktop-view h-screen w-full">
-                <AdminHeader user={user} />
+                <AdminHeader onSetToggleHandler={onSetToggleHandler} user={user} />
                 <div className="w-full">
                     <div className="flex">
-                        <aside className="main-sidebar bg-[#212b36] w-[20rem] fixed h-screen">
+                    <aside className={`main-sidebar bg-[#212b36] w-[20rem] fixed h-screen ${toggle ? 'block' : 'hidden'} lg:block`}>
                             <Sidebar current={findCategoryIndex(currentRoute)} />
                         </aside>
-                        <div className="main-content ml-[20rem] w-full">
+                        <div className={`main-content  w-full ${toggle ? 'ml-[20rem]' : 'ml-0'} lg:ml-[20rem]` }>
                             {children}
                         </div>
                     </div>
