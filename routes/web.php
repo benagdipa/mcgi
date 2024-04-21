@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EventsController;
@@ -79,6 +80,10 @@ Route::controller(EventsController::class)->group(function () {
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
     });
+});
+
+Route::controller(AttendanceController::class)->group(function () {
+    Route::post('/attendance/store', 'store')->name('event.attendence.store');
 });
 
 Route::controller(LocaleController::class)->group(function () {
