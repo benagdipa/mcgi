@@ -82,7 +82,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                         </div>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="page-content w-[95%] mx-auto lg:w-full pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
                             <div className="flex md:flex-row flex-col gap-12">

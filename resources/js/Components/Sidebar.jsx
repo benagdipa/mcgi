@@ -32,8 +32,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
     const currentRoute = route().current();
     return (
-        <Card className="rounded-none md:bg-[#212b36] border-b-2 md:border-b-[0] text-white shadow-none">
-            <div className="desktop-view">
+        <Card className="rounded-none bg-[#212b36] border-b-[0] text-white shadow-none">
+            <div className="desktop-view ">
                 <div className="side-menu p-4">
                     <List className="text-white">
                         <Link

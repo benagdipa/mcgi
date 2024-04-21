@@ -73,7 +73,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                         <Link href={route('admin.blogs.add')} className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins'>Add New</Link>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="page-content w-[95%] mx-auto lg:w-full pt-8">
                     <Card className="h-full w-full overflow-scroll rounded-none font-poppins">
                         <table className="w-full min-w-max table-auto text-left">
                             <thead>

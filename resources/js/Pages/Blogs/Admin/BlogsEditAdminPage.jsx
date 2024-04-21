@@ -72,10 +72,10 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                         </div>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="page-content w-[95%] mx-auto lg:w-full pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
-                            <div className="flex md:flex-row flex-col gap-6">
+                            <div className="flex lg:flex-row flex-col gap-6">
                                 <div className="md:w-9/12">
                                     <div className="form-item mb-4">
                                         <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
