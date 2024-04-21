@@ -234,7 +234,7 @@ export default function EventsPage({ auth, events }) {
                                                         onChange={(e) => handleChange(item.id, 'name', e.target.value)}
 
                                                     />
-                                                    <InputError message={errors[`attendenceRows.${index}.name`]} className="mt-2" />
+                                                    <InputError message={errors[`attendenceRows.${index}.name`]} className="absolute" />
                                                 </div>
                                                 <div className="w-1/3">
                                                     <InputLabel value="Email Address" className='mb-1 font-poppins font-semibold' />
@@ -245,7 +245,7 @@ export default function EventsPage({ auth, events }) {
                                                         value={item?.email}
                                                         onChange={(e) => handleChange(item.id, 'email', e.target.value)}
                                                     />
-                                                    <InputError message={errors[`attendenceRows.${index}.email`]} className="mt-2" />
+                                                    <InputError message={errors[`attendenceRows.${index}.email`]} className="absolute" />
                                                 </div>
                                                 <div className="w-1/3">
                                                     <InputLabel value="Phone" className='mb-1 font-poppins font-semibold' />
@@ -256,7 +256,7 @@ export default function EventsPage({ auth, events }) {
                                                         value={item?.phone}
                                                         onChange={(e) => handleChange(item.id, 'phone', e.target.value)}
                                                     />
-                                                    <InputError message={errors[`attendenceRows.${index}.phone`]} className="mt-2" />
+                                                    <InputError message={errors[`attendenceRows.${index}.phone`]} className="absolute" />
                                                 </div>
                                                 <div className="btn-wrapper px-3 pt-5 cursor-pointer">
                                                     {index === data?.attendenceRows.length - 1 ? (

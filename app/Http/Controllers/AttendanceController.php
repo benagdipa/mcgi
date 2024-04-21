@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Rules\UniqueAttendance;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -12,7 +13,7 @@ class AttendanceController extends Controller
         $request->validate(
             [
                 "attendenceRows.*.name" => "required|string",
-                "attendenceRows.*.email" => "required|string|email",
+                "attendenceRows.*.email" => ["required", "email", new UniqueAttendance($request->input('event_id'))],
                 "attendenceRows.*.phone" => "required|numeric|min:10",
             ],
             [
@@ -23,13 +24,13 @@ class AttendanceController extends Controller
                 'attendenceRows.*.phone.numeric' => 'Phone must be valid',
             ]
         );
-        foreach ($request->attendenceRows as $row) {
-            Attendance::create([
-                'event_id' => $request->event_id,
-                'name' => $row['name'],
-                'email' => $row['email'],
-                'phone' => $row['phone'],
-            ]);
-        }
+        // foreach ($request->attendenceRows as $row) {
+        //     Attendance::create([
+        //         'event_id' => $request->event_id,
+        //         'name' => $row['name'],
+        //         'email' => $row['email'],
+        //         'phone' => $row['phone'],
+        //     ]);
+        // }
     }
 }
