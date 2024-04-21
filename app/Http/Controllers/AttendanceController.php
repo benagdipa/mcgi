@@ -24,13 +24,13 @@ class AttendanceController extends Controller
                 'attendenceRows.*.phone.numeric' => 'Phone must be valid',
             ]
         );
-        // foreach ($request->attendenceRows as $row) {
-        //     Attendance::create([
-        //         'event_id' => $request->event_id,
-        //         'name' => $row['name'],
-        //         'email' => $row['email'],
-        //         'phone' => $row['phone'],
-        //     ]);
-        // }
+        foreach ($request->attendenceRows as $row) {
+            Attendance::create([
+                'event_id' => $request->event_id,
+                'name' => $row['name'],
+                'email' => $row['email'],
+                'phone' => $row['phone'],
+            ]);
+        }
     }
 }
