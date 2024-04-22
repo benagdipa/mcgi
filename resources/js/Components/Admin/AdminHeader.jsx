@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 export default function AdminHeader({ user ,onSetToggleHandler}) {
     return (
-        <div className='admin-header w-full static top-0 flex items-center py-3 lg:px-6 px-3 border-b font-poppins bg-white z-50'>
+        <div className='admin-header w-full sticky top-0 flex items-center py-3 lg:px-6 px-3 border-b font-poppins bg-white z-50'>
             <div className="left lg:w-[20rem]">
                 <ApplicationLogo />
             </div>

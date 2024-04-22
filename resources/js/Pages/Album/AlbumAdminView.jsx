@@ -116,7 +116,7 @@ export default function AlbumAdminView({ auth, album }) {
                         </Card>
                     </Collapse>
                     <Card className="h-full w-full overflow-scroll rounded-none font-poppins shadow-none">
-                        <div className="flex felx-wrap gap-3 py-16 px-8">
+                        <div className="flex flex-wrap gap-3 py-16 px-8">
                             {album?.attachments.length > 0 && album?.attachments.map((item, index) => {
                                 return (
                                     <div className="group border rounded relative cursor-pointer w-56 h-56 p-1" key={index}>
