@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attendance extends Model
+class EmailTemplate extends Model
 {
     use HasFactory;
-    protected $fillable = ['event_id', 'name', 'email', 'phone', 'locale'];
+
+    protected $fillable = ["name", "subject", "content"];
 }
