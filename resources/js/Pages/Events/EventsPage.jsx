@@ -3,12 +3,13 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Guest from '@/Layouts/GuestLayout'
-import { Head, Link, useForm } from '@inertiajs/react'
+import { Head, Link, router, useForm } from '@inertiajs/react'
 import { IconMapPin, IconPlus, IconSearch, IconX } from '@tabler/icons-react'
 import axios from 'axios';
 import React, { useState } from 'react'
 
-export default function EventsPage({ auth, events }) {
+export default function EventsPage({ auth, events, locale }) {
+
     const daysList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const [attendanceModal, setAttendanceModal] = useState(false)
     const [searchText, setSearchText] = useState('')
@@ -27,11 +28,12 @@ export default function EventsPage({ auth, events }) {
             name: auth.user?.first_name ? auth.user?.first_name + ' ' + auth.user?.last_name : '',
             email: auth.user?.email ? auth.user?.email : '',
             phone: auth.user?.phone ? auth.user?.phone : '',
+            locale: auth.user?.local ? auth.user?.local : ''
         }],
     });
 
     const addRow = () => {
-        const newRow = { id: randomId(), name: '', email: '', phone: '' };
+        const newRow = { id: randomId(), name: '', email: '', phone: '', locale: '' };
         setData('attendenceRows', [...data.attendenceRows, newRow]);
     };
 
@@ -40,9 +42,13 @@ export default function EventsPage({ auth, events }) {
     };
 
     const openAttendanceModal = (event_id) => {
-        setData('event_id', event_id);
-        setSelectedEventTitle(events.filter(event => event.id === event_id)[0].title)
-        setAttendanceModal(true)
+        if (auth?.user) {
+            setData('event_id', event_id);
+            setSelectedEventTitle(events.filter(event => event.id === event_id)[0].title)
+            setAttendanceModal(true)
+        } else {
+            router.visit(route('login', { event_message: "only registered users are able to enter attendance" }));
+        }
     }
 
     const closeAttendanceModal = () => {
@@ -68,7 +74,7 @@ export default function EventsPage({ auth, events }) {
     const handleSearchResult = (item) => {
         const updatedRows = data.attendenceRows.map(row => {
             if (row.id === data.attendenceRows[data.attendenceRows.length - 1].id) {
-                return { ...row, ["name"]: item.first_name + ' ' + item.last_name, ["email"]: item.email, ["phone"]: item.phone };
+                return { ...row, ["name"]: item.first_name + ' ' + item.last_name, ["email"]: item.email, ["phone"]: item.phone, ["locale"]: item.local };
             }
             return row;
         })
@@ -146,7 +152,7 @@ export default function EventsPage({ auth, events }) {
                                         const dayOfWeek = date.getDay();
                                         return (
                                             <React.Fragment key={item?.id}>
-                                                <div className="event-wrapper mb-8">
+                                                <div className="event-wrapper mb-8 cursor-pointer" onClick={() => openAttendanceModal(item?.id)}>
                                                     <div className="flex gap-4">
                                                         <div className="date basis-1/12">
                                                             <div className="text-center font-dmsans">
@@ -161,9 +167,6 @@ export default function EventsPage({ auth, events }) {
                                                                     <div className='mt-4 text-gray-500 text-base'>
                                                                         <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span>{item?.address}</div>
                                                                         <div dangerouslySetInnerHTML={{ __html: item?.content }} />
-                                                                    </div>
-                                                                    <div className="text-right">
-                                                                        <button className='bg-yellow-500 px-6 py-3 rounded font-dmsans font-semibold mt-6' onClick={() => openAttendanceModal(item?.id)}>Mark Attendance</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -224,7 +227,7 @@ export default function EventsPage({ auth, events }) {
                                     {data?.attendenceRows?.length > 0 && data?.attendenceRows?.map((item, index) => {
                                         return (
                                             <div className="flex gap-4 mb-6 items-center" key={index}>
-                                                <div className="w-1/3">
+                                                <div className="w-1/4">
                                                     <InputLabel value="Full Name" className='mb-1 font-poppins font-semibold' />
                                                     <TextInput
                                                         type="text"
@@ -236,7 +239,7 @@ export default function EventsPage({ auth, events }) {
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.name`]} className="absolute" />
                                                 </div>
-                                                <div className="w-1/3">
+                                                <div className="w-1/4">
                                                     <InputLabel value="Email Address" className='mb-1 font-poppins font-semibold' />
                                                     <TextInput
                                                         type="email"
@@ -247,7 +250,7 @@ export default function EventsPage({ auth, events }) {
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.email`]} className="absolute" />
                                                 </div>
-                                                <div className="w-1/3">
+                                                <div className="w-1/4">
                                                     <InputLabel value="Phone" className='mb-1 font-poppins font-semibold' />
                                                     <TextInput
                                                         type="text"
@@ -257,6 +260,19 @@ export default function EventsPage({ auth, events }) {
                                                         onChange={(e) => handleChange(item.id, 'phone', e.target.value)}
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.phone`]} className="absolute" />
+                                                </div>
+                                                <div className="w-1/4">
+                                                    <InputLabel value="Locale" className='mb-1 font-poppins font-semibold' />
+                                                    <select
+                                                        name="locale"
+                                                        className='w-full border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm'
+                                                        value={item?.locale}
+                                                        onChange={(e) => handleChange(item.id, 'locale', e.target.value)}
+                                                    >
+                                                        <option value="">Select</option>
+                                                        {locale?.map((item, index) => { return (<option key={index} value={item.id}>{item.title}</option>) })}
+                                                    </select>
+                                                    <InputError message={errors[`attendenceRows.${index}.locale`]} className="absolute" />
                                                 </div>
                                                 <div className="btn-wrapper px-3 pt-5 cursor-pointer">
                                                     {index === data?.attendenceRows.length - 1 ? (

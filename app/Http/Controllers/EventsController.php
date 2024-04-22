@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Locale;
 use DateTime;
 use DateTimeZone;
 use App\Models\User;
@@ -10,12 +11,17 @@ use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class EventsController extends Controller
 {
     public function index()
     {
         $events = Events::all();
-        return Inertia::render('Events/EventsPage', ['events' => $events]);
+        $locale = Locale::all();
+        return Inertia::render('Events/EventsPage', [
+            'events' => $events,
+            'locale' => $locale
+        ]);
     }
 
     public function admin_events_index()

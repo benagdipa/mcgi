@@ -3,6 +3,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocationController;
@@ -117,6 +118,15 @@ Route::controller(AlbumController::class)->group(function () {
 
         Route::post('/dashboard/albums/image', 'admin_album_image_store')->name('admin.album.image.store');
         Route::delete('/dashboard/albums/image/{id}', 'admin_album_image_delete')->name('admin.album.image.delete');
+    });
+});
+
+Route::controller(EmailTemplateController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/email-templates', 'admin_index')->name('admin.email.index');
+        Route::post('/dashboard/email-templates', 'admin_store')->name('admin.email.store');
+        // Route::post('/dashboard/email-templates/{id}/edit', 'admin_update')->name('admin.email-templates.update');
+        // Route::delete('/dashboard/email-templates/{id}', 'admin_delete')->name('admin.email-templates.delete');
     });
 });
 require __DIR__ . '/auth.php';

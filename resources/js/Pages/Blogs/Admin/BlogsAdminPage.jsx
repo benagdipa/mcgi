@@ -89,7 +89,6 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                                 {TABLE_ROWS.map(({ id, title, categories, tags, status, author }, index) => {
                                     const isLast = index === TABLE_ROWS.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-                                    console.log(author);
                                     return (
                                         <tr key={id}>
                                             <td className={classes}>
