@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Rules\UniqueAttendance;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use App\Rules\UniqueAttendance;
 use Illuminate\Support\Facades\Mail;
 
 class AttendanceController extends Controller
