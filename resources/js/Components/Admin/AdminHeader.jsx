@@ -2,18 +2,19 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
 import { Link } from '@inertiajs/react'
-import { IconBell, IconChevronDown, IconUser } from '@tabler/icons-react'
+import { IconBell, IconChevronDown, IconUser,IconMenu2 } from '@tabler/icons-react'
 import { Badge } from '@material-tailwind/react'
 import ApplicationLogo from '../ApplicationLogo'
+import { useState } from 'react'
 
-export default function AdminHeader({ user }) {
+export default function AdminHeader({ user ,onSetToggleHandler}) {
     return (
-        <div className='admin-header w-full static top-0 flex items-center py-3 px-6 border-b font-poppins bg-white z-50'>
-            <div className="left w-[20rem]">
+        <div className='admin-header w-full static top-0 flex items-center py-3 lg:px-6 px-3 border-b font-poppins bg-white z-50'>
+            <div className="left lg:w-[20rem]">
                 <ApplicationLogo />
             </div>
-            <div className="right flex justify-between w-full">
-                <div className="search ps-5">
+            <div className="right flex lg:justify-between justify-end gap-4 w-full">
+                <div className="search hidden md:block ps-5">
                     <input type="text" placeholder='Search...' className='rounded border-gray-400/80 w-[300px] focus:ring-0 ring-0' />
                 </div>
                 <div className="flex gap-4 items-center justify-end">
@@ -41,6 +42,9 @@ export default function AdminHeader({ user }) {
                         </Dropdown>
                     )}
                 </div>
+                <button className='lg:hidden'  onClick={() => onSetToggleHandler()}>
+                    <IconMenu2 size={32} strokeWidth='1' />
+                </button>
             </div>
         </div>
     )

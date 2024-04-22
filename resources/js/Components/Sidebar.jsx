@@ -17,8 +17,10 @@ import {
     IconChevronDown,
     IconChevronRight,
     IconLocation,
+    IconMailForward,
     IconMap,
     IconPin,
+    IconRecordMail,
     IconUsers,
 } from "@tabler/icons-react";
 import { Link } from "@inertiajs/react";
@@ -32,8 +34,8 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
     const currentRoute = route().current();
     return (
-        <Card className="rounded-none md:bg-[#212b36] border-b-2 md:border-b-[0] text-white shadow-none">
-            <div className="desktop-view">
+        <Card className="rounded-none bg-[#212b36] border-b-[0] text-white shadow-none">
+            <div className="desktop-view ">
                 <div className="side-menu p-4">
                     <List className="text-white">
                         <Link
@@ -281,6 +283,22 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">
                                     Albums
+                                </Typography>
+                            </ListItem>
+                        </Link>
+                        <Link
+                            href={route('admin.email.index')}
+                            className={`${currentRoute === "admin.email.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
+                        >
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <IconMailForward strokeWidth={1.5} />
+                                </ListItemPrefix>
+                                <Typography className="mr-auto font-poppins font-medium">
+                                    Email Templates
                                 </Typography>
                             </ListItem>
                         </Link>

@@ -22,7 +22,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
             <Dialog
                 as="div"
                 id="modal"
-                className="fixed popup-form-first w-full inset-0 flex justify-center overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all"
+                className="fixed popup-form-first w-full inset-0 h-screen flex justify-center overflow-y-auto px-4 py-6 sm:px-0 items-center z-50 transform transition-all"
                 onClose={close}
             >
                 <Transition.Child
@@ -34,7 +34,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="absolute inset-0 bg-gray-500/75" />
+                    <div className="absolute lg:h-screen h-[115vh] inset-0 bg-gray-500/75" />
                 </Transition.Child>
 
                 <Transition.Child
@@ -47,7 +47,7 @@ export default function Modal({ children, show = false, maxWidth = '2xl', closea
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
-                        className={`mb-6 bg-white popup-form-second w-full  rounded-sm shadow-xl justify-center transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                        className={`mb-6 popup_form bg-white popup-form-second w-full  rounded-sm shadow-xl justify-center transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
                         {children}
                     </Dialog.Panel>

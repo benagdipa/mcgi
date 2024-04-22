@@ -29,6 +29,7 @@
         "react-dropzone": "^14.2.3",
         "react-photoswipe-gallery": "^3.0.1",
         "react-slick": "^0.30.2",
+        "react-wow": "^1.0.0",
         "sass": "^1.71.1",
         "slick-carousel": "^1.8.1"
     }
