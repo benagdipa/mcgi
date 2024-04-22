@@ -41,9 +41,9 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                         <div className="lg:w-full w-11/12 mx-auto blog-meta flex justify-center text-white lg:gap-6 gap-2 items-center">
                             <div className="author-wrapper">
                                 <div className="flex items-center gap-2">
-                                    <div className="image-wrapper">
+                                    {/* <div className="image-wrapper">
                                         <img src="https://randomuser.me/api/portraits/men/1.jpg" className='lg:w-20 lg:h-20 w-15 h-15 rounded-full' />
-                                    </div>
+                                    </div> */}
                                     {/* <div className="author border-r-2 pr-4">
                                         <p className='text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
                                     </div> */}
