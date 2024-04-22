@@ -35,3 +35,20 @@
         margin: 0 auto;
     }
 }
+
+  .more-link a,
+  .more-links-posts{
+    transition: transform 0.7s ease;
+  }
+
+  .more-link a:hover,
+  .more-links-posts:hover {
+    transform: scale(1.1);
+    color: #fff;
+    background-color: #0f0f0f;
+  }
+  .btn-wrapper a:hover{
+    background-color: #fff;
+    color: #0f0f0f;
+  }
+
