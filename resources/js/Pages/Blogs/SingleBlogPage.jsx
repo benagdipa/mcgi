@@ -52,9 +52,9 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                                     {/* <div className="author border-r-2 pr-4">
                                         <p className='text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
                                     </div> */}
-                                    <div className="author border-r-2 pr-4">
+                                    {/* <div className="author border-r-2 pr-4">
                                         <p className='lg:text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>
