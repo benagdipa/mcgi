@@ -39,6 +39,7 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
             </Head>
             <div className="single-post">
                 <div className="top-section bg-[#0077CC] py-20">
+
                     <WOW animation='slideLeftToRight'>
                         <div className="max-w-screen-xl mx-auto">
                             <p className='text-center mb-3'>
@@ -48,6 +49,26 @@ export default function SingleBlogPage({ auth, post, categories, tags }) {
                             <div className="lg:w-full w-11/12 mx-auto blog-meta flex justify-center text-white lg:gap-6 gap-2 items-center">
                                 <div className="post-date font-dmsans font-semibold">
                                     {date.toFormat('LLLL dd, yyyy')}
+
+                    <div className="max-w-screen-xl mx-auto">
+                        <p className='text-center mb-3'>
+                            <span className='bg-[#f5cd06] py-2 px-4 rounded-full capitalize font-semibold'>{post.category}</span>
+                        </p>
+                        <h2 className='xl:w-full w-11/12 mx-auto text-center text-white font-marcellus lg:text-6xl text-4xl font-semibold leading-tight mb-10'>{post.title}</h2>
+                        <div className="lg:w-full w-11/12 mx-auto blog-meta flex justify-center text-white lg:gap-6 gap-2 items-center">
+                            <div className="author-wrapper">
+                                <div className="flex items-center gap-2">
+                                    {/* <div className="image-wrapper">
+                                        <img src="https://randomuser.me/api/portraits/men/1.jpg" className='lg:w-20 lg:h-20 w-15 h-15 rounded-full' />
+                                    </div> */}
+                                    {/* <div className="author border-r-2 pr-4">
+                                        <p className='text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
+                                    </div> */}
+                                    {/* <div className="author border-r-2 pr-4">
+                                        <p className='lg:text-2xl font-dmsans font-semibold'>{`${post?.author?.first_name} ${post?.author?.last_name}`} </p>
+                                    </div> */}
+
+
                                 </div>
                             </div>
                             <div className="categories flex items-center justify-center pt-5">
