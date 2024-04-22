@@ -6,6 +6,9 @@ use App\Models\EmailTemplate;
 use App\Models\Events;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Rules\UniqueAttendance;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Rules\UniqueAttendance;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,5 +52,26 @@ class AttendanceController extends Controller
                 $message->from('support@mcgi.org.au', 'MCGI');
             });
         }
+    }
+
+    public function export_attendee(Request $request)
+    {
+        $event_id = $request->input('event_id');
+        $attendee = Attendance::where('event_id', $event_id)->get();
+        $csvFileName = 'data.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+
+        $callback = function () use ($attendee) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, array ('Name', 'Email Address', 'Phone', 'created at'));
+            foreach ($attendee as $row) {
+                fputcsv($file, array ($row['name'], $row['email'], $row['phone'], $row['created_at']));
+            }
+            fclose($file);
+        };
+        return new StreamedResponse($callback, 200, $headers);
     }
 }
