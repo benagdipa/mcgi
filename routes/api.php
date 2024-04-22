@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EventsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/search/users', [EventsController::class, 'search_user'])->name('api.search.user');
-;
+Route::post('/export/attendee', [AttendanceController::class, 'export_attendee'])->name('api.export.attendee');
