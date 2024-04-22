@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Album;
 use App\Models\Events;
 use App\Models\Posts;
 use Illuminate\Http\Request;
@@ -16,8 +18,8 @@ class PageController extends Controller
         $events = Events::take(9)->get();
         return Inertia::render('HomePage', [
             'posts' => $posts,
-            'events' =>$events,
-        ]);        
+            'events' => $events,
+        ]);
     }
     public function aboutPage()
     {
@@ -46,6 +48,9 @@ class PageController extends Controller
 
     public function gallery_page()
     {
-        return Inertia::render('GalleryPage');
+        $albums = Album::with('attachments')->get();
+        return Inertia::render('GalleryPage', [
+            'albums' => $albums
+        ]);
     }
 }
