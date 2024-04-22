@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Rules\UniqueAttendance;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use App\Rules\UniqueAttendance;
 use Illuminate\Support\Facades\Mail;
 
 class AttendanceController extends Controller
@@ -58,17 +57,18 @@ class AttendanceController extends Controller
     {
         $event_id = $request->input('event_id');
         $attendee = Attendance::where('event_id', $event_id)->get();
+        $event = Events::findOrFail($event_id);
         $csvFileName = 'data.csv';
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
         ];
 
-        $callback = function () use ($attendee) {
+        $callback = function () use ($attendee, $event) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, array ('Name', 'Email Address', 'Phone', 'created at'));
+            fputcsv($file, array ('Event Name', 'Name', 'Email Address', 'Phone', 'Attendance Entry'));
             foreach ($attendee as $row) {
-                fputcsv($file, array ($row['name'], $row['email'], $row['phone'], $row['created_at']));
+                fputcsv($file, array ($event->title, $row['name'], $row['email'], $row['phone'], $row['created_at']));
             }
             fclose($file);
         };
