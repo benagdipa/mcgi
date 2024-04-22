@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use DateTime;
 use DateTimeZone;
 use App\Models\User;
@@ -55,6 +56,15 @@ class EventsController extends Controller
             return to_route('admin.events.index');
         }
     }
+    public function admin_events_view($id)
+    {
+        $event = Events::findOrFail($id);
+        $list = Attendance::where('event_id', $id)->get();
+        return Inertia::render('Events/Admin/EventsViewAdmin', [
+            'event' => $event,
+            'attendance' => $list,
+        ]);
+    }
     public function admin_events_edit($id)
     {
         $event = Events::findOrFail($id);
@@ -105,5 +115,5 @@ class EventsController extends Controller
                 ->get();
             return $users;
         }
-    }
+    }    
 }
