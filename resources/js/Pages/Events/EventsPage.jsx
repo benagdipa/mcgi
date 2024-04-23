@@ -152,7 +152,7 @@ export default function EventsPage({ auth, events, locale }) {
                                         const dayOfWeek = date.getDay();
                                         return (
                                             <React.Fragment key={item?.id}>
-                                                <div className="event-wrapper mb-8 cursor-pointer" onClick={() => openAttendanceModal(item?.id)}>
+                                                <div className="event-wrapper cursor-pointer border-b pt-6 pb-6" onClick={() => openAttendanceModal(item?.id)}>
                                                     <div className="flex gap-4">
                                                         <div className="date basis-1/12">
                                                             <div className="text-center font-dmsans">
@@ -160,13 +160,19 @@ export default function EventsPage({ auth, events, locale }) {
                                                             </div>
                                                         </div>
                                                         <div className="event-content basis-11/12">
-                                                            <div className="flex">
-                                                                <div className="w-full">
+                                                            <div className="flex flex-wrap">
+                                                                <div className="w-9/12">
                                                                     <span className='font-dmsans'>{formatDateRange(item?.start_date, item?.end_date)}</span>
                                                                     <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>{item?.title}</h1>
                                                                     <div className='mt-4 text-gray-500 text-base'>
                                                                         <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span>{item?.address}</div>
                                                                         <div dangerouslySetInnerHTML={{ __html: item?.content }} />
+                                                                    </div>
+                                                                </div>
+                                                                <div className="w-3/12">
+                                                                    <div className="flex flex-col items-end ">
+                                                                        {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
+                                                                        <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>
                                                                     </div>
                                                                 </div>
                                                             </div>

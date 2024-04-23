@@ -265,6 +265,9 @@ export default function HomePage({ auth, posts, events }) {
                                                         <div className="event-title pt-2">
                                                             <p className='text-xl lg:text-4xl font-normal uppercase font-marcellus'>{item?.title}</p>
                                                         </div>
+                                                        <div className="mt-8 text-sm cursor-pointer">
+                                                            <Link href={route('events.index')}>Attend Now</Link>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
