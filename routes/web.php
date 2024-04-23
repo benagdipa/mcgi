@@ -9,6 +9,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +78,7 @@ Route::controller(EventsController::class)->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
         Route::get('/dashboard/events/add', 'admin_events_add')->name('admin.events.add');
         Route::post('/dashboard/events/store', 'admin_events_store')->name('admin.events.store');
-        Route::get('/dashboard/events/{id}/view', 'admin_events_view')->name('admin.events.view');        
+        Route::get('/dashboard/events/{id}/view', 'admin_events_view')->name('admin.events.view');
         Route::get('/dashboard/events/{id}/edit', 'admin_events_edit')->name('admin.events.edit');
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
@@ -130,4 +131,13 @@ Route::controller(EmailTemplateController::class)->group(function () {
         // Route::delete('/dashboard/email-templates/{id}', 'admin_delete')->name('admin.email-templates.delete');
     });
 });
+
+Route::controller(RoleManagementController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/roles', 'admin_index')->name('admin.roles.index');
+        Route::post('/dashboard/roles', 'admin_store')->name('admin.roles.store');
+    });
+});
+
+
 require __DIR__ . '/auth.php';

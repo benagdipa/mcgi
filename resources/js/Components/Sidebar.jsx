@@ -21,6 +21,7 @@ import {
     IconMap,
     IconPin,
     IconRecordMail,
+    IconUserCog,
     IconUsers,
 } from "@tabler/icons-react";
 import { Link } from "@inertiajs/react";
@@ -299,6 +300,22 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">
                                     Email Templates
+                                </Typography>
+                            </ListItem>
+                        </Link>
+                        <Link
+                            href={route('admin.roles.index')}
+                            className={`${currentRoute === "admin.roles.index"
+                                ? "bg-blue-gray-50/50 rounded-lg"
+                                : ""
+                                }`}
+                        >
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <IconUserCog strokeWidth={1.5} />
+                                </ListItemPrefix>
+                                <Typography className="mr-auto font-poppins font-medium">
+                                    Roles
                                 </Typography>
                             </ListItem>
                         </Link>
