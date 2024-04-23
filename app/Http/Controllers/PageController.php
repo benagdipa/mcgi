@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Events;
 use App\Models\Location;
 use App\Models\Posts;
@@ -48,6 +49,9 @@ class PageController extends Controller
 
     public function gallery_page()
     {
-        return Inertia::render('GalleryPage');
+        $albums = Album::with('attachments')->get();
+        return Inertia::render('GalleryPage', [
+            'albums' => $albums
+        ]);
     }
 }

@@ -40,7 +40,7 @@ export default function LocaleAdmin({ auth, locale }) {
     const addEditSubmit = (e) => {
         e.preventDefault();
         if (formType === '_add') {
-            post(route('admin.locale.index'), {
+            post(route('admin.locale.store'), {
                 preserveScroll: true,
                 onSuccess: () => {
                     reset();

@@ -4,7 +4,12 @@ import { Head, Link } from '@inertiajs/react'
 export default function TermsandCondition({ auth }) {
     return (
         <GuestLayout user={auth?.user}>
-            <Head title="Terms and Condition" />
+            <Head>
+                <title>Terms Condition</title>
+                <meta name="title" content="terms condtions"/>
+                <meta name="keywords" content="Terms of service"/>
+                <meta name="descriptions" content="terms and condtions"/>
+            </Head>
             <div className="terms-condition-page">
                 <div className="page-header pt-[70px] md:pt-80 pb-28 ">
                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">

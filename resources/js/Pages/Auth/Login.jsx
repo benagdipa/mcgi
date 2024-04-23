@@ -5,14 +5,18 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 
 export default function Login({ status, canResetPassword }) {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const event_message = queryParameters.get("event_message")
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
+        event: event_message ? true : false
     });
 
     useEffect(() => {
@@ -23,7 +27,6 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('login'));
     };
 
@@ -45,7 +48,10 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                         <div className="lg:w-1/3 w-10/12 pb-14">
                             <div className="lg:px-24 px-0">
-                                <ApplicationLogo className="mx-auto"/>
+                                {event_message && (
+                                    <div className="capitalize font-semibold text-red-500 mb-6 text-center">{event_message}</div>
+                                )}
+                                <ApplicationLogo className="mx-auto" />
                                 <div className="title-wrapper text-center mt-10">
                                     <h1 className='font-bold text-3xl'>Welcome back</h1>
                                     <p className='font-dmsans'>Enter your credentials to login</p>
@@ -61,7 +67,7 @@ export default function Login({ status, canResetPassword }) {
                                             value={data.email}
                                             className="mt-1 block w-full font-dmsans text-[#333]"
                                             autoComplete="username"
-                                            placeHolder="Email Address..."
+                                            placeholder="Email Address..."
                                             isFocused={true}
                                             onChange={(e) => setData('email', e.target.value)}
                                         />
@@ -77,7 +83,7 @@ export default function Login({ status, canResetPassword }) {
                                             value={data.password}
                                             className="mt-1 block w-full font-dmsans text-[#333]"
                                             autoComplete="current-password"
-                                            placeHolder="Password..."
+                                            placeholder="Password..."
                                             onChange={(e) => setData('password', e.target.value)}
                                         />
                                         <InputError message={errors.password} className="mt-2" />

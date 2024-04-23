@@ -1,0 +1,23 @@
+.single-post{
+    .content-section{
+        .max-w-screen-xl{
+            @media(max-width:1024px){
+                padding: 0 20px;
+            }
+            .description{
+                h1{
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+                h2{
+                    font-size: 25px;
+                    font-weight: 600;
+                }
+                h3{
+                    font-size: 22px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+use App\Models\Locale;
 use DateTime;
 use DateTimeZone;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class EventsController extends Controller
 {
     public function index()
     {
         $events = Events::all();
-        return Inertia::render('Events/EventsPage', ['events' => $events]);
+        $locale = Locale::all();
+        return Inertia::render('Events/EventsPage', [
+            'events' => $events,
+            'locale' => $locale
+        ]);
     }
 
     public function admin_events_index()
@@ -53,6 +61,15 @@ class EventsController extends Controller
         if ($event) {
             return to_route('admin.events.index');
         }
+    }
+    public function admin_events_view($id)
+    {
+        $event = Events::findOrFail($id);
+        $list = Attendance::where('event_id', $id)->get();
+        return Inertia::render('Events/Admin/EventsViewAdmin', [
+            'event' => $event,
+            'attendance' => $list,
+        ]);
     }
     public function admin_events_edit($id)
     {
@@ -94,4 +111,15 @@ class EventsController extends Controller
         $event->delete();
         return to_route('admin.events.index');
     }
+
+    public function search_user(Request $request)
+    {
+        $search = $request->input('query');
+        if (!empty($search)) {
+            $users = User::where('email', 'like', "%$search%")
+                ->orWhere('phone', 'like', "%$search%")
+                ->get();
+            return $users;
+        }
+    }    
 }

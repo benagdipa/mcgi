@@ -82,7 +82,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                         </div>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="page-content w-[95%] mx-auto lg:w-full pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
                             <div className="flex md:flex-row flex-col gap-12">
@@ -148,13 +148,8 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     height: 800,
                                                     menubar: false,
                                                     plugins: [
-                                                        "a11ychecker",
                                                         "advlist",
-                                                        "advcode",
-                                                        "advtable",
                                                         "autolink",
-                                                        "checklist",
-                                                        "export",
                                                         "lists",
                                                         "link",
                                                         "image",
@@ -163,9 +158,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                         "anchor",
                                                         "searchreplace",
                                                         "visualblocks",
-                                                        "powerpaste",
                                                         "fullscreen",
-                                                        "formatpainter",
                                                         "insertdatetime",
                                                         "media",
                                                         "table",
@@ -230,7 +223,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     className="mb-1 font-poppins font-semibold"
                                                 />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {categories.length &&
+                                                    {categories.length > 0 &&
                                                         categories.map(
                                                             (item, index) => {
                                                                 return (
@@ -277,7 +270,7 @@ export default function BlogsAddAdminPage({ auth, categories, tags }) {
                                                     className="mb-1 font-poppins font-semibold"
                                                 />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {tags.length &&
+                                                    {tags.length > 0 &&
                                                         tags.map(
                                                             (item, index) => {
                                                                 return (

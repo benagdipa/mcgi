@@ -16,7 +16,6 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
         featureImage: null,
         status: item.status,
     });
-    console.log('errors', errors);
     const editorRef = useRef(null);
     const [previewFile, setPreviewFile] = useState(item.featured_image)
     const [fileName, setFileName] = useState('');
@@ -73,10 +72,10 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                         </div>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="page-content w-[95%] mx-auto lg:w-full pt-8">
                     <div className="form-wrapper px-6">
                         <form onSubmit={formSubmit}>
-                            <div className="flex md:flex-row flex-col gap-6">
+                            <div className="flex lg:flex-row flex-col gap-6">
                                 <div className="md:w-9/12">
                                     <div className="form-item mb-4">
                                         <InputLabel value={'Title'} className='mb-1 font-poppins font-semibold' />
@@ -110,29 +109,22 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                                     height: 800,
                                                     menubar: false,
                                                     plugins: [
-                                                        'a11ychecker',
-                                                        'advlist',
-                                                        'advcode',
-                                                        'advtable',
-                                                        'autolink',
-                                                        'checklist',
-                                                        'export',
-                                                        'lists',
-                                                        'link',
-                                                        'image',
-                                                        'charmap',
-                                                        'preview',
-                                                        'anchor',
-                                                        'searchreplace',
-                                                        'visualblocks',
-                                                        'powerpaste',
-                                                        'fullscreen',
-                                                        'formatpainter',
-                                                        'insertdatetime',
-                                                        'media',
-                                                        'table',
-                                                        'help',
-                                                        'wordcount'
+                                                        "advlist",
+                                                        "autolink",
+                                                        "lists",
+                                                        "link",
+                                                        "image",
+                                                        "charmap",
+                                                        "preview",
+                                                        "anchor",
+                                                        "searchreplace",
+                                                        "visualblocks",
+                                                        "fullscreen",
+                                                        "insertdatetime",
+                                                        "media",
+                                                        "table",
+                                                        "help",
+                                                        "wordcount",
                                                     ],
                                                     toolbar: 'undo redo | casechange blocks | bold italic backcolor | image media| ' + 'alignleft aligncenter alignright alignjustify | ' + 'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
                                                     images_upload_url: 'upload.php',
@@ -165,7 +157,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             <div className="categories">
                                                 <InputLabel value={'Categories'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {categories.length && categories.map((item, index) => {
+                                                    {categories.length > 0 && categories.map((item, index) => {
                                                         return (
                                                             <div className="" key={index}>
                                                                 <label className='pb-3 block'>
@@ -189,7 +181,7 @@ export default function BlogsEditAdminPage({ auth, item, categories, tags }) {
                                             <div className="tags">
                                                 <InputLabel value={'Tags'} className='mb-1 font-poppins font-semibold' />
                                                 <div className="categories-items border p-4 rounded">
-                                                    {tags.length && tags.map((item, index) => {
+                                                    {tags.length > 0 && tags.map((item, index) => {
                                                         return (
                                                             <div className="" key={index}>
                                                                 <label className='pb-3 block'>

@@ -86,7 +86,8 @@ export default function EventsAdmin({ auth, events }) {
                                                 <Typography className="font-medium font-poppins capitalize">{status}</Typography>
                                             </td>
                                             <td className={classes}>
-                                                <div className="flex gap-2">
+                                                <div className="flex gap-3">
+                                                    <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.events.view', id)}>View</Link>
                                                     <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.events.edit', id)}>Edit</Link>
                                                     <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
                                                 </div>

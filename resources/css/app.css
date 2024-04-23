@@ -12,3 +12,43 @@
         height: 400px !important;
     }
 }
+@media  screen and (max-width:1023px) {
+    .popup_form{
+        position: relative;
+        top: 50px;
+        overflow-x: hidden;
+    }
+    .popup_form .add-modal .cursor-pointer {
+        right: -24px;
+        top: -16px;
+        color: #0f0f0f ;
+        background: #f5cd06;
+    }
+    .popup_form .delete-modal .cursor-pointer {
+        right: 0;
+        top: 0;
+        color: #0f0f0f ;
+        background: #f5cd06;
+    }
+    .page-content{
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+
+  .more-link a,
+  .more-links-posts{
+    transition: transform 0.7s ease;
+  }
+
+  .more-link a:hover,
+  .more-links-posts:hover {
+    transform: scale(1.1);
+    color: #fff;
+    background-color: #0f0f0f;
+  }
+  .btn-wrapper a:hover{
+    background-color: #fff;
+    color: #0f0f0f;
+  }
+

@@ -1,6 +1,9 @@
 <?php
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LocationController;
@@ -74,10 +77,15 @@ Route::controller(EventsController::class)->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
         Route::get('/dashboard/events/add', 'admin_events_add')->name('admin.events.add');
         Route::post('/dashboard/events/store', 'admin_events_store')->name('admin.events.store');
+        Route::get('/dashboard/events/{id}/view', 'admin_events_view')->name('admin.events.view');        
         Route::get('/dashboard/events/{id}/edit', 'admin_events_edit')->name('admin.events.edit');
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
     });
+});
+
+Route::controller(AttendanceController::class)->group(function () {
+    Route::post('/attendance/store', 'store')->name('event.attendence.store');
 });
 
 Route::controller(LocaleController::class)->group(function () {
@@ -101,5 +109,25 @@ Route::controller(UserController::class)->group(function () {
     });
 });
 
+Route::controller(AlbumController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/albums', 'admin_album_index')->name('admin.album.index');
+        Route::post('/dashboard/albums', 'admin_album_store')->name('admin.album.store');
+        Route::get('/dashboard/albums/{id}/view', 'admin_album_view')->name('admin.album.view');
+        Route::post('/dashboard/albums/{id}/edit', 'admin_album_update')->name('admin.album.update');
+        Route::delete('/dashboard/locations/{id}', 'admin_album_delete')->name('admin.album.delete');
 
+        Route::post('/dashboard/albums/image', 'admin_album_image_store')->name('admin.album.image.store');
+        Route::delete('/dashboard/albums/image/{id}', 'admin_album_image_delete')->name('admin.album.image.delete');
+    });
+});
+
+Route::controller(EmailTemplateController::class)->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard/email-templates', 'admin_index')->name('admin.email.index');
+        Route::post('/dashboard/email-templates', 'admin_store')->name('admin.email.store');
+        // Route::post('/dashboard/email-templates/{id}/edit', 'admin_update')->name('admin.email-templates.update');
+        // Route::delete('/dashboard/email-templates/{id}', 'admin_delete')->name('admin.email-templates.delete');
+    });
+});
 require __DIR__ . '/auth.php';
