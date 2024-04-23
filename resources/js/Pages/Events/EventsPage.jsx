@@ -150,7 +150,6 @@ export default function EventsPage({ auth, events, locale }) {
                                     {events.length > 0 && events?.map((item, index) => {
                                         const date = new Date(item?.start_date)
                                         const dayOfWeek = date.getDay();
-                                        console.log(item);
                                         return (
                                             <React.Fragment key={item?.id}>
                                                 <div className="event-wrapper cursor-pointer border-b pt-6 pb-6" onClick={() => openAttendanceModal(item?.id)}>
@@ -171,7 +170,10 @@ export default function EventsPage({ auth, events, locale }) {
                                                                     </div>
                                                                 </div>
                                                                 <div className="w-3/12">
-                                                                    {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
+                                                                    <div className="flex flex-col items-end ">
+                                                                        {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
+                                                                        <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
