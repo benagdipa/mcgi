@@ -19,9 +19,21 @@ export default function EventsAddAdmin({ auth }) {
         address: '',
         content: '',
         status: '',
+        featureImage: null,
     });
 
     const editorRef = useRef(null);
+    const [previewFile, setPreviewFile] = useState('')
+    const hiddenFileInput = useRef(null);
+
+    const handleClick = (event) => {
+        hiddenFileInput.current.click();
+    };
+    const handleFileChange = event => {
+        const url = URL.createObjectURL(event.target.files[0])
+        setData('featureImage', event.target.files[0])
+        setPreviewFile(url)
+    };
 
     const formSubmit = (e) => {
         e.preventDefault();
@@ -158,6 +170,24 @@ export default function EventsAddAdmin({ auth }) {
                                                     <option value="publish">Publish</option>
                                                 </select>
                                                 <InputError message={errors.status} className="mt-2" />
+                                            </div>
+                                        </div>
+                                        <div className="form-item mb-4">
+                                            <div className="featured-image">
+                                                <p className='text-xl font-bold mb-3 font-dmsans'>Featured Image</p>
+                                                <div className="categories-items border p-4 rounded">
+                                                    <img src={previewFile} />
+                                                    <input
+                                                        type="file"
+                                                        name='featureImage'
+                                                        hidden
+                                                        onChange={handleFileChange}
+                                                        ref={hiddenFileInput}
+                                                        value={''}
+                                                    />
+                                                    <a className='bg-transparent cursor-pointer' onClick={handleClick}>Set Featured Image</a>
+                                                    <InputError message={errors.featureImage} className="mt-2" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="form-item">

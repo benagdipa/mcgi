@@ -15,6 +15,7 @@ class Events extends Model
         'address',
         'status',
         'author',
-        'content'
+        'content',
+        "featured_image",
     ];
 }

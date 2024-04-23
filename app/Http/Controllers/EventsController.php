@@ -45,8 +45,15 @@ class EventsController extends Controller
             'status' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            'featureImage' => 'mimes:png,jpg,jpeg',
         ]);
+        $file_path = '';
+        if ($request->hasFile('featureImage')) {
+            $name = now()->timestamp . "_{$request->file('featureImage')->getClientOriginalName()}";
+            $path = $request->file('featureImage')->storeAs('event_images', $name, 'public');
+            $file_path = "/storage/{$path}";
+        }
         $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Asia/Kathmandu'));
         $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Asia/Kathmandu'));
         $event = Events::create([
@@ -55,6 +62,7 @@ class EventsController extends Controller
             'start_date' => $start_date->format('Y-m-d H:i:s'),
             'end_date' => $end_date->format('Y-m-d H:i:s'),
             'address' => $request->address,
+            'featured_image' => $file_path,
             'author' => Auth::id(),
             'status' => $request->status,
         ]);
@@ -88,8 +96,17 @@ class EventsController extends Controller
             'end_date' => 'required|date|after:start_date',
             'address' => 'required|string'
         ]);
-
-
+        $file_path = '';
+        if ($request->hasFile('featureImage')) {
+            if ($request->file('featureImage') !== null) {
+                $request->validate([
+                    'featureImage' => 'required|mimes:png,jpg,jpeg'
+                ]);
+                $name = now()->timestamp . "_{$request->file('featureImage')->getClientOriginalName()}";
+                $path = $request->file('featureImage')->storeAs('event_images', $name, 'public');
+                $file_path = "/storage/{$path}";
+            }
+        }
         $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Asia/Kathmandu'));
         $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Asia/Kathmandu'));
         $event = Events::findOrFail($id);
@@ -101,6 +118,9 @@ class EventsController extends Controller
             $event->status = $request->status;
             $event->start_date = $start_date->format('Y-m-d H:i:s');
             $event->end_date = $end_date->format('Y-m-d H:i:s');
+            if ($request->hasFile('featureImage')) {
+                $event->featured_image = $file_path;
+            }
             $event->save();
         }
         return to_route('admin.events.index');
@@ -121,5 +141,5 @@ class EventsController extends Controller
                 ->get();
             return $users;
         }
-    }    
+    }
 }

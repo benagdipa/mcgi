@@ -4,9 +4,23 @@ import { Head, Link } from '@inertiajs/react'
 import React, { useState } from 'react'
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
+import { IconDownload } from '@tabler/icons-react'
 
 export default function GalleryPage({ auth, albums }) {
     const [imageIndex, setImageIndex] = useState(-1)
+
+    const handleDownload = (imageURL) => {
+        if (imageURL) {
+            const fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
+            const link = document.createElement('a');
+            link.href = imageURL;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
     return (
         <Guest user={auth?.user}>
             <Head>
@@ -41,16 +55,23 @@ export default function GalleryPage({ auth, albums }) {
                                                 {album.attachments.length > 0 && album.attachments.map((item, index) => {
                                                     return (
                                                         <React.Fragment key={index}>
-                                                            <Item
-                                                                original={item.path}
-                                                                thumbnail={item.path}
-                                                                width="1600"
-                                                                height="1068"
-                                                            >
-                                                                {({ ref, open }) => (
-                                                                    <img ref={ref} onClick={open} src={item.path} className='w-full h-80 object-cover' />
+                                                            <div className="relative group">
+                                                                {auth?.user && (
+                                                                    <div className="download-icon absolute top-1 right-1 bg-white/80 p-3 rounded-full cursor-pointer transition duration-300 ease-in-out invisible group-hover:visible ">
+                                                                        <IconDownload color='black' onClick={() => handleDownload(item.path)} />
+                                                                    </div>
                                                                 )}
-                                                            </Item>
+                                                                <Item
+                                                                    original={item.path}
+                                                                    thumbnail={item.path}
+                                                                    width="1600"
+                                                                    height="1068"
+                                                                >
+                                                                    {({ ref, open }) => (
+                                                                        <img ref={ref} onClick={open} src={item.path} className='w-full h-80 object-cover' />
+                                                                    )}
+                                                                </Item>
+                                                            </div>
                                                         </React.Fragment>
                                                     )
                                                 })}
