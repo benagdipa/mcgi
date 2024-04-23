@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-export default function ContactPage({ auth }) {
+export default function ContactPage({ auth, locations }) {
     const { data, setData, post, reset, errors } = useForm({
         name: '',
         email: '',
@@ -142,6 +142,38 @@ export default function ContactPage({ auth }) {
                         </div>
                     </div>
                 </div>
+                {locations.length > 0 && (
+                    <div className="location-section">
+                        <div className="w-full">
+                            <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                                <div className="title-wrapper">
+                                    <h1 className='text=[#0f0f0f] md:text-6xl text-5xl font-bold mb-12 text-center'>All Locations</h1>
+                                </div>
+                                <div className="location-slider-wrapper">
+                                    <div className="location-slider grid grid-cols-3 gap-6">
+                                        {
+                                            locations.map((location, index) => {
+                                                return (
+                                                    <React.Fragment key={index}>
+                                                        <div className="slider-item">
+                                                            <div className="image-wrapper drop-shadow-lg rounded-lg overflow-hidden">
+                                                                <div dangerouslySetInnerHTML={{ __html: location.map_code }} />
+                                                            </div>
+                                                            <div className="content pt-5">
+                                                                <h3 className='font-bold text-2xl mb-2'>{location.name} </h3>
+                                                                <p className='text-[#666B68] font-dmsans text-lg'>{location.address}</p>
+                                                            </div>
+                                                        </div>
+                                                    </React.Fragment>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {/* <div className="location-section">
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">

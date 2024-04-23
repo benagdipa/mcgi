@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Events;
+use App\Models\Location;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -16,8 +18,8 @@ class PageController extends Controller
         $events = Events::take(9)->get();
         return Inertia::render('HomePage', [
             'posts' => $posts,
-            'events' =>$events,
-        ]);        
+            'events' => $events,
+        ]);
     }
     public function aboutPage()
     {
@@ -29,9 +31,9 @@ class PageController extends Controller
 
     public function contactPage()
     {
+        $locations = Location::all();
         return Inertia::render('ContactPage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
+            'locations' => $locations
         ]);
 
     }
