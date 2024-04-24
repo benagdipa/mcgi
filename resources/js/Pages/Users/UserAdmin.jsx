@@ -19,25 +19,12 @@ export default function UserAdmin({ auth, users, locale }) {
     const [formType, setFormType] = useState('');
     const [selectedItem, setSelectedItem] = useState('')
 
-    const [permissionModal, setPermissionModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false)
-    const [selectedUser, setSelectedUser] = useState('')
-    const allPermissions = ['create-users', 'edit-users', 'delete-users', 'create-blog-posts', 'edit-blog-posts', 'delete-blog-posts',]
 
-
-    const openPermissionModal = (user_id) => {
-        setSelectedUser(user_id)
-        setPermissionModal(true)
-    }
-    const closePermissionModal = () => {
-        setPermissionModal(false)
-    }
 
     const getLocale = (id) => {
         if (id) {
-            console.log(locale);
             const selectedLocale = locale.filter(obj => obj.id === parseInt(id))
-            console.log(selectedLocale);
             if (selectedLocale.length) {
                 return selectedLocale[0].title
             }
@@ -50,7 +37,7 @@ export default function UserAdmin({ auth, users, locale }) {
             setModalTitle('Add New')
             setFormType('_add')
         } else if (type === 'edit') {
-            const selected = locale.filter(obj => obj.id === id)
+            const selected = users.filter(obj => obj.id === id)
             setData({ ...selected[0] });
             setModalTitle('Edit')
             setFormType('_edit')
@@ -66,7 +53,7 @@ export default function UserAdmin({ auth, users, locale }) {
     }
 
     const openDeleteModal = (user_id) => {
-        setSelectedUser(user_id)
+        setSelectedItem(user_id)
         setDeleteModal(true)
     }
     const closeDeleteModal = () => {
@@ -127,7 +114,7 @@ export default function UserAdmin({ auth, users, locale }) {
                                             <td className={classes}><Typography className="font-medium font-poppins">{getLocale(local)}</Typography></td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
-                                                    <button className='px-0 text-sm font-medium font-poppins'>Edit</button>
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
                                                     <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
                                                 </div>
                                             </td>
@@ -139,49 +126,8 @@ export default function UserAdmin({ auth, users, locale }) {
                     </Card>
                 </div>
             </div>
-            {/* Permission Modal */}
-            <Modal show={permissionModal} onClose={closePermissionModal} maxWidth={'xl'}>
-                <div className="permission-modal px-6 py-8 relative">
-                    <h1 className='font-bold text-2xl font-poppins'>User Role & Permission</h1>
-                    <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closePermissionModal} />
-                    </div>
-                    <div className="modal-content pt-6">
-                        <form action="">
-                            <div className='form-field font-poppins mb-4'>
-                                <InputLabel value={'Role'} className='mb-1' />
-                                <select className='w-full rounded border border-gray-400 text-gray-600 font-medium'>
-                                    <option value="">Select</option>
-                                    <option value="">Admin</option>
-                                    <option value="">User</option>
-                                </select>
-                            </div>
-                            <div className="form-field font-poppins mb-6">
-                                <InputLabel value={'Permissions'} />
-                                <div className="grid grid-cols-2 flex-wrap font-poppins pt-4">
-                                    {allPermissions.length && allPermissions.map((permission, index) => {
-                                        return (
-                                            <React.Fragment key={index}>
-                                                <label className='pb-3 block font-poppins capitalize'>
-                                                    <input
-                                                        type="checkbox"
-                                                        value={permission}
-                                                        className='rounded w-5 h-5'
-                                                    />
-                                                    <span className='pl-2 font-medium'>{permission.replace(/-/g, ' ')}</span>
-                                                </label>
-                                            </React.Fragment>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                            <div className="form-field flex justify-end">
-                                <button className='font-poppins bg-blue-500 text-white px-4 py-2 text-lg font-medium rounded-md'>Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </Modal>
+
+
 
             {/* Add/Edit Modal */}
             <Modal show={addEditModal} onClose={closeAddEditModal} maxWidth={'2xl'}>
