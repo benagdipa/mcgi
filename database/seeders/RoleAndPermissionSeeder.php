@@ -22,7 +22,7 @@ class RoleAndPermissionSeeder extends Seeder
         } else {
             $superAdminRole = Role::where('name', 'super-admin')->first();
         }
-        $superAdminEmail = 'sanjay1@pcsoftnepal.com';
+        $superAdminEmail = 'support@mcgi.org.au';
         $user = User::where('email', $superAdminEmail)->first();
 
         if ($user) {
@@ -37,38 +37,12 @@ class RoleAndPermissionSeeder extends Seeder
                 'phone' => '1234567890',
                 'local' => '1',
                 'privacy' => false,
-                'password' => Hash::make(''),
+                'password' => Hash::make('mcgi@123'),
             ]);
             $newUser->assignRole($superAdminRole);
         }
         if (!Role::where('name', 'guest')->exists()) {
             $superAdminRole = Role::create(['name' => 'guest']);
         }
-        
-        // Permission::create(['name' => 'create-users']);
-        // Permission::create(['name' => 'edit-users']);
-        // Permission::create(['name' => 'delete-users']);
-
-        // Permission::create(['name' => 'create-blog-posts']);
-        // Permission::create(['name' => 'edit-blog-posts']);
-        // Permission::create(['name' => 'delete-blog-posts']);
-
-        // $adminRole = Role::create(['name' => 'admin']);
-        // $editorRole = Role::create(['name' => 'user']);
-
-        // $adminRole->givePermissionTo([
-        //     'create-users',
-        //     'edit-users',
-        //     'delete-users',
-        //     'create-blog-posts',
-        //     'edit-blog-posts',
-        //     'delete-blog-posts',
-        // ]);
-
-        // $editorRole->givePermissionTo([
-        //     'create-blog-posts',
-        //     'edit-blog-posts',
-        //     'delete-blog-posts',
-        // ]);
     }
 }

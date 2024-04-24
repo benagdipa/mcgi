@@ -13,22 +13,25 @@ export default function RoleIndex({ auth, roles }) {
 
     const TABLE_HEAD = ["SN", "Role Name", "Actions"];
     const [addEditModal, setAddEditModal] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
     const [modalTitle, setModalTitle] = useState('');
     const [formType, setFormType] = useState('');
     const [selectedItem, setSelectedItem] = useState('')
 
     const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
-        role_name: '',
+        name: '',
         permissions: []
     });
 
     const permissions = [
         { name: "Blog Posts", items: ['create', 'edit', 'delete'] },
+        { name: "Categories", items: ['create', 'edit', 'delete'] },
+        { name: "Tags", items: ['create', 'edit', 'delete'] },
         { name: "Events", items: ['create', 'edit', 'delete'] },
         { name: "Users", items: ['create', 'edit', 'delete'] },
+        { name: "Locale", items: ['create', 'edit', 'delete'] },
         { name: "Church Locations", items: ['create', 'edit', 'delete'] },
         { name: "Albums", items: ['create', 'edit', 'delete'] },
-        { name: "Events", items: ['create', 'edit', 'delete'] },
         { name: "Email Tempates", items: ['create', 'edit', 'delete'] },
         { name: "Roles", items: ['create', 'edit', 'delete'] },
     ]
@@ -38,6 +41,17 @@ export default function RoleIndex({ auth, roles }) {
         if (type === 'add') {
             setModalTitle('Add New')
             setFormType('_add')
+        } else if (type === 'view') {
+            const selected = roles.filter(obj => obj.id === id)
+            setData({ ...selected[0] });
+            setModalTitle('View')
+            setFormType('_view')
+        }
+        else if (type === 'edit') {
+            const selected = roles.filter(obj => obj.id === id)
+            setData({ ...selected[0] });
+            setModalTitle('Edit')
+            setFormType('_edit')
         }
         setAddEditModal(true)
     }
@@ -59,15 +73,39 @@ export default function RoleIndex({ auth, roles }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('admin.roles.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                // reset();
-                // setAddEditModal(false)
-            }
-        });
+        if (formType === '_add') {
+            post(route('admin.roles.store'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    reset();
+                    setAddEditModal(false)
+                }
+            });
+        } else if (formType === '_edit') {
+            post(route('admin.roles.update', selectedItem), {
+                onSuccess: () => {
+                    reset();
+                    setAddEditModal(false)
+                }
+            })
+        }
     }
-
+    const openDeleteModal = (id) => {
+        setSelectedItem(id)
+        setDeleteModal(true)
+    }
+    const closeDeleteModal = () => {
+        setDeleteModal(false)
+    }
+    const handleDeleteFunc = () => {
+        if (selectedItem) {
+            destroy(route('admin.roles.delete', selectedItem), {
+                onSuccess: () => {
+                    closeDeleteModal()
+                }
+            })
+        }
+    }
     return (
         <Authenticated user={auth?.user}>
             <Head title="Roles & Permissions" />
@@ -109,7 +147,8 @@ export default function RoleIndex({ auth, roles }) {
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${name}`}</Typography></td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
-                                                    <button className='px-0 text-sm font-medium font-poppins'>Edit</button>
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('view', id) }}>View</button>
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
                                                     <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
                                                 </div>
                                             </td>
@@ -138,10 +177,11 @@ export default function RoleIndex({ auth, roles }) {
                                     name="name"
                                     className="w-full rounded-md font-poppins"
                                     placeholder="Role Name..."
-                                    value={data.role_name}
-                                    onChange={(e) => setData('role_name', e.target.value)}
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    disabled={formType === '_view'}
                                 />
-                                <InputError message={errors.role_name} className="mt-2" />
+                                <InputError message={errors.name} className="mt-2" />
                             </div>
                             <div className="form-item mb-8">
                                 <div className="grid grid-cols-3 mb-4">
@@ -158,16 +198,20 @@ export default function RoleIndex({ auth, roles }) {
                                             <div className="grid grid-cols-3 mb-5">
                                                 <InputLabel value={name} className='mb-1 font-poppins font-medium col-span-2' />
                                                 <div className="grid grid-cols-3 gap-1 items-center justify-center">
-                                                    {items.map((item, perIndex) => (
-                                                        <div className='flex items-center justify-center' key={perIndex}>
-                                                            <Checkbox
-                                                                className='w-6 h-6 focus:ring-0'
-                                                                value={`${item}_${name.toLowerCase().replace(/ /g, "_")}`}
-                                                                onChange={(e) => handlePermissionCheckBoxChange(e)}
-                                                            />
-                                                        </div>
-                                                    ))}
-
+                                                    {items.map((item, perIndex) => {
+                                                        const permissionName = `${item}_${name.toLowerCase().replace(/ /g, "_")}`
+                                                        return (
+                                                            <div className='flex items-center justify-center' key={perIndex}>
+                                                                <Checkbox
+                                                                    className='w-6 h-6 focus:ring-0'
+                                                                    value={permissionName}
+                                                                    onChange={(e) => handlePermissionCheckBoxChange(e)}
+                                                                    checked={data.permissions.includes(permissionName)}
+                                                                    disabled={formType === '_view'}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    })}
                                                 </div>
                                             </div>
                                         </React.Fragment>
@@ -175,9 +219,12 @@ export default function RoleIndex({ auth, roles }) {
                                 </div>
                             </div>
                             <input type='hidden' name='type' value={formType} />
-                            <div className="font-item mb-4 text-right">
-                                <button className='bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
-                            </div>
+                            {formType !== '_view' && (
+                                <div className="font-item mb-4 text-right">
+                                    <button className='bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
+                                </div>
+                            )}
+
                         </form>
                     </div>
                 </div>
@@ -185,7 +232,7 @@ export default function RoleIndex({ auth, roles }) {
 
 
             {/* Delete Modal */}
-            {/* <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
+            <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
@@ -196,7 +243,7 @@ export default function RoleIndex({ auth, roles }) {
                         <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={handleDeleteFunc}>Confirm</button>
                     </div>
                 </div>
-            </Modal> */}
+            </Modal>
         </Authenticated>
     )
 }

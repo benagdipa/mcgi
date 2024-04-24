@@ -1,10 +1,12 @@
-import { Link, router } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
 import ApplicationLogo from './ApplicationLogo'
 import { IconBrandFacebook, IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconChevronDown, IconMenu2, IconPhoneCall, IconUser } from '@tabler/icons-react';
 import Dropdown from './Dropdown';
 
 export default function Header({ user }) {
+    const { role } = usePage().props.auth;
+
     const [toggle, setToggle] = useState(false);
     const currentRoute = route().current()
     const hideHeader = ['login', 'register', 'password.request']
@@ -58,7 +60,7 @@ export default function Header({ user }) {
                                                             </span>
                                                         </Dropdown.Trigger>
                                                         <Dropdown.Content>
-                                                            <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>
+                                                            {role?.name !== 'guest' && <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>}
                                                             <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                                             <Dropdown.Link href={route('logout')} method="post" as="button">
                                                                 Log Out
