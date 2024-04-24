@@ -272,7 +272,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         </Link>
                         <Link
                             href={route('admin.album.index')}
-                            className={`${currentRoute === "admin.album.index"
+                            className={`${currentRoute === "admin.album.index" || currentRoute === "admin.album.view"
                                 ? "bg-blue-gray-50/50 rounded-lg"
                                 : ""
                                 }`}

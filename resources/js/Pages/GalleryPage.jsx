@@ -6,9 +6,9 @@ import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
 import WOW from 'react-wow';
 export default function GalleryPage({ auth }) {
+import { IconDownload } from '@tabler/icons-react'
 
     const [imageIndex, setImageIndex] = useState(-1)
-
     const desktop_inspirational = [
         "https://mcgi.org/wp-content/uploads/photo-gallery/DESKTOP-MOBILE-WALLPAPER-VERSE-ROMANS12_12-REJOICING-IN-HOPE_-PATIENT-IN-TRIBULATION-1.jpg",
         "https://mcgi.org/wp-content/uploads/photo-gallery/HB-DESKTOP-MOBILE-WALLPAPER-VERSE-BRO.ELI-SORIANO-DELIGHT-THYSELF-ALSO-IN-THE-LORD.jpg",
@@ -111,6 +111,19 @@ export default function GalleryPage({ auth }) {
         "https://mcgi.org/wp-content/uploads/photo-gallery/collage-tw.png",
         "https://mcgi.org/wp-content/uploads/photo-gallery/collage-ig.png",
     ]
+    const handleDownload = (imageURL) => {
+        if (imageURL) {
+            const fileName = imageURL.substring(imageURL.lastIndexOf('/') + 1);
+            const link = document.createElement('a');
+            link.href = imageURL;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+
     return (
         <Guest user={auth?.user}>
             <Head>
@@ -134,6 +147,7 @@ export default function GalleryPage({ auth }) {
                     </div>
                     </WOW>
                 </div>
+
 
                     <div className="content-wrapper py-12">
                     <WOW animation='fadeIn'>
@@ -230,6 +244,42 @@ export default function GalleryPage({ auth }) {
                                                 )
                                             })}
                                         </Gallery>
+
+                <div className="content-wrapper py-12">
+                    <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                        <h1 className='text-center text-4xl font-bold uppercase mb-12 md:mb-0'>Wallpapers</h1>
+                        <div className="gallery-item">
+                            {albums.length > 0 && albums.map((album, index) => {
+                                return (
+                                    <div key={index} className='lg:m-12'>
+                                        <h1 className='text-3xl font-semibold mb-3'>{album.name}</h1>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+                                            <Gallery>
+                                                {album.attachments.length > 0 && album.attachments.map((item, index) => {
+                                                    return (
+                                                        <React.Fragment key={index}>
+                                                            <div className="relative group">
+                                                                {auth?.user && (
+                                                                    <div className="download-icon absolute top-1 right-1 bg-white/80 p-3 rounded-full cursor-pointer transition duration-300 ease-in-out invisible group-hover:visible ">
+                                                                        <IconDownload color='black' onClick={() => handleDownload(item.path)} />
+                                                                    </div>
+                                                                )}
+                                                                <Item
+                                                                    original={item.path}
+                                                                    thumbnail={item.path}
+                                                                    width="1600"
+                                                                    height="1068"
+                                                                >
+                                                                    {({ ref, open }) => (
+                                                                        <img ref={ref} onClick={open} src={item.path} className='w-full h-80 object-cover' />
+                                                                    )}
+                                                                </Item>
+                                                            </div>
+                                                        </React.Fragment>
+                                                    )
+                                                })}
+                                            </Gallery>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

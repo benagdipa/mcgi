@@ -73,7 +73,7 @@ export default function AlbumAdminView({ auth, album }) {
     }
     return (
         <Authenticated user={auth.user}>
-            <div className="content pt-24 font-poppins">
+            <div className="content py-4 font-poppins">
                 <div className="content-header px-6 flex justify-between items-center">
                     <div className="left">
                         <h1 className='font-semibold text-gray-800 text-3xl'>{album?.name}</h1>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Events;
+use App\Models\Location;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
@@ -31,9 +32,9 @@ class PageController extends Controller
 
     public function contactPage()
     {
+        $locations = Location::all();
         return Inertia::render('ContactPage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
+            'locations' => $locations
         ]);
 
     }
