@@ -2,7 +2,6 @@ import Guest from '@/Layouts/GuestLayout'
 import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 import { DateTime } from 'luxon';
-import WOW from 'react-wow';
 
 export default function BlogsPage({ auth, posts }) {
 
@@ -23,69 +22,65 @@ export default function BlogsPage({ auth, posts }) {
             <div className="contact-page blog-page">
                 <div className="page-header pt-40 lg:pt-80 pb-28 ">
                     <div className="w-full">
-                        <WOW animation='slideLeftToRight'>
-                            <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                                <h1 className='font-bold text-7xl text-white'>Articles</h1>
-                                <div className="breadcrumbs pt-5">
-                                    <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
-                                        <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
-                                        <div className="divider"> | </div>
-                                        <div className="item"><Link href={route('blogs.index')} className="breadcrumb-link text-gray-200">Articles</Link></div>
-                                    </div>
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <h1 className='font-bold text-7xl text-white'>Articles</h1>
+                            <div className="breadcrumbs pt-5">
+                                <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
+                                    <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
+                                    <div className="divider"> | </div>
+                                    <div className="item"><Link href={route('blogs.index')} className="breadcrumb-link text-gray-200">Articles</Link></div>
                                 </div>
                             </div>
-                        </WOW>
+                        </div>
                     </div>
                 </div>
                 <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                    <WOW animation='fadeIn'>
-                        <div className="blog-items py-16 lg:py-32">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                                {posts?.length > 0 && posts.map((post) => {
-                                    const date = DateTime.fromISO(post?.created_at, { zone: 'utc' })
-                                    return (
-                                        <React.Fragment key={post?.id}>
-                                            <div className="blog-item font-dmsans">
-                                                <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
-                                                    <div className="image">
-                                                        <img src={post?.featured_image} className='h-[250px] object-cover rounded-3xl w-full' />
-                                                    </div>
-                                                </Link>
-                                                <div className="content pt-3">
-                                                    <div className="flex gap-4">
-                                                        <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
-                                                        {/* <div className="text-[#9f9f9f] font-medium">{`${post?.author?.first_name} ${post?.author?.last_name}`}</div> */}
-                                                    </div>
-                                                    <div className="title pt-1 pb-3">
-                                                        <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
-                                                            <h4 className='text-[#0f0f0f] font-bold text-2xl capitalize'>
-                                                                {post?.title}
-                                                            </h4>
-                                                        </Link>
-                                                    </div>
-                                                    <div class="description" dangerouslySetInnerHTML={{
-                                                        __html: post?.content ? post.content
-                                                            .replace(/<img.*?>/g, '') // Remove image tags
-                                                            .replace(/<[^>]+>/g, '') // Remove all other HTML tags
-                                                            .replace(/&nbsp;/g, ' ') // Replace &nbsp; with regular space
-                                                            .split(' ')
-                                                            .slice(0, 20)
-                                                            .join(' ')
-                                                        : ''
-                                                    }} />
+                    <div className="blog-items py-16 lg:py-32">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                            {posts?.length > 0 && posts.map((post) => {
+                                const date = DateTime.fromISO(post?.created_at, { zone: 'utc' })
+                                return (
+                                    <React.Fragment key={post?.id}>
+                                        <div className="blog-item font-dmsans">
+                                            <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
+                                                <div className="image">
+                                                    <img src={post?.featured_image} className='h-[250px] object-cover rounded-3xl w-full' />
+                                                </div>
+                                            </Link>
+                                            <div className="content pt-3">
+                                                <div className="flex gap-4">
+                                                    <div className="date text-[#9f9f9f] font-medium">{date.toFormat('LLLL dd, yyyy')}</div>
+                                                    {/* <div className="text-[#9f9f9f] font-medium">{`${post?.author?.first_name} ${post?.author?.last_name}`}</div> */}
+                                                </div>
+                                                <div className="title pt-1 pb-3">
+                                                    <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>
+                                                        <h4 className='text-[#0f0f0f] font-bold text-2xl capitalize'>
+                                                            {post?.title}
+                                                        </h4>
+                                                    </Link>
+                                                </div>
+                                                <div class="description" dangerouslySetInnerHTML={{
+                                                    __html: post?.content ? post.content
+                                                        .replace(/<img.*?>/g, '') // Remove image tags
+                                                        .replace(/<[^>]+>/g, '') // Remove all other HTML tags
+                                                        .replace(/&nbsp;/g, ' ') // Replace &nbsp; with regular space
+                                                        .split(' ')
+                                                        .slice(0, 20)
+                                                        .join(' ')
+                                                    : ''
+                                                }} />
 
-                                                    {/* <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div> */}
-                                                    <div className="link">
-                                                        <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
-                                                    </div>
+                                                {/* <div className="content mb-3"><p className='text-[#666B68]'>{extractWords(post?.content, 20)}</p></div> */}
+                                                <div className="link">
+                                                    <Link href={route('blogs.show', `${post.slug}`)} className='font-semibold border-b-2 border-black pb-1'>Read More</Link>
                                                 </div>
                                             </div>
-                                        </React.Fragment>
-                                    )
-                                })}
-                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                            })}
                         </div>
-                    </WOW>
+                    </div>
                 </div>
             </div>
         </Guest>

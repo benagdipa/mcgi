@@ -2,7 +2,6 @@ import Guest from '@/Layouts/GuestLayout'
 import { Head } from '@inertiajs/react';
 import { DateTime } from 'luxon';
 import React from 'react'
-import WOW from 'react-wow';
 
 export default function SingleBlogPage({ auth, post, categories, tags }) {
     const date = DateTime.fromISO(post?.created_at, 'MM/dd/yyyy HH:mm:ss')
