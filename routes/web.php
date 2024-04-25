@@ -133,7 +133,7 @@ Route::controller(EmailTemplateController::class)->group(function () {
 });
 
 Route::controller(RoleManagementController::class)->group(function () {
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'permission:create_roles|edit_roles'])->group(function () {
         Route::get('/dashboard/roles', 'admin_index')->name('admin.roles.index');
         Route::post('/dashboard/roles', 'admin_store')->name('admin.roles.store');
         Route::post('/dashboard/roles/{id}/edit', 'admin_update')->name('admin.roles.update');
