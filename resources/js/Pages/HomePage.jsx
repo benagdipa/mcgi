@@ -26,6 +26,7 @@ export default function HomePage({ auth, posts, events }) {
         dots: true,
         infinite: true,
         speed: 500,
+        height: 600,
         slidesToShow: 1,
         slidesToScroll: 1,
     };
@@ -60,21 +61,21 @@ export default function HomePage({ auth, posts, events }) {
             </Head>
             <div className='homepage-content'>
                 <div className="hero-slider hidden md:block">
-                    <Slider {...settings}>
+                    <Slider {...settings} className='lg:h-[800px] h-[438px]'>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_4.png" className='w-full object-contain h-full' />
+                            <img src="/images/slider/first_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_2.jpg" className='w-full object-contain h-full' />
+                            <img src="/images/slider/second_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_3.jpg" className='w-full object-contain h-full' />
+                            <img src="/images/slider/third_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_1.png" className='w-full object-contain h-full' />
+                            <img src="/images/slider/fourth_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_5.png" className='w-full object-contain h-full' />
+                            <img src="/images/slider/fifth_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                     </Slider>
                 </div>
@@ -82,19 +83,19 @@ export default function HomePage({ auth, posts, events }) {
                 <div className="mobile-hero-slider block md:hidden">
                     <Slider {...settings}>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_4.png" className='w-full object-cover h-full' />
+                            <img src="/images/slider/first_banner.jpg" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_2.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/slider/second_banner.jpg" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_3.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/slider/third_banner.jpg" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_1.png" className='w-full object-cover h-full' />
+                            <img src="/images/slider/fourth_banner.jpg" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/slider_5.png" className='w-full object-cover h-full' />
+                            <img src="/images/slider/fifth_banner.jpg" className='w-full object-cover h-full' />
                         </div>
                     </Slider>
                 </div>
