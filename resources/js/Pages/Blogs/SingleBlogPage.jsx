@@ -1,6 +1,7 @@
 import Guest from '@/Layouts/GuestLayout'
 import { Head } from '@inertiajs/react';
 import { DateTime } from 'luxon';
+import WOW from 'react-wow';
 import React from 'react'
 
 export default function SingleBlogPage({ auth, post, categories, tags }) {
