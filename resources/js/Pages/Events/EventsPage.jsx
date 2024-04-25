@@ -124,9 +124,9 @@ export default function EventsPage({ auth, events, locale }) {
                 <meta name="descriptions" content="Keep updated with the schedule of Church Services and forthcoming Events of the Members Church of God International (MCGI). Add important dates to your Google calendar for reminders." />
             </Head>
             <div className="events-page">
-                <div className="page-header pt-80 pb-28 ">
+                <div className="page-header pt-20 xl:pt-80 pb-28 ">
                     <div className="w-full">
-                        <div className="max-w-screen-xl mx-auto">
+                        <div className=" lg:max-w-screen-xl w-11/12 mx-auto">
                             <h1 className='font-bold text-7xl text-white'>Events</h1>
                             <div className="breadcrumbs pt-5">
                                 <div className="flex gap-4 font-semibold uppercase font-dmsans text-white">
@@ -138,7 +138,7 @@ export default function EventsPage({ auth, events, locale }) {
                         </div>
                     </div>
                 </div>
-                <div className="w-full mt-16">
+                <div className="lg:w-full w-11/12 mx-auto mt-16">
                     <div className="max-w-screen-xl mx-auto">
                         <div className="events-list-wrapper">
                             <div className="monthly-events">
@@ -153,24 +153,24 @@ export default function EventsPage({ auth, events, locale }) {
                                         return (
                                             <React.Fragment key={item?.id}>
                                                 <div className="event-wrapper cursor-pointer border-b pt-6 pb-6" onClick={() => openAttendanceModal(item?.id)}>
-                                                    <div className="flex gap-4">
+                                                    <div className="flex  gap-4">
                                                         <div className="date basis-1/12">
                                                             <div className="text-center font-dmsans">
                                                                 <p className='text-lg text-black'>{daysList[dayOfWeek]} <span className='block text-4xl font-bold'>{date.getDate()}</span></p>
                                                             </div>
                                                         </div>
                                                         <div className="event-content basis-11/12">
-                                                            <div className="flex flex-wrap">
-                                                                <div className="w-9/12">
+                                                            <div className="flex flex-col md:flex-row flex-wrap">
+                                                                <div className="md:w-9/12 w-full">
                                                                     <span className='font-dmsans'>{formatDateRange(item?.start_date, item?.end_date)}</span>
-                                                                    <h1 className='font-marcellus font-semibold text-4xl uppercase mt-2 leading-snug'>{item?.title}</h1>
+                                                                    <h1 className='font-marcellus font-semibold md:text-4xl text-2xl uppercase mt-2 leading-snug'>{item?.title}</h1>
                                                                     <div className='mt-4 text-gray-500 text-base'>
                                                                         <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span>{item?.address}</div>
                                                                         <div dangerouslySetInnerHTML={{ __html: item?.content }} />
                                                                     </div>
                                                                 </div>
-                                                                <div className="w-3/12">
-                                                                    <div className="flex flex-col items-end ">
+                                                                <div className="md:w-3/12 w-full">
+                                                                    <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
                                                                         <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>
                                                                     </div>
@@ -193,7 +193,7 @@ export default function EventsPage({ auth, events, locale }) {
             <Modal show={attendanceModal} onClose={closeAttendanceModal} maxWidth={'xxl'}>
                 <div className="attendance-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl'>{selectedEventTitle} Attendance</h1>
-                    <div className="absolute -top-8 -right-8 text-white cursor-pointer">
+                    <div className="absolute md:-top-8 md:-right-8 top-0 right-0 md:text-white cursor-pointer">
                         <IconX strokeWidth={1.5} size={38} onClick={closeAttendanceModal} />
                     </div>
                     <div className="gap-2 pt-6">
@@ -232,9 +232,9 @@ export default function EventsPage({ auth, events, locale }) {
                                 <div className="w-full">
                                     {data?.attendenceRows?.length > 0 && data?.attendenceRows?.map((item, index) => {
                                         return (
-                                            <div className="flex gap-4 mb-6 items-center" key={index}>
-                                                <div className="w-1/4">
-                                                    <InputLabel value="Full Name" className='mb-1 font-poppins font-semibold' />
+                                            <div className="md:flex grid grid-rows-4 grid-flow-col gap-4 mb-6 items-center" key={index}>
+                                                <div className="md:w-1/4">
+                                                    <InputLabel value="Full Name" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
                                                     <TextInput
                                                         type="text"
                                                         className="w-full"
@@ -245,8 +245,8 @@ export default function EventsPage({ auth, events, locale }) {
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.name`]} className="absolute" />
                                                 </div>
-                                                <div className="w-1/4">
-                                                    <InputLabel value="Email Address" className='mb-1 font-poppins font-semibold' />
+                                                <div className="md:w-1/4">
+                                                    <InputLabel value="Email Address" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
                                                     <TextInput
                                                         type="email"
                                                         className="w-full"
@@ -256,8 +256,8 @@ export default function EventsPage({ auth, events, locale }) {
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.email`]} className="absolute" />
                                                 </div>
-                                                <div className="w-1/4">
-                                                    <InputLabel value="Phone" className='mb-1 font-poppins font-semibold' />
+                                                <div className="md:w-1/4">
+                                                    <InputLabel value="Phone" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
                                                     <TextInput
                                                         type="text"
                                                         className="w-full"
@@ -267,8 +267,8 @@ export default function EventsPage({ auth, events, locale }) {
                                                     />
                                                     <InputError message={errors[`attendenceRows.${index}.phone`]} className="absolute" />
                                                 </div>
-                                                <div className="w-1/4">
-                                                    <InputLabel value="Locale" className='mb-1 font-poppins font-semibold' />
+                                                <div className="md:w-1/4">
+                                                    <InputLabel value="Locale" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
                                                     <select
                                                         name="locale"
                                                         className='w-full border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm'
