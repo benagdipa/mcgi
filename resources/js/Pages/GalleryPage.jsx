@@ -7,7 +7,6 @@ import { Gallery, Item } from 'react-photoswipe-gallery'
 import { IconDownload } from '@tabler/icons-react'
 
 export default function GalleryPage({ auth, albums }) {
-    const [imageIndex, setImageIndex] = useState(-1)
 
     const handleDownload = (imageURL) => {
         if (imageURL) {
@@ -20,6 +19,93 @@ export default function GalleryPage({ auth, albums }) {
             document.body.removeChild(link);
         }
     }
+    const scrollToTop = (albumElement) => {
+        const element = document.getElementById(`${albumElement}`);
+        const elementPosition = element.getBoundingClientRect().top;
+        const offset = elementPosition + window.scrollY - 140;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+
+    };
+
+
+    const ShowGallery = ({ attachments, albumElement }) => {
+        if (attachments.length > 0) {
+            const [currentPage, setCurrentPage] = useState(1);
+            const itemsPerPage = 10;
+            const indexOfLastItem = currentPage * itemsPerPage;
+            const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+            const currentItems = attachments.slice(indexOfFirstItem, indexOfLastItem);
+
+            const paginate = (pageNumber) => {
+                setTimeout(() => {
+                    setCurrentPage(pageNumber);
+                    scrollToTop(albumElement);
+                }, 1500);
+            };
+
+            return (
+                <React.Fragment>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+                        <Gallery>
+                            {currentItems.map((item, index) => {
+                                return (
+                                    <React.Fragment key={index}>
+                                        <div className="relative group">
+                                            {auth?.user && (
+                                                <div className="download-icon absolute top-1 right-1 bg-white/80 p-3 rounded-full cursor-pointer transition duration-300 ease-in-out invisible group-hover:visible ">
+                                                    <IconDownload color='black' onClick={() => handleDownload(item.path)} />
+                                                </div>
+                                            )}
+                                            <Item
+                                                original={item.path}
+                                                thumbnail={item.path}
+                                                width="1600"
+                                                height="1068"
+                                            >
+                                                {({ ref, open }) => (
+                                                    <img ref={ref} onClick={open} src={item.path} className='w-full h-80 object-cover' />
+                                                )}
+                                            </Item>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                            })}
+                        </Gallery>
+                    </div>
+                    {attachments.length > 10 && (
+                        <Pagination
+                            itemsPerPage={itemsPerPage}
+                            totalItems={attachments.length}
+                            paginate={paginate}
+                            current={currentPage}
+                        />
+                    )}
+                </React.Fragment>
+            )
+
+
+        }
+    }
+    const Pagination = ({ itemsPerPage, totalItems, paginate, current }) => {
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+        return (
+            <ul className="pagination flex justify-center items-center gap-2 py-12">
+                {pageNumbers.map(number => (
+                    <li key={number} className="page-item">
+                        <div
+                            onClick={() => paginate(number)}
+                            className={`font-semibold bg-yellow-500 py-2 px-4 rounded cursor-pointer ${current === number ? 'active' : ''}`}
+                        >
+                            {number}
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        );
+    };
 
     return (
         <Guest user={auth?.user}>
@@ -48,35 +134,9 @@ export default function GalleryPage({ auth, albums }) {
                         <div className="gallery-item">
                             {albums.length > 0 && albums.map((album, index) => {
                                 return (
-                                    <div key={index} className='lg:m-12'>
+                                    <div key={index} className='lg:m-12' id={`album_${album.id}`}>
                                         <h1 className='text-3xl font-semibold mb-3'>{album.name}</h1>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
-                                            <Gallery>
-                                                {album.attachments.length > 0 && album.attachments.map((item, index) => {
-                                                    return (
-                                                        <React.Fragment key={index}>
-                                                            <div className="relative group">
-                                                                {auth?.user && (
-                                                                    <div className="download-icon absolute top-1 right-1 bg-white/80 p-3 rounded-full cursor-pointer transition duration-300 ease-in-out invisible group-hover:visible ">
-                                                                        <IconDownload color='black' onClick={() => handleDownload(item.path)} />
-                                                                    </div>
-                                                                )}
-                                                                <Item
-                                                                    original={item.path}
-                                                                    thumbnail={item.path}
-                                                                    width="1600"
-                                                                    height="1068"
-                                                                >
-                                                                    {({ ref, open }) => (
-                                                                        <img ref={ref} onClick={open} src={item.path} className='w-full h-80 object-cover' />
-                                                                    )}
-                                                                </Item>
-                                                            </div>
-                                                        </React.Fragment>
-                                                    )
-                                                })}
-                                            </Gallery>
-                                        </div>
+                                        <ShowGallery attachments={album.attachments} albumElement={`album_${album.id}`} />
                                     </div>
                                 )
                             })}
