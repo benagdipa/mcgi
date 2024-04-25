@@ -4,8 +4,6 @@ import { DateTime } from 'luxon';
 import WOW from 'react-wow';
 import React from 'react'
 
-
-
 export default function SingleBlogPage({ auth, post, categories, tags }) {
     const date = DateTime.fromISO(post?.created_at, 'MM/dd/yyyy HH:mm:ss')
     const ShowCategories = ({ list }) => {
