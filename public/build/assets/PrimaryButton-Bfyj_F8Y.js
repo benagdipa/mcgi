@@ -1,0 +1,1 @@
+import{j as o}from"./app-CLZh4Hy6.js";function a({className:r="",disabled:t,children:n,...e}){return o.jsx("button",{...e,className:`inline-flex items-center border border-transparen transition ease-in-out duration-150 ${t&&"opacity-25"} `+r,disabled:t,children:n})}export{a as P};
