@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\Locale;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Locale;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -50,6 +51,13 @@ class RegisteredUserController extends Controller
             'privacy' => $request->privacy,
             'password' => Hash::make($request->password),
         ]);
+
+        $guestRole = Role::where('name', 'guest')->first();
+        if ($guestRole) {
+            if (!$user->hasRole('guest')) {
+                $user->assignRole($guestRole);
+            }
+        }
 
         event(new Registered($user));
 
