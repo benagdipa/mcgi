@@ -11,6 +11,10 @@
     .custom-ckeditor .tox-tinymce{
         height: 400px !important;
     }
+    .form-details{
+        border-bottom: 1px solid;
+        padding-top: 10px;
+    }
 }
 @media  screen and (max-width:1023px) {
     .popup_form{
@@ -30,10 +34,10 @@
         color: #0f0f0f ;
         background: #f5cd06;
     }
-    .page-content{
+    /* .page-content{
         width: 95%;
         margin: 0 auto;
-    }
+    } */
 }
 
   .more-link a,
