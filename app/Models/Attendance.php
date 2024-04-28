@@ -9,4 +9,14 @@ class Attendance extends Model
 {
     use HasFactory;
     protected $fillable = ['event_id', 'name', 'email', 'phone', 'locale'];
+
+    public function event()
+    {
+        return $this->belongsTo(Events::class, 'event_id', 'id');
+    }
+
+    public function locale()
+    {
+        return $this->belongsTo(Locale::class, 'locale', 'id');
+    }
 }

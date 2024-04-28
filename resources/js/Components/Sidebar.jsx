@@ -196,6 +196,22 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                                 </ListItem>
                                             </Link>
                                         )}
+                                        <Link
+                                            href={route("admin.events.attendances.index")}
+                                            className={`${currentRoute === "admin.events.attendances.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                                        >
+                                            <ListItem>
+                                                <ListItemPrefix>
+                                                    <IconChevronRight
+                                                        strokeWidth={3}
+                                                        className="h-3 w-5"
+                                                    />
+                                                </ListItemPrefix>
+                                                <Typography className="mr-auto font-poppins font-medium">
+                                                    Attendance
+                                                </Typography>
+                                            </ListItem>
+                                        </Link>
                                     </List>
                                 </AccordionBody>
                             </Accordion>
