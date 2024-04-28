@@ -58,7 +58,15 @@ export default function UserAdmin({ auth, users, locale, roles }) {
     }
     const addEditSubmit = (e) => {
         e.preventDefault();
-        if (formType === '_edit') {
+        if (formType === '_add') {
+            post(route('admin.users.store'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    reset();
+                    setAddEditModal(false)
+                }
+            });
+        } else if (formType === '_edit') {
             post(route('admin.users.update', selectedItem), {
                 onSuccess: () => {
                     reset();
