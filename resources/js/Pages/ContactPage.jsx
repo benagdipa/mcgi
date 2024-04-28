@@ -157,9 +157,6 @@ export default function ContactPage({ auth, locations }) {
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                             <div className="flex gap-12 lg:flex-row flex-col items-center justify-center">
-                                <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                                    <img src="/images/optimize_image/kuya-edited.webp" className='w-full rounded-2xl lg:h-auto h-[450px] object-cover' />
-                                </div>
                                 <WOW animation='slideLeftToRight'>
                                     <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                                         <img src="/images/kuya-edited.jpg" className='w-full rounded-2xl lg:h-auto h-[450px] object-cover' />
