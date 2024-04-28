@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
 import { IconDownload } from '@tabler/icons-react'
-
+import WOW from 'react-wow';
 export default function GalleryPage({ auth, albums }) {
 
     const handleDownload = (imageURL) => {
@@ -117,31 +117,35 @@ export default function GalleryPage({ auth, albums }) {
             </Head>
             <div className="image-gallery-page">
                 <div className="page-header pt-[70px] md:pt-80 pb-28 ">
-                    <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                        <h1 className='font-bold text-7xl text-white'>Image Gallery</h1>
-                        <div className="breadcrumbs pt-5">
-                            <div className="flex gap-4 font-semibold uppercase  text-white">
-                                <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
-                                <div className="divider"> | </div>
-                                <div className="item"><Link href={route('gallery')} className="breadcrumb-link text-gray-200">Image gallery</Link></div>
+                    <WOW animation='slideLeftToRight'>
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <h1 className='font-bold text-7xl text-white'>Image Gallery</h1>
+                            <div className="breadcrumbs pt-5">
+                                <div className="flex gap-4 font-semibold uppercase  text-white">
+                                    <div className="item"><Link href={route('home')} className="breadcrumb-link">HOME</Link></div>
+                                    <div className="divider"> | </div>
+                                    <div className="item"><Link href={route('gallery')} className="breadcrumb-link text-gray-200">Image gallery</Link></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </WOW>
                 </div>
                 <div className="content-wrapper py-12">
-                    <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                        <h1 className='text-center text-4xl font-bold uppercase mb-12 md:mb-0'>Wallpapers</h1>
-                        <div className="gallery-item">
-                            {albums.length > 0 && albums.map((album, index) => {
-                                return (
-                                    <div key={index} className='lg:m-12' id={`album_${album.id}`}>
-                                        <h1 className='text-3xl font-semibold mb-3'>{album.name}</h1>
-                                        <ShowGallery attachments={album.attachments} albumElement={`album_${album.id}`} />
-                                    </div>
-                                )
-                            })}
+                    <WOW animation='fadeIn'>
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                            <h1 className='text-center text-4xl font-bold uppercase mb-12 md:mb-0'>Wallpapers</h1>
+                            <div className="gallery-item">
+                                {albums.length > 0 && albums.map((album, index) => {
+                                    return (
+                                        <div key={index} className='lg:m-12' id={`album_${album.id}`}>
+                                            <h1 className='text-3xl font-semibold mb-3'>{album.name}</h1>
+                                            <ShowGallery attachments={album.attachments} albumElement={`album_${album.id}`} />
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
-                    </div>
+                    </WOW>
                 </div>
             </div>
         </Guest>
