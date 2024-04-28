@@ -13,6 +13,7 @@ export default function Header({ user }) {
 
     const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
     const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'
+    const eventHref = route().current() === 'home' ? 'events' : route('home') + '/events'
     return (
         <React.Fragment>
             {!hideHeader.includes(currentRoute) && (
@@ -32,22 +33,10 @@ export default function Header({ user }) {
                                                 <Link href={route('home')}>Home</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
-                                                <Link href={route('blogs.index')}>Articles</Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat'>
-                                                <Link href={prayerHref}>Community Prayer</Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat'>
-                                                <Link href={charityHref}>Charities</Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat'>
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
-                                                <Link href={route('gallery')}>Gallery</Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat'>
-                                                <Link href={route('contact')}>Contact Us</Link>
+                                                <Link href={eventHref}>Events</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
                                                 {user ? (
@@ -102,10 +91,7 @@ export default function Header({ user }) {
                                         <ul className='bg-white w-full border-t z-[109]'>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('home')}>Home</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href={prayerHref}>Community Prayer</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href={charityHref}>Charities</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('gallery')}>Gallery</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('contact')}>Contact Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={eventHref}>Events</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
                                         </ul>
                                     </div>
