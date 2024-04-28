@@ -118,7 +118,7 @@ export default function ContactPage({ auth, locations }) {
                         </div>
                     </div>
                 </div>
-                <WOW animation='fadeIn'>
+                {{/* <WOW animation='fadeIn'>
                     {locations.length > 0 && (
                         <div className="location-section">
                             <div className="w-full">
@@ -152,6 +152,7 @@ export default function ContactPage({ auth, locations }) {
                         </div>
                     )}
                 </WOW>
+                */ }}
                 <div className="question-section py-32">
                     <div className="w-full">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
