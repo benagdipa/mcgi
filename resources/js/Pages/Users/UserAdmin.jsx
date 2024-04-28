@@ -8,10 +8,17 @@ import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 
-export default function UserAdmin({ auth, users, locale }) {
+export default function UserAdmin({ auth, users, locale, roles }) {
     const TABLE_HEAD = ["SN", "First Name", "Last Name", 'Email', "Phone", "Locale", "Actions"];
     const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
-        title: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        password: '',
+        password_confirmation: '',
+        local: '',
+        role: ''
     });
 
     const [addEditModal, setAddEditModal] = useState(false)
@@ -38,7 +45,8 @@ export default function UserAdmin({ auth, users, locale }) {
             setFormType('_add')
         } else if (type === 'edit') {
             const selected = users.filter(obj => obj.id === id)
-            setData({ ...selected[0] });
+            console.log(selected);
+            setData({ ...selected[0], 'role': selected[0].roles[0] ? selected[0].roles[0].name : 'guest' });
             setModalTitle('Edit')
             setFormType('_edit')
         }
@@ -50,6 +58,22 @@ export default function UserAdmin({ auth, users, locale }) {
     }
     const addEditSubmit = (e) => {
         e.preventDefault();
+        if (formType === '_add') {
+            post(route('admin.users.store'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    reset();
+                    setAddEditModal(false)
+                }
+            });
+        } else if (formType === '_edit') {
+            post(route('admin.users.update', selectedItem), {
+                onSuccess: () => {
+                    reset();
+                    setAddEditModal(false)
+                }
+            })
+        }
     }
 
     const openDeleteModal = (user_id) => {
@@ -143,28 +167,28 @@ export default function UserAdmin({ auth, users, locale }) {
                                     <div>
                                         <InputLabel value="First Name" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
+                                            id="first_name"
                                             type="text"
-                                            name="title"
+                                            name="first_name"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="First Name..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('first_name', e.target.value)}
+                                            value={data.first_name}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.first_name} className="mt-2" />
                                     </div>
                                     <div>
                                         <InputLabel value="Last Name" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
+                                            id="last_name"
                                             type="text"
-                                            name="title"
+                                            name="last_name"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="Last Name..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('last_name', e.target.value)}
+                                            value={data.last_name}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.last_name} className="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -173,28 +197,28 @@ export default function UserAdmin({ auth, users, locale }) {
                                     <div>
                                         <InputLabel value="Email Address" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
-                                            type="text"
-                                            name="title"
+                                            id="email"
+                                            type="email"
+                                            name="email"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="Email Address..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('email', e.target.value)}
+                                            value={data.email}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.email} className="mt-2" />
                                     </div>
                                     <div>
                                         <InputLabel value="Phone Number" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
+                                            id="phone"
                                             type="text"
-                                            name="title"
+                                            name="phone"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="Last Name..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('phone', e.target.value)}
+                                            value={data.phone}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.phone} className="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -203,28 +227,28 @@ export default function UserAdmin({ auth, users, locale }) {
                                     <div>
                                         <InputLabel value="Password" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
-                                            type="text"
-                                            name="title"
+                                            id="password"
+                                            type="password"
+                                            name="password"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="Password..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('password', e.target.value)}
+                                            value={data.password ? data.password : ''}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.password} className="mt-2" />
                                     </div>
                                     <div>
                                         <InputLabel value="Confirm Password" className='mb-1 font-poppins font-semibold' />
                                         <TextInput
-                                            id="title"
-                                            type="text"
-                                            name="title"
+                                            id="password_confirmation"
+                                            type="password"
+                                            name="password_confirmation"
                                             className="w-full rounded-md font-poppins"
                                             placeholder="Confirm Password..."
-                                            onChange={(e) => setData('title', e.target.value)}
-                                            value={data.title}
+                                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                                            value={data.password_confirmation ? data.password_confirmation : ''}
                                         />
-                                        <InputError message={errors.title} className="mt-2" />
+                                        <InputError message={errors.password_confirmation} className="mt-2" />
                                     </div>
                                 </div>
 
@@ -233,7 +257,11 @@ export default function UserAdmin({ auth, users, locale }) {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div>
                                         <InputLabel value={'Locale'} className='mb-1 font-poppins font-semibold' />
-                                        <select className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'>
+                                        <select
+                                            className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
+                                            value={data.local}
+                                            onChange={(e) => setData('local', e.target.value)}
+                                        >
                                             <option value="">Select</option>
                                             {locale.length && locale.map((item, index) => {
                                                 return (
@@ -241,20 +269,27 @@ export default function UserAdmin({ auth, users, locale }) {
                                                 )
                                             })}
                                         </select>
+                                        <InputError message={errors.local} className='mt-2' />
                                     </div>
                                     <div>
-                                        <div>
-                                            <InputLabel value={'Role'} className='mb-1 font-poppins font-semibold' />
-                                            <select className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'>
-                                                <option value="">Select</option>
-                                                <option value="">Admin</option>
-                                                <option value="">User</option>
-                                            </select>
-                                        </div>
+                                        <InputLabel value={'Role'} className='mb-1 font-poppins font-semibold' />
+                                        <select
+                                            className='w-full border-gray-300 rounded-md font-poppins focus:border-yellow-500 focus:ring-0'
+                                            value={data.role}
+                                            onChange={(e) => setData('role', e.target.value)}
+                                        >
+                                            <option value="">Select</option>
+                                            {roles.length && roles.map((item, index) => {
+                                                return (
+                                                    <option value={item.name} key={item.id}>{item.name}</option>
+                                                )
+                                            })}
+                                        </select>
+                                        <InputError message={errors.role} className='mt-2' />
                                     </div>
                                 </div>
                             </div>
-                            <input type='hidden' name='type' value={formType} />
+                            <input type='hidden' name='type' value={formType} readOnly />
                             <div className="font-item mb-4 text-right">
                                 <button className='bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
                             </div>
