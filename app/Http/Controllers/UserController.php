@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Locale;
-
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 use Inertia\Inertia;
+use App\Models\Locale;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function admin_user_index()
     {
         $locale = Locale::all();
-        $users = User::with('roles.permissions')->get();
+        $users = User::with('roles')->get();
+        $roles = Role::where('name', '!=', 'super-admin')->get();
         return Inertia::render('Users/UserAdmin', [
             'users' => $users,
-            'locale' => $locale
+            'locale' => $locale,
+            'roles' => $roles
         ]);
     }
 
@@ -25,6 +28,38 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
+        return to_route('admin.users.index');
+    }
+
+    public function admin_user_update(Request $request, $id)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|numeric|min:10',
+            'local' => 'required|string|max:255',
+        ]);
+        if ($request->input('password')) {
+            $request->validate([
+                'password' => ['required', 'confirmed'],
+            ]);
+        }
+        $user = User::findOrFail($id);
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->phone = $request->input('phone');
+        $user->local = $request->input('local');
+        if ($request->input('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->update();
+        if ($request->input('role')) {
+            $user->roles()->detach();
+            $newRole = Role::where('name', $request->input('role'))->first();
+            if ($newRole) {
+                $user->assignRole($newRole);
+            }
+        }
         return to_route('admin.users.index');
     }
 }

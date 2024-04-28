@@ -115,6 +115,7 @@ Route::controller(LocationController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::middleware(['auth', 'permission:create_users|edit_users|delete_users'])->group(function () {
         Route::get('/dashboard/users', 'admin_user_index')->name('admin.users.index');
+        Route::post('/dashboard/users/{id}', 'admin_user_update')->name('admin.users.update');
         Route::delete('/dashboard/users/{id}', 'admin_user_delete')->name('admin.users.delete');
     });
 });
