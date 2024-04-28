@@ -63,19 +63,19 @@ export default function HomePage({ auth, posts, events }) {
                 <div className="hero-slider hidden md:block">
                     <Slider {...settings} className='lg:h-[800px] h-[438px]'>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/first_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                            <img src="/images/optimize_image/first_banner.webp" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/second_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                            <img src="/images/optimize_image/second_banner.webp" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/third_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                            <img src="/images/optimize_image/third_banner.webp" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/fourth_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                            <img src="/images/optimize_image/fourth_banner.webp" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/fifth_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                            <img src="/images/optimize_image/fifth_banner.webp" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                     </Slider>
                 </div>
@@ -83,19 +83,19 @@ export default function HomePage({ auth, posts, events }) {
                 <div className="mobile-hero-slider block md:hidden">
                     <Slider {...settings}>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/first_banner.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/optimize_image/first_banner.webp" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/second_banner.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/optimize_image/second_banner.webp" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/third_banner.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/optimize_image/third_banner.webp" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/fourth_banner.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/optimize_image/fourth_banner.webp" className='w-full object-cover h-full' />
                         </div>
                         <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/fifth_banner.jpg" className='w-full object-cover h-full' />
+                            <img src="/images/optimize_image/fifth_banner.webp" className='w-full object-cover h-full' />
                         </div>
                     </Slider>
                 </div>
@@ -149,7 +149,7 @@ export default function HomePage({ auth, posts, events }) {
                             </WOW>
                             <WOW animation="slideRightToLeft">
                                 <div className="w-11/12 lg:w-1/2 mx-auto">
-                                    <img src="/images/events.jpg" className='rounded-[30px] w-full h-auto' />
+                                    <img src="/images/optimize_image/events.webp" className='rounded-[30px] w-full h-auto' />
                                 </div>
                             </WOW>
                             </div>
@@ -210,7 +210,7 @@ export default function HomePage({ auth, posts, events }) {
                                 <div className="bg-white rounded-[30px]">
                                     <div className="flex flex-col md:flex-row gap-6 items-center py-10 md:py-0 justify-center">
                                         <div className="md:w-1/2 w-11/12">
-                                            <img src="/images/charity.png"
+                                            <img src="/images/optimize_image/charity.webp"
                                                 className='w-full rounded-[20px] md:rounded-tl-[30px] md:rounded-bl-[30px] md:rounded-tr-[0px] md:rounded-br-[0px] md:h-[600px] object-cover' />
                                         </div>
                                         <div className="md:w-1/2 w-11/12">
