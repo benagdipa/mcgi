@@ -6,4 +6,19 @@
         background-blend-mode: color;
 
     }
+    .header-title {
+        border-color: #d5d8dc;
+        border-width: 1px;
+        border-style: none none solid none;
+            h2{
+                border: 1px solid #d5d8dc;
+                border-bottom-style: none;
+            }
+    }
+    .first-section,
+    .second-section{
+        border-color: #d5d8dc;
+        border-width: 1px;
+        border-style: none solid solid;
+    }
 }
