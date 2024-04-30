@@ -3,24 +3,35 @@ import { Head, Link } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import React, { useState } from 'react'
 import { DateTime } from 'luxon';
-import { IconSearch, IconSelector } from '@tabler/icons-react';
+import { IconChevronDown, IconChevronUp, IconSearch, IconSelector } from '@tabler/icons-react';
 import axios from 'axios';
 
 
 export default function AttendanceAdmin({ auth, attendance, events, locales }) {
 
-    console.log(attendance);
-
-
     const TABLE_HEAD = [
-        { name: 'SN', sortable: false, asc: true },
-        { name: "Locale", sortable: true, asc: true },
-        { name: 'Event', sortable: true, asc: true },
-        { name: 'Date Of Event', sortable: true, asc: true },
-        { name: 'Full Name', sortable: true, asc: true },
-        { name: 'Entry Date and Time', sortable: false, asc: true },
+        { name: 'SN', sortable: false, asc: true, sortKey: 'id' },
+        { name: "Locale", sortable: true, asc: true, sortKey: 'locale_name' },
+        { name: 'Event', sortable: true, asc: true, sortKey: 'event_name' },
+        { name: 'Date Of Event', sortable: true, asc: true, sortKey: 'event_date' },
+        { name: 'Full Name', sortable: true, asc: true, sortKey: 'name' },
+        { name: 'Entry Date and Time', sortable: false, asc: true, sortKey: 'created_at' },
     ];
-    const [attendanceList, setAttendanceList] = useState(attendance);
+    const [attendanceList, setAttendanceList] = useState([...attendance]);
+
+    const sortData = (key, order) => {
+        const sortedData = [...attendanceList].sort((a, b) => {
+            let comparison = 0;
+            if (typeof a[key] === 'string') {
+                comparison = a[key].localeCompare(b[key]);
+            } else {
+                comparison = a[key] - b[key];
+            }
+            return order === 'asc' ? comparison : -comparison;
+        });
+        setAttendanceList(sortedData);
+    };
+
 
     const [searchData, setSearchData] = useState({
         searchText: '',
@@ -33,20 +44,6 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
         return dateTime.toFormat('yyyy-MM-dd h:mm:ss');
     }
 
-    function getEventTitle(eventId) {
-        const event = events.filter(event => event.id === parseInt(eventId))[0]
-        return event?.title
-    }
-    function getEventStartDate(eventId) {
-        const event = events.filter(event => event.id === parseInt(eventId))[0]
-        return event?.start_date
-    }
-    function getLocaleDetails(localeId) {
-        const locale = locales.filter(locale => locale.id === parseInt(localeId))[0]
-        return locale?.title
-    }
-
-
     const handleSearchFieldChange = (name, value) => {
         setSearchData({ ...searchData, [name]: value });
     }
@@ -58,8 +55,6 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
             setAttendanceList(res.data)
         }
     }
-
-
 
     return (
         <Authenticated user={auth?.user}>
@@ -133,12 +128,19 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
                                     {TABLE_HEAD.map((head) => (
                                         <th
                                             key={head.name}
-                                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 cursor-pointer transition-colors hover:bg-blue-gray-100"
+                                            className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 cursor-pointer transition-colors"
                                         >
-                                            <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins flex items-center justify-between gap-2">
-                                                {head.name}
-                                                {head?.sortable && <IconSelector size={22} />}
-                                            </Typography>
+                                            <div className='flex justify-between'>
+                                                <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins flex items-center justify-between gap-2">
+                                                    {head.name}
+                                                </Typography>
+                                                {head?.sortable && (
+                                                    <div className="relative mt-1">
+                                                        <span className='absolute -top-3 right-0 hover:bg-blue-gray-100 rounded-sm'><IconChevronUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'asc') }} /></span>
+                                                        <span className='absolute -bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm'><IconChevronDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'desc') }} /></span>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </th>
                                     ))}
                                 </tr>
@@ -148,7 +150,7 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
                                     const isLast = index === attendanceList.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
-                                        <tr key={index}>
+                                        <tr key={index} className="even:bg-blue-gray-50/50">
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins">{index + 1}</Typography>
                                             </td>
