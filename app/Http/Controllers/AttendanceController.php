@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\EmailTemplate;
 use App\Models\Events;
 use App\Models\Attendance;
+use App\Models\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Rules\UniqueAttendance;
+use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Facades\Mail;
 
@@ -73,5 +75,74 @@ class AttendanceController extends Controller
             fclose($file);
         };
         return new StreamedResponse($callback, 200, $headers);
+    }
+
+
+    public function admin_index()
+    {
+        $events = Events::all();
+        $locales = Locale::all();
+
+        $attendance = Attendance::with([
+            'event' => function ($query) {
+                $query->select('id', 'title', 'start_date');
+            }
+        ])->get();
+
+        $list = [];
+        foreach ($attendance as $attendee) {
+            $list[] = array(
+                'id' => $attendee->id,
+                'event_name' => $attendee->event->title,
+                'event_date' => $attendee->event->start_date,
+                'name' => $attendee->name,
+                'created_at' => $attendee->created_at,
+                'locale_name' => $this->getLocaleNameForAttendee($attendee->locale)
+            );
+        }
+        return Inertia::render('Events/Admin/AttendanceAdmin', [
+            'attendance' => $list,
+            'events' => $events,
+            'locales' => $locales
+        ]);
+    }
+
+
+    public function getLocaleNameForAttendee($id)
+    {
+        $locale = Locale::find($id);
+        return $locale->title;
+    }
+
+    public function search_attendee(Request $request)
+    {
+        $attendance = Attendance::query();
+        if ($request->filled('event_id')) {
+            $attendance->where('event_id', $request->input('event_id'));
+        }
+        if ($request->filled('searchText')) {
+            $attendance->where('name', 'like', '%' . $request->input('searchText') . '%');
+        }
+        if ($request->filled('locale_id')) {
+            $attendance->where('locale', $request->input('locale_id'));
+        }
+        $filteredAttendance = $attendance->with([
+            'event' => function ($query) {
+                $query->select('id', 'title', 'start_date');
+            }
+        ])->get();
+
+        $list = [];
+        foreach ($filteredAttendance as $attendee) {
+            $list[] = array(
+                'id' => $attendee->id,
+                'event_name' => $attendee->event->title,
+                'event_date' => $attendee->event->start_date,
+                'name' => $attendee->name,
+                'created_at' => $attendee->created_at,
+                'locale_name' => $this->getLocaleNameForAttendee($attendee->locale)
+            );
+        }
+        return $list;
     }
 }
