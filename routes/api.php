@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/search/users', [EventsController::class, 'search_user'])->name('api.search.user');
 Route::post('/export/attendee', [AttendanceController::class, 'export_attendee'])->name('api.export.attendee');
+Route::post('/search/attendee', [AttendanceController::class, 'search_attendee'])->name('api.search.attendee');

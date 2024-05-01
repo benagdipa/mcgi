@@ -18,4 +18,10 @@ class Events extends Model
         'content',
         "featured_image",
     ];
+
+    // Define the reverse relationship
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'event_id', 'id');
+    }
 }

@@ -92,6 +92,7 @@ Route::controller(EventsController::class)->group(function () {
 
 Route::controller(AttendanceController::class)->group(function () {
     Route::post('/attendance/store', 'store')->name('event.attendence.store');
+    Route::get('/dashboard/attendances', 'admin_index')->name('admin.events.attendances.index');
 });
 
 Route::controller(LocaleController::class)->group(function () {
