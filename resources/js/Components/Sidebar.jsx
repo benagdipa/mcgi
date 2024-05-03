@@ -22,6 +22,7 @@ import {
     IconPin,
     IconUserCog,
     IconUsers,
+    IconSlideshow,
 } from "@tabler/icons-react";
 import { Link, usePage } from "@inertiajs/react";
 import { isUserAllowed } from "@/Utils/Utils";
@@ -299,6 +300,24 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItem>
                             </Link>
                         )}
+
+                    {/* Banners */}
+                    {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
+                        <Link
+                            href={route('admin.banner.index')}
+                            className={`${currentRoute === "admin.banner.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                        >
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <IconSlideshow strokeWidth={1.5} />
+                                </ListItemPrefix>
+                                <Typography className="mr-auto font-poppins font-medium">
+                                    Banner
+                                </Typography>
+                            </ListItem>
+                        </Link>
+                    )}
+
                     </List>
                 </div>
             </div>
