@@ -11,9 +11,9 @@ import WOW from 'react-wow';
 
 
 
-export default function HomePage({ auth, posts, events }) {
+export default function HomePage({ auth, posts, events,imagesUrl,imageTitles }) {
     const title = "Home";
-
+    console.log(imageTitles);
     const extractWords = (inputString, numWords) => {
         let words = inputString.split(/\s+/);
         let extractedWords = words.slice(0, numWords);
@@ -62,10 +62,13 @@ export default function HomePage({ auth, posts, events }) {
             <div className='homepage-content'>
                 <div className="hero-slider hidden md:block">
                     <Slider {...settings} className='lg:h-[800px] h-[438px]'>
-                        <div className='slider-item lg:h-full'>
-                            <img src="/images/slider/first_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
+                        {imagesUrl.map((itm,index)=>{
+                            return     <div key={itm} className='slider-item lg:h-full'>
+                            <img src={`${itm}`} alt={`${imageTitles[index]}`} className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
-                        <div className='slider-item lg:h-full'>
+                        })}
+                    
+                        {/* <div className='slider-item lg:h-full'>
                             <img src="/images/slider/second_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
                         </div>
                         <div className='slider-item lg:h-full'>
@@ -76,7 +79,7 @@ export default function HomePage({ auth, posts, events }) {
                         </div>
                         <div className='slider-item lg:h-full'>
                             <img src="/images/slider/fifth_banner.jpg" className='w-full h-[438px] lg:h-[800px] object-cover ' />
-                        </div>
+                        </div> */}
                     </Slider>
                 </div>
 
