@@ -13,11 +13,11 @@ class BannerController extends Controller
     {
     
             // Access authenticated user's ID
-            $userId = auth()->id();
+            
           
             // You can now use $userId as needed
         
-        $imageData = BannerImage::select('id', 'title', 'bannerpath')->where('userId', $userId)->get()->toArray();
+        $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
     
         // // Construct the URLs for the images using the base URL and image paths
         // $imageUrls = array_map(function ($imageData) {
