@@ -97,7 +97,7 @@ class AttendanceController extends Controller
                 'event_date' => $attendee->event->start_date,
                 'name' => $attendee->name,
                 'created_at' => $attendee->created_at,
-                'locale_name' => $this->getLocaleNameForAttendee($attendee->locale)
+                'locale_name' => $attendee->locale ? $this->getLocaleNameForAttendee($attendee->locale) : ''
             );
         }
         return Inertia::render('Events/Admin/AttendanceAdmin', [
