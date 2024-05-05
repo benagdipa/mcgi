@@ -6,10 +6,12 @@ use App\Models\Album;
 use App\Models\Events;
 use App\Models\Location;
 use App\Models\Posts;
+use App\Models\BannerImage;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -17,9 +19,30 @@ class PageController extends Controller
     {
         $posts = Posts::take(3)->get();
         $events = Events::take(9)->get();
+             // Access authenticated user's ID
+             
+          
+             // You can now use $userId as needed
+         
+         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
+     
+       
+         $ids=[];
+         $titles=[];
+         $bannerpath=[];
+         $imageUrls=[];
+         foreach ($imageData as $image) {
+     $ids[] = $image['id'];
+     $titles[] = $image['title'];
+     $bannerpath[] = $image['bannerpath'];
+     $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
+         }
         return Inertia::render('HomePage', [
             'posts' => $posts,
             'events' => $events,
+            'imagesUrl'=>$imageUrls,
+            'imageTitles'=>$titles,
+      
         ]);
     }
     public function aboutPage()
