@@ -11,13 +11,14 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BannerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routesadmin.banner.index
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -132,6 +133,14 @@ Route::controller(AlbumController::class)->group(function () {
 
         Route::post('/dashboard/albums/image', 'admin_album_image_store')->name('admin.album.image.store');
         Route::delete('/dashboard/albums/image/{id}', 'admin_album_image_delete')->name('admin.album.image.delete');
+    });
+});
+
+Route::controller(BannerController::class)->group(function () {
+    Route::middleware(['auth', 'permission:create_banners|edit_banners|delete_banners'])->group(function () {
+        Route::get('/dashboard/banners', 'admin_banner_index')->name('admin.banner.index');
+        Route::post('/dashboard/banners', 'admin_banner_store')->name('admin.banner.store');
+        Route::delete('/dashboard/banners/{id}','admin_banner_delete')->name('admin.banner.delete');
     });
 });
 
