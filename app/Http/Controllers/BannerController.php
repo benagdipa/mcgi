@@ -13,7 +13,7 @@ class BannerController extends Controller
     {
     
             // Access authenticated user's ID
-            $userId = auth()->id();
+            
           
             // You can now use $userId as needed
         

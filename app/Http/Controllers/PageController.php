@@ -20,7 +20,7 @@ class PageController extends Controller
         $posts = Posts::take(3)->get();
         $events = Events::take(9)->get();
              // Access authenticated user's ID
-             $userId = auth()->id();
+            
           
              // You can now use $userId as needed
          
