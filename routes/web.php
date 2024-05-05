@@ -140,6 +140,7 @@ Route::controller(BannerController::class)->group(function () {
     Route::middleware(['auth', 'permission:create_banners|edit_banners|delete_banners'])->group(function () {
         Route::get('/dashboard/banners', 'admin_banner_index')->name('admin.banner.index');
         Route::post('/dashboard/banners', 'admin_banner_store')->name('admin.banner.store');
+      
         Route::delete('/dashboard/banners/{id}','admin_banner_delete')->name('admin.banner.delete');
     });
 });

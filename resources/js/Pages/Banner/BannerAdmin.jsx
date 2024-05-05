@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm } from "@inertiajs/react";
 import {
@@ -15,12 +16,12 @@ import { useDropzone } from "react-dropzone";
 import InputError from "@/Components/InputError";
 import { IconX } from "@tabler/icons-react";
 
-const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
+const BannerAdminPage = ({ auth, banners, titles, ids }) => {
     const {
         data,
         setData,
         post,
-      
+
         processing,
         errors,
         reset,
@@ -29,7 +30,7 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
         title: "",
         banners: [],
     });
-    console.log(banners);
+    console.log(errors);
     const [toggleOpen, setToggleOpen] = useState(false);
     const [uploadedImages, setUploadedImages] = useState("");
 
@@ -41,11 +42,20 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-
+            if(data.banners.length>0){
+         
             formData.append("banner", data.banners);
             formData.append("title", data.title);
-            post(route("admin.banner.store"), formData);
-            setToggleOpen(false);
+            const res = await fetch(
+                post(route("admin.banner.store", formData),{
+                    onSuccess:()=>{
+                        setToggleOpen(false);
+                        reset();
+                    },
+                })  
+            );
+                
+        }
         } catch (error) {
             console.error("Error uploading images:", error);
         }
@@ -83,7 +93,6 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         onDrop: (acceptedFiles) => {
-            console.log(acceptedFiles);
             setData("banners", [
                 ...(data.banners || []),
                 ...acceptedFiles.map((file) =>
@@ -95,10 +104,10 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
         },
     });
 
-    const onDeleteHandler=(id)=>{
-        console.log(id);
-        destroy(route("admin.banner.delete", id))
-    }
+    const onDeleteHandler = (id) => {
+        destroy(route("admin.banner.delete", id));
+    };
+
 
     return (
         <Authenticated user={auth?.user}>
@@ -188,6 +197,10 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
                                                 "before:content-none after:content-none",
                                         }}
                                     />
+                                    <InputError
+                                        message={errors.title}
+                                        className="mt-2"
+                                    />
                                 </div>
                                 <div className="font-item mb-4 text-right">
                                     <button
@@ -215,27 +228,28 @@ const BannerAdminPage = ({ auth, banners, titles ,ids }) => {
                                         />
                                     </div>
                                     <div className="flex w-[60%] justify-between items-center">
-                                    <Typography
-                                        variant="h5"
-                                        color="blue-gray"
-                                        className=""
-                                    >
-                                        {titles[index]}
-                                    </Typography>
-                                    <button
-                                        className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
-                                        disabled={processing}
-                                        onClick={()=>onDeleteHandler(ids[index])}
-                                    >
-                                        Delete
-                                    </button>
+                                        <Typography
+                                            variant="h5"
+                                            color="blue-gray"
+                                            className=""
+                                        >
+                                            {titles[index]}
+                                        </Typography>
+                                        <button
+                                            className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
+                                            disabled={processing}
+                                            onClick={() =>
+                                                onDeleteHandler(ids[index])
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+                                    
                                     </div>
-                                   
                                 </div>
                             </Card>
                         );
                     })}
-                    
                 </div>
             </div>
         </Authenticated>

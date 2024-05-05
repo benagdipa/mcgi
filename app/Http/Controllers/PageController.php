@@ -38,13 +38,14 @@ class PageController extends Controller
      $bannerpath[] = $image['bannerpath'];
      $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
          }
-        return Inertia::render('HomePage', [
+         return Inertia::render('HomePage',[
             'posts' => $posts,
             'events' => $events,
             'imagesUrl'=>$imageUrls,
             'imageTitles'=>$titles,
       
         ]);
+    
     }
     public function aboutPage()
     {
