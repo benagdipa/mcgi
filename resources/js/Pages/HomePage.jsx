@@ -8,8 +8,8 @@ import Modal from "@/Components/Modal";
 import { IconPlayerPlay } from "@tabler/icons-react";
 import { DateTime } from "luxon";
 import WOW from "react-wow";
-import useSWR  from 'swr';
-import { router } from '@inertiajs/react'
+import useSWR from "swr";
+import { router } from "@inertiajs/react";
 
 export default function HomePage({
     auth,
@@ -20,18 +20,17 @@ export default function HomePage({
 }) {
     const title = "Home";
 
-  
-    const { data, error } = useSWR(route('home'));
-    useEffect(()=>{
-        fetch('/').then((res)=>{
-            console.log(res);
-           return res.json()
-        }).then((res1)=>{
-            console.log(res1);
-        })
-    },[])
-
-  
+    const { data, error } = useSWR(route("home"));
+    useEffect(() => {
+        fetch("/")
+            .then((res) => {
+                console.log(res);
+                return res.json();
+            })
+            .then((res1) => {
+                console.log(res1);
+            });
+    }, []);
 
     const extractWords = (inputString, numWords) => {
         let words = inputString.split(/\s+/);
@@ -42,8 +41,8 @@ export default function HomePage({
 
     const [prayModalState, setPrayModalState] = useState(false);
     var settings = {
-        dots: false,
-        infinite: true,
+        dots: true,
+        infinite: false,
         speed: 500,
         height: 600,
         slidesToShow: 1,
@@ -103,79 +102,40 @@ export default function HomePage({
             </Head>
             <div className="homepage-content">
                 <div className="hero-slider hidden md:block">
-                    {imagesUrl.length === 1 && (
-                        <>
-                            {imagesUrl.map((itm, index) => {
-                                return (
-                                    <div
-                                        key={itm}
-                                        className="slider-item lg:h-full"
-                                    >
-                                        <img
-                                            src={`${itm}`}
-                                            alt={`${imageTitles[index]}`}
-                                            className="w-full h-[438px] lg:h-[800px] object-cover "
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </>
-                    )}
-
-                    {(imagesUrl.length > 1 || imagesUrl.length === 0) && (
-                        <Slider
-                            {...settings}
-                            className="lg:h-[800px] h-[438px]"
-                        >
-                            {imagesUrl.map((itm, index) => {
-                                return (
-                                    <div
-                                        key={itm}
-                                        className="slider-item lg:h-full"
-                                    >
-                                        <img
-                                            src={`${itm}`}
-                                            alt={`${imageTitles[index]}`}
-                                            className="w-full h-[438px] lg:h-[800px] object-cover "
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </Slider>
-                    )}
+                    <Slider {...settings} className="lg:h-[800px] h-[438px]">
+                        {imagesUrl.map((itm, index) => {
+                            return (
+                                <div
+                                    key={itm}
+                                    className="slider-item lg:h-full"
+                                >
+                                    <img
+                                        src={`${itm}`}
+                                        alt={`${imageTitles[index]}`}
+                                        className="w-full h-[438px] lg:h-[800px] object-cover "
+                                    />
+                                </div>
+                            );
+                        })}
+                    </Slider>
                 </div>
 
                 <div className="mobile-hero-slider block md:hidden">
-                    {imagesUrl.length === 1 && (
-                        <>
-                            {imagesUrl.map((itm, index) => {
-                                return (
-                                    <div className="slider-item lg:h-full">
-                                        <img
-                                            src={`${itm}`}
-                                            alt={`${imageTitles[index]}`}
-                                            className="w-full object-cover h-full"
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </>
-                    )}
-                    {(imagesUrl.length > 1 || imagesUrl.length === 0) && (
-                        <Slider {...settings}>
-                            {imagesUrl.map((itm, index) => {
-                                return (
-                                    <div className="slider-item lg:h-full">
-                                        <img
-                                            src={`${itm}`}
-                                            alt={`${imageTitles[index]}`}
-                                            className="w-full object-cover h-full"
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </Slider>
-                    )}
+                
+
+                    <Slider {...settings}>
+                        {imagesUrl.map((itm, index) => {
+                            return (
+                                <div className="slider-item lg:h-full">
+                                    <img
+                                        src={`${itm}`}
+                                        alt={`${imageTitles[index]}`}
+                                        className="w-full object-cover h-full"
+                                    />
+                                </div>
+                            );
+                        })}
+                    </Slider>
                 </div>
 
                 <WOW animation="fadeIn">
