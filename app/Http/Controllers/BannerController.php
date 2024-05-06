@@ -11,22 +11,10 @@ class BannerController extends Controller
 {
     public function admin_banner_index()
     {
-    
-            // Access authenticated user's ID
-            
-          
-            // You can now use $userId as needed
+   
         
         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
-    
-        // // Construct the URLs for the images using the base URL and image paths
-        // $imageUrls = array_map(function ($imageData) {
-        //     return Storage::url('uploads/' . $imageData[0]); // Assuming bannerpath is the first item in the array
-        // }, $imageData);
-        
-        // // Extract titles and IDs from the array
-        // $imageTitles = array_column($imageData, 1); // Assuming title is the second item in the array
-        // $imageIds = array_keys($imageData);
+   
         $ids=[];
         $titles=[];
         $bannerpath=[];
@@ -51,7 +39,7 @@ class BannerController extends Controller
     {
        
         $data=$request->validate([
-            'banners.*' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
+            'banners' => ['required','max:2048'],
             'title'=>'required|string|max:255',
         ]);
      
@@ -96,7 +84,6 @@ class BannerController extends Controller
         return to_route('admin.banner.index');
     }
 }
-
 
 }
 

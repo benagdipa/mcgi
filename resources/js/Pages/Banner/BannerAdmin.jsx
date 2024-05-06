@@ -30,7 +30,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
         title: "",
         banners: [],
     });
-    console.log(errors);
+    const [imageUploadError, setImageUploadError] = useState(false);
     const [toggleOpen, setToggleOpen] = useState(false);
     const [uploadedImages, setUploadedImages] = useState("");
 
@@ -42,20 +42,27 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            if(data.banners.length>0){
-         
-            formData.append("banner", data.banners);
-            formData.append("title", data.title);
-            const res = await fetch(
-                post(route("admin.banner.store", formData),{
-                    onSuccess:()=>{
+          
+            if (data.banners[0]?.size / (1024 * 1024)>2) {
+                setData('banners',[]);
+                setImageUploadError(
+                    "Image Size should equal or less than 2 mb"
+                );
+            } else {
+                setImageUploadError('');
+                formData.append("banners", data.banners[0]);
+                formData.append("title", data.title);
+
+                post(route("admin.banner.store", formData), {
+                    onSuccess: () => {
                         setToggleOpen(false);
                         reset();
                     },
-                })  
-            );
-                
-        }
+                    onError: (error) => {
+                        console.log(error);
+                    },
+                });
+            }
         } catch (error) {
             console.error("Error uploading images:", error);
         }
@@ -93,21 +100,13 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: "image/*",
         onDrop: (acceptedFiles) => {
-            setData("banners", [
-                ...(data.banners || []),
-                ...acceptedFiles.map((file) =>
-                    Object.assign(file, {
-                        preview: URL.createObjectURL(file),
-                    })
-                ),
-            ]);
+            setData("banners", URL.createObjectURL(file));
         },
     });
 
     const onDeleteHandler = (id) => {
         destroy(route("admin.banner.delete", id));
     };
-
 
     return (
         <Authenticated user={auth?.user}>
@@ -154,6 +153,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                     >
                                         Title
                                     </Typography>
+
                                     <Input
                                         size="lg"
                                         placeholder="enter banner title"
@@ -167,6 +167,10 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                                 "before:content-none after:content-none",
                                         }}
                                     />
+                                    <InputError
+                                        message={errors.title}
+                                        className="mt-2"
+                                    />
                                     <Typography
                                         variant="h6"
                                         color="blue-gray"
@@ -178,6 +182,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         type="file"
                                         size="lg"
                                         onChange={(e) => {
+                                            setImageUploadError('')
                                             setData("banners", [
                                                 ...(data.banners || []),
                                                 ...[...e.target.files].map(
@@ -198,7 +203,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         }}
                                     />
                                     <InputError
-                                        message={errors.title}
+                                        message={imageUploadError}
                                         className="mt-2"
                                     />
                                 </div>
@@ -244,7 +249,6 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         >
                                             Delete
                                         </button>
-                                    
                                     </div>
                                 </div>
                             </Card>
