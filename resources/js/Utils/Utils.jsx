@@ -1,4 +1,5 @@
 export function isUserAllowed(allPermissions, toValidatePermission, role = '') {
+
     if (role && role?.name === 'super-admin') {
         return true
     }

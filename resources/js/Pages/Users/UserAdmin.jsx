@@ -45,7 +45,7 @@ export default function UserAdmin({ auth, users, locale, roles }) {
             setFormType('_add')
         } else if (type === 'edit') {
             const selected = users.filter(obj => obj.id === id)
-            console.log(selected);
+          
             setData({ ...selected[0], 'role': selected[0].roles[0] ? selected[0].roles[0].name : 'guest' });
             setModalTitle('Edit')
             setFormType('_edit')

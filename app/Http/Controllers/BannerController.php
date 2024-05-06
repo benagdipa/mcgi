@@ -51,7 +51,7 @@ class BannerController extends Controller
     {
        
         $data=$request->validate([
-            'banners.*' => 'image|mimes:jpeg,png,webp,jpg,gif|max:2048',
+            'banners.*' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
             'title'=>'required|string|max:255',
         ]);
      
@@ -84,10 +84,9 @@ class BannerController extends Controller
         // User is not authenticated
     }
       
-
-     
-       
     }
+
+
     public function admin_banner_delete($id)
 {
     $banner = BannerImage::findOrFail($id);
@@ -97,6 +96,7 @@ class BannerController extends Controller
         return to_route('admin.banner.index');
     }
 }
+
 
 }
 
