@@ -203,7 +203,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         }}
                                     />
                                     <InputError
-                                        message={imageUploadError}
+                                        message={imageUploadError?imageUploadError:errors.banners}
                                         className="mt-2"
                                     />
                                 </div>
