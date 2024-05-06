@@ -34,6 +34,7 @@ export default function RoleIndex({ auth, roles }) {
         { name: "Albums", items: ['create', 'edit', 'delete'] },
         { name: "Email Tempates", items: ['create', 'edit', 'delete'] },
         { name: "Roles", items: ['create', 'edit', 'delete'] },
+        { name: "Banner", items: ['create', 'edit', 'delete'] },
     ]
 
     const openAddEditModal = (type, id = 0) => {

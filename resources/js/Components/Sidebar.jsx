@@ -316,7 +316,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItem>
                             </Link>
                         )}
-
+                
                     {/* Banners */}
                     {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
                         <Link
