@@ -121,8 +121,6 @@ export default function HomePage({
                 </div>
 
                 <div className="mobile-hero-slider block md:hidden">
-                
-
                     <Slider {...settings}>
                         {imagesUrl.map((itm, index) => {
                             return (
