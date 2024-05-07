@@ -4,7 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Http\Exceptions\PostTooLargeException;
+  
 class Handler extends ExceptionHandler
 {
     /**
@@ -17,6 +18,7 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
 
     /**
      * Register the exception handling callbacks for the application.
