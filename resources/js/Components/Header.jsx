@@ -36,8 +36,12 @@ export default function Header({ user }) {
                                                 <Link href={route('about')}>About Us</Link>
                                             </li>
                                             <li className='font-semibold text-base font-montserrat'>
+                                                <Link href={route('gallery')}>Gallery</Link>
+                                            </li>
+                                            <li className='font-semibold text-base font-montserrat'>
                                                 <Link href={eventHref}>Events</Link>
                                             </li>
+
                                             <li className='font-semibold text-base font-montserrat'>
                                                 {user ? (
                                                     <Dropdown>
