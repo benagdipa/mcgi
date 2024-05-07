@@ -95,6 +95,7 @@ export default function Header({ user }) {
                                         <ul className='bg-white w-full border-t z-[109]'>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('home')}>Home</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('gallery')}>Gallery</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={eventHref}>Events</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
                                         </ul>
