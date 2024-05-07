@@ -19,24 +19,16 @@ class PageController extends Controller
     {
         $posts = Posts::take(3)->get();
         $events = Events::take(9)->get();
-             // Access authenticated user's ID
-  
-
-          
-             // You can now use $userId as needed
-         
-         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
-     
-       
+        $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
          $ids=[];
          $titles=[];
          $bannerpath=[];
          $imageUrls=[];
          foreach ($imageData as $image) {
-     $ids[] = $image['id'];
-     $titles[] = $image['title'];
-     $bannerpath[] = $image['bannerpath'];
-     $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
+        $ids[] = $image['id'];
+        $titles[] = $image['title'];
+        $bannerpath[] = $image['bannerpath'];
+        $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
          }
          return Inertia::render('HomePage',[
             'posts' => $posts,
