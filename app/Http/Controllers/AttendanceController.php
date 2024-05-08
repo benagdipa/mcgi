@@ -93,10 +93,10 @@ class AttendanceController extends Controller
         foreach ($attendance as $attendee) {
             $list[] = array(
                 'id' => $attendee->id,
-                'event_name' => $attendee->event->title,
-                'event_date' => $attendee->event->start_date,
-                'name' => $attendee->name,
-                'created_at' => $attendee->created_at,
+                'event_name' => $attendee->event->title ? $attendee->event->title : '',
+                'event_date' => $attendee->event->start_date ? $attendee->event->start_date : '',
+                'name' => $attendee->name ? $attendee->name : '',
+                'created_at' => $attendee->created_at ? $attendee->created_at : '',
                 'locale_name' => $attendee->locale ? $this->getLocaleNameForAttendee($attendee->locale) : ''
             );
         }
