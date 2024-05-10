@@ -12,6 +12,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BannerController;
+use App\Models\Album;
+use App\Models\Attachment;
+use App\Models\Events;
+use App\Models\Posts;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +43,21 @@ Route::controller(PageController::class)->group(function () {
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $user_count = User::count();
+    $blog_counts = Posts::count();
+    return Inertia::render('Dashboard', [
+        'count' => [
+            'users' => $user_count,
+            'blogs' => $blog_counts,
+            'events' => Events::count(),
+            'albums' => Attachment::count()
+        ],
+        'data' => [
+            'events' => Events::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+            'blogs' => Posts::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+            'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
+        ],
+    ]);
 })->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -140,8 +159,8 @@ Route::controller(BannerController::class)->group(function () {
     Route::middleware(['auth', 'permission:create_banners|edit_banners|delete_banners'])->group(function () {
         Route::get('/dashboard/banners', 'admin_banner_index')->name('admin.banner.index');
         Route::post('/dashboard/banners', 'admin_banner_store')->name('admin.banner.store');
-      
-        Route::delete('/dashboard/banners/{id}','admin_banner_delete')->name('admin.banner.delete');
+
+        Route::delete('/dashboard/banners/{id}', 'admin_banner_delete')->name('admin.banner.delete');
     });
 });
 
