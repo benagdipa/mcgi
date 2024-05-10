@@ -71,4 +71,8 @@ class PageController extends Controller
             'albums' => $albums
         ]);
     }
+    public function dashboard(){
+        echo "here";
+        exit;
+    }
 }
