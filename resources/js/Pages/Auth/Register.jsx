@@ -34,11 +34,11 @@ export default function Register({ locale }) {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <div className="register-page pt-24 md:pt-0">
+            <div className="register-page">
                 <div className="w-full">
-                    <div className="h-screen flex gap-10 lg:gap-0 lg:flex-row flex-col items-center">
+                    <div className="h-screen flex gap-10 lg:gap-0 lg:flex-row flex-col items-center justify-center">
                         <div className="left-screen lg:w-2/5 w-11/12 mx-auto">
-                            <div className="lg:px-24">
+                            <div className="lg:px-6">
                                 <ApplicationLogo className="mx-auto" />
                                 <div className="title-wrapper mt-12">
                                     <h1 className='font-bold text-3xl'>Create an Account</h1>
@@ -179,7 +179,7 @@ export default function Register({ locale }) {
                                 </form>
                             </div>
                         </div>
-                        <div className="right-section  w-11/12 lg:w-3/5 md:block hidden mx-auto h-screen"></div>
+                        <div className="right-section  w-11/12 lg:w-3/5 hidden lg:block  mx-auto h-screen"></div>
                     </div>
                 </div>
             </div>
