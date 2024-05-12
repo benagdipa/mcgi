@@ -7,6 +7,7 @@ use App\Models\Locale;
 use DateTime;
 use DateTimeZone;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use App\Models\Events;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class EventsController extends Controller
 {
     public function index()
     {
-        $events = Events::all();
+        $currentDate = Carbon::now();
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get();
         $locale = Locale::all();
         return Inertia::render('Events/EventsPage', [
             'events' => $events,
@@ -25,9 +27,12 @@ class EventsController extends Controller
         ]);
     }
 
-    public function admin_events_index()
+    public function admin_events_index(Request $request)
     {
-        $events = Events::all();
+        $order = $request->input('order');
+        $order_by = $request->input('sort');
+
+        $events = Events::orderBy($order_by ? $order_by : 'start_date', $order ? $order : 'asc')->get();
         return Inertia::render('Events/Admin/EventsAdmin', [
             'events' => $events
         ]);
