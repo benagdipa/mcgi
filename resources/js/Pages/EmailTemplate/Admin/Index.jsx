@@ -3,13 +3,15 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Link, useForm } from '@inertiajs/react'
+import { Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconX } from '@tabler/icons-react';
 import { Editor } from '@tinymce/tinymce-react';
 import React, { useRef, useState } from 'react'
 
 export default function Index({ auth, templates }) {
+    const { flash } = usePage().props
+
     const TABLE_HEAD = ["SN", "Template Name", "Subject", "Actions"];
     const TABLE_ROWS = templates;
     const [addEditModal, setAddEditModal] = useState(false);
@@ -30,7 +32,7 @@ export default function Index({ auth, templates }) {
             setModalTitle('Add New')
             setFormType('_add')
         } else if (type === 'edit') {
-            const selected = locations.filter(obj => obj.id === id)
+            const selected = templates.filter(obj => obj.id === id)
             setData({ ...selected[0] });
             setModalTitle('Edit')
             setFormType('_edit')
@@ -53,7 +55,7 @@ export default function Index({ auth, templates }) {
                 }
             })
         } else if (formType === '_edit') {
-            post(route('admin.location.update', selectedItem), {
+            post(route('admin.email.update', selectedItem), {
                 onSuccess: () => {
                     reset();
                     setAddEditModal(false)
@@ -70,7 +72,7 @@ export default function Index({ auth, templates }) {
     }
     const handleDeleteFunc = () => {
         if (selectedItem) {
-            destroy(route('admin.location.delete', selectedItem), {
+            destroy(route('admin.email.delete', selectedItem), {
                 onSuccess: () => {
                     closeDeleteModal()
                 }
@@ -95,6 +97,7 @@ export default function Index({ auth, templates }) {
                         <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
                     </div>
                 </div>
+                {flash?.message && (<div className='font-poppins px-6 mt-4 text-red-400'>{flash?.message}</div>)}
                 <div className="page-content pt-8">
                     <Card className="h-full w-full overflow-scroll rounded-none font-poppins">
                         <table className="w-full min-w-max table-auto text-left font-poppins">
@@ -124,8 +127,8 @@ export default function Index({ auth, templates }) {
                                             </td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
-                                                    {/* <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.blogs.edit', id)}>Edit</Link> */}
-                                                    {/* <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button> */}
+                                                    <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
+                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
                                                 </div>
                                             </td>
                                         </tr>

@@ -168,8 +168,8 @@ Route::controller(EmailTemplateController::class)->group(function () {
     Route::middleware(['auth', 'permission:create_email_templates|edit_email_templates|delete_email_templates'])->group(function () {
         Route::get('/dashboard/email-templates', 'admin_index')->name('admin.email.index');
         Route::post('/dashboard/email-templates', 'admin_store')->name('admin.email.store');
-        // Route::post('/dashboard/email-templates/{id}/edit', 'admin_update')->name('admin.email-templates.update');
-        // Route::delete('/dashboard/email-templates/{id}', 'admin_delete')->name('admin.email-templates.delete');
+        Route::post('/dashboard/email-templates/{id}/edit', 'admin_update')->name('admin.email.update');
+        Route::delete('/dashboard/email-templates/{id}', 'admin_delete')->name('admin.email.delete');
     });
 });
 
