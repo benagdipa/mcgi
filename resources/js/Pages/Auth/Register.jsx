@@ -165,7 +165,7 @@ export default function Register({ locale }) {
                                                 checked={data.privacy}
                                                 onChange={(e) => setData('privacy', e.target.checked)}
                                             />
-                                            <span className="ms-2 text-[#333] font-semibold md:text-lg text-base"><Link href='#'>Privacy Policy</Link></span>
+                                            <span className="ms-2 text-[#333] font-semibold md:text-lg text-base"><Link href={route('privacy-and-policy')}>Agree to Privacy Policy</Link></span>
                                         </label>
                                     </div>
                                     <div className="flex items-center justify-between mt-4">
