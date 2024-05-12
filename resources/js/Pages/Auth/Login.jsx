@@ -35,9 +35,9 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
             <div className="login-page py-0 ">
                 <div className="w-full">
-                    <div className="h-screen flex lg:flex-row flex-col-reverse items-center">
-                        <div className="left-section hidden lg:w-2/3 w-full h-screen md:flex items-center justify-center ">
-                            <div className="max-w-screen-lg mx-auto">
+                    <div className="h-screen flex items-center justify-center">
+                        <div className="left-section hidden lg:w-2/3 w-full h-screen lg:flex items-center justify-center ">
+                            <div className="max-w-screen-lg mx-auto lg:px-6">
                                 <h1 className='text-white md:text-5xl text-4xl font-bold text-left mb-4 m-4 md:m-0'>What's New In MCGI Australia</h1>
                                 <div className="content font-dmsans bg-white p-4 rounded-md">
                                     <h3 className='text-[#333] text-xl font-bold tracking-tight mb-3'>Brother Daniel Gifts 300 Small-Scale Livelihood Grants on His 40th Sabbath Anniversary</h3>
@@ -46,8 +46,8 @@ export default function Login({ status, canResetPassword }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="lg:w-1/3 w-10/12 pb-14">
-                            <div className="lg:px-24 px-0">
+                        <div className="lg:w-1/3 w-10/12">
+                            <div className="px-0 md:px-4 lg:px-4 xl:px-12 ">
                                 {event_message && (
                                     <div className="capitalize font-semibold text-red-500 mb-6 text-center">{event_message}</div>
                                 )}
