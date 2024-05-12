@@ -22,22 +22,11 @@ class PageController extends Controller
         $currentDate = Carbon::now();
         $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->take(9)->get();
         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
-        // $ids = [];
-        // $titles = [];
-        // $bannerpath = [];
-        // $imageUrls = [];
-        // foreach ($imageData as $image) {
-        //     $ids[] = $image['id'];
-        //     $titles[] = $image['title'];
-        //     $bannerpath[] = $image['bannerpath'];
-        //     $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
-        // }
         return Inertia::render('HomePage', [
             'posts' => $posts,
             'events' => $events,
             'banners' => $imageData,
         ]);
-
     }
     public function aboutPage()
     {
