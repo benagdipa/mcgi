@@ -9,6 +9,7 @@ use App\Models\Posts;
 use App\Models\BannerImage;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,8 @@ class PageController extends Controller
     public function homePage()
     {
         $posts = Posts::take(3)->get();
-        $events = Events::take(9)->get();
+        $currentDate = Carbon::now();
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->take(9)->get();
         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
         // $ids = [];
         // $titles = [];

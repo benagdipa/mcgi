@@ -7,6 +7,7 @@ import { Head, Link, router, useForm } from '@inertiajs/react'
 import { IconMapPin, IconPlus, IconSearch, IconX } from '@tabler/icons-react'
 import axios from 'axios';
 import React, { useState } from 'react'
+import { format, getYear } from 'date-fns';
 
 export default function EventsPage({ auth, events, locale }) {
 
@@ -143,7 +144,7 @@ export default function EventsPage({ auth, events, locale }) {
                         <div className="events-list-wrapper">
                             <div className="monthly-events">
                                 <div className="flex items-center relative">
-                                    <span className='w-32 font-bold text-xl font-dmsans'>April 2024</span>
+                                    <span className='w-32 font-bold text-xl font-dmsans'>{`${format(new Date(), 'MMMM')} ${getYear(new Date())}`} </span>
                                     <span className='block border-t h w-full border-black'></span>
                                 </div>
                                 <div className="events my-12">
