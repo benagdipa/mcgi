@@ -284,7 +284,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         )}
 
                         {/* Email Templates */}
-                        {isUserAllowed(permissions, ["create_email_tempates", "edit_email_tempates", "delete_email_tempates"], role) && (
+                        {isUserAllowed(permissions, ["create_email_templates", "edit_email_templates", "delete_email_templates"], role) && (
                             <Link
                                 href={route('admin.email.index')}
                                 className={`${currentRoute === "admin.email.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
@@ -316,23 +316,23 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItem>
                             </Link>
                         )}
-                
-                    {/* Banners */}
-                    {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
-                        <Link
-                            href={route('admin.banner.index')}
-                            className={`${currentRoute === "admin.banner.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                        >
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <IconSlideshow strokeWidth={1.5} />
-                                </ListItemPrefix>
-                                <Typography className="mr-auto font-poppins font-medium">
-                                    Banner
-                                </Typography>
-                            </ListItem>
-                        </Link>
-                    )}
+
+                        {/* Banners */}
+                        {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
+                            <Link
+                                href={route('admin.banner.index')}
+                                className={`${currentRoute === "admin.banner.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                            >
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <IconSlideshow strokeWidth={1.5} />
+                                    </ListItemPrefix>
+                                    <Typography className="mr-auto font-poppins font-medium">
+                                        Banner
+                                    </Typography>
+                                </ListItem>
+                            </Link>
+                        )}
 
                     </List>
                 </div>

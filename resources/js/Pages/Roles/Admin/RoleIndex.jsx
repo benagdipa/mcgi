@@ -32,7 +32,7 @@ export default function RoleIndex({ auth, roles }) {
         { name: "Locale", items: ['create', 'edit', 'delete'] },
         { name: "Church Locations", items: ['create', 'edit', 'delete'] },
         { name: "Albums", items: ['create', 'edit', 'delete'] },
-        { name: "Email Tempates", items: ['create', 'edit', 'delete'] },
+        { name: "Email Templates", items: ['create', 'edit', 'delete'] },
         { name: "Roles", items: ['create', 'edit', 'delete'] },
         { name: "Banners", items: ['create', 'edit', 'delete'] },
     ]

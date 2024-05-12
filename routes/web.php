@@ -12,12 +12,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BannerController;
-use App\Models\Album;
 use App\Models\Attachment;
 use App\Models\Events;
 use App\Models\Posts;
 use App\Models\User;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -58,7 +56,7 @@ Route::get('/dashboard', function () {
             'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
         ],
     ]);
-})->middleware(['auth', 'verified', 'role:admin|super-admin'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -70,30 +68,29 @@ Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
 
-    Route::middleware('auth')->group(function () {
-
+    Route::middleware(['auth', 'permission:create_blogs|edit_blogs|delete_blogs'])->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
         Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
         Route::post('/dashboard/blogs/add', 'admin_blogs_store')->name('admin.blogs.store');
         Route::get('/dashboard/blogs/{id}/edit', 'admin_blogs_edit')->name('admin.blogs.edit');
         Route::post('/dashboard/blogs/{id}/edit', 'admin_blogs_update')->name('admin.blogs.update');
         Route::delete('/dashboard/blogs/{id}', 'admin_blogs_delete')->name('admin.blogs.delete');
+    });
 
-
+    Route::middleware(['auth', 'permission:create_categories|edit_categories|delete_categories'])->group(function () {
         Route::get('/dashboard/blogs/categories', 'admin_categories_index')->name('admin.blogs.categories.index');
         Route::post('/dashboard/blogs/categories/store', 'admin_categories_store')->name('admin.blogs.categories.store');
         Route::post('/dashboard/blogs/categories/{id}', 'admin_categories_update')->name('admin.blogs.categories.update');
         Route::delete('/dashboard/blogs/categories/{id}', 'admin_categories_delete')->name('admin.blogs.categories.delete');
+    });
 
-
+    Route::middleware(['auth', 'permission:create_tags|edit_tags|delete_tags'])->group(function () {
         Route::get('/dashboard/blogs/tags', 'admin_tags_index')->name('admin.blogs.tags.index');
         Route::post('/dashboard/blogs/tags/store', 'admin_tags_store')->name('admin.blogs.tags.store');
         Route::post('/dashboard/blogs/tags/{id}', 'admin_tags_update')->name('admin.blogs.tags.update');
         Route::delete('/dashboard/blogs/tags/{id}', 'admin_tags_delete')->name('admin.blogs.categories.delete');
-
-
-        Route::post('upload_image', 'admin_image_upload')->name('admin.image.upload');
     });
+    Route::post('upload_image', 'admin_image_upload')->name('admin.image.upload');
 });
 
 Route::controller(EventsController::class)->group(function () {
@@ -112,11 +109,13 @@ Route::controller(EventsController::class)->group(function () {
 
 Route::controller(AttendanceController::class)->group(function () {
     Route::post('/attendance/store', 'store')->name('event.attendence.store');
-    Route::get('/dashboard/attendances', 'admin_index')->name('admin.events.attendances.index');
+    Route::middleware(['auth', 'permission:create_events|edit_events|delete_events'])->group(function () {
+        Route::get('/dashboard/attendances', 'admin_index')->name('admin.events.attendances.index');
+    });
 });
 
 Route::controller(LocaleController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_locales|edit_locales|delete_locales'])->group(function () {
+    Route::middleware(['auth', 'permission:create_locale|edit_locale|delete_locale'])->group(function () {
         Route::get('/dashboard/locale', 'admin_index')->name('admin.locale.index');
         Route::post('/dashboard/locale', 'admin_store')->name('admin.locale.store');
         Route::post('/dashboard/locale/{id}/edit', 'admin_update')->name('admin.locale.update');
@@ -125,7 +124,7 @@ Route::controller(LocaleController::class)->group(function () {
 });
 
 Route::controller(LocationController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_locations|edit_locations|delete_locations'])->group(function () {
+    Route::middleware(['auth', 'permission:create_church_locations|edit_church_locations|delete_church_locations'])->group(function () {
         Route::get('/dashboard/locations', 'admin_index')->name('admin.location.index');
         Route::post('/dashboard/locations', 'admin_store')->name('admin.location.store');
         Route::post('/dashboard/locations/{id}/edit', 'admin_update')->name('admin.location.update');
