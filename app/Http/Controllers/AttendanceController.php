@@ -83,25 +83,25 @@ class AttendanceController extends Controller
         $events = Events::all();
         $locales = Locale::all();
 
-        $attendance = Attendance::with([
-            'event' => function ($query) {
-                $query->select('id', 'title', 'start_date');
-            }
-        ])->get();
-
-        $list = [];
-        foreach ($attendance as $attendee) {
-            $list[] = array(
-                'id' => $attendee->id,
-                'event_name' => $attendee->event->title ? $attendee->event->title : '',
-                'event_date' => $attendee->event->start_date ? $attendee->event->start_date : '',
-                'name' => $attendee->name ? $attendee->name : '',
-                'created_at' => $attendee->created_at ? $attendee->created_at : '',
-                'locale_name' => $attendee->locale ? $this->getLocaleNameForAttendee($attendee->locale) : ''
-            );
-        }
+        $attendances = Attendance::with('event')
+            ->whereHas('event', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->get()
+            ->map(function ($attendee) {
+                return [
+                    'id' => $attendee->id,
+                    'event_id' => $attendee->event_id,
+                    'event_name' => $attendee->event->title,
+                    'event_date' => $attendee->event->start_date,
+                    'name' => $attendee->name,
+                    'created_at' => $attendee->created_at,
+                    'locale_name' => $attendee->locale ? $this->getLocaleNameForAttendee($attendee->locale) : ''
+                ];
+            })
+            ->all();
         return Inertia::render('Events/Admin/AttendanceAdmin', [
-            'attendance' => $list,
+            'attendance' => $attendances,
             'events' => $events,
             'locales' => $locales
         ]);
