@@ -68,7 +68,7 @@ Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
 
-    Route::middleware(['auth', 'permission:create_blogs|edit_blogs|delete_blogs'])->group(function () {
+    Route::middleware(['auth', 'permission:create_blog_posts|edit_blog_posts|delete_blogs_posts'])->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
         Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
         Route::post('/dashboard/blogs/add', 'admin_blogs_store')->name('admin.blogs.store');

@@ -3,12 +3,14 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Link, useForm } from '@inertiajs/react'
+import { isUserAllowed } from '@/Utils/Utils';
+import { Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconX } from '@tabler/icons-react';
 import React, { useState } from 'react'
 
 export default function AdminIndex({ auth, locations }) {
+    const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Location Name", "Address", "Actions"];
     const [addEditModal, setAddEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false)
@@ -122,7 +124,9 @@ export default function AdminIndex({ auth, locations }) {
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
-                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ["delete_church_locations"], role) && (
+                                                        <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

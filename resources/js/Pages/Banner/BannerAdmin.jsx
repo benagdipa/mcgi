@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import {
     Card,
     CardHeader,
@@ -15,8 +15,11 @@ import {
 import { useDropzone } from "react-dropzone";
 import InputError from "@/Components/InputError";
 import { IconX } from "@tabler/icons-react";
+import { isUserAllowed } from "@/Utils/Utils";
 
 const BannerAdminPage = ({ auth, banners, titles, ids }) => {
+
+    const { role, permissions } = usePage().props.auth
     const {
         data,
         setData,
@@ -42,9 +45,9 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
         e.preventDefault();
         try {
             const formData = new FormData();
-          
-            if (data.banners[0]?.size / (1024 * 1024)>2) {
-                setData('banners',[]);
+
+            if (data.banners[0]?.size / (1024 * 1024) > 2) {
+                setData('banners', []);
                 setImageUploadError(
                     "Image Size should equal or less than 2 mb"
                 );
@@ -203,7 +206,7 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         }}
                                     />
                                     <InputError
-                                        message={imageUploadError?imageUploadError:errors.banners}
+                                        message={imageUploadError ? imageUploadError : errors.banners}
                                         className="mt-2"
                                     />
                                 </div>
@@ -240,15 +243,17 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                         >
                                             {titles[index]}
                                         </Typography>
-                                        <button
-                                            className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
-                                            disabled={processing}
-                                            onClick={() =>
-                                                onDeleteHandler(ids[index])
-                                            }
-                                        >
-                                            Delete
-                                        </button>
+                                        {isUserAllowed(permissions, ["delete_banners"], role) && (
+                                            <button
+                                                className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
+                                                disabled={processing}
+                                                onClick={() =>
+                                                    onDeleteHandler(ids[index])
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </Card>

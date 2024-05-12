@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm, Link } from '@inertiajs/react'
+import { Head, useForm, Link, usePage } from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
 import InputLabel from '@/Components/InputLabel';
@@ -9,7 +9,7 @@ import { IconX } from '@tabler/icons-react';
 import InputError from '@/Components/InputError';
 
 export default function CategoryAdminPage({ auth, categories }) {
-
+    const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Category Title", "Slug", "Description", "Status", "Action"];
     const TABLE_ROWS = categories;
     const [addEditModal, setAddEditModal] = useState(false)
@@ -135,7 +135,9 @@ export default function CategoryAdminPage({ auth, categories }) {
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
-                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ["delete_categories"], role) && (
+                                                        <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
