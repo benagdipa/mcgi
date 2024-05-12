@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Head } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import Slider from "react-slick";
@@ -8,36 +8,8 @@ import Modal from "@/Components/Modal";
 import { IconPlayerPlay } from "@tabler/icons-react";
 import { DateTime } from "luxon";
 import WOW from "react-wow";
-import useSWR from "swr";
-import { router } from "@inertiajs/react";
 
-export default function HomePage({
-    auth,
-    posts,
-    events,
-    imagesUrl,
-    imageTitles,
-}) {
-    const title = "Home";
-
-    const { data, error } = useSWR(route("home"));
-    useEffect(() => {
-        fetch("/")
-            .then((res) => {
-                console.log(res);
-                return res.json();
-            })
-            .then((res1) => {
-                console.log(res1);
-            });
-    }, []);
-
-    const extractWords = (inputString, numWords) => {
-        let words = inputString.split(/\s+/);
-        let extractedWords = words.slice(0, numWords);
-        let result = extractedWords.join(" ");
-        return result;
-    };
+export default function HomePage({ auth, posts, events, banners }) {
 
     const [prayModalState, setPrayModalState] = useState(false);
     var settings = {
@@ -47,6 +19,8 @@ export default function HomePage({
         height: 600,
         slidesToShow: 1,
         slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
     };
 
     const togglePrayModal = () => {
@@ -85,59 +59,27 @@ export default function HomePage({
 
     return (
         <GuestLayout user={auth?.user}>
-            <Head>
-                <title>Home</title>
-                <meta
-                    name="title"
-                    content="Members Church of God International Australia"
-                ></meta>
-                <meta
-                    name="keywords"
-                    content="Members Church of God International MCGI Australia Christian Community Australia Spiritual Guidance Biblical Teachings Christian Fellowship Religious Services Australia Christian Charity Work Bible Study Sessions Faith-Based Community"
-                ></meta>
-                <meta
-                    name="description"
-                    content="oin the Members Church of God International in Australia for spiritual growth and community service. Explore our faith-based teachings, Bible study sessions, and opportunities for Christian fellowship and charity work. Discover a welcoming community dedicated to spreading love, hope, and the teachings of the Bible."
-                ></meta>
+            <Head title="Home">
+                <meta name="title" content="Members Church of God International Australia" />
+                <meta name="keywords" content="Members Church of God International MCGI Australia Christian Community Australia Spiritual Guidance Biblical Teachings Christian Fellowship Religious Services Australia Christian Charity Work Bible Study Sessions Faith-Based Community" />
+                <meta name="description" content="oin the Members Church of God International in Australia for spiritual growth and community service. Explore our faith-based teachings, Bible study sessions, and opportunities for Christian fellowship and charity work. Discover a welcoming community dedicated to spreading love, hope, and the teachings of the Bible." />
             </Head>
             <div className="homepage-content">
-                <div className="hero-slider hidden md:block">
-                    <Slider {...settings} className="lg:h-[800px] h-[438px]">
-                        {imagesUrl.map((itm, index) => {
+                <div className="hero-slider">
+                    <Slider {...settings} className="lg:h-[800px] md:h-[438px]">
+                        {banners.map((itm, index) => {
                             return (
-                                <div
-                                    key={itm}
-                                    className="slider-item lg:h-full"
-                                >
+                                <div key={itm.id} className="slider-item lg:h-full">
                                     <img
-                                        src={`${itm}`}
-                                        alt={`${imageTitles[index]}`}
-                                        className="w-full h-[438px] lg:h-[800px] object-cover "
+                                        src={`/storage/uploads/${itm?.bannerpath}`}
+                                        alt={`${itm?.title}`}
+                                        className="w-full object-cover h-[380px] md:h-[438px] lg:h-[800px]"
                                     />
                                 </div>
                             );
                         })}
                     </Slider>
                 </div>
-
-                <div className="mobile-hero-slider block md:hidden">
-                
-
-                    <Slider {...settings}>
-                        {imagesUrl.map((itm, index) => {
-                            return (
-                                <div className="slider-item lg:h-full">
-                                    <img
-                                        src={`${itm}`}
-                                        alt={`${imageTitles[index]}`}
-                                        className="w-full object-cover h-full"
-                                    />
-                                </div>
-                            );
-                        })}
-                    </Slider>
-                </div>
-
                 <WOW animation="fadeIn">
                     <div className="welcome-section py-36">
                         <div className="w-full px-6">
@@ -406,7 +348,7 @@ export default function HomePage({
                                                                 <p className="text-2xl lg:text-3xl font-bold ">
                                                                     {
                                                                         daysList[
-                                                                            dayOfWeek
+                                                                        dayOfWeek
                                                                         ]
                                                                     }
                                                                 </p>
@@ -532,24 +474,24 @@ export default function HomePage({
                                                                     dangerouslySetInnerHTML={{
                                                                         __html: post?.content
                                                                             ? post.content
-                                                                                  .replace(
-                                                                                      /<img.*?>/g,
-                                                                                      ""
-                                                                                  )
-                                                                                  .replace(
-                                                                                      /<[^>]+>/g,
-                                                                                      ""
-                                                                                  )
-                                                                                  .split(
-                                                                                      " "
-                                                                                  )
-                                                                                  .slice(
-                                                                                      0,
-                                                                                      20
-                                                                                  )
-                                                                                  .join(
-                                                                                      " "
-                                                                                  )
+                                                                                .replace(
+                                                                                    /<img.*?>/g,
+                                                                                    ""
+                                                                                )
+                                                                                .replace(
+                                                                                    /<[^>]+>/g,
+                                                                                    ""
+                                                                                )
+                                                                                .split(
+                                                                                    " "
+                                                                                )
+                                                                                .slice(
+                                                                                    0,
+                                                                                    20
+                                                                                )
+                                                                                .join(
+                                                                                    " "
+                                                                                )
                                                                             : "",
                                                                     }}
                                                                 />
