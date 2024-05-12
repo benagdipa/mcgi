@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Kathmandu',
+    'timezone' => 'Australia/Melbourne',
 
     /*
     |--------------------------------------------------------------------------

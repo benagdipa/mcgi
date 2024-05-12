@@ -54,8 +54,8 @@ class EventsController extends Controller
             $path = $request->file('featureImage')->storeAs('event_images', $name, 'public');
             $file_path = "/storage/{$path}";
         }
-        $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Asia/Kathmandu'));
-        $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Asia/Kathmandu'));
+        $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Australia/Melbourne'));
+        $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Australia/Melbourne'));
         $event = Events::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -107,8 +107,8 @@ class EventsController extends Controller
                 $file_path = "/storage/{$path}";
             }
         }
-        $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Asia/Kathmandu'));
-        $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Asia/Kathmandu'));
+        $start_date = new DateTime($request->input('start_date'), new DateTimeZone('Australia/Melbourne'));
+        $end_date = new DateTime($request->input('end_date'), new DateTimeZone('Australia/Melbourne'));
         $event = Events::findOrFail($id);
 
         if ($event) {
