@@ -10,11 +10,12 @@ import { DateTime } from "luxon";
 import WOW from "react-wow";
 
 export default function HomePage({ auth, posts, events, banners }) {
+    console.log(banners);
 
     const [prayModalState, setPrayModalState] = useState(false);
     var settings = {
         dots: true,
-        infinite: false,
+        infinite: banners?.length > 1 ? true : false,
         speed: 500,
         height: 600,
         slidesToShow: 1,
