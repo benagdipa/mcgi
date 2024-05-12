@@ -20,24 +20,22 @@ class PageController extends Controller
         $posts = Posts::take(3)->get();
         $events = Events::take(9)->get();
         $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
-         $ids=[];
-         $titles=[];
-         $bannerpath=[];
-         $imageUrls=[];
-         foreach ($imageData as $image) {
-        $ids[] = $image['id'];
-        $titles[] = $image['title'];
-        $bannerpath[] = $image['bannerpath'];
-        $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
-         }
-         return Inertia::render('HomePage',[
+        // $ids = [];
+        // $titles = [];
+        // $bannerpath = [];
+        // $imageUrls = [];
+        // foreach ($imageData as $image) {
+        //     $ids[] = $image['id'];
+        //     $titles[] = $image['title'];
+        //     $bannerpath[] = $image['bannerpath'];
+        //     $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
+        // }
+        return Inertia::render('HomePage', [
             'posts' => $posts,
             'events' => $events,
-            'imagesUrl'=>$imageUrls,
-            'imageTitles'=>$titles,
-      
+            'banners' => $imageData,
         ]);
-    
+
     }
     public function aboutPage()
     {
@@ -71,7 +69,8 @@ class PageController extends Controller
             'albums' => $albums
         ]);
     }
-    public function dashboard(){
+    public function dashboard()
+    {
         echo "here";
         exit;
     }
