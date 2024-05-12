@@ -92,12 +92,34 @@ export default function Header({ user }) {
                                         <IconMenu2 size={32} strokeWidth='1' />
                                     </button>
                                     <div className={`${!toggle ? "hidden" : 'flex'} mobile-menu-items absolute left-0 top-[75px] md:top-[87px] w-full`}>
-                                        <ul className='bg-white w-full border-t z-[109]'>
+                                        <ul className='bg-white w-full border-t z-[109] font-montserrat'>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('home')}>Home</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('gallery')}>Gallery</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={eventHref}>Events</Link></li>
-                                            <li className='px-10 py-3 font-semibold text-base'><Link href={route('login')}>Login</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base font-montserrat'>
+                                                {user ? (
+                                                    <Dropdown>
+                                                        <Dropdown.Trigger>
+                                                            <span className="flex items-center gap-1">
+                                                                <button type="button" className="">{user?.first_name}</button>
+                                                                <IconChevronDown size={22} strokeWidth={1.5} />
+                                                            </span>
+                                                        </Dropdown.Trigger>
+                                                        <Dropdown.Content align='left'>
+                                                            {role?.name !== 'guest' && <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>}
+                                                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                                                Log Out
+                                                            </Dropdown.Link>
+                                                        </Dropdown.Content>
+                                                    </Dropdown>
+                                                ) : (
+                                                    <Link href={route('login')}>
+                                                        <span>Sign In</span>
+                                                    </Link>
+                                                )}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
