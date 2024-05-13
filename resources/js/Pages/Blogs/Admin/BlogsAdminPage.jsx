@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link } from '@inertiajs/react'
+import { Head, Link, usePage } from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
 import { IconX } from '@tabler/icons-react';
 import { router } from '@inertiajs/react'
+import { isUserAllowed } from '@/Utils/Utils';
 
 
 export default function BlogsAdminPage({ auth, posts, categories, tags }) {
+    const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Post Title", "Categories", "Tags", "Status", "Action"];
     const TABLE_ROWS = posts;
     const [deleteModal, setDeleteModal] = useState(false)
@@ -113,7 +115,9 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.blogs.edit', id)}>Edit</Link>
-                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ["delete_blogs_posts"], role) && (
+                                                        <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

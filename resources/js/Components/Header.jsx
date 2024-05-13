@@ -11,8 +11,6 @@ export default function Header({ user }) {
     const currentRoute = route().current()
     const hideHeader = ['login', 'register', 'password.request']
 
-    const prayerHref = route().current() === 'home' ? '#prayer' : route('home') + '/#prayer'
-    const charityHref = route().current() === 'home' ? '#charity' : route('home') + '/#charity'
     const eventHref = route().current() === 'home' ? 'events' : route('home') + '/events'
     return (
         <React.Fragment>
@@ -66,11 +64,6 @@ export default function Header({ user }) {
                                                     </Link>
                                                 )}
                                             </li>
-                                            {/* <li className='font-semibold text-base font-montserrat'>
-                                                <a href="tel:+61450780530">
-                                                    <span className='flex items-center'><IconPhoneCall size={22} strokeWidth={1.5} /> <span className='pl-2'>+61450780530</span></span>
-                                                </a>
-                                            </li> */}
                                         </ul>
                                         <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
@@ -107,7 +100,7 @@ export default function Header({ user }) {
                                                             </span>
                                                         </Dropdown.Trigger>
                                                         <Dropdown.Content align='left'>
-                                                            {role?.name !== 'guest' && <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>}
+                                                            {role?.name !== 'guest' || role?.name !== 'Guest' && <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>}
                                                             <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                                             <Dropdown.Link href={route('logout')} method="post" as="button">
                                                                 Log Out

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { Card, Collapse, Typography, Input, } from "@material-tailwind/react";
 import InputError from "@/Components/InputError";
 import axios from "axios";
+import { isUserAllowed } from "@/Utils/Utils";
 
 
 const BannerAdminPage = ({ auth, banners }) => {
+    const { role, permissions } = usePage().props.auth
 
     const { data, setData, post, processing, errors, reset, delete: destroy, } = useForm({
         title: "",
@@ -172,13 +174,15 @@ const BannerAdminPage = ({ auth, banners }) => {
                                     <img src={`${itm?.bannerpath}`} alt={`${itm?.title}`} className="h-[100px] w-[100px] object-cover rounded-md" />
                                     <div className="flex justify-between items-center w-full pr-4">
                                         <Typography variant="h5" color="blue-gray">{itm?.title}</Typography>
-                                        <button
-                                            className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
-                                            disabled={processing}
-                                            onClick={() => onDeleteHandler(itm?.id)}
-                                        >
-                                            Delete
-                                        </button>
+                                        {isUserAllowed(permissions, ["delete_banners"], role) && (
+                                            <button
+                                                className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
+                                                disabled={processing}
+                                                onClick={() => onDeleteHandler(itm?.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </Card>
