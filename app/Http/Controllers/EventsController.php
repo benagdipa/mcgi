@@ -19,8 +19,17 @@ class EventsController extends Controller
     public function index()
     {
         $currentDate = Carbon::now();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get();
+        $events = Events::where('start_date', '>=', $currentDate)->where('status', 'publish')->orderBy('start_date', 'asc')->get();
         $locale = Locale::all();
+        foreach ($events as $event) {
+            $timeDiff = $currentDate->diff($event->start_date);
+            $hoursDiff = $timeDiff->h + (($timeDiff->i / 24) / 24) + ($timeDiff->days * 24);
+            if ($hoursDiff <= 1) {
+                $event->isImminent = true;
+            } else {
+                $event->isImminent = false;
+            }
+        }
         return Inertia::render('Events/EventsPage', [
             'events' => $events,
             'locale' => $locale
