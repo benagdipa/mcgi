@@ -21,11 +21,26 @@ class PageController extends Controller
         $posts = Posts::take(3)->get();
         $currentDate = Carbon::now();
         $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->take(9)->get();
-        $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
+        // $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
+        $imageData = BannerImage::select('id', 'title', 'bannerpath', 'position')
+            ->orderBy('position', 'asc')
+            ->get()
+            ->sortBy(function ($image) {
+                return $image->position == 0 ? PHP_INT_MAX : $image->position;
+            })
+            ->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'title' => $image->title,
+                    'bannerpath' => Storage::url('uploads/' . $image->bannerpath),
+                    'position' => $image->position
+                ];
+            });
+        $imageDataArray = $imageData->values()->toArray();
         return Inertia::render('HomePage', [
             'posts' => $posts,
             'events' => $events,
-            'banners' => $imageData,
+            'banners' => $imageDataArray,
         ]);
     }
     public function aboutPage()

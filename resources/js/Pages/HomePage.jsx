@@ -72,7 +72,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                             return (
                                 <div key={itm.id} className="slider-item lg:h-full">
                                     <img
-                                        src={`/storage/uploads/${itm?.bannerpath}`}
+                                        src={`${itm?.bannerpath}`}
                                         alt={`${itm?.title}`}
                                         className="w-full object-cover h-[380px] md:h-[438px] lg:h-[800px]"
                                     />
