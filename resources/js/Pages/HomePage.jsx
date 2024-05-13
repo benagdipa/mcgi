@@ -10,7 +10,6 @@ import { DateTime } from "luxon";
 import WOW from "react-wow";
 
 export default function HomePage({ auth, posts, events, banners }) {
-    console.log(banners);
 
     const [prayModalState, setPrayModalState] = useState(false);
     var settings = {
@@ -374,14 +373,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                                                                     </p>
                                                                 </div>
                                                                 <div className="mt-8 text-sm cursor-pointer">
-                                                                    <Link
-                                                                        href={route(
-                                                                            "events.index"
-                                                                        )}
-                                                                    >
-                                                                        Attend
-                                                                        Now
-                                                                    </Link>
+                                                                    {item?.isImminent && <Link href={route("events.index")}>Attend Now</Link>}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -525,7 +517,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                         </div>
                     </div>
                 </WOW>
-            </div>
-        </GuestLayout>
+            </div >
+        </GuestLayout >
     );
 }
