@@ -104,6 +104,7 @@ Route::controller(EventsController::class)->group(function () {
         Route::get('/dashboard/events/{id}/edit', 'admin_events_edit')->name('admin.events.edit');
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
+        Route::post('/dashboard/events/settings', 'admin_events_settings')->name('admin.events.settings');
     });
 });
 

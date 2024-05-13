@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\EventsOption;
 use App\Models\Locale;
 use DateTime;
 use DateTimeZone;
@@ -19,17 +20,13 @@ class EventsController extends Controller
     public function index()
     {
         $currentDate = Carbon::now();
-        $events = Events::where('start_date', '>=', $currentDate)->where('status', 'publish')->orderBy('start_date', 'asc')->get();
+        $option = EventsOption::where('name', 'attend_duration')->first();
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+            $timeDiff = $currentDate->diffInMinutes($event->start_date);
+            $event->isImminent = $timeDiff <= $option->value;
+            return $event;
+        });
         $locale = Locale::all();
-        foreach ($events as $event) {
-            $timeDiff = $currentDate->diff($event->start_date);
-            $hoursDiff = $timeDiff->h + (($timeDiff->i / 24) / 24) + ($timeDiff->days * 24);
-            if ($hoursDiff <= 1) {
-                $event->isImminent = true;
-            } else {
-                $event->isImminent = false;
-            }
-        }
         return Inertia::render('Events/EventsPage', [
             'events' => $events,
             'locale' => $locale
@@ -42,8 +39,10 @@ class EventsController extends Controller
         $order_by = $request->input('sort');
 
         $events = Events::orderBy($order_by ? $order_by : 'start_date', $order ? $order : 'asc')->get();
+        $option = EventsOption::where('name', 'attend_duration')->first();
         return Inertia::render('Events/Admin/EventsAdmin', [
-            'events' => $events
+            'events' => $events,
+            'options' => $option
         ]);
     }
 
@@ -154,6 +153,26 @@ class EventsController extends Controller
                 ->orWhere('phone', 'like', "%$search%")
                 ->get();
             return $users;
+        }
+    }
+
+    public function admin_events_settings(Request $request)
+    {
+        $request->validate([
+            'attend_duration' => 'required|numeric',
+        ]);
+        if ($request->input('attend_duration')) {
+            $option = EventsOption::where('name', 'attend_duration')->first();
+            if ($option) {
+                $option->value = $request->input('attend_duration');
+                $option->save();
+            } else {
+                $option = new EventsOption();
+                $option->name = 'attend_duration';
+                $option->value = $request->input('attend_duration');
+                $option->save();
+            }
+            return to_route('admin.events.index');
         }
     }
 }

@@ -1,18 +1,23 @@
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
+import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils';
-import { Head, Link, router, usePage } from '@inertiajs/react'
+import { Head, Link, router, usePage,useForm } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconChevronDown, IconChevronUp, IconX } from '@tabler/icons-react';
 import React, { useState } from 'react'
 
-export default function EventsAdmin({ auth, events }) {
+export default function EventsAdmin({ auth, events, options }) {
     const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Event Title", "Start Date", "End Date", "Address", "Status", "Action"];
     const TABLE_ROWS = events;
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [selectedItem, setSelectedItem] = useState('')
+
+    const [settingModal, setSettingModal] = useState(false)
 
     const openDeleteModal = (id) => {
         setSelectedItem(id)
@@ -34,6 +39,21 @@ export default function EventsAdmin({ auth, events }) {
     const sortData = (key, order) => {
         router.visit(route('admin.events.index', { sort: key, order: order }));
     }
+
+    const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
+        attend_duration: options?.value ? options?.value : '',
+    });
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        post(route('admin.events.settings'), {
+            onSuccess: () => {
+                reset();
+                setSettingModal(false)
+            }
+        });
+    }
+
     return (
         <Authenticated user={auth?.user}>
             <Head title='Events' />
@@ -49,8 +69,14 @@ export default function EventsAdmin({ auth, events }) {
                             </ul>
                         </div>
                     </div>
-                    <div className="right">
+                    <div className="right flex gap-3">
                         <Link href={route('admin.events.add')} className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins'>Add New</Link>
+                        <button
+                            className='bg-blue-500 shadow-lg px-5 py-[11px] rounded-md font-semibold text-lg font-poppins text-white'
+                            onClick={() => setSettingModal(true)}
+                        >
+                            Settings
+                        </button>
                     </div>
                 </div>
                 <div className="page-content pt-8">
@@ -112,8 +138,8 @@ export default function EventsAdmin({ auth, events }) {
                     </Card>
                 </div>
             </div>
-            {/* Delete Modal */}
 
+            {/* Delete Modal */}
             <Modal show={deleteModal} onClose={closeDeleteModal} maxWidth={'xl'}>
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
@@ -123,6 +149,37 @@ export default function EventsAdmin({ auth, events }) {
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>
                         <button className='bg-blue-500 text-white px-4 py-3 font-semibold rounded' onClick={handleDeleteFunc}>Confirm</button>
+                    </div>
+                </div>
+            </Modal>
+            {/*  */}
+            <Modal show={settingModal} onClose={closeDeleteModal} maxWidth={'xl'}>
+                <div className="delete-modal px-6 py-8 relative font-poppins">
+                    <div className="modal-header relative">
+                        <h1 className='font-bold text-2xl font-poppins'>Events Settings</h1>
+                        <div className="absolute -top-14 -right-14 text-white cursor-pointer">
+                            <IconX strokeWidth={1.5} size={38} onClick={() => { setSettingModal(false) }} />
+                        </div>
+                    </div>
+                    <div className="modal-content pt-6">
+                        <form onSubmit={submitForm}>
+                            <div className="form-item mb-4">
+                                <InputLabel value={'Enter Attend button Appering Duration (in Minutes)'} className='mb-1 font-poppins font-semibold' />
+                                <TextInput
+                                    id="title"
+                                    type="text"
+                                    name="title"
+                                    className="w-full rounded-md font-poppins"
+                                    placeholder="Enter duration..."
+                                    onChange={(e) => setData('attend_duration', e.target.value)}
+                                    value={data.attend_duration}
+                                />
+                                <InputError message={errors.attend_duration} className="mt-2" />
+                            </div>
+                            <div className="font-item mb-4 text-right">
+                                <button className='bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold' disabled={processing}>Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </Modal>
