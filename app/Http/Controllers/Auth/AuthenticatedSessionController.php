@@ -38,9 +38,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         $user = Auth::user();
-        $roles = $user->roles->pluck('name')->toArray();
-
-        if (in_array('guest', $roles)) {
+        $role = $user->roles->pluck('name')->toArray()[0];
+        if (in_array($role, ['guest', 'Guest'])) {
             return redirect()->intended('/');
         }
         return redirect()->intended(RouteServiceProvider::HOME);

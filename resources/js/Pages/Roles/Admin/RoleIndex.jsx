@@ -4,12 +4,15 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link, useForm } from '@inertiajs/react'
+import { isUserAllowed } from '@/Utils/Utils';
+import { Head, Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconX } from '@tabler/icons-react';
 import React, { useState } from 'react'
 
 export default function RoleIndex({ auth, roles }) {
+
+    const { role, permissions } = usePage().props.auth
 
     const TABLE_HEAD = ["SN", "Role Name", "Actions"];
     const [addEditModal, setAddEditModal] = useState(false)
@@ -23,7 +26,7 @@ export default function RoleIndex({ auth, roles }) {
         permissions: []
     });
 
-    const permissions = [
+    const permissionsItems = [
         { name: "Blog Posts", items: ['create', 'edit', 'delete'] },
         { name: "Categories", items: ['create', 'edit', 'delete'] },
         { name: "Tags", items: ['create', 'edit', 'delete'] },
@@ -32,7 +35,7 @@ export default function RoleIndex({ auth, roles }) {
         { name: "Locale", items: ['create', 'edit', 'delete'] },
         { name: "Church Locations", items: ['create', 'edit', 'delete'] },
         { name: "Albums", items: ['create', 'edit', 'delete'] },
-        { name: "Email Tempates", items: ['create', 'edit', 'delete'] },
+        { name: "Email Templates", items: ['create', 'edit', 'delete'] },
         { name: "Roles", items: ['create', 'edit', 'delete'] },
         { name: "Banners", items: ['create', 'edit', 'delete'] },
     ]
@@ -144,13 +147,15 @@ export default function RoleIndex({ auth, roles }) {
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
                                         <tr key={id}>
-                                            <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`} {id}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${name}`}</Typography></td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('view', id) }}>View</button>
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
-                                                    <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ['delete_roles'], role) && (
+                                                        <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
@@ -194,7 +199,7 @@ export default function RoleIndex({ auth, roles }) {
                                     </div>
                                 </div>
                                 <div className="permission-wrapper">
-                                    {permissions.map(({ name, items }, index) => (
+                                    {permissionsItems.map(({ name, items }, index) => (
                                         <React.Fragment key={index}>
                                             <div className="grid grid-cols-3 mb-5">
                                                 <InputLabel value={name} className='mb-1 font-poppins font-medium col-span-2' />

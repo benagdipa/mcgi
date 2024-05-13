@@ -3,13 +3,14 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link, router, useForm } from '@inertiajs/react'
+import { isUserAllowed } from '@/Utils/Utils';
+import { Head, Link, router, usePage,useForm } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconChevronDown, IconChevronUp, IconX } from '@tabler/icons-react';
 import React, { useState } from 'react'
 
 export default function EventsAdmin({ auth, events, options }) {
-
+    const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Event Title", "Start Date", "End Date", "Address", "Status", "Action"];
     const TABLE_ROWS = events;
 
@@ -124,7 +125,9 @@ export default function EventsAdmin({ auth, events, options }) {
                                                 <div className="flex gap-3">
                                                     <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.events.view', id)}>View</Link>
                                                     <Link className='px-0 text-sm font-medium font-poppins' href={route('admin.events.edit', id)}>Edit</Link>
-                                                    <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ["delete_events"], role) && (
+                                                        <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

@@ -3,6 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
+import { isUserAllowed } from '@/Utils/Utils';
 import { Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import { IconX } from '@tabler/icons-react';
@@ -10,7 +11,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import React, { useRef, useState } from 'react'
 
 export default function Index({ auth, templates }) {
-    const { flash } = usePage().props
+    const { flash, role, permissions } = usePage().props
 
     const TABLE_HEAD = ["SN", "Template Name", "Subject", "Actions"];
     const TABLE_ROWS = templates;
@@ -129,6 +130,7 @@ export default function Index({ auth, templates }) {
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
                                                     <button className='text-red-500 px-0 text-sm font-medium font-poppins' onClick={() => { openDeleteModal(id) }}>Delete</button>
+
                                                 </div>
                                             </td>
                                         </tr>

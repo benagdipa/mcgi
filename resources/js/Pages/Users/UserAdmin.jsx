@@ -1,5 +1,5 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
-import { Head, Link, router, useForm } from '@inertiajs/react'
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
@@ -7,8 +7,11 @@ import { IconX } from '@tabler/icons-react';
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
+import { isUserAllowed } from '@/Utils/Utils';
 
 export default function UserAdmin({ auth, users, locale, roles }) {
+    const { role, permissions } = usePage().props.auth
+
     const TABLE_HEAD = ["SN", "First Name", "Last Name", 'Email', "Phone", "Locale", "Actions"];
     const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
         first_name: '',
@@ -45,7 +48,7 @@ export default function UserAdmin({ auth, users, locale, roles }) {
             setFormType('_add')
         } else if (type === 'edit') {
             const selected = users.filter(obj => obj.id === id)
-          
+
             setData({ ...selected[0], 'role': selected[0].roles[0] ? selected[0].roles[0].name : 'guest' });
             setModalTitle('Edit')
             setFormType('_edit')
@@ -139,7 +142,9 @@ export default function UserAdmin({ auth, users, locale, roles }) {
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
-                                                    <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    {isUserAllowed(permissions, ["delete_users"], role) && (
+                                                        <button className="text-red-500 px-0 text-sm font-medium font-poppins" onClick={() => { openDeleteModal(id) }}>Delete</button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>

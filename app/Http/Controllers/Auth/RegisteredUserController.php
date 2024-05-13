@@ -53,9 +53,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $guestRole = Role::where('name', 'guest')->first();
+        $guestRole = Role::where('name', 'Guest')->first();
         if ($guestRole) {
-            if (!$user->hasRole('guest')) {
+            if (!$user->hasRole('Guest')) {
                 $user->assignRole($guestRole);
             }
         }

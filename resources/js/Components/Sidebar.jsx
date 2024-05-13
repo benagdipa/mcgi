@@ -55,93 +55,93 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </Typography>
                             </ListItem>
                         </Link>
-
-                        <Accordion
-                            open={open === 1}
-                            icon={<IconChevronDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`} />}
-                        >
-                            <ListItem className="p-0" selected={open === 1}>
-                                <AccordionHeader className="border-b-0 p-3 text-white" onClick={() => handleOpen(1)}>
-                                    <ListItemPrefix>
-                                        <IconPin strokeWidth={1.5} />
-                                    </ListItemPrefix>
-                                    <Typography className="mr-auto font-poppins font-medium">
-                                        Blogs
-                                    </Typography>
-                                </AccordionHeader>
-                            </ListItem>
-
-                            <AccordionBody className="py-1">
-                                <List className="p-0 text-white">
-
-                                    <Link
-                                        href={route("admin.blogs.index")}
-                                        className={`${currentRoute === "admin.blogs.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                                    >
-                                        <ListItem>
-                                            <ListItemPrefix>
-                                                <IconChevronRight strokeWidth={3} className="h-3 w-5" />
-                                            </ListItemPrefix>
-                                            <Typography className="mr-auto font-poppins font-medium">
-                                                All Blogs
-                                            </Typography>
-                                        </ListItem>
-                                    </Link>
-
-                                    {/* Add Blog */}
-                                    {isUserAllowed(permissions, ['create_blogs'], role) && (
+                        {/* Blogs */}
+                        {isUserAllowed(permissions, ['create_blog_posts', "edit_blogs_posts", "delete_blogs_posts", "create_categories", "edit_categories", "delete_categories", "create_tags", "edit_tags", "delete_tags"], role) && (
+                            <Accordion
+                                open={open === 1}
+                                icon={<IconChevronDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`} />}
+                            >
+                                <ListItem className="p-0" selected={open === 1}>
+                                    <AccordionHeader className="border-b-0 p-3 text-white" onClick={() => handleOpen(1)}>
+                                        <ListItemPrefix>
+                                            <IconPin strokeWidth={1.5} />
+                                        </ListItemPrefix>
+                                        <Typography className="mr-auto font-poppins font-medium">
+                                            Blogs
+                                        </Typography>
+                                    </AccordionHeader>
+                                </ListItem>
+                                <AccordionBody className="py-1">
+                                    <List className="p-0 text-white">
                                         <Link
-                                            href={route("admin.blogs.add")}
-                                            className={`${currentRoute === "admin.blogs.add" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                                            href={route("admin.blogs.index")}
+                                            className={`${currentRoute === "admin.blogs.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
                                         >
                                             <ListItem>
                                                 <ListItemPrefix>
                                                     <IconChevronRight strokeWidth={3} className="h-3 w-5" />
                                                 </ListItemPrefix>
                                                 <Typography className="mr-auto font-poppins font-medium">
-                                                    Add New
+                                                    All Blogs
                                                 </Typography>
                                             </ListItem>
                                         </Link>
-                                    )}
 
-                                    {/* Categories */}
-                                    {isUserAllowed(permissions, ['create_categories', 'edit_categories', 'delete_categories'], role) && (
-                                        <Link
-                                            href={route("admin.blogs.categories.index")}
-                                            className={`${currentRoute === "admin.blogs.categories.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                                        >
-                                            <ListItem>
-                                                <ListItemPrefix>
-                                                    <IconChevronRight strokeWidth={3} className="h-3 w-5" />
-                                                </ListItemPrefix>
-                                                <Typography className="mr-auto font-poppins font-medium">
-                                                    Categories
-                                                </Typography>
-                                            </ListItem>
-                                        </Link>
-                                    )}
+                                        {/* Add Blog */}
+                                        {isUserAllowed(permissions, ['create_blogs_posts'], role) && (
+                                            <Link
+                                                href={route("admin.blogs.add")}
+                                                className={`${currentRoute === "admin.blogs.add" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                                            >
+                                                <ListItem>
+                                                    <ListItemPrefix>
+                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                    </ListItemPrefix>
+                                                    <Typography className="mr-auto font-poppins font-medium">
+                                                        Add New
+                                                    </Typography>
+                                                </ListItem>
+                                            </Link>
+                                        )}
+
+                                        {/* Categories */}
+                                        {isUserAllowed(permissions, ['create_categories', 'edit_categories', 'delete_categories'], role) && (
+                                            <Link
+                                                href={route("admin.blogs.categories.index")}
+                                                className={`${currentRoute === "admin.blogs.categories.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                                            >
+                                                <ListItem>
+                                                    <ListItemPrefix>
+                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                    </ListItemPrefix>
+                                                    <Typography className="mr-auto font-poppins font-medium">
+                                                        Categories
+                                                    </Typography>
+                                                </ListItem>
+                                            </Link>
+                                        )}
 
 
-                                    {/* Tags */}
-                                    {isUserAllowed(permissions, ['create_tags', 'edit_tags', 'delete_tags'], role) && (
-                                        <Link
-                                            href={route("admin.blogs.tags.index")}
-                                            className={`${currentRoute === "admin.blogs.tags.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                                        >
-                                            <ListItem>
-                                                <ListItemPrefix>
-                                                    <IconChevronRight strokeWidth={3} className="h-3 w-5" />
-                                                </ListItemPrefix>
-                                                <Typography className="mr-auto font-poppins font-medium">
-                                                    Tags
-                                                </Typography>
-                                            </ListItem>
-                                        </Link>
-                                    )}
-                                </List>
-                            </AccordionBody>
-                        </Accordion>
+                                        {/* Tags */}
+                                        {isUserAllowed(permissions, ['create_tags', 'edit_tags', 'delete_tags'], role) && (
+                                            <Link
+                                                href={route("admin.blogs.tags.index")}
+                                                className={`${currentRoute === "admin.blogs.tags.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                                            >
+                                                <ListItem>
+                                                    <ListItemPrefix>
+                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                    </ListItemPrefix>
+                                                    <Typography className="mr-auto font-poppins font-medium">
+                                                        Tags
+                                                    </Typography>
+                                                </ListItem>
+                                            </Link>
+                                        )}
+                                    </List>
+                                </AccordionBody>
+                            </Accordion>
+                        )}
 
                         {/* Events */}
                         {isUserAllowed(permissions, ['create_events', 'edit_events', 'delete_events'], role) && (
@@ -284,7 +284,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         )}
 
                         {/* Email Templates */}
-                        {isUserAllowed(permissions, ["create_email_tempates", "edit_email_tempates", "delete_email_tempates"], role) && (
+                        {isUserAllowed(permissions, ["create_email_templates", "edit_email_templates", "delete_email_templates"], role) && (
                             <Link
                                 href={route('admin.email.index')}
                                 className={`${currentRoute === "admin.email.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
@@ -316,23 +316,23 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 </ListItem>
                             </Link>
                         )}
-                
-                    {/* Banners */}
-                    {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
-                        <Link
-                            href={route('admin.banner.index')}
-                            className={`${currentRoute === "admin.banner.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                        >
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <IconSlideshow strokeWidth={1.5} />
-                                </ListItemPrefix>
-                                <Typography className="mr-auto font-poppins font-medium">
-                                    Banner
-                                </Typography>
-                            </ListItem>
-                        </Link>
-                    )}
+
+                        {/* Banners */}
+                        {isUserAllowed(permissions, ["create_banners", "edit_banners", "delete_banners"], role) && (
+                            <Link
+                                href={route('admin.banner.index')}
+                                className={`${currentRoute === "admin.banner.index" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                            >
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <IconSlideshow strokeWidth={1.5} />
+                                    </ListItemPrefix>
+                                    <Typography className="mr-auto font-poppins font-medium">
+                                        Banner
+                                    </Typography>
+                                </ListItem>
+                            </Link>
+                        )}
 
                     </List>
                 </div>
