@@ -7,6 +7,7 @@ import { Head, Link, router, useForm } from '@inertiajs/react'
 import { IconMapPin, IconPlus, IconSearch, IconX } from '@tabler/icons-react'
 import axios from 'axios';
 import React, { useState } from 'react'
+import { format, getYear } from 'date-fns';
 
 export default function EventsPage({ auth, events, locale }) {
 
@@ -78,7 +79,6 @@ export default function EventsPage({ auth, events, locale }) {
             }
             return row;
         })
-        // updatedRows.push({ id: randomId(), name: '', email: '', phone: '' });
         setData('attendenceRows', updatedRows);
         setSearchText('')
         setSearchResultState(false)
@@ -143,7 +143,7 @@ export default function EventsPage({ auth, events, locale }) {
                         <div className="events-list-wrapper">
                             <div className="monthly-events">
                                 <div className="flex items-center relative">
-                                    <span className='w-32 font-bold text-xl font-dmsans'>April 2024</span>
+                                    <span className='w-32 font-bold text-xl font-dmsans'>{`${format(new Date(), 'MMMM')} ${getYear(new Date())}`} </span>
                                     <span className='block border-t h w-full border-black'></span>
                                 </div>
                                 <div className="events my-12">
@@ -172,7 +172,8 @@ export default function EventsPage({ auth, events, locale }) {
                                                                 <div className="md:w-3/12 w-full">
                                                                     <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
-                                                                        <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>
+                                                                        {item?.isImminent && <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>}
+
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -14,7 +14,7 @@ export default function HomePage({ auth, posts, events, banners }) {
     const [prayModalState, setPrayModalState] = useState(false);
     var settings = {
         dots: true,
-        infinite: false,
+        infinite: banners?.length > 1 ? true : false,
         speed: 500,
         height: 600,
         slidesToShow: 1,
@@ -71,7 +71,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                             return (
                                 <div key={itm.id} className="slider-item lg:h-full">
                                     <img
-                                        src={`/storage/uploads/${itm?.bannerpath}`}
+                                        src={`${itm?.bannerpath}`}
                                         alt={`${itm?.title}`}
                                         className="w-full object-cover h-[380px] md:h-[438px] lg:h-[800px]"
                                     />
@@ -373,14 +373,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                                                                     </p>
                                                                 </div>
                                                                 <div className="mt-8 text-sm cursor-pointer">
-                                                                    <Link
-                                                                        href={route(
-                                                                            "events.index"
-                                                                        )}
-                                                                    >
-                                                                        Attend
-                                                                        Now
-                                                                    </Link>
+                                                                    {item?.isImminent && <Link href={route("events.index")}>Attend Now</Link>}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -524,7 +517,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                         </div>
                     </div>
                 </WOW>
-            </div>
-        </GuestLayout>
+            </div >
+        </GuestLayout >
     );
 }

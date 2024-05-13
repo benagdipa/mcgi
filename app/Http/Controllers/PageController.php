@@ -9,6 +9,7 @@ use App\Models\Posts;
 use App\Models\BannerImage;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -18,24 +19,28 @@ class PageController extends Controller
     public function homePage()
     {
         $posts = Posts::take(3)->get();
-        $events = Events::take(9)->get();
-        $imageData = BannerImage::select('id', 'title', 'bannerpath')->get()->toArray();
-        // $ids = [];
-        // $titles = [];
-        // $bannerpath = [];
-        // $imageUrls = [];
-        // foreach ($imageData as $image) {
-        //     $ids[] = $image['id'];
-        //     $titles[] = $image['title'];
-        //     $bannerpath[] = $image['bannerpath'];
-        //     $imageUrls[] = Storage::url('uploads/' . $image['bannerpath']);
-        // }
+        $currentDate = Carbon::now();
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->take(9)->get()->map(function ($event) use ($currentDate) {
+            $hoursDiff = $currentDate->diffInHours($event->start_date);
+            $event->isImminent = $hoursDiff <= 1;
+            return $event;
+        });
+        $imageData = BannerImage::select('id', 'title', 'bannerpath', 'position')->orderBy('position', 'asc')->get()->sortBy(function ($image) {
+            return $image->position == 0 ? PHP_INT_MAX : $image->position;
+        })->map(function ($image) {
+            return [
+                'id' => $image->id,
+                'title' => $image->title,
+                'bannerpath' => Storage::url('uploads/' . $image->bannerpath),
+                'position' => $image->position
+            ];
+        });
+        $imageDataArray = $imageData->values()->toArray();
         return Inertia::render('HomePage', [
             'posts' => $posts,
             'events' => $events,
-            'banners' => $imageData,
+            'banners' => $imageDataArray,
         ]);
-
     }
     public function aboutPage()
     {

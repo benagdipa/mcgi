@@ -3,7 +3,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils';
 import { Head, Link, router, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
-import { IconX } from '@tabler/icons-react';
+import { IconChevronDown, IconChevronUp, IconX } from '@tabler/icons-react';
 import React, { useState } from 'react'
 
 export default function EventsAdmin({ auth, events }) {
@@ -31,6 +31,9 @@ export default function EventsAdmin({ auth, events }) {
             })
         }
     }
+    const sortData = (key, order) => {
+        router.visit(route('admin.events.index', { sort: key, order: order }));
+    }
     return (
         <Authenticated user={auth?.user}>
             <Head title='Events' />
@@ -56,8 +59,14 @@ export default function EventsAdmin({ auth, events }) {
                             <thead>
                                 <tr>
                                     {TABLE_HEAD.map((head) => (
-                                        <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                        <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 relative">
                                             <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins">{head}</Typography>
+                                            {head === 'Start Date' || head === 'End Date' ? (
+                                                <React.Fragment>
+                                                    <span className='absolute top-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><IconChevronUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'asc') }} /></span>
+                                                    <span className='absolute bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><IconChevronDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'desc') }} /></span>
+                                                </React.Fragment>
+                                            ) : null}
                                         </th>
                                     ))}
                                 </tr>

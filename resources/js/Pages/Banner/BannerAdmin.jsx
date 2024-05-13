@@ -2,40 +2,22 @@ import React, { useState } from "react";
 
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Collapse,
-    Typography,
-    Input,
-    Button,
-} from "@material-tailwind/react";
-import { useDropzone } from "react-dropzone";
+import { Card, Collapse, Typography, Input, } from "@material-tailwind/react";
 import InputError from "@/Components/InputError";
-import { IconX } from "@tabler/icons-react";
+import axios from "axios";
 import { isUserAllowed } from "@/Utils/Utils";
 
-const BannerAdminPage = ({ auth, banners, titles, ids }) => {
 
+const BannerAdminPage = ({ auth, banners }) => {
     const { role, permissions } = usePage().props.auth
-    const {
-        data,
-        setData,
-        post,
 
-        processing,
-        errors,
-        reset,
-        delete: destroy,
-    } = useForm({
+    const { data, setData, post, processing, errors, reset, delete: destroy, } = useForm({
         title: "",
         banners: [],
     });
     const [imageUploadError, setImageUploadError] = useState(false);
     const [toggleOpen, setToggleOpen] = useState(false);
-    const [uploadedImages, setUploadedImages] = useState("");
+    const [draggingItem, setDraggingItem] = useState(null);
 
     const toggleCollapse = () => {
         setToggleOpen(!toggleOpen);
@@ -71,44 +53,37 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
         }
     };
 
-    const handleRemoveUploadImage = (file, indexToRemove) => {
-        const tempFileArray = [...data?.banners];
-        const fileAfterDelete = tempFileArray.filter((itm, index) => {
-            return index !== indexToRemove;
-        });
-        setData("banners", fileAfterDelete);
-    };
-
-    const thumbs = data?.banners?.map((file, index) => (
-        <div
-            key={index}
-            className="border border-gray-300 rounded relative w-36 h-36 p-1"
-        >
-            <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer">
-                <IconX
-                    size={16}
-                    onClick={() => {
-                        handleRemoveUploadImage(file, index);
-                    }}
-                />
-            </div>
-            <img
-                src={file.preview}
-                className="w-full h-full object-cover rounded"
-                alt={`Thumbnail ${index}`}
-            />
-        </div>
-    ));
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: "image/*",
-        onDrop: (acceptedFiles) => {
-            setData("banners", URL.createObjectURL(file));
-        },
-    });
 
     const onDeleteHandler = (id) => {
         destroy(route("admin.banner.delete", id));
+    };
+
+    // Drag and drop
+
+    const handleDragStart = (e, item) => {
+        setDraggingItem(item);
+    };
+
+    const handleDragEnd = () => {
+        setDraggingItem(null);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const handleDrop = (e, targetItem) => {
+        if (!draggingItem) return;
+        const items = banners;
+        const currentIndex = items.indexOf(draggingItem);
+        const targetIndex = items.indexOf(targetItem);
+        if (currentIndex !== -1 && targetIndex !== -1) {
+            items.splice(currentIndex, 1);
+            items.splice(targetIndex, 0, draggingItem);
+            axios.post(route('admin.banner.reorder', draggingItem?.id), { position: targetIndex + 1 })
+            axios.post(route('admin.banner.reorder', targetItem?.id), { position: currentIndex + 1 })
+
+        }
     };
 
     return (
@@ -121,25 +96,14 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                         </h1>
                         <div className="pt-2">
                             <ul className="flex gap-1 text-gray-600 text-sm">
-                                <li>
-                                    <Link href={route("dashboard")}>
-                                        Dashboard
-                                    </Link>
-                                </li>
+                                <li><Link href={route("dashboard")}>Dashboard</Link></li>
                                 <li>/</li>
-                                <li>
-                                    <Link href={route("admin.album.index")}>
-                                        Banner
-                                    </Link>
-                                </li>
+                                <li><Link href={route("admin.album.index")}>Banner</Link></li>
                             </ul>
                         </div>
                     </div>
                     <div className="right">
-                        <button
-                            className="bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins"
-                            onClick={toggleCollapse}
-                        >
+                        <button className="bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins" onClick={toggleCollapse}>
                             Add New
                         </button>
                     </div>
@@ -149,38 +113,17 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                         <Card className="px-6">
                             <form onSubmit={formSubmit}>
                                 <div className="mb-6">
-                                    <Typography
-                                        variant="h6"
-                                        color="blue-gray"
-                                        className="my-3"
-                                    >
-                                        Title
-                                    </Typography>
-
+                                    <Typography variant="h6" color="blue-gray" className="my-3">Title</Typography>
                                     <Input
                                         size="lg"
                                         placeholder="enter banner title"
                                         value={data.title}
-                                        onChange={(e) =>
-                                            setData("title", e.target.value)
-                                        }
+                                        onChange={(e) => setData("title", e.target.value)}
                                         className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                        labelProps={{
-                                            className:
-                                                "before:content-none after:content-none",
-                                        }}
+                                        labelProps={{ className: "before:content-none after:content-none", }}
                                     />
-                                    <InputError
-                                        message={errors.title}
-                                        className="mt-2"
-                                    />
-                                    <Typography
-                                        variant="h6"
-                                        color="blue-gray"
-                                        className="my-3"
-                                    >
-                                        Update Banner
-                                    </Typography>
+                                    <InputError message={errors.title} className="mt-2" />
+                                    <Typography variant="h6" color="blue-gray" className="my-3">Update Banner</Typography>
                                     <Input
                                         type="file"
                                         size="lg"
@@ -205,51 +148,37 @@ const BannerAdminPage = ({ auth, banners, titles, ids }) => {
                                                 "before:content-none after:content-none",
                                         }}
                                     />
-                                    <InputError
-                                        message={imageUploadError ? imageUploadError : errors.banners}
-                                        className="mt-2"
-                                    />
+                                    <InputError message={imageUploadError ? imageUploadError : errors.banners} className="mt-2" />
                                 </div>
                                 <div className="font-item mb-4 text-right">
-                                    <button
-                                        className="bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold"
-                                        disabled={processing}
-                                    >
-                                        Upload
-                                    </button>
+                                    <button className="bg-blue-500 text-white px-6 py-3 font-poppins rounded-sm font-bold" disabled={processing}>Upload</button>
                                 </div>
                             </form>
                         </Card>
                     </Collapse>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-6 mx-6">
                     {banners.map((itm, index) => {
                         return (
-                            <Card className="mt-6 mx-8 w-[450px]">
-                                <div className="flex">
-                                    <div className="mr-8">
-                                        <img
-                                            src={`${itm}`}
-                                            alt={`${titles[index]}`}
-                                            className="h-[100px] w-[100px]"
-                                        />
-                                    </div>
-                                    <div className="flex w-[60%] justify-between items-center">
-                                        <Typography
-                                            variant="h5"
-                                            color="blue-gray"
-                                            className=""
-                                        >
-                                            {titles[index]}
-                                        </Typography>
+                            <Card
+                                className="mt-6 w-[450px] cursor-pointer"
+                                key={itm?.id}
+                                draggable="true"
+                                onDragStart={(e) => handleDragStart(e, itm)}
+                                onDragEnd={handleDragEnd}
+                                onDragOver={handleDragOver}
+                                onDrop={(e) => handleDrop(e, itm)}
+                            >
+                                <div className="flex gap-6">
+                                    <img src={`${itm?.bannerpath}`} alt={`${itm?.title}`} className="h-[100px] w-[100px] object-cover rounded-md" />
+                                    <div className="flex justify-between items-center w-full pr-4">
+                                        <Typography variant="h5" color="blue-gray">{itm?.title}</Typography>
                                         {isUserAllowed(permissions, ["delete_banners"], role) && (
                                             <button
                                                 className="bg-red-500  text-white py-1 px-3 text-xs font-poppins rounded-sm font-bold"
                                                 disabled={processing}
-                                                onClick={() =>
-                                                    onDeleteHandler(ids[index])
-                                                }
+                                                onClick={() => onDeleteHandler(itm?.id)}
                                             >
                                                 Delete
                                             </button>

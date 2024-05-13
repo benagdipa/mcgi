@@ -167,6 +167,7 @@ export default function Register({ locale }) {
                                             />
                                             <span className="ms-2 text-[#333] font-semibold md:text-lg text-base"><Link href={route('privacy-and-policy')}>Agree to Privacy Policy</Link></span>
                                         </label>
+                                        <InputError message={errors.privacy} className="mt-2" />
                                     </div>
                                     <div className="flex items-center justify-between mt-4">
                                         <PrimaryButton className="bg-[#f5cd06] shadow-lg text-[#0f0f0f] font-bold md:text-lg text-base rounded-lg font-dmsans px-6 py-2" disabled={processing}>
