@@ -79,7 +79,6 @@ export default function EventsPage({ auth, events, locale }) {
             }
             return row;
         })
-        // updatedRows.push({ id: randomId(), name: '', email: '', phone: '' });
         setData('attendenceRows', updatedRows);
         setSearchText('')
         setSearchResultState(false)
@@ -173,7 +172,8 @@ export default function EventsPage({ auth, events, locale }) {
                                                                 <div className="md:w-3/12 w-full">
                                                                     <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
-                                                                        <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>
+                                                                        {item?.isImminent && <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md'>Attend Now</p>}
+
                                                                     </div>
                                                                 </div>
                                                             </div>
