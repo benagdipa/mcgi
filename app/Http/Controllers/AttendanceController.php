@@ -17,17 +17,24 @@ class AttendanceController extends Controller
 {
     public function store(Request $request)
     {
+        $validationRules = [];
+        $errorMessages = [];
+        for ($i = 1; $i < count($request->attendenceRows); $i++) {
+            $validationRules["attendenceRows.$i.type"] = ["required"];
+            $errorMessages["attendenceRows.$i.type.required"] = "Participant type is Required";
+        }
+        $request->validate($validationRules, $errorMessages);
         $request->validate(
             [
                 "attendenceRows.*.name" => "required|string",
-                "attendenceRows.*.email" => ["required", "email", new UniqueAttendance($request->input('event_id'))],
+                "attendenceRows.0.email" => ["required", "email", new UniqueAttendance($request->input('event_id'))],
                 "attendenceRows.*.phone" => "required|numeric|min:10",
                 "attendenceRows.*.locale" => "required",
             ],
             [
                 'attendenceRows.*.name.required' => 'Name is Required',
-                'attendenceRows.*.email.required' => 'Email is Required',
-                'attendenceRows.*.email.email' => 'Email must be valid',
+                'attendenceRows.0.email.required' => 'Email is Required',
+                'attendenceRows.0.email.email' => 'Email must be valid',
                 'attendenceRows.*.phone.required' => 'Phone is Required',
                 'attendenceRows.*.phone.numeric' => 'Phone must be valid',
                 'attendenceRows.*.locale.required' => 'Locale is Required',
@@ -40,11 +47,11 @@ class AttendanceController extends Controller
                 'name' => $row['name'],
                 'email' => $row['email'],
                 'phone' => $row['phone'],
-                'locale' => $row['locale']
+                'locale' => $row['locale'],
+                'member_type' => $row['type'] ? $row['type'] : '',
             ]);
             $email = $row['email'];
             $email_template = EmailTemplate::find('1');
-
             Mail::send('mails/attendance', array(
                 'event_name' => $event->title,
                 'additional_content' => $email_template->content,
@@ -95,6 +102,7 @@ class AttendanceController extends Controller
                     'event_name' => $attendee->event->title,
                     'event_date' => $attendee->event->start_date,
                     'name' => $attendee->name,
+                    'member_type' => $attendee->member_type,
                     'created_at' => $attendee->created_at,
                     'locale_name' => $attendee->locale ? $this->getLocaleNameForAttendee($attendee->locale) : ''
                 ];
