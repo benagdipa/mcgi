@@ -5,7 +5,7 @@ import axios from 'axios';
 import React from 'react'
 
 export default function EventsViewAdmin({ auth, event, attendance }) {
-    const TABLE_HEAD = ["SN", "Name", "Email", "Phone"];
+    const TABLE_HEAD = ["SN", "Name", "Email", "Phone", "Member Type"];
     const TABLE_ROWS = attendance;
 
     const handleExport = async () => {
@@ -57,7 +57,7 @@ export default function EventsViewAdmin({ auth, event, attendance }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {TABLE_ROWS.map(({ id, name, email, phone }, index) => {
+                                {TABLE_ROWS.map(({ id, name, email, phone, member_type }, index) => {
                                     const isLast = index === TABLE_ROWS.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
@@ -73,6 +73,9 @@ export default function EventsViewAdmin({ auth, event, attendance }) {
                                             </td>
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins">{phone}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{member_type}</Typography>
                                             </td>
                                         </tr>
                                     );
