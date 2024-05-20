@@ -1,0 +1,1 @@
+import{j as e}from"./app-Z130Fl4O.js";function t({className:o="",...r}){return e.jsx("input",{...r,type:"checkbox",className:"rounded  border-gray-300 text-yellow-600 shadow-sm focus:ring-yellow-500 dark:focus:ring-0  "+o})}export{t as C};
