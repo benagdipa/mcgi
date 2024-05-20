@@ -15,6 +15,7 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
         { name: 'Event', sortable: true, asc: true, sortKey: 'event_name' },
         { name: 'Date Of Event', sortable: true, asc: true, sortKey: 'event_date' },
         { name: 'Full Name', sortable: true, asc: true, sortKey: 'name' },
+        { name: 'Member Type', sortable: false, asc: true, sortKey: 'member_type' },
         { name: 'Entry Date and Time', sortable: false, asc: true, sortKey: 'created_at' },
     ];
     const [attendanceList, setAttendanceList] = useState([...attendance]);
@@ -165,6 +166,9 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
                                             </td>
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins">{item?.name}</Typography>
+                                            </td>
+                                            <td className={classes}>
+                                                <Typography className="font-medium font-poppins">{item?.member_type ? item?.member_type : <span dangerouslySetInnerHTML={{ __html: '&nbsp;' }} />}</Typography>
                                             </td>
                                             <td className={classes}>
                                                 <Typography className="font-medium font-poppins">{formatDate(item?.created_at)}</Typography>
