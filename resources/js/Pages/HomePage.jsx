@@ -373,7 +373,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                                                                     </p>
                                                                 </div>
                                                                 <div className="mt-8 text-sm cursor-pointer">
-                                                                    {item?.isImminent && <Link href={route("events.index")}>Attend Now</Link>}
+                                                                    {item?.isImminent && <Link href={route("events.index")}>Register Now</Link>}
                                                                 </div>
                                                             </div>
                                                         </div>
