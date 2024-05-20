@@ -24,7 +24,6 @@ class AttendanceController extends Controller
             $errorMessages["attendenceRows.$i.type.required"] = "Participant type is Required";
         }
         $request->validate($validationRules, $errorMessages);
-
         $request->validate(
             [
                 "attendenceRows.*.name" => "required|string",
@@ -42,9 +41,6 @@ class AttendanceController extends Controller
             ]
         );
         $event = Events::findOrFail($request->event_id);
-
-
-
         foreach ($request->attendenceRows as $row) {
             Attendance::create([
                 'event_id' => $request->event_id,
@@ -54,16 +50,15 @@ class AttendanceController extends Controller
                 'locale' => $row['locale'],
                 'member_type' => $row['type'] ? $row['type'] : '',
             ]);
-            // $email = $row['email'];
-            // $email_template = EmailTemplate::find('1');
-
-            // Mail::send('mails/attendance', array(
-            //     'event_name' => $event->title,
-            //     'additional_content' => $email_template->content,
-            // ), function ($message) use ($email) {
-            //     $message->to($email)->subject('Your attendance is recorded');
-            //     $message->from('support@mcgi.org.au', 'MCGI');
-            // });
+            $email = $row['email'];
+            $email_template = EmailTemplate::find('1');
+            Mail::send('mails/attendance', array(
+                'event_name' => $event->title,
+                'additional_content' => $email_template->content,
+            ), function ($message) use ($email) {
+                $message->to($email)->subject('Your attendance is recorded');
+                $message->from('support@mcgi.org.au', 'MCGI');
+            });
         }
     }
 
