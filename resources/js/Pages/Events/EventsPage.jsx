@@ -36,7 +36,7 @@ export default function EventsPage({ auth, events, locale }) {
     });
 
     const addRow = () => {
-        const newRow = { id: randomId(), name: '', email: '', phone: '', locale: '', type: '' };
+        const newRow = { id: randomId(), name: '' };
         setData('attendenceRows', [...data.attendenceRows, newRow]);
     };
 
@@ -77,7 +77,7 @@ export default function EventsPage({ auth, events, locale }) {
     const handleSearchResult = (item) => {
         const updatedRows = data.attendenceRows.map(row => {
             if (row.id === data.attendenceRows[data.attendenceRows.length - 1].id) {
-                return { ...row, ["name"]: item.first_name + ' ' + item.last_name, ["email"]: item.email, ["phone"]: item.phone, ["locale"]: item.local, ["type"]: '' };
+                return { ...row, ["name"]: item.first_name + ' ' + item.last_name };
             }
             return row;
         })
@@ -175,6 +175,7 @@ export default function EventsPage({ auth, events, locale }) {
                                                                     <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
                                                                         {item?.isImminent && (<p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>)}
+                                                                        <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -235,41 +236,38 @@ export default function EventsPage({ auth, events, locale }) {
                                     {data?.attendenceRows?.length > 0 && data?.attendenceRows?.map((item, index) => {
                                         return (
                                             <div key={index}>
-                                                {
-                                                    index > 0 && (
-                                                        <div className='mb-4'>
-                                                            <div className='flex -ml-3 gap-6'>
-                                                                <Radio
-                                                                    name="participant_type"
-                                                                    color="amber"
-                                                                    label={<Typography className='font-semibold'>Member</Typography>}
-                                                                    className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
-                                                                    onChange={(e) => handleChange(item.id, 'type', 'Member')}
+                                                {index > 0 && (
+                                                    <div className='mb-4'>
+                                                        <div className='flex -ml-3 gap-6'>
+                                                            <Radio
+                                                                name={`participant_type_${index}`}
+                                                                color="amber"
+                                                                label={<Typography className='font-semibold'>Member</Typography>}
+                                                                className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+                                                                onChange={(e) => handleChange(item.id, 'type', 'Member')}
 
-                                                                />
-                                                                <Radio
-                                                                    name="participant_type"
-                                                                    color="amber"
-                                                                    label={<Typography className='font-semibold'>Guest</Typography>}
-                                                                    className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
-                                                                    onChange={(e) => handleChange(item.id, 'type', 'Guest')}
-                                                                />
-                                                                <Radio
-                                                                    name="participant_type"
-                                                                    color="amber"
-                                                                    label={<Typography className='font-semibold'>Kids/Teens</Typography>}
-                                                                    className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
-                                                                    onChange={(e) => handleChange(item.id, 'type', 'Kids/Teens')}
-                                                                />
-                                                            </div>
-                                                            <InputError message={errors[`attendenceRows.${index}.type`]} />
+                                                            />
+                                                            <Radio
+                                                                name={`participant_type_${index}`}
+                                                                color="amber"
+                                                                label={<Typography className='font-semibold'>Guest</Typography>}
+                                                                className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+                                                                onChange={(e) => handleChange(item.id, 'type', 'Guest')}
+                                                            />
+                                                            <Radio
+                                                                name={`participant_type_${index}`}
+                                                                color="amber"
+                                                                label={<Typography className='font-semibold'>Kids/Teens</Typography>}
+                                                                className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+                                                                onChange={(e) => handleChange(item.id, 'type', 'Kids/Teens')}
+                                                            />
                                                         </div>
-
-                                                    )
-                                                }
+                                                        <InputError message={errors[`attendenceRows.${index}.type`]} />
+                                                    </div>
+                                                )}
 
                                                 <div className="md:flex grid grid-rows-4 grid-flow-col gap-4 mb-6 items-center">
-                                                    <div className="md:w-1/4">
+                                                    <div className={`${index !== 0 ? 'md:w-full' : 'md:w-1/4'}`}>
                                                         <InputLabel value="Full Name" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
                                                         <TextInput
                                                             type="text"
@@ -281,41 +279,45 @@ export default function EventsPage({ auth, events, locale }) {
                                                         />
                                                         <InputError message={errors[`attendenceRows.${index}.name`]} className="absolute" />
                                                     </div>
-                                                    <div className="md:w-1/4">
-                                                        <InputLabel value="Email Address" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
-                                                        <TextInput
-                                                            type="email"
-                                                            className="w-full"
-                                                            placeholder="Email Address..."
-                                                            value={item?.email}
-                                                            onChange={(e) => handleChange(item.id, 'email', e.target.value)}
-                                                        />
-                                                        <InputError message={errors[`attendenceRows.${index}.email`]} className="absolute" />
-                                                    </div>
-                                                    <div className="md:w-1/4">
-                                                        <InputLabel value="Phone" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
-                                                        <TextInput
-                                                            type="text"
-                                                            className="w-full"
-                                                            placeholder="Phone..."
-                                                            value={item?.phone}
-                                                            onChange={(e) => handleChange(item.id, 'phone', e.target.value)}
-                                                        />
-                                                        <InputError message={errors[`attendenceRows.${index}.phone`]} className="absolute" />
-                                                    </div>
-                                                    <div className="md:w-1/4">
-                                                        <InputLabel value="Locale" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
-                                                        <select
-                                                            name="locale"
-                                                            className='w-full border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm'
-                                                            value={item?.locale}
-                                                            onChange={(e) => handleChange(item.id, 'locale', e.target.value)}
-                                                        >
-                                                            <option value="">Select</option>
-                                                            {locale?.map((item, index) => { return (<option key={index} value={item.id}>{item.title}</option>) })}
-                                                        </select>
-                                                        <InputError message={errors[`attendenceRows.${index}.locale`]} className="absolute" />
-                                                    </div>
+                                                    {index === 0 && (
+                                                        <>
+                                                            <div className="md:w-1/4">
+                                                                <InputLabel value="Email Address" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
+                                                                <TextInput
+                                                                    type="email"
+                                                                    className="w-full"
+                                                                    placeholder="Email Address..."
+                                                                    value={item?.email}
+                                                                    onChange={(e) => handleChange(item.id, 'email', e.target.value)}
+                                                                />
+                                                                <InputError message={errors[`attendenceRows.${index}.email`]} className="absolute" />
+                                                            </div>
+                                                            <div className="md:w-1/4">
+                                                                <InputLabel value="Phone" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
+                                                                <TextInput
+                                                                    type="text"
+                                                                    className="w-full"
+                                                                    placeholder="Phone..."
+                                                                    value={item?.phone}
+                                                                    onChange={(e) => handleChange(item.id, 'phone', e.target.value)}
+                                                                />
+                                                                <InputError message={errors[`attendenceRows.${index}.phone`]} className="absolute" />
+                                                            </div>
+                                                            <div className="md:w-1/4">
+                                                                <InputLabel value="Locale" className='mb-1 text-sm md:text-base font-poppins font-semibold' />
+                                                                <select
+                                                                    name="locale"
+                                                                    className='w-full border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm'
+                                                                    value={item?.locale}
+                                                                    onChange={(e) => handleChange(item.id, 'locale', e.target.value)}
+                                                                >
+                                                                    <option value="">Select</option>
+                                                                    {locale?.map((item, index) => { return (<option key={index} value={item.id}>{item.title}</option>) })}
+                                                                </select>
+                                                                <InputError message={errors[`attendenceRows.${index}.locale`]} className="absolute" />
+                                                            </div>
+                                                        </>
+                                                    )}
                                                     <div className="btn-wrapper px-3 pt-5 cursor-pointer">
                                                         {index === data?.attendenceRows.length - 1 ? (
                                                             <IconPlus onClick={() => addRow()} />
