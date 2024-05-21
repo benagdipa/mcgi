@@ -1,1 +1,0 @@
-import{j as n}from"./app-J8IuY6Dx.js";function o({message:t,className:r="",...e}){return t?n.jsx("p",{...e,className:"text-sm text-red-600 dark:text-red-400 font-poppins capitalize "+r,children:t}):null}export{o as I};
