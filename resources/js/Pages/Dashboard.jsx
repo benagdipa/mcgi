@@ -5,8 +5,6 @@ import { IconAlbum, IconCalendar, IconPin, IconUser } from '@tabler/icons-react'
 
 export default function Dashboard({ auth }) {
     const { count, data } = usePage().props
-
-    console.log(usePage().props);
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Dashboard" />
