@@ -28,38 +28,39 @@ class AttendanceController extends Controller
             [
                 "attendenceRows.*.name" => "required|string",
                 "attendenceRows.0.email" => ["email", new UniqueAttendance($request->input('event_id'))],
-                // "attendenceRows.*.phone" => "required|numeric|min:10",
-                // "attendenceRows.*.locale" => "required",
+                "attendenceRows.0.phone" => "required|numeric|min:10",
+                "attendenceRows.0.locale" => "required",
             ],
             [
                 'attendenceRows.*.name.required' => 'Name is Required',
                 'attendenceRows.0.email.email' => 'Email must be valid',
-                // 'attendenceRows.*.phone.required' => 'Phone is Required',
-                // 'attendenceRows.*.phone.numeric' => 'Phone must be valid',
-                // 'attendenceRows.*.locale.required' => 'Locale is Required',
+                'attendenceRows.0.phone.required' => 'Phone is Required',
+                'attendenceRows.0.phone.numeric' => 'Phone must be valid',
+                'attendenceRows.0.locale.required' => 'Locale is Required',
             ]
         );
         $event = Events::findOrFail($request->event_id);
+        $first_item = $request->attendenceRows[0];
         foreach ($request->attendenceRows as $row) {
             Attendance::create([
                 'event_id' => $request->event_id,
                 'name' => $row['name'],
-                'email' => $row['email'],
-                'phone' => $row['phone'],
-                'locale' => $row['locale'],
+                'email' => $first_item['email'] ? $first_item['email'] : '',
+                'phone' => $first_item['phone'] ? $first_item['phone'] : '',
+                'locale' => $first_item['locale'] ? $first_item['locale'] : '',
                 'member_type' => $row['type'] ? $row['type'] : '',
             ]);
-            $email = $row['email'];
-            if (!empty($email)) {
-                $email_template = EmailTemplate::find('1');
-                Mail::send('mails/attendance', array(
-                    'event_name' => $event->title,
-                    'additional_content' => $email_template->content,
-                ), function ($message) use ($email) {
-                    $message->to($email)->subject('Your attendance is recorded');
-                    $message->from('support@mcgi.org.au', 'MCGI');
-                });
-            }
+        }
+        $email = $first_item['email'];
+        if (!empty($email)) {
+            $email_template = EmailTemplate::find('1');
+            Mail::send('mails/attendance', array(
+                'event_name' => $event->title,
+                'additional_content' => $email_template->content,
+            ), function ($message) use ($email) {
+                $message->to($email)->subject('Your attendance is recorded');
+                $message->from('support@mcgi.org.au', 'MCGI');
+            });
         }
     }
 
