@@ -19,7 +19,7 @@ class UserController extends Controller
         $users = User::with('roles')->get();
         $roles = Role::where('name', '!=', 'super-admin')->get();
         return Inertia::render('Users/UserAdmin', [
-            'users' => $users,
+            'users_list' => $users,
             'locale' => $locale,
             'roles' => $roles
         ]);
@@ -94,5 +94,26 @@ class UserController extends Controller
             }
         }
         return to_route('admin.users.index');
+    }
+
+    public function admin_user_search(Request $request)
+    {
+        $users = User::query()->where(function ($query) use ($request) {
+            $query->when(!empty ($request->search_query), function ($q) use ($request) {
+                $q->where('email', 'like', "%$request->search_query%")
+                    ->orWhere('first_name', 'like', "%$request->search_query%")
+                    ->orWhere('last_name', 'like', "%$request->search_query%")
+                    ->orWhere('phone', 'like', "%$request->search_query%");
+            });
+            $query->when(!empty ($request->search_locale), function ($q) use ($request) {
+                $q->where('local', $request->search_locale);
+            });
+            $query->when(!empty ($request->search_role), function ($q) use ($request) {
+                $q->whereHas('roles', function ($roleQuery) use ($request) {
+                    $roleQuery->where('name', $request->search_role);
+                });
+            });
+        })->get();
+        return $users;
     }
 }
