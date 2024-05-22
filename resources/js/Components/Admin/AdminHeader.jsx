@@ -15,7 +15,7 @@ export default function AdminHeader({ user ,onSetToggleHandler}) {
             </div>
             <div className="right flex lg:justify-between justify-end gap-4 w-full">
                 <div className="search hidden md:block ps-5">
-                    <input type="text" placeholder='Search...' className='rounded border-gray-400/80 w-[300px] focus:ring-0 ring-0' />
+                    {/* <input type="text" placeholder='Search...' className='rounded border-gray-400/80 w-[300px] focus:ring-0 ring-0' /> */}
                 </div>
                 <div className="flex gap-4 items-center justify-end">
                     <Badge color="red">
