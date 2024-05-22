@@ -1,6 +1,6 @@
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
 import { IconX } from '@tabler/icons-react';
@@ -8,8 +8,9 @@ import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import { isUserAllowed } from '@/Utils/Utils';
+import axios from 'axios';
 
-export default function UserAdmin({ auth, users, locale, roles }) {
+export default function UserAdmin({ auth, users_list, locale, roles }) {
     const { role, permissions } = usePage().props.auth
 
     const TABLE_HEAD = ["SN", "First Name", "Last Name", 'Email', "Phone", "Locale", "Actions"];
@@ -28,8 +29,17 @@ export default function UserAdmin({ auth, users, locale, roles }) {
     const [modalTitle, setModalTitle] = useState('');
     const [formType, setFormType] = useState('');
     const [selectedItem, setSelectedItem] = useState('')
-
     const [deleteModal, setDeleteModal] = useState(false)
+
+    const [searchText, setSearchText] = useState('')
+    const [filterLocale, setFilterLocale] = useState('')
+    const [filterRole, setFilterRole] = useState('')
+
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        setUsers(users_list)
+    }, [])
 
 
     const getLocale = (id) => {
@@ -95,6 +105,30 @@ export default function UserAdmin({ auth, users, locale, roles }) {
             })
         }
     }
+    const handleSearch = async () => {
+        if (searchText.length >= 3 || filterLocale || filterRole) {
+            const res = await axios.post(route('admin.search.user'),
+                {
+                    search_query: searchText,
+                    search_locale: filterLocale,
+                    search_role: filterRole
+                }
+            )
+            if (res?.data) {
+                if (res?.data) {
+                    setUsers(res.data)
+                }
+            }
+        } else {
+            setUsers(users_list)
+        }
+    }
+    useEffect(() => {
+        setTimeout(() => {
+            handleSearch()
+        }, 500)
+
+    }, [searchText, filterLocale, filterRole])
 
     return (
         <Authenticated user={auth?.user}>
@@ -115,7 +149,34 @@ export default function UserAdmin({ auth, users, locale, roles }) {
                         <button className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-lg font-poppins' onClick={() => { openAddEditModal('add') }}>Add New</button>
                     </div>
                 </div>
-                <div className="page-content pt-8">
+                <div className="flex justify-end pr-6 pt-4 gap-2">
+                    <TextInput
+                        type="text"
+                        placeholder='Search...'
+                        className='rounded border-gray-400/80 w-1/4 focus:ring-0 ring-0'
+                        value={searchText}
+                        onChange={(e) => { setSearchText(e.target.value) }}
+                    />
+                    <select
+                        className="border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm"
+                        value={filterLocale}
+                        onChange={(e) => setFilterLocale(e.target.value)}
+                    >
+                        <option value="">Select Locale</option>
+                        {locale.map(({ id, title }) => <option key={id} value={id}>{title}</option>)}
+                    </select>
+
+                    <select
+                        className="border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm"
+                        value={filterRole}
+                        onChange={(e) => setFilterRole(e.target.value)}
+                    >
+                        <option value="">Select Role</option>
+                        {roles.map(({ id, name }) => <option key={id} value={name}>{name}</option>)}
+                    </select>
+
+                </div>
+                <div className="page-content pt-4">
                     <Card className="h-full w-full overflow-scroll rounded-none font-poppins">
                         <table className="w-full min-w-max table-auto text-left font-poppins">
                             <thead>
@@ -152,6 +213,7 @@ export default function UserAdmin({ auth, users, locale, roles }) {
                                 })}
                             </tbody>
                         </table>
+                        {users?.length === 0 && <p className="font-medium font-poppins text-center py-3 w-full">No data found</p>}
                     </Card>
                 </div>
             </div>
