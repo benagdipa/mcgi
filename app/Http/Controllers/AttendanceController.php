@@ -121,7 +121,10 @@ class AttendanceController extends Controller
     public function getLocaleNameForAttendee($id)
     {
         $locale = Locale::find($id);
-        return $locale->title;
+        if ($locale) {
+            return $locale->title;
+        }
+        return '';
     }
 
     public function search_attendee(Request $request)
