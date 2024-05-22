@@ -74,12 +74,11 @@ class AttendanceController extends Controller
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
         ];
-
         $callback = function () use ($attendee, $event) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, array ('Event Name', 'Name', 'Email Address', 'Phone', 'Attendance Entry'));
+            fputcsv($file, array ('Event Name', 'Name', 'Email Address', 'Phone', 'Locale', 'Attendance Entry'));
             foreach ($attendee as $row) {
-                fputcsv($file, array ($event->title, $row['name'], $row['email'], $row['phone'], $row['created_at']));
+                fputcsv($file, array ($event->title, $row['name'], $row['email'], $row['email'], $row['locale'] ? $this->getLocaleNameForAttendee($row['locale']) : '', $row['created_at']));
             }
             fclose($file);
         };
