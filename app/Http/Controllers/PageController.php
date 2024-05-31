@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Attachment;
 use App\Models\Events;
 use App\Models\EventsOption;
 use App\Models\Location;
 use App\Models\Posts;
 use App\Models\BannerImage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Carbon;
@@ -109,7 +111,23 @@ class PageController extends Controller
     }
     public function dashboard()
     {
-        echo "here";
-        exit;
+        if (auth()->user()->hasRole('guest') || auth()->user()->hasRole('Guest')) {
+            return redirect()->route('home');
+        }
+        $user_count = User::count();
+        $blog_counts = Posts::count();
+        return Inertia::render('Dashboard', [
+            'count' => [
+                'users' => $user_count,
+                'blogs' => $blog_counts,
+                'events' => Events::count(),
+                'albums' => Attachment::count()
+            ],
+            'data' => [
+                'events' => Events::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+                'blogs' => Posts::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+                'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
+            ],
+        ]);
     }
 }
