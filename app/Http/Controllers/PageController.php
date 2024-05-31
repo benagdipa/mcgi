@@ -11,6 +11,7 @@ use App\Models\BannerImage;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -19,6 +20,11 @@ class PageController extends Controller
 {
     public function homePage()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         $posts = Posts::take(3)->get();
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
@@ -46,6 +52,11 @@ class PageController extends Controller
     }
     public function aboutPage()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         return Inertia::render('AboutPage', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
@@ -54,6 +65,11 @@ class PageController extends Controller
 
     public function contactPage()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         $locations = Location::all();
         return Inertia::render('ContactPage', [
             'locations' => $locations
@@ -62,15 +78,30 @@ class PageController extends Controller
     }
     public function privacyPage()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         return Inertia::render('PrivacyandPolicy');
     }
     public function conditionPage()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         return Inertia::render('TermsandCondition');
     }
 
     public function gallery_page()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         $albums = Album::with('attachments')->get();
         return Inertia::render('GalleryPage', [
             'albums' => $albums
