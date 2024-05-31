@@ -19,6 +19,11 @@ class EventsController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            if (!Auth::user()->email_verified_at) {
+                return redirect()->route('verification.notice');
+            }
+        }
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
         $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {

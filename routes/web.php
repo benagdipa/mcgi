@@ -68,7 +68,7 @@ Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
 
-    Route::middleware(['auth', 'permission:create_blog_posts|edit_blog_posts|delete_blogs_posts'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_blog_posts|edit_blog_posts|delete_blogs_posts'])->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
         Route::get('/dashboard/blogs/add', 'admin_blogs_add')->name('admin.blogs.add');
         Route::post('/dashboard/blogs/add', 'admin_blogs_store')->name('admin.blogs.store');
@@ -77,14 +77,14 @@ Route::controller(BlogsController::class)->group(function () {
         Route::delete('/dashboard/blogs/{id}', 'admin_blogs_delete')->name('admin.blogs.delete');
     });
 
-    Route::middleware(['auth', 'permission:create_categories|edit_categories|delete_categories'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_categories|edit_categories|delete_categories'])->group(function () {
         Route::get('/dashboard/blogs/categories', 'admin_categories_index')->name('admin.blogs.categories.index');
         Route::post('/dashboard/blogs/categories/store', 'admin_categories_store')->name('admin.blogs.categories.store');
         Route::post('/dashboard/blogs/categories/{id}', 'admin_categories_update')->name('admin.blogs.categories.update');
         Route::delete('/dashboard/blogs/categories/{id}', 'admin_categories_delete')->name('admin.blogs.categories.delete');
     });
 
-    Route::middleware(['auth', 'permission:create_tags|edit_tags|delete_tags'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_tags|edit_tags|delete_tags'])->group(function () {
         Route::get('/dashboard/blogs/tags', 'admin_tags_index')->name('admin.blogs.tags.index');
         Route::post('/dashboard/blogs/tags/store', 'admin_tags_store')->name('admin.blogs.tags.store');
         Route::post('/dashboard/blogs/tags/{id}', 'admin_tags_update')->name('admin.blogs.tags.update');
@@ -96,7 +96,7 @@ Route::controller(BlogsController::class)->group(function () {
 Route::controller(EventsController::class)->group(function () {
     Route::get('/events', 'index')->name('events.index');
 
-    Route::middleware(['auth', 'permission:create_events|edit_events|delete_events'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_events|edit_events|delete_events'])->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
         Route::get('/dashboard/events/add', 'admin_events_add')->name('admin.events.add');
         Route::post('/dashboard/events/store', 'admin_events_store')->name('admin.events.store');
@@ -110,13 +110,13 @@ Route::controller(EventsController::class)->group(function () {
 
 Route::controller(AttendanceController::class)->group(function () {
     Route::post('/attendance/store', 'store')->name('event.attendence.store');
-    Route::middleware(['auth', 'permission:create_events|edit_events|delete_events'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_events|edit_events|delete_events'])->group(function () {
         Route::get('/dashboard/attendances', 'admin_index')->name('admin.events.attendances.index');
     });
 });
 
 Route::controller(LocaleController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_locale|edit_locale|delete_locale'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_locale|edit_locale|delete_locale'])->group(function () {
         Route::get('/dashboard/locale', 'admin_index')->name('admin.locale.index');
         Route::post('/dashboard/locale', 'admin_store')->name('admin.locale.store');
         Route::post('/dashboard/locale/{id}/edit', 'admin_update')->name('admin.locale.update');
@@ -125,7 +125,7 @@ Route::controller(LocaleController::class)->group(function () {
 });
 
 Route::controller(LocationController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_church_locations|edit_church_locations|delete_church_locations'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_church_locations|edit_church_locations|delete_church_locations'])->group(function () {
         Route::get('/dashboard/locations', 'admin_index')->name('admin.location.index');
         Route::post('/dashboard/locations', 'admin_store')->name('admin.location.store');
         Route::post('/dashboard/locations/{id}/edit', 'admin_update')->name('admin.location.update');
@@ -134,7 +134,7 @@ Route::controller(LocationController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_users|edit_users|delete_users'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_users|edit_users|delete_users'])->group(function () {
         Route::get('/dashboard/users', 'admin_user_index')->name('admin.users.index');
         Route::post('/dashboard/users', 'admin_user_store')->name('admin.users.store');
         Route::post('/dashboard/users/{id}', 'admin_user_update')->name('admin.users.update');
@@ -143,7 +143,7 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(AlbumController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_albums|edit_albums|delete_albums'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_albums|edit_albums|delete_albums'])->group(function () {
         Route::get('/dashboard/albums', 'admin_album_index')->name('admin.album.index');
         Route::post('/dashboard/albums', 'admin_album_store')->name('admin.album.store');
         Route::get('/dashboard/albums/{id}/view', 'admin_album_view')->name('admin.album.view');
@@ -156,7 +156,7 @@ Route::controller(AlbumController::class)->group(function () {
 });
 
 Route::controller(BannerController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_banners|edit_banners|delete_banners'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_banners|edit_banners|delete_banners'])->group(function () {
         Route::get('/dashboard/banners', 'admin_banner_index')->name('admin.banner.index');
         Route::post('/dashboard/banners', 'admin_banner_store')->name('admin.banner.store');
         Route::post('/dashboard/banners/reorder/{id}', 'admin_banner_reorder')->name('admin.banner.reorder');
@@ -166,7 +166,7 @@ Route::controller(BannerController::class)->group(function () {
 });
 
 Route::controller(EmailTemplateController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_email_templates|edit_email_templates|delete_email_templates'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_email_templates|edit_email_templates|delete_email_templates'])->group(function () {
         Route::get('/dashboard/email-templates', 'admin_index')->name('admin.email.index');
         Route::post('/dashboard/email-templates', 'admin_store')->name('admin.email.store');
         Route::post('/dashboard/email-templates/{id}/edit', 'admin_update')->name('admin.email.update');
@@ -175,7 +175,7 @@ Route::controller(EmailTemplateController::class)->group(function () {
 });
 
 Route::controller(RoleManagementController::class)->group(function () {
-    Route::middleware(['auth', 'permission:create_roles|edit_roles|delete_roles'])->group(function () {
+    Route::middleware(['auth', 'verified', 'permission:create_roles|edit_roles|delete_roles'])->group(function () {
         Route::get('/dashboard/roles', 'admin_index')->name('admin.roles.index');
         Route::post('/dashboard/roles', 'admin_store')->name('admin.roles.store');
         Route::post('/dashboard/roles/{id}/edit', 'admin_update')->name('admin.roles.update');

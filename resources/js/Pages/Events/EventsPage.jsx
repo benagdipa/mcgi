@@ -199,7 +199,7 @@ export default function EventsPage({ auth, events, locale }) {
                         <IconX strokeWidth={1.5} size={38} onClick={closeAttendanceModal} />
                     </div>
                     <div className="gap-2 pt-6">
-                        <div className="search-wrapper relative">
+                        {/* <div className="search-wrapper relative">
                             <div className="flex items-center">
                                 <TextInput
                                     placeholder="Search by User Email/Name..."
@@ -228,7 +228,7 @@ export default function EventsPage({ auth, events, locale }) {
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                         <div className="mt-6">
                             <form onSubmit={handleSubmit}>
                                 <div className="w-full">
