@@ -12,12 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BannerController;
-use App\Models\Attachment;
-use App\Models\Events;
-use App\Models\Posts;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,23 +35,7 @@ Route::controller(PageController::class)->group(function () {
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/dashboard', function () {
-    $user_count = User::count();
-    $blog_counts = Posts::count();
-    return Inertia::render('Dashboard', [
-        'count' => [
-            'users' => $user_count,
-            'blogs' => $blog_counts,
-            'events' => Events::count(),
-            'albums' => Attachment::count()
-        ],
-        'data' => [
-            'events' => Events::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
-            'blogs' => Posts::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
-            'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
-        ],
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [PageController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
