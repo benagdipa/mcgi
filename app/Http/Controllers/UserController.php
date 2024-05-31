@@ -16,7 +16,9 @@ class UserController extends Controller
     public function admin_user_index()
     {
         $locale = Locale::all();
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->whereDoesntHave('roles', function ($query) {
+            $query->where('role_id', 1);
+        })->get();
         $roles = Role::where('name', '!=', 'super-admin')->get();
         return Inertia::render('Users/UserAdmin', [
             'users_list' => $users,
@@ -99,21 +101,23 @@ class UserController extends Controller
     public function admin_user_search(Request $request)
     {
         $users = User::query()->where(function ($query) use ($request) {
-            $query->when(!empty ($request->search_query), function ($q) use ($request) {
+            $query->when(!empty($request->search_query), function ($q) use ($request) {
                 $q->where('email', 'like', "%$request->search_query%")
                     ->orWhere('first_name', 'like', "%$request->search_query%")
                     ->orWhere('last_name', 'like', "%$request->search_query%")
                     ->orWhere('phone', 'like', "%$request->search_query%");
             });
-            $query->when(!empty ($request->search_locale), function ($q) use ($request) {
+            $query->when(!empty($request->search_locale), function ($q) use ($request) {
                 $q->where('local', $request->search_locale);
             });
-            $query->when(!empty ($request->search_role), function ($q) use ($request) {
+            $query->when(!empty($request->search_role), function ($q) use ($request) {
                 $q->whereHas('roles', function ($roleQuery) use ($request) {
                     $roleQuery->where('name', $request->search_role);
                 });
             });
-        })->get();
+        })->whereDoesntHave('roles', function ($query) {
+            $query->where('role_id', 1);
+        })->with('roles')->get();
         return $users;
     }
 }
