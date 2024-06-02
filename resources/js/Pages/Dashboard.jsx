@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Card, CardBody, Typography } from '@material-tailwind/react';
-import { IconAlbum, IconCalendar, IconPin, IconUser } from '@tabler/icons-react';
+import { IconAlbum, IconCalendar, IconPin, IconUser, IconUsers } from '@tabler/icons-react';
 
 export default function Dashboard({ auth }) {
     const { count, data } = usePage().props
@@ -12,7 +12,7 @@ export default function Dashboard({ auth }) {
                 <div className="w-ful px-6 py-4 font-poppins">
                     <h1 className="font-semibold text-gray-800 text-3xl">Dashboard</h1>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-6 mt-6 font-poppins'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 px-6 mt-6 font-poppins'>
                     <Card>
                         <CardBody className='relative flex'>
                             <div className='flex items-center gap-4'>
@@ -57,6 +57,17 @@ export default function Dashboard({ auth }) {
                             </div>
                         </CardBody>
                     </Card>
+                    <Card>
+                        <CardBody>
+                            <div className='flex items-center gap-4'>
+                                <h1 className='font-medium text-5xl'>{count?.attendees}</h1>
+                                <Typography variant='h4' className='font-poppins'>Attendees</Typography>
+                            </div>
+                            <div className="icon absolute top-0 right-2 flex items-center h-full">
+                                <IconUsers size={48} strokeWidth={1} color='silver' />
+                            </div>
+                        </CardBody>
+                    </Card>
                 </div>
                 <div className="px-6 mt-6">
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
@@ -88,10 +99,10 @@ export default function Dashboard({ auth }) {
                                 <table className='w-full table-auto text-left'>
                                     <thead>
                                         <tr>
-                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'>SN</th>
-                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'>Name</th>
-                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer hidden lg:table-cell'>Email</th>
-                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer hidden lg:table-cell'>Phone</th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">SN</Typography></th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">Name</Typography></th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer hidden lg:table-cell'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">Email</Typography></th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer hidden lg:table-cell'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">Phone</Typography></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -125,6 +136,34 @@ export default function Dashboard({ auth }) {
                                             <tr key={item.id} className='even:bg-blue-gray-50/50'>
                                                 <td className="border-l h-10 text-[12px] font-medium ps-2">{index + 1}</td>
                                                 <td className="border-l h-10 text-[12px] font-medium ps-2">{`${item.title}`}</td>
+                                            </tr>
+                                        ))}
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            </CardBody>
+                        </Card>
+                        <Card>
+                            <CardBody className='font-poppins px-0'>
+                                <h1 className='text-2xl font-semibold px-2 pb-4'>Attendance Summary</h1>
+                                <table className="w-full table-auto text-left">
+                                    <thead>
+                                        <tr>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">SN</Typography></th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">Events Title</Typography></th>
+                                            <th className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 border-l cursor-pointer'><Typography variant="small" className="leading-none text-gray-800 font-medium text-sm">Total Attendees</Typography></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {data?.attendance_summary?.length > 0 && data?.attendance_summary?.map((item, index) => (
+                                            <tr key={item.id} className='even:bg-blue-gray-50/50'>
+                                                <td className="border-l h-10 text-[12px] font-medium ps-2">{index + 1}</td>
+                                                <td className="border-l h-10 text-[12px] font-medium ps-2">
+                                                    <Link href={route('admin.events.view', item?.id)} className='border-b border-gray-600'>
+                                                        {`${item?.title}`}
+                                                    </Link>
+                                                </td>
+                                                <td className="border-l h-10 text-[12px] font-medium ps-2">{`${item?.attendances_count}`}</td>
                                             </tr>
                                         ))}
                                         <tr></tr>
