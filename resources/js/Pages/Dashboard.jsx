@@ -145,7 +145,7 @@ export default function Dashboard({ auth }) {
                         </Card>
                         <Card>
                             <CardBody className='font-poppins px-0'>
-                                <h1 className='text-2xl font-semibold px-2 pb-4'>Attendance Summary</h1>
+                                <h1 className='text-2xl font-semibold px-2 pb-4'>Registration Summary</h1>
                                 <table className="w-full table-auto text-left">
                                     <thead>
                                         <tr>
