@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Attachment;
+use App\Models\Attendance;
 use App\Models\Events;
 use App\Models\EventsOption;
 use App\Models\Location;
@@ -116,17 +117,20 @@ class PageController extends Controller
         }
         $user_count = User::count();
         $blog_counts = Posts::count();
+        $attendance_summary = Events::with('attendances')->withCount('attendances')->get();
         return Inertia::render('Dashboard', [
             'count' => [
                 'users' => $user_count,
                 'blogs' => $blog_counts,
                 'events' => Events::count(),
-                'albums' => Attachment::count()
+                'albums' => Attachment::count(),
+                'attendees' => Attendance::count()
             ],
             'data' => [
                 'events' => Events::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
                 'blogs' => Posts::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
                 'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
+                'attendance_summary' => $attendance_summary,
             ],
         ]);
     }
