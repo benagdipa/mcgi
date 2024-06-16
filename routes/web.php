@@ -74,6 +74,9 @@ Route::controller(BlogsController::class)->group(function () {
 
 Route::controller(EventsController::class)->group(function () {
     Route::get('/events', 'index')->name('events.index');
+    Route::get('/events/form', 'event_form')->name('events.form');
+    Route::post('/events/form/validate', 'validate_event_form')->name('validate.event.form');
+    Route::post('/events/form/store', 'event_form_store')->name('event.form.store');
 
     Route::middleware(['auth', 'verified', 'permission:create_events|edit_events|delete_events'])->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
