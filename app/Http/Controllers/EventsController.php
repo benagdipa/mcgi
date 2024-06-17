@@ -14,6 +14,7 @@ use Inertia\Inertia;
 use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
 class EventsController extends Controller
@@ -287,5 +288,91 @@ class EventsController extends Controller
         return Inertia::render('Events/Admin/EventFormsView', [
             'event_form' => $event_form
         ]);
+    }
+
+    public function export_form()
+    {
+        $event_forms = EventForm::all();
+        $csvFileName = 'data.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+        ];
+        $callback = function () use ($event_forms) {
+            $file = fopen('php://output', 'w');
+            fputcsv(
+                $file,
+                array(
+                    'Email Address',
+                    'I voluntarily give my consent',
+                    'I have read and fully understood the guidelines',
+                    'Full Name',
+                    'Phone Number',
+                    'Facebook Messenger Name',
+                    'Events',
+                    'Total Number of Delegates',
+                    'Names of Accompanying Delagates',
+                    'Total Number of Adults',
+                    'Total Number of Kids',
+                    'Do all delegates listed plan go to all selected locations?',
+                    'Do you have more than one ARRIVAL dates to Melbourne?',
+                    'Date of FIRST Arrival to Melbourne',
+                    'Date of LAST Departure from Melbourne',
+                    'Mode of transporation',
+                    'If you chose "Air", please provide the flight number',
+                    'Do you need MCGI Transport?',
+                    'Does your travel companion require a car seat/baby booster?',
+                    'Additional Date of Arrival',
+                    'Additional Date of Departure',
+                    'Mode of transporation',
+                    'Mode of transporation (If Others is selected)',
+                    'Do you need MCGI Transport?',
+                    'Will you be flying with the same delegates you have listed above?',
+                    'If you have selected "No", please list down the delegates who will be attending.',
+                    'Do you need assistance with accomodation in Melbourne?'
+                )
+            );
+            foreach ($event_forms as $row) {
+                $step_1 = json_decode($row->step_1);
+                $step_2 = json_decode($row->step_2);
+                $step_3 = json_decode($row->step_3);
+                $step_4 = json_decode($row->step_4);
+                $step_5 = json_decode($row->step_5);
+                fputcsv(
+                    $file,
+                    array(
+                        $step_1->email ? $step_1->email : '',
+                        $step_1->privacy_accept ? $step_1->privacy_accept : '',
+                        $step_1->consent_personal_info ? $step_1->consent_personal_info : '',
+                        $step_2->full_name ? $step_2->full_name : '',
+                        $step_2->phone_number ? $step_2->phone_number : '',
+                        $step_2->messenger_name ? $step_2->messenger_name : '',
+                        $step_2->events ? implode(", ", $step_2->events) : '',
+                        $step_2->total_delegates ? $step_2->total_delegates : '',
+                        $step_2->names_delegates ? $step_2->names_delegates : '',
+                        $step_2->total_adults ? $step_2->total_adults : '',
+                        $step_2->total_kids ? $step_2->total_kids : '',
+                        $step_2->delegates_plan ? $step_2->delegates_plan : '',
+                        $step_3->more_arrival ? $step_3->more_arrival : '',
+                        $step_3->first_arrival ? $step_3->first_arrival : '',
+                        $step_3->last_departure ? $step_3->last_departure : '',
+                        $step_3->mode_of_transportation ? $step_3->mode_of_transportation : '',
+                        $step_3->flight_number ? $step_3->flight_number : '',
+                        $step_3->need_mcgi_transport ? $step_3->need_mcgi_transport : '',
+                        $step_3->seat_baby_booster ? $step_3->seat_baby_booster : '',
+                        $step_4->additional_date_of_arrival ? $step_4->additional_date_of_arrival : '',
+                        $step_4->additional_date_of_departure ? $step_4->additional_date_of_departure : '',
+                        $step_4->additional_mode_of_transportation ? $step_4->additional_mode_of_transportation : '',
+                        $step_4->additional_mode_of_transportation_other ? $step_4->additional_mode_of_transportation_other : '',
+                        $step_4->additional_need_mcgi_transport ? $step_4->additional_need_mcgi_transport : '',
+                        $step_4->fly_same_location_with_delegates ? $step_4->fly_same_location_with_delegates : '',
+                        $step_4->delegates_names_fly_not_same ? $step_4->delegates_names_fly_not_same : '',
+                        $step_5->need_accomodation_in_melbourne ? $step_5->need_accomodation_in_melbourne : '',
+                    )
+                );
+            }
+            fclose($file);
+        };
+        return new StreamedResponse($callback, 200, $headers);
     }
 }

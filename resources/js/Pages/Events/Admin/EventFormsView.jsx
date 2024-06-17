@@ -41,16 +41,24 @@ export default function EventFormsView({ auth, event_form }) {
                         <tbody>
                             <tr>
                                 <td></td>
-                                <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>Email:</Typography></td>
+                                <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>Email Address</Typography></td>
                                 <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>{step_1?.email}</Typography></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td className='border-b border-blue-gray-50 p-4'>
                                     <Typography variant='small' color='blue-gray' className='font-medium'>
-                                        By ticking “I Agree”, I voluntarily give my consent to MCGI in collecting,processing, recording, using, and retaining my personal information for the above-mentioned purpose in accordance with this Privacy Notice.
+                                        By ticking “I Agree”, I voluntarily give my consent to MCGI in collecting,processing, recording, using,<br /> and retaining my personal information for the above-mentioned purpose in accordance with this Privacy Notice.
                                     </Typography></td>
                                 <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>{step_1?.privacy_accept}</Typography></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td className='border-b border-blue-gray-50 p-4'>
+                                    <Typography variant='small' color='blue-gray' className='font-medium'>
+                                        I have read and fully understood the guidelines in the June/July Event Registration (Australia only) where the personal information<br /> collected will be used for registration for the event to be conducted by MCGI Australia, and I hereby consent to MCGI’s processing of my personal information.
+                                    </Typography></td>
+                                <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>{step_1?.consent_personal_info}</Typography></td>
                             </tr>
                             <tr>
                                 <td></td>

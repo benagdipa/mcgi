@@ -14,7 +14,7 @@ export default function Authenticated({ user, header, children }) {
             'blogs': 1,
             'events': 2
         };
-        const routesArray = ["admin.blogs.index", "admin.blogs.add", "admin.blogs.categories.index", "admin.blogs.tags.index", "admin.events.index", "admin.events.add", "admin.events.view", "admin.events.attendances.index", "admin.events.forms", "admin.events.forms.view"];
+        const routesArray = ["admin.blogs.index", "admin.blogs.add", "admin.blogs.categories.index", "admin.blogs.tags.index", "admin.events.index", "admin.events.add", "admin.events.view", "admin.events.attendances.index"];
         for (let i = 0; i < routesArray.length; i++) {
             if (routesArray[i].includes(searchString)) {
                 const parts = searchString.split('.');
