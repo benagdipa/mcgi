@@ -10,6 +10,21 @@ export default function EventForms({ auth, event_forms }) {
         { name: 'Full Name' },
         { name: 'Actions' },
     ];
+    const handleExport = async () => {
+        try {
+            const res = await axios.get(route('api.export.form'))
+            const blob = new Blob([res.data], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'form.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (e) {
+            console.error('Error exporting to CSV:', error);
+        }
+    }
     return (
         <Authenticated user={auth?.user}>
             <Head title="Forms" />
@@ -26,6 +41,9 @@ export default function EventForms({ auth, event_forms }) {
                                 <li><Link href={'#'}>Forms</Link></li>
                             </ul>
                         </div>
+                    </div>
+                    <div className="right flex gap-4">
+                        <button onClick={handleExport} className='bg-[#f5cd06] shadow-lg text-[#0f0f0f] px-5 py-3 rounded-md font-semibold text-sm font-poppins'>Export</button>
                     </div>
                 </div>
                 <div className="page-content pt-8">
