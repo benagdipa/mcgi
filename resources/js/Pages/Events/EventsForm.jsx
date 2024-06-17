@@ -6,13 +6,14 @@ import Guest from '@/Layouts/GuestLayout';
 import { Link, router, useForm } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 
-export default function EventsForm({ auth, errors, events }) {
+export default function EventsForm({ auth, errors, events, flash }) {
+    const { message } = flash
 
     const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
 
-    const { data, setData, post, processing, } = useForm({
+    const { data, setData, post, processing, reset } = useForm({
         step_1: {
             email: '',
             privacy_accept: '',
@@ -103,12 +104,12 @@ export default function EventsForm({ auth, errors, events }) {
         post(route('event.form.store'), {
             preserveScroll: true,
             onSuccess: () => {
-                router.visit(route('home'))
+                router.get(route('events.form'))
+                reset()
+                setActiveStep(0)
             }
         })
     }
-
-    console.log(data?.step_2?.events);
     return (
         <Guest user={auth?.user}>
             <div className="events-page">
@@ -123,6 +124,9 @@ export default function EventsForm({ auth, errors, events }) {
                             </div>
                         </div>
                     </div>
+
+                    {message && (<div className='message'>{message}</div>)}
+
                     <div className=" lg:max-w-screen-xl w-11/12 mx-auto py-6">
                         <Stepper activeStep={activeStep} isLastStep={(value) => setIsLastStep(value)} isFirstStep={(value) => setIsFirstStep(value)}>
                             <Step>1</Step>
@@ -418,7 +422,7 @@ export default function EventsForm({ auth, errors, events }) {
                                 </div>
                                 {data?.step_3.mode_of_transportation === 'Air' && (
                                     <div className="form-item mb-8">
-                                        <InputLabel value={'If you chose "Air", please provide the flight number)'} />
+                                        <InputLabel value={'If you chose "Air", please provide the flight number'} />
                                         <TextInput
                                             className="w-full"
                                             value={data?.step_3?.flight_number}

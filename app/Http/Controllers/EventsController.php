@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\EventForm;
 use App\Models\EventsOption;
 use App\Models\Locale;
 use DateTime;
@@ -197,30 +198,30 @@ class EventsController extends Controller
 
     public function validate_event_form(Request $request)
     {
-        // if (isset($request->step_1)) {
-        //     $request->validate([
-        //         'step_1.email' => 'required|email',
-        //         'step_1.privacy_accept' => 'required',
-        //         'step_1.consent_personal_info' => 'required',
-        //     ], [
-        //         'step_1.*.required' => "This Field is required.",
-        //         'step_1.email.email' => "Please enter valid email address.",
-        //     ]);
-        // }
-        // if (isset($request->step_2)) {
-        //     $request->validate([
-        //         'step_2.full_name' => 'required|string|max:255',
-        //         'step_2.phone_number' => 'required|numeric',
-        //         'step_2.messenger_name' => 'required|string',
-        //         'step_2.total_delegates' => 'required|numeric',
-        //         'step_2.total_adults' => 'required|numeric',
-        //         'step_2.total_kids' => 'required|numeric',
-        //         'step_2.delegates_plan' => 'required',
-        //     ], [
-        //         'step_2.*.required' => "This Field is required.",
-        //         'step_2.*.numeric' => "Field Must be number.",
-        //     ]);
-        // }
+        if (isset($request->step_1)) {
+            $request->validate([
+                'step_1.email' => 'required|email',
+                'step_1.privacy_accept' => 'required',
+                'step_1.consent_personal_info' => 'required',
+            ], [
+                'step_1.*.required' => "This Field is required.",
+                'step_1.email.email' => "Please enter valid email address.",
+            ]);
+        }
+        if (isset($request->step_2)) {
+            $request->validate([
+                'step_2.full_name' => 'required|string|max:255',
+                'step_2.phone_number' => 'required|numeric',
+                'step_2.messenger_name' => 'required|string',
+                'step_2.total_delegates' => 'required|numeric',
+                'step_2.total_adults' => 'required|numeric',
+                'step_2.total_kids' => 'required|numeric',
+                'step_2.delegates_plan' => 'required',
+            ], [
+                'step_2.*.required' => "This Field is required.",
+                'step_2.*.numeric' => "Field Must be number.",
+            ]);
+        }
         if (isset($request->step_3)) {
             $request->validate([
                 'step_3.more_arrival' => "required",
@@ -261,7 +262,30 @@ class EventsController extends Controller
                 'step_5.*.required' => "This Field is required.",
             ]);
         }
+        $form = EventForm::create([
+            'step_1' => json_encode($request->step_1),
+            'step_2' => json_encode($request->step_2),
+            'step_3' => json_encode($request->step_3),
+            'step_4' => json_encode($request->step_4),
+            'step_5' => json_encode($request->step_5),
+        ]);
+        if ($form) {
+            return to_route('events.form')->with('message', 'Form Submitted Successfully');
+        }
+    }
 
-
+    public function admin_event_forms()
+    {
+        $event_forms = EventForm::all();
+        return Inertia::render('Events/Admin/EventForms', [
+            'event_forms' => $event_forms
+        ]);
+    }
+    public function admin_event_forms_view($id)
+    {
+        $event_form = EventForm::findOrFail($id);
+        return Inertia::render('Events/Admin/EventFormsView', [
+            'event_form' => $event_form
+        ]);
     }
 }

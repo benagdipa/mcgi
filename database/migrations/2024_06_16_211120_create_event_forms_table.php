@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,6 +12,11 @@ return new class extends Migration
     {
         Schema::create('event_forms', function (Blueprint $table) {
             $table->id();
+            $table->json('step_1');
+            $table->json('step_2');
+            $table->json('step_3');
+            $table->json('step_4');
+            $table->json('step_5');
             $table->timestamps();
         });
     }

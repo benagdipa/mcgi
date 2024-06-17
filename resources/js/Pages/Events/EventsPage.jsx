@@ -146,8 +146,12 @@ export default function EventsPage({ auth, events, locale }) {
                                                                 <div className="md:w-3/12 w-full">
                                                                     <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
-                                                                        {item?.isImminent && (<p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>)}
-                                                                        <Link href={route('events.form')}>form</Link>
+                                                                        {item?.isImminent && (
+                                                                            <div className='flex items-center justify-between gap-2'>
+                                                                                <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>
+                                                                                <Link href={route('events.form')} className='mt-8 text-sm bg-blue-500 px-4 py-3 font-semibold rounded-md text-white'>Itinerary</Link>
+                                                                            </div>
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
