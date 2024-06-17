@@ -270,7 +270,7 @@ class EventsController extends Controller
             'step_5' => json_encode($request->step_5),
         ]);
         if ($form) {
-            return to_route('events.form')->with('message', 'Form Submitted Successfully');
+            return to_route('events.form')->with('message', 'Form Submitted Successfully.');
         }
     }
 

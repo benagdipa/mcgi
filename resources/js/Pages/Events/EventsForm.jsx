@@ -8,7 +8,6 @@ import InputError from '@/Components/InputError';
 
 export default function EventsForm({ auth, errors, events, flash }) {
     const { message } = flash
-
     const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
@@ -125,9 +124,8 @@ export default function EventsForm({ auth, errors, events, flash }) {
                         </div>
                     </div>
 
-                    {message && (<div className='message'>{message}</div>)}
-
                     <div className=" lg:max-w-screen-xl w-11/12 mx-auto py-6">
+                        {message && (<div className='message mb-6 bg-green-500 text-white rounded p-4 font-semibold'>{message}</div>)}
                         <Stepper activeStep={activeStep} isLastStep={(value) => setIsLastStep(value)} isFirstStep={(value) => setIsFirstStep(value)}>
                             <Step>1</Step>
                             <Step>2</Step>
