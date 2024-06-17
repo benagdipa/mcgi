@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\EventForm;
 use App\Models\EventsOption;
 use App\Models\Locale;
 use DateTime;
@@ -179,5 +180,112 @@ class EventsController extends Controller
             }
             return to_route('admin.events.index');
         }
+    }
+
+    public function event_form()
+    {
+        $currentDate = Carbon::now();
+        $option = EventsOption::where('name', 'attend_duration')->first();
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+            $timeDiff = $currentDate->diffInMinutes($event->start_date);
+            $event->isImminent = $timeDiff <= $option->value;
+            return $event;
+        });
+        return Inertia::render('Events/EventsForm', [
+            'events' => $events
+        ]);
+    }
+
+    public function validate_event_form(Request $request)
+    {
+        if (isset($request->step_1)) {
+            $request->validate([
+                'step_1.email' => 'required|email',
+                'step_1.privacy_accept' => 'required',
+                'step_1.consent_personal_info' => 'required',
+            ], [
+                'step_1.*.required' => "This Field is required.",
+                'step_1.email.email' => "Please enter valid email address.",
+            ]);
+        }
+        if (isset($request->step_2)) {
+            $request->validate([
+                'step_2.full_name' => 'required|string|max:255',
+                'step_2.phone_number' => 'required|numeric',
+                'step_2.messenger_name' => 'required|string',
+                'step_2.total_delegates' => 'required|numeric',
+                'step_2.total_adults' => 'required|numeric',
+                'step_2.total_kids' => 'required|numeric',
+                'step_2.delegates_plan' => 'required',
+            ], [
+                'step_2.*.required' => "This Field is required.",
+                'step_2.*.numeric' => "Field Must be number.",
+            ]);
+        }
+        if (isset($request->step_3)) {
+            $request->validate([
+                'step_3.more_arrival' => "required",
+                'step_3.first_arrival' => "required_if:step_3.more_arrival,!=",
+                'step_3.last_departure' => "required_if:step_3.more_arrival,!=",
+                'step_3.mode_of_transportation' => "required",
+                'step_3.other_mode_of_transportation' => "required_if:step_3.mode_of_transportation,Other",
+                'step_3.flight_number' => "required_if:step_3.mode_of_transportation,Air",
+                'step_3.need_mcgi_transport' => "required",
+                'step_3.seat_baby_booster' => "required",
+            ], [
+                'step_3.*.required' => "This Field is required.",
+                'step_3.*.required_if' => "This Field is required.",
+            ]);
+        }
+        if (isset($request->step_4)) {
+            $request->validate([
+                'step_4.additional_date_of_arrival' => "required",
+                'step_4.additional_date_of_departure' => "required",
+                'step_4.additional_mode_of_transportation' => "required",
+                'step_4.additional_mode_of_transportation_other' => "required_if:step_4.additional_mode_of_transportation,Other",
+                'step_4.additional_need_mcgi_transport' => "required",
+                'step_4.fly_same_location_with_delegates' => "required",
+                'step_4.delegates_names_fly_not_same' => "required_if:step_4.fly_same_location_with_delegates,No",
+            ], [
+                'step_4.*.required' => "This Field is required.",
+                'step_4.*.required_if' => "This Field is required.",
+            ]);
+        }
+    }
+
+    public function event_form_store(Request $request)
+    {
+        if (isset($request->step_5)) {
+            $request->validate([
+                'step_5.need_accomodation_in_melbourne' => "required",
+            ], [
+                'step_5.*.required' => "This Field is required.",
+            ]);
+        }
+        $form = EventForm::create([
+            'step_1' => json_encode($request->step_1),
+            'step_2' => json_encode($request->step_2),
+            'step_3' => json_encode($request->step_3),
+            'step_4' => json_encode($request->step_4),
+            'step_5' => json_encode($request->step_5),
+        ]);
+        if ($form) {
+            return to_route('events.form')->with('message', 'Form Submitted Successfully.');
+        }
+    }
+
+    public function admin_event_forms()
+    {
+        $event_forms = EventForm::all();
+        return Inertia::render('Events/Admin/EventForms', [
+            'event_forms' => $event_forms
+        ]);
+    }
+    public function admin_event_forms_view($id)
+    {
+        $event_form = EventForm::findOrFail($id);
+        return Inertia::render('Events/Admin/EventFormsView', [
+            'event_form' => $event_form
+        ]);
     }
 }

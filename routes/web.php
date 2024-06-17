@@ -74,6 +74,9 @@ Route::controller(BlogsController::class)->group(function () {
 
 Route::controller(EventsController::class)->group(function () {
     Route::get('/events', 'index')->name('events.index');
+    Route::get('/events/form', 'event_form')->name('events.form');
+    Route::post('/events/form/validate', 'validate_event_form')->name('validate.event.form');
+    Route::post('/events/form/store', 'event_form_store')->name('event.form.store');
 
     Route::middleware(['auth', 'verified', 'permission:create_events|edit_events|delete_events'])->group(function () {
         Route::get('/dashboard/events', 'admin_events_index')->name('admin.events.index');
@@ -84,6 +87,8 @@ Route::controller(EventsController::class)->group(function () {
         Route::post('/dashboard/events/{id}/edit', 'admin_events_update')->name('admin.events.update');
         Route::delete('/dashboard/events/{id}', 'admin_events_delete')->name('admin.events.delete');
         Route::post('/dashboard/events/settings', 'admin_events_settings')->name('admin.events.settings');
+        Route::get('/dashboard/events/forms', 'admin_event_forms')->name('admin.events.forms');
+        Route::get('/dashboard/events/forms/{id}/view', 'admin_event_forms_view')->name('admin.events.forms.view');
     });
 });
 

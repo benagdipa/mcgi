@@ -5,7 +5,6 @@ import TextInput from '@/Components/TextInput';
 import Guest from '@/Layouts/GuestLayout'
 import { Head, Link, router, useForm } from '@inertiajs/react'
 import { IconMapPin, IconPlus, IconSearch, IconX } from '@tabler/icons-react'
-import axios from 'axios';
 import React, { useState } from 'react'
 import { format, getYear } from 'date-fns';
 import { Radio, Typography } from '@material-tailwind/react';
@@ -14,9 +13,6 @@ export default function EventsPage({ auth, events, locale }) {
 
     const daysList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const [attendanceModal, setAttendanceModal] = useState(false)
-    const [searchText, setSearchText] = useState('')
-    const [searchResults, setSearchResults] = useState([])
-    const [searchResultState, setSearchResultState] = useState(false)
     const [message, setMessage] = useState('')
     const [selectedEventTitle, setSelectedEventTitle] = useState('')
     const randomId = function (length = 6) {
@@ -61,30 +57,6 @@ export default function EventsPage({ auth, events, locale }) {
         setMessage('')
     }
 
-    const handleSearch = async (e) => {
-        setSearchText(e.target.value)
-        if (e.target.value.length >= 3) {
-            setSearchResultState(true)
-            const res = await axios.post(route('api.search.user'), { query: e.target.value })
-            if (res?.data.length) {
-                setSearchResults(res.data)
-            }
-        } else {
-            setSearchResultState(false)
-            setSearchResults([])
-        }
-    }
-    const handleSearchResult = (item) => {
-        const updatedRows = data.attendenceRows.map(row => {
-            if (row.id === data.attendenceRows[data.attendenceRows.length - 1].id) {
-                return { ...row, ["name"]: item.first_name + ' ' + item.last_name };
-            }
-            return row;
-        })
-        setData('attendenceRows', updatedRows);
-        setSearchText('')
-        setSearchResultState(false)
-    }
     const handleChange = (id, field, value) => {
         const updatedRows = data.attendenceRows.map(row => {
             if (row.id === id) {
@@ -174,7 +146,12 @@ export default function EventsPage({ auth, events, locale }) {
                                                                 <div className="md:w-3/12 w-full">
                                                                     <div className="flex flex-col ali md:justify-end items-end ">
                                                                         {item?.featured_image ? <img src={item?.featured_image} alt={item?.title} className='w-full' /> : <img src='/images/logo.png' width={200} className="w-full" />}
-                                                                        {item?.isImminent && (<p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>)}
+                                                                        {item?.isImminent && (
+                                                                            <div className='flex items-center justify-between gap-2'>
+                                                                                <p className='mt-8 text-sm bg-yellow-500 px-4 py-3 font-semibold rounded-md' onClick={() => openAttendanceModal(item?.id)}>Register Now</p>
+                                                                                <Link href={route('events.form')} className='mt-8 text-sm bg-blue-500 px-4 py-3 font-semibold rounded-md text-white'>Itinerary</Link>
+                                                                            </div>
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -199,36 +176,6 @@ export default function EventsPage({ auth, events, locale }) {
                         <IconX strokeWidth={1.5} size={38} onClick={closeAttendanceModal} />
                     </div>
                     <div className="gap-2 pt-6">
-                        {/* <div className="search-wrapper relative">
-                            <div className="flex items-center">
-                                <TextInput
-                                    placeholder="Search by User Email/Name..."
-                                    className="w-full"
-                                    value={searchText}
-                                    onChange={(e) => { handleSearch(e) }}
-                                />
-                                <div className="icon absolute right-2">
-                                    <IconSearch color='silver' />
-                                </div>
-                            </div>
-                            <div className="search-results absolute bg-gray-50 w-full rounded shadow-xl z-50">
-                                {searchResultState && searchResults?.length > 0 && searchResults?.map((item, index) => {
-                                    return (
-                                        <React.Fragment key={item?.id}>
-                                            <div className="py-3 px-2 border-b cursor-pointer" onClick={() => { handleSearchResult(item) }}>
-                                                <div className='text-lg font-medium text-gray-600'>{item?.first_name} {item?.last_name}</div>
-                                                <p className='text-sm text-gray-600'>{`${item?.email},`} {item?.phone}</p>
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                                })}
-                                {searchResultState && searchResults?.length === 0 && (
-                                    <div className='py-4 px-2 text-center font-medium'>
-                                        <p>No User Found</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div> */}
                         <div className="mt-6">
                             <form onSubmit={handleSubmit}>
                                 <div className="w-full">
