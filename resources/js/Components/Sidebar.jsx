@@ -23,6 +23,7 @@ import {
     IconUserCog,
     IconUsers,
     IconSlideshow,
+    IconForms,
 } from "@tabler/icons-react";
 import { Link, usePage } from "@inertiajs/react";
 import { isUserAllowed } from "@/Utils/Utils";
@@ -213,27 +214,26 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                                 </Typography>
                                             </ListItem>
                                         </Link>
-                                        <Link
-                                            href={route('admin.events.forms')}
-                                            className={`${currentRoute === "admin.events.forms" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
-                                        >
-                                            <ListItem>
-                                                <ListItemPrefix>
-                                                    <IconChevronRight
-                                                        strokeWidth={3}
-                                                        className="h-3 w-5"
-                                                    />
-                                                </ListItemPrefix>
-                                                <Typography className="mr-auto font-poppins font-medium">
-                                                    Forms
-                                                </Typography>
-                                            </ListItem>
-                                        </Link>
                                     </List>
                                 </AccordionBody>
                             </Accordion>
                         )}
-
+                        {/* Event form */}
+                        {isUserAllowed(permissions, ["create_event_forms", "edit_event_forms", "delete_event_forms"], role) && (
+                            <Link
+                                href={route('admin.events.forms')}
+                                className={`${currentRoute === "admin.events.forms" || currentRoute === "admin.events.forms.view" ? "bg-blue-gray-50/50 rounded-lg" : ""}`}
+                            >
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <IconForms strokeWidth={1.5} />
+                                    </ListItemPrefix>
+                                    <Typography className="mr-auto font-poppins font-medium">
+                                        Event Forms
+                                    </Typography>
+                                </ListItem>
+                            </Link>
+                        )}
 
                         {/* Users */}
                         {isUserAllowed(permissions, ["create_users", "edit_users", "delete_users"], role) && (

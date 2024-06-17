@@ -38,6 +38,7 @@ export default function RoleIndex({ auth, roles }) {
         { name: "Email Templates", items: ['create', 'edit', 'delete'] },
         { name: "Roles", items: ['create', 'edit', 'delete'] },
         { name: "Banners", items: ['create', 'edit', 'delete'] },
+        { name: "Event Forms", items: ['create', 'edit', 'delete'] },
     ]
 
     const openAddEditModal = (type, id = 0) => {
@@ -147,7 +148,7 @@ export default function RoleIndex({ auth, roles }) {
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
                                         <tr key={id}>
-                                            <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`} {id}</Typography></td>
+                                            <td className={classes}><Typography className="font-medium font-poppins">{`${index + 1}`}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{`${name}`}</Typography></td>
                                             <td className={classes}>
                                                 <div className="flex gap-2">
