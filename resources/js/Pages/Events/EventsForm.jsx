@@ -1,30 +1,37 @@
-import React, { useState } from 'react'
-import { Button, Step, Stepper } from '@material-tailwind/react'
+import React, { useEffect, useState } from 'react'
+import { Button, Step, Stepper, step } from '@material-tailwind/react'
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import Guest from '@/Layouts/GuestLayout';
 import { Link, router, useForm } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
+import { IconPlus, IconX } from '@tabler/icons-react';
 
-export default function EventsForm({ auth, errors, events, flash }) {
-    const { message } = flash
+export default function EventsForm({ auth, errors, events }) {
+    const { user } = auth
+    const [message, setMessage] = useState(null)
+    const randomId = function (length = 6) {
+        return Math.random().toString(36).substring(2, length + 2);
+    };
     const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [isFirstStep, setIsFirstStep] = useState(false);
-
+    const [delegates, setDelegates] = useState([
+        { id: randomId(), first_name: '', last_name: '', is_adult: '' }
+    ])
     const { data, setData, post, processing, reset } = useForm({
         step_1: {
-            email: '',
+            email: user?.email,
             privacy_accept: '',
             consent_personal_info: ''
         },
         step_2: {
-            full_name: '',
-            phone_number: '',
+            full_name: `${user?.first_name} ${user?.last_name}`,
+            phone_number: user?.phone,
             messenger_name: '',
             events: [],
             total_delegates: '',
-            names_delegates: '',
+            names_delegates: [],
             total_adults: '',
             total_kids: '',
             delegates_plan: ''
@@ -51,8 +58,49 @@ export default function EventsForm({ auth, errors, events, flash }) {
         step_5: {
             need_accomodation_in_melbourne: ''
         }
-
     })
+
+    // console.log(data?.step_2);
+
+    const addDelegate = (index) => {
+        const current = delegates[index]
+        if (current.first_name !== '' || current.last_name !== '' || current.is_adult !== '') {
+            setDelegates([...delegates, { id: randomId(), first_name: '', last_name: '', is_adult: '' }])
+        }
+    }
+
+    const removeDelegate = (id) => {
+        setDelegates(delegates.filter(delegate => delegate.id !== id))
+    }
+
+    const updateDelegate = (id, field, value) => {
+        const updatedRows = delegates.map(row => {
+            if (row.id === id) {
+                return { ...row, [field]: value };
+            }
+            return row;
+        })
+        setDelegates(updatedRows);
+        handleInputChange('step_2', 'names_delegates', updatedRows)
+        if (field === 'is_adult') {
+            age_count(updatedRows)
+        }
+    };
+
+    const age_count = (updatedRows) => {
+        let total_adults = 0
+        let total_kids = 0
+        updatedRows?.map((delegate) => {
+            if (delegate.is_adult === 'adult') {
+                total_adults += 1
+            }
+            if (delegate.is_adult === 'kid') {
+                total_kids += 1
+            }
+        })
+        handleInputChange('step_2', 'total_adults', total_adults)
+        handleInputChange('step_2', 'total_kids', total_kids)
+    }
 
     const handleNext = () => {
         if (!isLastStep) {
@@ -103,9 +151,9 @@ export default function EventsForm({ auth, errors, events, flash }) {
         post(route('event.form.store'), {
             preserveScroll: true,
             onSuccess: () => {
-                router.get(route('events.form'))
                 reset()
                 setActiveStep(0)
+                setMessage('Form Submitted Successfully!')
             }
         })
     }
@@ -137,7 +185,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                         <div className="stepper-content pt-12">
 
                             {/* start Step 1 */}
-                            <div className={`step-1 font-normal text-[#333] ${activeStep === 0 ? 'block' : 'hidden'}`}>
+                            <div className={`step- 1 font- normal text - [#333] ${activeStep === 0 ? 'block' : 'hidden'} `}>
                                 <div className="form-item mb-8">
                                     <InputLabel value={'Email Address:'} className='text-lg font-medium' />
                                     <TextInput
@@ -157,6 +205,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                                     type='radio'
                                                     name='privacy_accept'
                                                     value={'I agree'}
+                                                    checked={data?.step_1?.privacy_accept === 'I agree'}
                                                     onChange={(e) => handleInputChange('step_1', 'privacy_accept', e.target.value)}
                                                 />
                                                 <span className='pl-2'>I Agree</span>
@@ -168,6 +217,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                                     type='radio'
                                                     name='privacy_accept'
                                                     value={'I disagree'}
+                                                    checked={data?.step_1?.privacy_accept === 'I disagree'}
                                                     onChange={(e) => handleInputChange('step_1', 'privacy_accept', e.target.value)}
                                                 />
                                                 <span className='pl-2'>I Disagree</span>
@@ -185,6 +235,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                                     type='radio'
                                                     name='consent_personal_info'
                                                     value={'Yes'}
+                                                    checked={data?.step_1?.consent_personal_info === 'Yes'}
                                                     onChange={(e) => handleInputChange('step_1', 'consent_personal_info', e.target.value)}
                                                 />
                                                 <span className='pl-2'>Yes</span>
@@ -192,7 +243,13 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                         </div>
                                         <div className="radio-option-item mb-2">
                                             <label className='font-medium text-lg'>
-                                                <input type='radio' name='consent_personal_info' value={'No'} onChange={(e) => handleInputChange('step_1', 'consent_personal_info', e.target.value)} />
+                                                <input
+                                                    type='radio'
+                                                    name='consent_personal_info'
+                                                    value={'No'}
+                                                    checked={data?.step_1?.consent_personal_info === 'No'}
+                                                    onChange={(e) => handleInputChange('step_1', 'consent_personal_info', e.target.value)}
+                                                />
                                                 <span className='pl-2'>No</span>
                                             </label>
                                         </div>
@@ -202,9 +259,9 @@ export default function EventsForm({ auth, errors, events, flash }) {
                             </div>
 
                             {/* start step 2 */}
-                            <div className={`step-2 text-[#333] text-lg font-medium ${activeStep === 1 ? 'block' : 'hidden'}`}>
+                            <div className={`step - 2 text - [#333] text - lg font - medium ${activeStep === 1 ? 'block' : 'hidden'} `}>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Full Name'} />
+                                    <InputLabel value={'Full Name'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.full_name}
@@ -213,7 +270,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     <InputError message={errors?.['step_2.full_name']} className='mt-2 font-medium' />
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Phone Number (Including Country Code)'} />
+                                    <InputLabel value={'Phone Number (Including Country Code)'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.phone_number}
@@ -222,7 +279,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     <InputError message={errors?.['step_2.phone_number']} className='mt-2 font-medium' />
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Facebook Messenger Name'} />
+                                    <InputLabel value={'Facebook Messenger Name'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.messenger_name}
@@ -231,7 +288,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     <InputError message={errors?.['step_2.messenger_name']} className='mt-2 font-medium' />
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Which events will you be attending in Melbourne?'} />
+                                    <InputLabel value={'Which events will you be attending?'} className='text-lg font-medium' />
                                     <div className="events-item">
                                         <div className="form-radio-wrapper mt-4">
                                             {events?.length > 0 && events?.map((event, index) => (
@@ -251,7 +308,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     </div>
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Total Number of Delegates (Including You)'} />
+                                    <InputLabel value={'Total Number of Delegates (Including You)'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.total_delegates}
@@ -259,18 +316,73 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     />
                                     <InputError message={errors?.['step_2.total_delegates']} className='mt-2 font-medium' />
                                 </div>
+
+                                {
+                                    parseInt(data?.step_2?.total_delegates) > 1 && (
+                                        <div className="form-item mb-8 border rounded p-5">
+                                            <InputLabel value={'Names of Accompanying Delagates (please indicate if any guests included)'} className='text-lg font-medium mb-6' />
+                                            {delegates?.length > 0 && delegates?.map((delegate, index) => {
+                                                return (
+                                                    <div className="grid grid-cols-3 gap-8 relative mb-4" key={index}>
+                                                        <div className="item">
+                                                            <InputLabel value={'First Name'} className='text-lg font-medium' />
+                                                            <TextInput
+                                                                className="w-full"
+                                                                value={delegate?.first_name}
+                                                                onChange={(e) => updateDelegate(delegate?.id, 'first_name', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div className="item">
+                                                            <InputLabel value={'Last Name'} className='text-lg font-medium' />
+                                                            <TextInput
+                                                                className="w-full"
+                                                                value={delegate?.last_name}
+                                                                onChange={(e) => updateDelegate(delegate?.id, 'last_name', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div className="item pt-4">
+                                                            <div className="adult-radio-wrapper">
+                                                                <div className="radio-option-item mb-2">
+                                                                    <label className='font-medium'>
+                                                                        <input
+                                                                            type='radio'
+                                                                            value={'adult'}
+                                                                            name={`is_adult_${index}`}
+                                                                            onChange={(e) => updateDelegate(delegate?.id, 'is_adult', e.target.value)}
+                                                                        />
+                                                                        <span className='pl-2'>Adult (13 Y/O above) </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div className="radio-option-item mb-2">
+                                                                    <label className='font-medium'>
+                                                                        <input
+                                                                            type='radio'
+                                                                            value={'kid'}
+                                                                            name={`is_adult_${index}`}
+                                                                            onChange={(e) => updateDelegate(delegate?.id, 'is_adult', e.target.value)}
+                                                                        />
+                                                                        <span className='pl-2'>Kid (12 Y/O below) </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="item absolute right-0 top-6 cursor-pointer">
+                                                            {index === delegates.length - 1 ? (
+                                                                <IconPlus onClick={() => addDelegate(index)} />
+                                                            ) : (
+                                                                <IconX onClick={() => removeDelegate(delegate.id)} />
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    )
+                                }
+
+
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Names of Accompanying Delagates (please indicate if any guests included)'} />
-                                    <textarea
-                                        className="border-gray-300 focus:border-yellow-500 focus:ring-0 rounded-md shadow-sm w-full"
-                                        rows={5}
-                                        value={data?.step_2?.names_delegates}
-                                        onChange={(e) => handleInputChange('step_2', 'names_delegates', e.target.value)}
-                                    />
-                                    <InputError message={errors?.['step_2.names_delegates']} className='mt-2 font-medium' />
-                                </div>
-                                <div className="form-item mb-8">
-                                    <InputLabel value={'Total Number of Adults'} />
+                                    <InputLabel value={'Total Number of Adults'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.total_adults}
@@ -279,7 +391,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     <InputError message={errors?.['step_2.total_adults']} className='mt-2 font-medium' />
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Total Number of Kids'} />
+                                    <InputLabel value={'Total Number of Kids'} className='text-lg font-medium' />
                                     <TextInput
                                         className="w-full"
                                         value={data?.step_2?.total_kids}
@@ -288,8 +400,8 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                     <InputError message={errors?.['step_2.total_kids']} className='mt-2 font-medium' />
                                 </div>
                                 <div className="form-item mb-8">
-                                    <InputLabel value={'Do all delegates listed plan go to all selected locations?'} />
-                                    <div className="form-radio-wrapper">
+                                    <InputLabel value={'Do all delegates listed plan go to all selected locations?'} className='text-lg font-medium' />
+                                    <div className="form-radio-wrapper mt-6">
                                         <div className="radio-option-item mb-2">
                                             <label className='font-medium'>
                                                 <input
@@ -318,7 +430,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                             </div>
 
                             {/* start step-3 */}
-                            <div className={`step-3 font-medium text-[#333] text-lg ${activeStep === 2 ? 'block' : 'hidden'}`}>
+                            <div className={`step-3 font-medium text-[#333] text-lg ${activeStep === 2 ? 'block' : 'hidden'} `}>
                                 <div className="form-item mb-8">
                                     <InputLabel value={'Do you have more than one ARRIVAL dates to Melbourne?'} />
                                     <div className="form-radio-wrapper">
@@ -499,7 +611,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                             </div>
 
                             {/* Start step- 4 */}
-                            <div className={`step-4 font-medium text-[#333] text-lg ${activeStep === 3 ? 'block' : 'hidden'}`}>
+                            <div className={`step - 4 font - medium text - [#333] text - lg ${activeStep === 3 ? 'block' : 'hidden'} `}>
                                 <div className="form-item mb-4">
                                     <InputLabel value={'Additional Date of Arrival(s)'} />
                                     <input
@@ -640,9 +752,9 @@ export default function EventsForm({ auth, errors, events, flash }) {
                             </div>
 
                             {/* Start step 5 */}
-                            <div className={`step-5 font-medium text-[#333] text-lg ${activeStep === 4 ? 'block' : 'hidden'}`}>
+                            <div className={`step - 5 font - medium text - [#333] text - lg ${activeStep === 4 ? 'block' : 'hidden'} `}>
                                 <div className="form-item mb-4">
-                                    <InputLabel value={'Do you need assistance with accomodation in Melbourne?'} />
+                                    <InputLabel value={'Do you need assistance with accomodation?'} />
                                     <div className="form-radio-wrapper">
                                         <div className="radio-option-item mb-2">
                                             <label className='font-medium'>
@@ -659,7 +771,7 @@ export default function EventsForm({ auth, errors, events, flash }) {
                                             <label className='font-medium'>
                                                 <input
                                                     type='radio'
-                                                    name='selected_location'
+                                                    name='need_accomodation_in_melbourne'
                                                     value={'No'}
                                                     onChange={(e) => handleInputChange('step_5', 'need_accomodation_in_melbourne', e.target.value)}
                                                 />

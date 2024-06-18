@@ -256,7 +256,7 @@ export default function EventFormsView({ auth, event_form }) {
                                 <td></td>
                                 <td className='border-b border-blue-gray-50 p-4'>
                                     <Typography variant='small' color='blue-gray' className='font-medium'>
-                                        Do you need assistance with accomodation in Melbourne?
+                                        Do you need assistance with accomodation?
                                     </Typography></td>
                                 <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>{step_5?.need_accomodation_in_melbourne}</Typography></td>
                             </tr>
