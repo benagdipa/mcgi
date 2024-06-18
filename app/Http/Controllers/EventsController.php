@@ -28,7 +28,7 @@ class EventsController extends Controller
         }
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->get()->map(function ($event) use ($currentDate, $option) {
             $timeDiff = $currentDate->diffInMinutes($event->start_date);
             $event->isImminent = $timeDiff <= $option->value;
             return $event;
@@ -187,7 +187,7 @@ class EventsController extends Controller
     {
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->get()->map(function ($event) use ($currentDate, $option) {
             $timeDiff = $currentDate->diffInMinutes($event->start_date);
             $event->isImminent = $timeDiff <= $option->value;
             return $event;
@@ -213,7 +213,6 @@ class EventsController extends Controller
             $request->validate([
                 'step_2.full_name' => 'required|string|max:255',
                 'step_2.phone_number' => 'required|numeric',
-                'step_2.messenger_name' => 'required|string',
                 'step_2.total_delegates' => 'required|numeric',
                 'step_2.total_adults' => 'required|numeric',
                 'step_2.total_kids' => 'required|numeric',
@@ -271,7 +270,7 @@ class EventsController extends Controller
             'step_5' => json_encode($request->step_5),
         ]);
         if ($form) {
-            return to_route('events.form')->with('message', 'Form Submitted Successfully.');
+            return to_route('events.form');
         }
     }
 
@@ -329,7 +328,7 @@ class EventsController extends Controller
                     'Do you need MCGI Transport?',
                     'Will you be flying with the same delegates you have listed above?',
                     'If you have selected "No", please list down the delegates who will be attending.',
-                    'Do you need assistance with accomodation in Melbourne?'
+                    'Do you need assistance with accomodation?'
                 )
             );
             foreach ($event_forms as $row) {

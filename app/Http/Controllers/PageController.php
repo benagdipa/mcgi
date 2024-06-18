@@ -31,7 +31,7 @@ class PageController extends Controller
         $posts = Posts::take(3)->get();
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->take(9)->get()->map(function ($event) use ($currentDate, $option) {
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->take(9)->get()->map(function ($event) use ($currentDate, $option) {
             $timeDiff = $currentDate->diffInMinutes($event->start_date);
             $event->isImminent = $timeDiff <= $option->value;
             return $event;
