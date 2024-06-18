@@ -28,7 +28,7 @@ class EventsController extends Controller
         }
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->get()->map(function ($event) use ($currentDate, $option) {
             $timeDiff = $currentDate->diffInMinutes($event->start_date);
             $event->isImminent = $timeDiff <= $option->value;
             return $event;
@@ -187,7 +187,7 @@ class EventsController extends Controller
     {
         $currentDate = Carbon::now();
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->get()->map(function ($event) use ($currentDate, $option) {
+        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->get()->map(function ($event) use ($currentDate, $option) {
             $timeDiff = $currentDate->diffInMinutes($event->start_date);
             $event->isImminent = $timeDiff <= $option->value;
             return $event;
