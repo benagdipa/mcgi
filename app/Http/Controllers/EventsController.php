@@ -199,59 +199,58 @@ class EventsController extends Controller
 
     public function validate_event_form(Request $request)
     {
-        if (isset($request->step_1)) {
-            $request->validate([
-                'step_1.email' => 'required|email',
-                'step_1.privacy_accept' => 'required',
-                'step_1.consent_personal_info' => 'required',
-            ], [
-                'step_1.*.required' => "This Field is required.",
-                'step_1.email.email' => "Please enter valid email address.",
-            ]);
-        }
-        if (isset($request->step_2)) {
-            $request->validate([
-                'step_2.full_name' => 'required|string|max:255',
-                'step_2.phone_number' => 'required|numeric',
-                'step_2.messenger_name' => 'required|string',
-                'step_2.total_delegates' => 'required|numeric',
-                'step_2.total_adults' => 'required|numeric',
-                'step_2.total_kids' => 'required|numeric',
-                'step_2.delegates_plan' => 'required',
-            ], [
-                'step_2.*.required' => "This Field is required.",
-                'step_2.*.numeric' => "Field Must be number.",
-            ]);
-        }
-        if (isset($request->step_3)) {
-            $request->validate([
-                'step_3.more_arrival' => "required",
-                'step_3.first_arrival' => "required_if:step_3.more_arrival,!=",
-                'step_3.last_departure' => "required_if:step_3.more_arrival,!=",
-                'step_3.mode_of_transportation' => "required",
-                'step_3.other_mode_of_transportation' => "required_if:step_3.mode_of_transportation,Other",
-                'step_3.flight_number' => "required_if:step_3.mode_of_transportation,Air",
-                'step_3.need_mcgi_transport' => "required",
-                'step_3.seat_baby_booster' => "required",
-            ], [
-                'step_3.*.required' => "This Field is required.",
-                'step_3.*.required_if' => "This Field is required.",
-            ]);
-        }
-        if (isset($request->step_4)) {
-            $request->validate([
-                'step_4.additional_date_of_arrival' => "required",
-                'step_4.additional_date_of_departure' => "required",
-                'step_4.additional_mode_of_transportation' => "required",
-                'step_4.additional_mode_of_transportation_other' => "required_if:step_4.additional_mode_of_transportation,Other",
-                'step_4.additional_need_mcgi_transport' => "required",
-                'step_4.fly_same_location_with_delegates' => "required",
-                'step_4.delegates_names_fly_not_same' => "required_if:step_4.fly_same_location_with_delegates,No",
-            ], [
-                'step_4.*.required' => "This Field is required.",
-                'step_4.*.required_if' => "This Field is required.",
-            ]);
-        }
+        // if (isset($request->step_1)) {
+        //     $request->validate([
+        //         'step_1.email' => 'required|email',
+        //         'step_1.privacy_accept' => 'required',
+        //         'step_1.consent_personal_info' => 'required',
+        //     ], [
+        //         'step_1.*.required' => "This Field is required.",
+        //         'step_1.email.email' => "Please enter valid email address.",
+        //     ]);
+        // }
+        // if (isset($request->step_2)) {
+        //     $request->validate([
+        //         'step_2.full_name' => 'required|string|max:255',
+        //         'step_2.phone_number' => 'required|numeric',
+        //         'step_2.total_delegates' => 'required|numeric',
+        //         'step_2.total_adults' => 'required|numeric',
+        //         'step_2.total_kids' => 'required|numeric',
+        //         'step_2.delegates_plan' => 'required',
+        //     ], [
+        //         'step_2.*.required' => "This Field is required.",
+        //         'step_2.*.numeric' => "Field Must be number.",
+        //     ]);
+        // }
+        // if (isset($request->step_3)) {
+        //     $request->validate([
+        //         'step_3.more_arrival' => "required",
+        //         'step_3.first_arrival' => "required_if:step_3.more_arrival,!=",
+        //         'step_3.last_departure' => "required_if:step_3.more_arrival,!=",
+        //         'step_3.mode_of_transportation' => "required",
+        //         'step_3.other_mode_of_transportation' => "required_if:step_3.mode_of_transportation,Other",
+        //         'step_3.flight_number' => "required_if:step_3.mode_of_transportation,Air",
+        //         'step_3.need_mcgi_transport' => "required",
+        //         'step_3.seat_baby_booster' => "required",
+        //     ], [
+        //         'step_3.*.required' => "This Field is required.",
+        //         'step_3.*.required_if' => "This Field is required.",
+        //     ]);
+        // }
+        // if (isset($request->step_4)) {
+        //     $request->validate([
+        //         'step_4.additional_date_of_arrival' => "required",
+        //         'step_4.additional_date_of_departure' => "required",
+        //         'step_4.additional_mode_of_transportation' => "required",
+        //         'step_4.additional_mode_of_transportation_other' => "required_if:step_4.additional_mode_of_transportation,Other",
+        //         'step_4.additional_need_mcgi_transport' => "required",
+        //         'step_4.fly_same_location_with_delegates' => "required",
+        //         'step_4.delegates_names_fly_not_same' => "required_if:step_4.fly_same_location_with_delegates,No",
+        //     ], [
+        //         'step_4.*.required' => "This Field is required.",
+        //         'step_4.*.required_if' => "This Field is required.",
+        //     ]);
+        // }
     }
 
     public function event_form_store(Request $request)
@@ -271,7 +270,7 @@ class EventsController extends Controller
             'step_5' => json_encode($request->step_5),
         ]);
         if ($form) {
-            return to_route('events.form')->with('message', 'Form Submitted Successfully.');
+            return to_route('events.form');
         }
     }
 
@@ -329,7 +328,7 @@ class EventsController extends Controller
                     'Do you need MCGI Transport?',
                     'Will you be flying with the same delegates you have listed above?',
                     'If you have selected "No", please list down the delegates who will be attending.',
-                    'Do you need assistance with accomodation in Melbourne?'
+                    'Do you need assistance with accomodation?'
                 )
             );
             foreach ($event_forms as $row) {
