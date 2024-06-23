@@ -114,15 +114,7 @@ export default function EventFormsView({ auth, event_form }) {
                                     <Typography variant='small' color='blue-gray' className='font-medium'>
                                         Names of Accompanying Delagates (please indicate if any guests included)
                                     </Typography></td>
-                                <td className='border-b border-blue-gray-50 p-4'>
-                                    {step_2?.names_delegates && step_2?.names_delegates?.map((item, index) => {
-                                        return (
-                                            <div className="" key={index}>
-                                                <Typography variant='small' color='blue-gray' className='font-medium'>{`${item?.first_name} ${item?.last_name}`} <span className='ml-1 pl-2 border-l border-blue-gray-500 capitalize'>{item?.is_adult}</span></Typography>
-                                            </div>
-                                        )
-                                    })}
-                                </td>
+                                <td className='border-b border-blue-gray-50 p-4'><Typography variant='small' color='blue-gray' className='font-medium'>{step_2?.names_delegates}</Typography></td>
                             </tr>
                             <tr>
                                 <td></td>

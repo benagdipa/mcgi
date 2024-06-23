@@ -348,7 +348,7 @@ class EventsController extends Controller
                         $step_2->messenger_name ? $step_2->messenger_name : '',
                         $step_2->events ? implode(", ", $step_2->events) : '',
                         $step_2->total_delegates ? $step_2->total_delegates : '',
-                        $step_2->names_delegates ? $this->get_delegates_name($step_2->names_delegates) : '',
+                        $step_2->names_delegates ? $step_2->names_delegates : '',
                         $step_2->total_adults ? $step_2->total_adults : '',
                         $step_2->total_kids ? $step_2->total_kids : '',
                         $step_2->delegates_plan ? $step_2->delegates_plan : '',
@@ -373,16 +373,5 @@ class EventsController extends Controller
             fclose($file);
         };
         return new StreamedResponse($callback, 200, $headers);
-    }
-
-    public function get_delegates_name($list)
-    {
-        if (is_array($list)) {
-            $name_list = [];
-            foreach ($list as $item) {
-                $name_list[] = $item->first_name . ' ' . $item->last_name . '-' . $item->is_adult;
-            }
-            return implode("\n", $name_list);
-        }
     }
 }
