@@ -11,9 +11,10 @@ import { isUserAllowed } from '@/Utils/Utils';
 import axios from 'axios';
 
 export default function UserAdmin({ auth, users_list, locale, roles }) {
+  
     const { role, permissions } = usePage().props.auth
 
-    const TABLE_HEAD = ["SN", "First Name", "Last Name", 'Email', "Phone", "Locale", "Actions"];
+    const TABLE_HEAD = ["SN", "First Name", "Last Name", 'Email', "Phone", "Locale", "Actions","Approved"];
     const { data, setData, post, processing, errors, reset, delete: destroy } = useForm({
         first_name: '',
         last_name: '',
@@ -130,6 +131,20 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
 
     }, [searchText, filterLocale, filterRole])
 
+    const onHandleAdminAproval = async (id) => { 
+    
+        if (id) {
+           const res= await axios.post(route('admin.users.approval'), {id})
+          if(res.status===200){
+            setUsers(res?.data?.users)
+          }
+          else{
+            
+          }
+        }
+    }   
+
+
     return (
         <Authenticated user={auth?.user}>
             <Head title='Users' />
@@ -189,7 +204,7 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.map(({ id, first_name, last_name, email, local, phone, roles }, index) => {
+                                {users.map(({ id, first_name, last_name, email, local, phone, roles,admin_approved }, index) => {
                                     const isLast = index === users.length - 1;
                                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                                     return (
@@ -200,6 +215,7 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                                             <td className={classes}><Typography className="font-medium font-poppins">{email}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{phone}</Typography></td>
                                             <td className={classes}><Typography className="font-medium font-poppins">{getLocale(local)}</Typography></td>
+                                          
                                             <td className={classes}>
                                                 <div className="flex gap-2">
                                                     <button className='px-0 text-sm font-medium font-poppins' onClick={() => { openAddEditModal('edit', id) }}>Edit</button>
@@ -208,6 +224,8 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                                                     )}
                                                 </div>
                                             </td>
+                                            {admin_approved===0 &&<td className={classes}><button className='rounded-lg text-sm font-medium font-poppins bg-blue-500 text-white py-2 px-2' onClick={() => { onHandleAdminAproval(id) }}>Approve User</button></td>}
+                                            {admin_approved===1 &&<td className={classes}>Approved</td>}
                                         </tr>
                                     );
                                 })}

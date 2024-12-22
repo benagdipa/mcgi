@@ -122,6 +122,7 @@ Route::controller(UserController::class)->group(function () {
         Route::get('/dashboard/users', 'admin_user_index')->name('admin.users.index');
         Route::post('/dashboard/users', 'admin_user_store')->name('admin.users.store');
         Route::post('/dashboard/users/{id}', 'admin_user_update')->name('admin.users.update');
+        Route::post('/dashboard/users-approval', 'admin_user_approval')->name('admin.users.approval');
         Route::delete('/dashboard/users/{id}', 'admin_user_delete')->name('admin.users.delete');
     });
 });

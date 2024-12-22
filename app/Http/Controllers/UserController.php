@@ -120,4 +120,24 @@ class UserController extends Controller
         })->with('roles')->get();
         return $users;
     }
+    public function admin_user_approval(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:users,id',
+        ]);
+        $user = User::find($request->id);
+        $user->admin_approved = true;
+        $user->save();
+        $users = User::with('roles')->whereDoesntHave('roles', function ($query) {
+            $query->where('role_id', 1);
+        })->get();
+        return response()->json([
+            'status' => 'success',
+            'users' => $users,
+            'message' => 'User has been approved successfully',
+        ], 200);
+    
+    }
+
+ 
 }

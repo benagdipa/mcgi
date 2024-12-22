@@ -8,10 +8,10 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({email, status, canResetPassword }) {
     const queryParameters = new URLSearchParams(window.location.search)
     const event_message = queryParameters.get("event_message")
-
+  
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -24,7 +24,7 @@ export default function Login({ status, canResetPassword }) {
             reset('password');
         };
     }, []);
-
+   
     const submit = (e) => {
         e.preventDefault();
         post(route('login'));
