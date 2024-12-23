@@ -37,6 +37,7 @@ class HandleInertiaRequests extends Middleware
                 'role' => $request->user() ? $request->user()->roles->first()->only('name') : [],
                 'permissions' => $request->user() ? $request->user()->roles->first()->permissions->pluck('name')->toArray() : [],
             ],
+            'csrf_token' => csrf_token(),
             'ziggy' => fn() => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

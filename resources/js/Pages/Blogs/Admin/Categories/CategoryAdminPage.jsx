@@ -7,7 +7,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { IconX } from '@tabler/icons-react';
 import InputError from '@/Components/InputError';
-
+import { isUserAllowed } from '@/Utils/Utils';
 export default function CategoryAdminPage({ auth, categories }) {
     const { role, permissions } = usePage().props.auth
     const TABLE_HEAD = ["SN", "Category Title", "Slug", "Description", "Status", "Action"];

@@ -9,9 +9,7 @@ import InlineCode from "@editorjs/inline-code";
 import { convertToHTML } from "@/Utils/convertToHtml";
 import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
-import ImageTool from '@editorjs/image';
-export default function MediumLikeEditor({ auth, categories, tags,csrf_token }) {
-
+export default function MediumLikeEditor({ auth, categories, tags }) {
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         content: '',
@@ -27,8 +25,6 @@ export default function MediumLikeEditor({ auth, categories, tags,csrf_token }) 
     const hiddenFileInput = useRef(null);
     const [fileName, setFileName] = useState("");
     const initializeEditor = () => {
-      
-
         editorRef.current = new EditorJS({
             holder: "editorjs",
             tools: {
@@ -36,22 +32,9 @@ export default function MediumLikeEditor({ auth, categories, tags,csrf_token }) 
                 list: List,
                 embed: Embed,
                 inlineCode: InlineCode,
-                image: {
-                    class: ImageTool,
-                    config: {
-                      endpoints: {
-                        byFile: route('admin.blogs.tempImg'), 
-                        byUrl: route('admin.blogs.tempImgUrl'),
-                      },
-                      additionalRequestHeaders: {
-                        'X-CSRF-TOKEN': csrf_token, // Include CSRF token in headers
-                    }
-                    }
-                  }
             },
             onChange: async () => {
                 const content = await editorRef.current.save();
-                console.log(content);
                 const convertedDataTemp = convertToHTML(content, convertedData);
                 setConvertedData(convertedDataTemp);
             },

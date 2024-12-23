@@ -66,6 +66,7 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
         }
         setAddEditModal(true)
     }
+    
 
     const closeAddEditModal = () => {
         setAddEditModal(false)
@@ -224,8 +225,10 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                                                     )}
                                                 </div>
                                             </td>
+                                     
                                             {admin_approved===0 &&<td className={classes}><button className='rounded-lg text-sm font-medium font-poppins bg-blue-500 text-white py-2 px-2' onClick={() => { onHandleAdminAproval(id) }}>Approve User</button></td>}
                                             {admin_approved===1 &&<td className={classes}>Approved</td>}
+                                            
                                         </tr>
                                     );
                                 })}

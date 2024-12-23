@@ -241,4 +241,54 @@ class BlogsController extends Controller
         return to_route('admin.blogs.tags.index');
     }
 
+    public function admin_blogs_tempImg(Request $request){
+        
+        if ($request->hasFile('image')) {
+           
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads/temp', $fileName, 'public');
+
+       
+            return response()->json([
+                'success' => 1,
+                'file' => [
+                    'url' =>  asset('storage/' . $filePath),
+                ],
+                'caption' =>  $file->getClientOriginalName(),
+                'withBorder' => false,
+                'withBackground' => false,
+                'stretched' => true,
+            ]);
+            
+        }
+
+        return response()->json(['success' => 0, 'message' => 'No file uploaded.'], 400);
+    }
+    public function fetchUrl(Request $request)
+{
+    $url = $request->input('url');
+
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        $imageContents = file_get_contents($url);
+        $fileName = time() . '_' . basename($url);
+        $filePath = 'uploads/temp/' . $fileName;
+
+        file_put_contents(public_path('storage/' . $filePath), $imageContents);
+
+        return response()->json([
+            'success' => 1,
+            'file' => [
+                'url' =>  asset('storage/' . $filePath),
+            ],
+            'caption' =>   basename($url),
+            'withBorder' => false,
+            'withBackground' => false,
+            'stretched' => true,
+        ]);
+    }
+
+    return response()->json(['success' => 0, 'message' => 'Invalid URL.'], 400);
+}
+
 }
