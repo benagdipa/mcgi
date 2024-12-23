@@ -54,6 +54,8 @@ Route::controller(BlogsController::class)->group(function () {
         Route::get('/dashboard/blogs/{id}/edit', 'admin_blogs_edit')->name('admin.blogs.edit');
         Route::post('/dashboard/blogs/{id}/edit', 'admin_blogs_update')->name('admin.blogs.update');
         Route::delete('/dashboard/blogs/{id}', 'admin_blogs_delete')->name('admin.blogs.delete');
+        Route::post('/dashboard/blogs/tempimg','admin_blogs_tempImg')->name('admin.blogs.tempImg');
+        Route::post('/dashboard/blogs/tempimgUrl','fetchUrl')->name('admin.blogs.tempImgUrl');
     });
 
     Route::middleware(['auth', 'verified', 'permission:create_categories|edit_categories|delete_categories'])->group(function () {
@@ -122,6 +124,7 @@ Route::controller(UserController::class)->group(function () {
         Route::get('/dashboard/users', 'admin_user_index')->name('admin.users.index');
         Route::post('/dashboard/users', 'admin_user_store')->name('admin.users.store');
         Route::post('/dashboard/users/{id}', 'admin_user_update')->name('admin.users.update');
+        Route::post('/dashboard/users-approval', 'admin_user_approval')->name('admin.users.approval');
         Route::delete('/dashboard/users/{id}', 'admin_user_delete')->name('admin.users.delete');
     });
 });
