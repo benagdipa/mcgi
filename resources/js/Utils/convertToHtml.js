@@ -1,5 +1,5 @@
 export function convertToHTML(data, currentContent = '') {
-    console.log(currentContent);
+    
     let htmlString = currentContent; // Start with the current content
 
     data.blocks.forEach(block => {

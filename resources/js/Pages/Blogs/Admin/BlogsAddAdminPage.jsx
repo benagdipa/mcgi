@@ -51,7 +51,7 @@ export default function MediumLikeEditor({ auth, categories, tags,csrf_token }) 
             },
             onChange: async () => {
                 const content = await editorRef.current.save();
-                console.log(content);
+                
                 const convertedDataTemp = convertToHTML(content, convertedData);
                 setConvertedData(convertedDataTemp);
             },
