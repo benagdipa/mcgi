@@ -22,6 +22,7 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
+            'email' => '',
         ]);
     }
 
@@ -30,21 +31,43 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $credentials = $request->only('email', 'password');
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
+    
+        if ($user && in_array($user->roles->pluck('name')->first(), ['guest', 'Guest']) && !$user->admin_approved) {
+            return redirect()->route('login')->withErrors([
+                'email' => 'Your account is pending approval by an admin.',
+            ]);
+        }
+        
         $request->authenticate();
-
+        
         $request->session()->regenerate();
+    
         if ($request->event) {
             return redirect()->intended('/events');
         }
 
         $user = Auth::user();
+        
+        // Retrieve the user's role
         $role = $user->roles->pluck('name')->toArray()[0];
+        
         if (in_array($role, ['guest', 'Guest'])) {
+            if (!$user->admin_approved) {
+
+                return redirect()->route('login')->withErrors([
+                    'email' => 'Your account is pending approval by an admin.',
+                ]);
+            }
+        
             return redirect()->intended('/');
         }
+        
         return redirect()->intended(RouteServiceProvider::HOME);
     }
-
+    
+    
     /**
      * Destroy an authenticated session.
      */
