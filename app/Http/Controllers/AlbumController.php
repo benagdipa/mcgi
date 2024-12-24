@@ -13,14 +13,14 @@ class AlbumController extends Controller
 {
     public function admin_album_index()
     {
-        $albums = Album::select('albums.*', DB::raw('COUNT(attachments.id) as attachment_count'))
-            ->leftJoin('attachments', 'albums.id', '=', 'attachments.album_id')
-            ->groupBy('albums.id')
-            ->get();
+        $albums = Album::select('albums.id', 'albums.name', 'albums.created_at', 'albums.updated_at', DB::raw('COUNT(attachments.id) as attachment_count'))
+        ->leftJoin('attachments', 'albums.id', '=', 'attachments.album_id')
+        ->groupBy('albums.id', 'albums.name', 'albums.created_at', 'albums.updated_at')
+        ->get();
+    
         return Inertia::render('Album/AlbumAdmin', [
             'albums' => $albums
         ]);
-
     }
     public function admin_album_store(Request $request)
     {

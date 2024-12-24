@@ -6,7 +6,8 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils';
 import { Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
-import { IconX } from '@tabler/icons-react';
+import { RiCloseLargeFill } from "react-icons/ri";
+
 import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
@@ -85,7 +86,7 @@ export default function AlbumAdmin({ auth, albums }) {
 
     const thumbs = data?.attachments.map((file, index) => (
         <div key={index} className='border border-gray-300 rounded relative w-36 h-36 p-1'>
-            <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer"><IconX size={16} onClick={() => { handleRemoveImage(file) }} /></div>
+            <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer"><RiCloseLargeFill size={16} onClick={() => { handleRemoveImage(file) }} /></div>
             <img src={file.preview} className='w-full h-full object-cover rounded' />
         </div>
     ));
@@ -175,7 +176,7 @@ export default function AlbumAdmin({ auth, albums }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-2xl font-poppins'>{modalTitle} Album</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
                     </div>
                     <div className="modal-content pt-6">
                         <form onSubmit={addEditSubmit}>
@@ -222,7 +223,7 @@ export default function AlbumAdmin({ auth, albums }) {
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <p className='text-center pt-8'>All the images associated with this album will be deleted.</p>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

@@ -2,7 +2,7 @@
 import React from 'react'
 import Dropdown from '../Dropdown'
 import { Link } from '@inertiajs/react'
-import { IconBell, IconChevronDown, IconUser,IconMenu2 } from '@tabler/icons-react'
+import { AiOutlineBell, AiOutlineDown, AiOutlineUser, AiOutlineMenu } from "react-icons/ai";
 import { Badge } from '@material-tailwind/react'
 import ApplicationLogo from '../ApplicationLogo'
 import { useState } from 'react'
@@ -20,16 +20,16 @@ export default function AdminHeader({ user ,onSetToggleHandler}) {
                 <div className="flex gap-4 items-center justify-end">
                     <Badge color="red">
                         <div className=" w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center">
-                            <IconBell strokeWidth={1.5} color='grey' />
+                            <AiOutlineBell strokeWidth={1.5} color='grey' />
                         </div>
                     </Badge>
                     {user && (
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <span className="flex items-center gap-1">
-                                    <IconUser size={22} strokeWidth={1.5} />
+                                    <AiOutlineUser size={22} strokeWidth={1.5} />
                                     <button type="button" className="">{user?.first_name}</button>
-                                    <IconChevronDown size={22} strokeWidth={1.5} />
+                                    <AiOutlineDown size={22} strokeWidth={1.5} />
                                 </span>
                             </Dropdown.Trigger>
                             <Dropdown.Content>
@@ -42,9 +42,9 @@ export default function AdminHeader({ user ,onSetToggleHandler}) {
                         </Dropdown>
                     )}
                 </div>
-                <button className='lg:hidden'  onClick={() => onSetToggleHandler()}>
-                    <IconMenu2 size={32} strokeWidth='1' />
-                </button>
+                {/* <button className='lg:hidden'  onClick={() => onSetToggleHandler()}>
+                    <AiOutlineMenu size={32} strokeWidth='1' />
+                </button> */}
             </div>
         </div>
     )

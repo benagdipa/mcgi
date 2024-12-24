@@ -4,7 +4,8 @@ import { Head, Link } from '@inertiajs/react'
 import React, { useState } from 'react'
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
-import { IconDownload } from '@tabler/icons-react'
+import { FaDownload } from "react-icons/fa6";
+
 import WOW from 'react-wow';
 export default function GalleryPage({ auth, albums }) {
 
@@ -53,7 +54,7 @@ export default function GalleryPage({ auth, albums }) {
                                         <div className="relative group">
                                             {auth?.user && (
                                                 <div className="download-icon absolute top-1 right-1 bg-white/80 p-3 rounded-full cursor-pointer transition duration-300 ease-in-out invisible group-hover:visible ">
-                                                    <IconDownload color='black' onClick={() => handleDownload(item.path)} />
+                                                    <FaDownload color='black' onClick={() => handleDownload(item.path)} />
                                                 </div>
                                             )}
                                             <Item

@@ -4,7 +4,10 @@ import Modal from '@/Components/Modal';
 import TextInput from '@/Components/TextInput';
 import Guest from '@/Layouts/GuestLayout'
 import { Head, Link, router, useForm } from '@inertiajs/react'
-import { IconMapPin, IconPlus, IconSearch, IconX } from '@tabler/icons-react'
+import { FaMapMarkerAlt } from "react-icons/fa";
+
+import { AiOutlinePlus } from "react-icons/ai";
+import { RiCloseLargeFill } from "react-icons/ri";
 import React, { useState } from 'react'
 import { format, getYear } from 'date-fns';
 import { Radio, Typography } from '@material-tailwind/react';
@@ -139,7 +142,7 @@ export default function EventsPage({ auth, events, locale }) {
                                                                     <span className='font-dmsans'>{formatDateRange(item?.start_date, item?.end_date)}</span>
                                                                     <h1 className='font-marcellus font-semibold md:text-4xl text-2xl uppercase mt-2 leading-snug'>{item?.title}</h1>
                                                                     <div className='mt-4 text-gray-500 text-base'>
-                                                                        <div className="font-dmsans mb-3 flex items-center gap-1"><span><IconMapPin strokeWidth={2} size={16} /></span>{item?.address}</div>
+                                                                        <div className="font-dmsans mb-3 flex items-center gap-1"><span><FaMapMarkerAlt strokeWidth={2} size={16} /></span>{item?.address}</div>
                                                                         <div dangerouslySetInnerHTML={{ __html: item?.content }} />
                                                                     </div>
                                                                 </div>
@@ -173,7 +176,7 @@ export default function EventsPage({ auth, events, locale }) {
                 <div className="attendance-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl'>{selectedEventTitle} Attendance</h1>
                     <div className="absolute md:-top-8 md:-right-8 top-0 right-0 md:text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeAttendanceModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeAttendanceModal} />
                     </div>
                     <div className="gap-2 pt-6">
                         <div className="mt-6">
@@ -266,9 +269,9 @@ export default function EventsPage({ auth, events, locale }) {
                                                     )}
                                                     <div className="btn-wrapper px-3 pt-5 cursor-pointer">
                                                         {index === data?.attendenceRows.length - 1 ? (
-                                                            <IconPlus onClick={() => addRow()} />
+                                                            <AiOutlinePlus onClick={() => addRow()} />
                                                         ) : (
-                                                            <IconX onClick={() => removeRow(item.id)} />
+                                                            <RiCloseLargeFill onClick={() => removeRow(item.id)} />
                                                         )}
                                                     </div>
                                                 </div>

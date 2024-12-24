@@ -3,7 +3,8 @@ import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
-import { IconX } from '@tabler/icons-react';
+
+import { RiCloseLargeFill } from "react-icons/ri";
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
@@ -246,7 +247,7 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-2xl font-poppins'>{modalTitle} User</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
                     </div>
                     <div className="modal-content pt-6">
                         <form onSubmit={addEditSubmit}>
@@ -392,7 +393,7 @@ export default function UserAdmin({ auth, users_list, locale, roles }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

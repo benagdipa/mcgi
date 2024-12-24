@@ -6,7 +6,9 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils';
 import { Head, Link, router, usePage,useForm } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
-import { IconChevronDown, IconChevronUp, IconX } from '@tabler/icons-react';
+import { RiCloseLargeFill } from "react-icons/ri";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+
 import React, { useState } from 'react'
 
 export default function EventsAdmin({ auth, events, options }) {
@@ -89,8 +91,8 @@ export default function EventsAdmin({ auth, events, options }) {
                                             <Typography className="font-semibold text-lg leading-none opacity-70 font-poppins">{head}</Typography>
                                             {head === 'Start Date' || head === 'End Date' ? (
                                                 <React.Fragment>
-                                                    <span className='absolute top-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><IconChevronUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'asc') }} /></span>
-                                                    <span className='absolute bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><IconChevronDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'desc') }} /></span>
+                                                    <span className='absolute top-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><AiOutlineUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'asc') }} /></span>
+                                                    <span className='absolute bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm cursor-pointer'><AiOutlineDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.toLowerCase().replace(' ', '_'), 'desc') }} /></span>
                                                 </React.Fragment>
                                             ) : null}
                                         </th>
@@ -144,7 +146,7 @@ export default function EventsAdmin({ auth, events, options }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>
@@ -158,7 +160,7 @@ export default function EventsAdmin({ auth, events, options }) {
                     <div className="modal-header relative">
                         <h1 className='font-bold text-2xl font-poppins'>Events Settings</h1>
                         <div className="absolute -top-14 -right-14 text-white cursor-pointer">
-                            <IconX strokeWidth={1.5} size={38} onClick={() => { setSettingModal(false) }} />
+                            <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={() => { setSettingModal(false) }} />
                         </div>
                     </div>
                     <div className="modal-content pt-6">
