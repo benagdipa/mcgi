@@ -5,8 +5,8 @@ import TextInput from '@/Components/TextInput';
 import Guest from '@/Layouts/GuestLayout';
 import { Link, router, useForm } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
-import { IconPlus, IconX } from '@tabler/icons-react';
-
+import { AiOutlinePlus } from "react-icons/ai";
+import { RiCloseLargeFill } from "react-icons/ri";
 export default function EventsForm({ auth, errors, events }) {
     const { user } = auth
     const [message, setMessage] = useState(null)
@@ -368,9 +368,9 @@ export default function EventsForm({ auth, errors, events }) {
                                                         </div>
                                                         <div className="item absolute right-0 top-6 cursor-pointer">
                                                             {index === delegates.length - 1 ? (
-                                                                <IconPlus onClick={() => addDelegate(index)} />
+                                                                <AiOutlinePlus onClick={() => addDelegate(index)} />
                                                             ) : (
-                                                                <IconX onClick={() => removeDelegate(delegate.id)} />
+                                                                <RiCloseLargeFill onClick={() => removeDelegate(delegate.id)} />
                                                             )}
                                                         </div>
                                                     </div>

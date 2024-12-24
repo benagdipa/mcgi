@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Card, CardBody, Typography } from '@material-tailwind/react';
-import { IconAlbum, IconCalendar, IconPin, IconUser, IconUsers } from '@tabler/icons-react';
+import { MdArticle } from "react-icons/md";
+import { FaUsers,FaImages,FaCalendar ,FaUser} from "react-icons/fa";
 
 export default function Dashboard({ auth }) {
     const { count, data } = usePage().props
@@ -20,7 +21,7 @@ export default function Dashboard({ auth }) {
                                 <Typography variant='h4' className='font-poppins'>Users</Typography>
                             </div>
                             <div className="icon absolute top-0 right-2 flex items-center h-full">
-                                <IconUser size={48} strokeWidth={1} color='silver' />
+                                <FaUser size={48}  color='silver' />
                             </div>
                         </CardBody>
                     </Card>
@@ -31,7 +32,7 @@ export default function Dashboard({ auth }) {
                                 <Typography variant='h4' className='font-poppins'>Articles</Typography>
                             </div>
                             <div className="icon absolute top-0 right-2 flex items-center h-full">
-                                <IconPin size={48} strokeWidth={1} color='silver' />
+                                <MdArticle size={48}  color='silver' />
                             </div>
                         </CardBody>
                     </Card>
@@ -42,7 +43,7 @@ export default function Dashboard({ auth }) {
                                 <Typography variant='h4' className='font-poppins'>Events</Typography>
                             </div>
                             <div className="icon absolute top-0 right-2 flex items-center h-full">
-                                <IconCalendar size={48} strokeWidth={1} color='silver' />
+                                <FaCalendar size={48}  color='silver' />
                             </div>
                         </CardBody>
                     </Card>
@@ -53,7 +54,7 @@ export default function Dashboard({ auth }) {
                                 <Typography variant='h4' className='font-poppins'>Images</Typography>
                             </div>
                             <div className="icon absolute top-0 right-2 flex items-center h-full">
-                                <IconAlbum size={48} strokeWidth={1} color='silver' />
+                                <FaImages size={48}  color='silver' />
                             </div>
                         </CardBody>
                     </Card>
@@ -64,7 +65,7 @@ export default function Dashboard({ auth }) {
                                 <Typography variant='h4' className='font-poppins'>Attendees</Typography>
                             </div>
                             <div className="icon absolute top-0 right-2 flex items-center h-full">
-                                <IconUsers size={48} strokeWidth={1} color='silver' />
+                                <FaUsers size={48}  color='silver' />
                             </div>
                         </CardBody>
                     </Card>

@@ -3,7 +3,7 @@ import Modal from '@/Components/Modal';
 import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Link, useForm } from '@inertiajs/react'
 import { Card, Collapse } from '@material-tailwind/react';
-import { IconX } from '@tabler/icons-react';
+import { RiCloseLargeFill } from "react-icons/ri";
 import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
@@ -53,7 +53,7 @@ export default function AlbumAdminView({ auth, album }) {
     })
     const thumbs = data?.attachments.map((file, index) => (
         <div key={index} className='border border-gray-300 rounded relative w-36 h-36 p-1'>
-            <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer"><IconX size={16} onClick={() => { handleRemoveUploadImage(file) }} /></div>
+            <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer"><RiCloseLargeFill size={16} onClick={() => { handleRemoveUploadImage(file) }} /></div>
             <img src={file.preview} className='w-full h-full object-cover rounded' />
         </div>
     ));
@@ -121,7 +121,7 @@ export default function AlbumAdminView({ auth, album }) {
                                 return (
                                     <div className="group border rounded relative cursor-pointer w-56 h-56 p-1" key={index}>
                                         <div className="absolute -top-2 -right-2 bg-red-500 rounded-full text-white p-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-all">
-                                            <IconX size={16} onClick={() => { openDeleteModal(item?.id) }} />
+                                            <RiCloseLargeFill size={16} onClick={() => { openDeleteModal(item?.id) }} />
                                         </div>
                                         <img src={item?.path} className="w-full h-full object-cover rounded" />
                                     </div>
@@ -136,7 +136,7 @@ export default function AlbumAdminView({ auth, album }) {
                 <div className="delete-modal px-6 py-8 relative">
                     <h1 className='font-bold text-3xl text-center font-poppins'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

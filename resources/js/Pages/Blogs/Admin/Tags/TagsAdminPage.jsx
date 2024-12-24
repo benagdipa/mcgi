@@ -6,7 +6,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils'
 import { Head, useForm, Link, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react'
-import { IconX } from '@tabler/icons-react'
+import { RiCloseLargeFill } from "react-icons/ri";
 import React, { useState } from 'react'
 
 export default function TagsAdminPage({ auth, tags }) {
@@ -151,7 +151,7 @@ export default function TagsAdminPage({ auth, tags }) {
                     <div className="modal-header relative">
                         <h1 className='font-bold text-2xl '>{modalTitle} Tag</h1>
                         <div className="absolute -top-14 -right-14 text-white cursor-pointer">
-                            <IconX strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
+                            <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
                         </div>
                     </div>
                     <div className="modal-content pt-6">
@@ -212,7 +212,7 @@ export default function TagsAdminPage({ auth, tags }) {
                 <div className="delete-modal px-6 py-8 relative">
                     <h1 className='font-bold text-3xl text-center font-poppins'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

@@ -3,7 +3,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { Head, Link, usePage } from '@inertiajs/react'
 import { Card, Typography } from "@material-tailwind/react";
 import Modal from '@/Components/Modal';
-import { IconX } from '@tabler/icons-react';
+import { RiCloseLargeFill } from "react-icons/ri";
 import { router } from '@inertiajs/react'
 import { isUserAllowed } from '@/Utils/Utils';
 
@@ -134,7 +134,7 @@ export default function BlogsAdminPage({ auth, posts, categories, tags }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center font-poppins'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

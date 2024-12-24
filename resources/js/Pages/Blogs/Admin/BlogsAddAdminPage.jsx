@@ -15,7 +15,7 @@ export default function MediumLikeEditor({ auth, categories, tags,csrf_token }) 
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         content: '',
-        slug: "fewfew",
+        slug: "",
         categories: [],
         tags: [],
         featureImage: null,

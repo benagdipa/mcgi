@@ -9,11 +9,12 @@ import InlineCode from "@editorjs/inline-code";
 import { convertToHTML } from "@/Utils/convertToHtml";
 import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
+
 export default function MediumLikeEditor({ auth, categories, tags }) {
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         content: '',
-        slug: "fewfew",
+        slug: "",
         categories: [],
         tags: [],
         featureImage: null,

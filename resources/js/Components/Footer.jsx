@@ -1,5 +1,6 @@
 import React from 'react'
-import { IconBrandFacebook, IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconMail, IconMapPin, IconPhoneCall } from '@tabler/icons-react'
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
+import { AiOutlineMail } from 'react-icons/ai';
 import { Link } from '@inertiajs/react'
 
 export default function Footer() {
@@ -20,7 +21,7 @@ export default function Footer() {
                                         <ul>
                                             <li>
                                                 <div className="flex text-white mb-5">
-                                                    <div className="icon"><IconMail strokeWidth={1.5} /></div>
+                                                    <div className="icon"><AiOutlineMail strokeWidth={1.5} /></div>
                                                     <div className="content pl-2">
                                                         <a href="mailto:info@mcgi.org.au">info@mcgi.org.au</a>
                                                     </div>
@@ -28,7 +29,7 @@ export default function Footer() {
                                             </li>
                                             <li>
                                                 <div className="flex text-white mb-5">
-                                                    <div className="icon"><IconPhoneCall strokeWidth={1.5} /></div>
+                                                    <div className="icon"><FaPhoneAlt strokeWidth={1.5} /></div>
                                                     <div className="content pl-2">
                                                         <a href="tel:+61450780530">+61450780530</a>
                                                     </div>
@@ -36,7 +37,7 @@ export default function Footer() {
                                             </li>
                                             <li>
                                                 <div className="flex text-white mb-5">
-                                                    <div className="icon"><IconMapPin strokeWidth={1.5} /></div>
+                                                    <div className="icon"><FaMapMarkerAlt strokeWidth={1.5} /></div>
                                                     <div className="content pl-2">Unit 5, 230 Blackshaws Rd,<br /> Altona North 3025 Victoria</div>
                                                 </div>
                                             </li>
@@ -61,10 +62,10 @@ export default function Footer() {
                                     </div>
                                     <div className="widget-content mt-4 text-white">
                                         <div className="icon-container flex gap-2">
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.facebook.com/MCGI.org/" target='_blank'><IconBrandFacebook strokeWidth={1.5} size={22} /></a></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://twitter.com/mcgidotorg" target='_blank'><IconBrandTwitter strokeWidth={1.5} size={22} /></a></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.youtube.com/mcgichannel" target='_blank'><IconBrandYoutube strokeWidth={1.5} size={22} /></a></div>
-                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><IconBrandInstagram strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.facebook.com/MCGI.org/" target='_blank'><FaFacebook strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://twitter.com/mcgidotorg" target='_blank'><FaTwitter strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.youtube.com/mcgichannel" target='_blank'><FaYoutube strokeWidth={1.5} size={22} /></a></div>
+                                            <div className="icon-wrapper w-10 h-10 rounded-full border flex items-center justify-center"><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><FaInstagram strokeWidth={1.5} size={22} /></a></div>
                                         </div>
                                     </div>
                                 </div>
