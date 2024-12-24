@@ -11,20 +11,17 @@ import {
 } from "@material-tailwind/react";
 
 import {
-    IconAlbum,
-    IconCalendar,
-    IconCategory,
-    IconChevronDown,
-    IconChevronRight,
-    IconLocation,
-    IconMailForward,
-    IconMap,
-    IconPin,
-    IconUserCog,
-    IconUsers,
-    IconSlideshow,
-    IconForms,
-} from "@tabler/icons-react";
+    MdOutlineAlbum,
+    MdOutlineLocationOn,
+    MdArticle,
+    MdOutlineSlideshow,
+    MdDashboard
+} from "react-icons/md";
+import { AiOutlineCalendar, AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+import {  BiMailSend } from "react-icons/bi";
+import { FaUserCog, FaUsers,FaMap } from "react-icons/fa";
+import { HiOutlineDocumentText } from "react-icons/hi";
+
 import { Link, usePage } from "@inertiajs/react";
 import { isUserAllowed } from "@/Utils/Utils";
 
@@ -38,10 +35,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
 
     const currentRoute = route().current();
     return (
-        <Card className="rounded-none bg-[#212b36] border-b-[0] text-white shadow-none">
+        <Card className="rounded-none relative bg-[#212b36] border-b-[0] h-full text-white shadow-none py-10 overflow-scroll">
             <div className="desktop-view ">
+        
                 <div className="side-menu p-4">
-                    <List className="text-white">
+                    <List className="text-white ">
 
                         <Link
                             href={route("dashboard")}
@@ -49,7 +47,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         >
                             <ListItem>
                                 <ListItemPrefix>
-                                    <IconCategory strokeWidth={1.2} />
+                                    <MdDashboard size={24} />
                                 </ListItemPrefix>
                                 <Typography className="mr-auto font-poppins font-medium">
                                     Dashboard
@@ -60,12 +58,12 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         {isUserAllowed(permissions, ['create_blog_posts', "edit_blogs_posts", "delete_blogs_posts", "create_categories", "edit_categories", "delete_categories", "create_tags", "edit_tags", "delete_tags"], role) && (
                             <Accordion
                                 open={open === 1}
-                                icon={<IconChevronDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`} />}
+                                icon={<AiOutlineDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`} />}
                             >
                                 <ListItem className="p-0" selected={open === 1}>
                                     <AccordionHeader className="border-b-0 p-3 text-white" onClick={() => handleOpen(1)}>
                                         <ListItemPrefix>
-                                            <IconPin strokeWidth={1.5} />
+                                            <MdArticle size={24} />
                                         </ListItemPrefix>
                                         <Typography className="mr-auto font-poppins font-medium">
                                             Blogs
@@ -80,7 +78,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                         >
                                             <ListItem>
                                                 <ListItemPrefix>
-                                                    <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                    <AiOutlineRight strokeWidth={3} className="h-3 w-5" />
                                                 </ListItemPrefix>
                                                 <Typography className="mr-auto font-poppins font-medium">
                                                     All Blogs
@@ -96,7 +94,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                             >
                                                 <ListItem>
                                                     <ListItemPrefix>
-                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                        <AiOutlineRight strokeWidth={3} className="h-3 w-5" />
                                                     </ListItemPrefix>
                                                     <Typography className="mr-auto font-poppins font-medium">
                                                         Add New
@@ -113,7 +111,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                             >
                                                 <ListItem>
                                                     <ListItemPrefix>
-                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                        <AiOutlineRight strokeWidth={3} className="h-3 w-5" />
                                                     </ListItemPrefix>
                                                     <Typography className="mr-auto font-poppins font-medium">
                                                         Categories
@@ -131,7 +129,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                             >
                                                 <ListItem>
                                                     <ListItemPrefix>
-                                                        <IconChevronRight strokeWidth={3} className="h-3 w-5" />
+                                                        <AiOutlineRight strokeWidth={3} className="h-3 w-5" />
                                                     </ListItemPrefix>
                                                     <Typography className="mr-auto font-poppins font-medium">
                                                         Tags
@@ -148,12 +146,12 @@ export default function Sidebar({ current, toggle, setToggle }) {
                         {isUserAllowed(permissions, ['create_events', 'edit_events', 'delete_events'], role) && (
                             <Accordion
                                 open={open === 2}
-                                icon={<IconChevronDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`} />}
+                                icon={<AiOutlineDown strokeWidth={2.5} className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`} />}
                             >
                                 <ListItem className="p-0" selected={open === 2}>
                                     <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3 text-white">
                                         <ListItemPrefix>
-                                            <IconCalendar strokeWidth={1.5} />
+                                            <AiOutlineCalendar size={24} />
                                         </ListItemPrefix>
                                         <Typography className="mr-auto font-poppins font-medium">
                                             Events
@@ -168,7 +166,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                         >
                                             <ListItem>
                                                 <ListItemPrefix>
-                                                    <IconChevronRight
+                                                    <AiOutlineRight
                                                         strokeWidth={3}
                                                         className="h-3 w-5"
                                                     />
@@ -187,7 +185,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                             >
                                                 <ListItem>
                                                     <ListItemPrefix>
-                                                        <IconChevronRight
+                                                        <AiOutlineRight
                                                             strokeWidth={3}
                                                             className="h-3 w-5"
                                                         />
@@ -204,7 +202,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                         >
                                             <ListItem>
                                                 <ListItemPrefix>
-                                                    <IconChevronRight
+                                                    <AiOutlineRight
                                                         strokeWidth={3}
                                                         className="h-3 w-5"
                                                     />
@@ -226,7 +224,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconForms strokeWidth={1.5} />
+                                        <HiOutlineDocumentText size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Event Forms
@@ -243,7 +241,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconUsers strokeWidth={1.5} />
+                                        <FaUsers size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Users
@@ -259,7 +257,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                                 className={`${currentRoute === 'admin.locale.index' ? 'bg-blue-gray-50/50 rounded-lg' : ''}`}
                             >
                                 <ListItem>
-                                    <ListItemPrefix><IconLocation strokeWidth={1.2} /></ListItemPrefix>
+                                    <ListItemPrefix><MdOutlineLocationOn strokeWidth={1.2} /></ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">Locale</Typography>
                                 </ListItem>
                             </Link>
@@ -273,7 +271,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconMap strokeWidth={1.5} />
+                                        <FaMap size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Church Locations
@@ -290,7 +288,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconAlbum strokeWidth={1.5} />
+                                        <MdOutlineAlbum size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Albums
@@ -307,7 +305,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconMailForward strokeWidth={1.5} />
+                                        <BiMailSend size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Email Templates
@@ -324,7 +322,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconUserCog strokeWidth={1.5} />
+                                        <FaUserCog size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Roles
@@ -341,7 +339,7 @@ export default function Sidebar({ current, toggle, setToggle }) {
                             >
                                 <ListItem>
                                     <ListItemPrefix>
-                                        <IconSlideshow strokeWidth={1.5} />
+                                        <MdOutlineSlideshow size={24} />
                                     </ListItemPrefix>
                                     <Typography className="mr-auto font-poppins font-medium">
                                         Banner

@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
 import ApplicationLogo from './ApplicationLogo'
-import { IconBrandFacebook, IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconChevronDown, IconMenu2, IconPhoneCall, IconUser } from '@tabler/icons-react';
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube,FaChevronDown } from 'react-icons/fa';
+import { AiOutlineDown, AiOutlineMenu,AiOutlineUser } from 'react-icons/ai';
 import Dropdown from './Dropdown';
 
 export default function Header({ user }) {
@@ -45,9 +46,9 @@ export default function Header({ user }) {
                                                     <Dropdown>
                                                         <Dropdown.Trigger>
                                                             <span className="flex items-center gap-1">
-                                                                <IconUser size={22} strokeWidth={1.5} />
+                                                                <AiOutlineUser size={22} strokeWidth={1.5} />
                                                                 <button type="button" className="">{user?.first_name}</button>
-                                                                <IconChevronDown size={22} strokeWidth={1.5} />
+                                                                <FaChevronDown size={22} strokeWidth={1.5} />
                                                             </span>
                                                         </Dropdown.Trigger>
                                                         <Dropdown.Content>
@@ -60,17 +61,17 @@ export default function Header({ user }) {
                                                     </Dropdown>
                                                 ) : (
                                                     <Link href={route('login')}>
-                                                        <span className='flex items-center justify-center'><IconUser size={22} strokeWidth={1.5} /> <span className='pl-2'>Sign In</span></span>
+                                                        <span className='flex items-center justify-center'><AiOutlineUser size={22} strokeWidth={1.5} /> <span className='pl-2'>Sign In</span></span>
                                                     </Link>
                                                 )}
                                             </li>
                                         </ul>
                                         <div className="menu-wrapper pl-6">
                                             <ul className='flex justify-end gap-2'>
-                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><IconBrandFacebook size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-base font-montserrat'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><IconBrandTwitter size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><IconBrandInstagram size={26} strokeWidth={1.5} /></span></a></li>
-                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><IconBrandYoutube size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.facebook.com/MCGI.org/" target='_blank'><span className='flex'><FaFacebook size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-base font-montserrat'><a href="https://twitter.com/mcgidotorg" target='_blank'><span className='flex'><FaTwitter size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.instagram.com/mcgidotorg/" target='_blank'><span className='flex'><FaInstagram size={26} strokeWidth={1.5} /></span></a></li>
+                                                <li className='font-semibold text-base font-montserrat'><a href="https://www.youtube.com/mcgichannel" target='_blank'><span className='flex'><FaYoutube size={26} strokeWidth={1.5} /></span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -82,7 +83,7 @@ export default function Header({ user }) {
                                         <ApplicationLogo />
                                     </div>
                                     <button onClick={() => setToggle(!toggle)}>
-                                        <IconMenu2 size={32} strokeWidth='1' />
+                                        <AiOutlineMenu size={32} strokeWidth='1' />
                                     </button>
                                     <div className={`${!toggle ? "hidden" : 'flex'} mobile-menu-items absolute left-0 top-[75px] md:top-[87px] w-full`}>
                                         <ul className='bg-white w-full border-t z-[109] font-montserrat'>
@@ -96,7 +97,7 @@ export default function Header({ user }) {
                                                         <Dropdown.Trigger>
                                                             <span className="flex items-center gap-1">
                                                                 <button type="button" className="">{user?.first_name}</button>
-                                                                <IconChevronDown size={22} strokeWidth={1.5} />
+                                                                <AiOutlineDown size={22} strokeWidth={1.5} />
                                                             </span>
                                                         </Dropdown.Trigger>
                                                         <Dropdown.Content align='left'>

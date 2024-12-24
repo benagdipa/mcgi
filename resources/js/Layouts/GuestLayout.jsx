@@ -12,7 +12,7 @@ export default function Guest({ user, children }) {
     }, []);
     return (
         <React.Fragment>
-            {isLoading ? (
+            {false ? (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
                     <img src='../images/loading-effect.gif' alt='Loading........' className='spinner text-center' />
                 </div>

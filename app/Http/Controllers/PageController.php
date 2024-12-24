@@ -23,36 +23,53 @@ class PageController extends Controller
 {
     public function homePage()
     {
-        if (Auth::check()) {
-            if (!Auth::user()->email_verified_at) {
-                return redirect()->route('verification.notice');
-            }
+        // Redirect to verification notice if the user is authenticated and email is not verified
+        if (Auth::check() && !Auth::user()->email_verified_at) {
+            return redirect()->route('verification.notice');
         }
+    
+        // Fetch the latest 3 posts
         $posts = Posts::take(3)->get();
+    
         $currentDate = Carbon::now();
+    
+        // Get the 'attend_duration' option value from the database
         $option = EventsOption::where('name', 'attend_duration')->first();
-        $events = Events::where('start_date', '>=', $currentDate)->orderBy('start_date', 'asc')->where('status', 'publish')->take(9)->get()->map(function ($event) use ($currentDate, $option) {
-            $timeDiff = $currentDate->diffInMinutes($event->start_date);
-            $event->isImminent = $timeDiff <= $option->value;
-            return $event;
-        });
-        $imageData = BannerImage::select('id', 'title', 'bannerpath', 'position')->orderBy('position', 'asc')->get()->sortBy(function ($image) {
-            return $image->position == 0 ? PHP_INT_MAX : $image->position;
-        })->map(function ($image) {
-            return [
-                'id' => $image->id,
-                'title' => $image->title,
-                'bannerpath' => Storage::url('uploads/' . $image->bannerpath),
-                'position' => $image->position
-            ];
-        });
-        $imageDataArray = $imageData->values()->toArray();
+    
+        // Fetch upcoming events and calculate 'isImminent' for each event
+        $events = Events::where('start_date', '>=', $currentDate)
+            ->where('status', 'publish')
+            ->orderBy('start_date', 'asc')
+            ->take(9)
+            ->get()
+            ->map(function ($event) use ($currentDate, $option) {
+                // Calculate if event is imminent
+                $timeDiff = $currentDate->diffInMinutes($event->start_date);
+                $event->isImminent = $timeDiff <= $option->value;
+                return $event;
+            });
+    
+        // Fetch banners and sort them by position directly in the query
+        $imageData = BannerImage::select('id', 'title', 'bannerpath', 'position')
+            ->orderBy('position', 'asc')
+            ->get()
+            ->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'title' => $image->title,
+                    'bannerpath' => Storage::url('uploads/' . $image->bannerpath),
+                    'position' => $image->position
+                ];
+            });
+    
+        // Return the data to the Inertia view
         return Inertia::render('HomePage', [
-            'posts' => $posts,
-            'events' => $events,
-            'banners' => $imageDataArray,
+            'posts' =>  $posts,
+            'events' =>$events,
+            'banners' => $imageData,
         ]);
     }
+    
     public function aboutPage()
     {
         if (Auth::check()) {

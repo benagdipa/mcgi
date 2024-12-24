@@ -3,7 +3,8 @@ import { Head, Link } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
 import React, { useState } from 'react'
 import { DateTime } from 'luxon';
-import { IconChevronDown, IconChevronUp, IconSearch, IconSelector } from '@tabler/icons-react';
+import { AiOutlineDown, AiOutlineUp, AiOutlineSearch } from "react-icons/ai";
+
 import axios from 'axios';
 
 
@@ -119,7 +120,7 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
                                 className='bg-blue-500 text-white py-[9px] px-4 text-lg rounded-r-md border border-l-0 relative -top-[1px]'
                                 onClick={onClickSearch}
                             >
-                                <IconSearch />
+                                <AiOutlineSearch />
                             </button>
 
                         </div>
@@ -137,8 +138,8 @@ export default function AttendanceAdmin({ auth, attendance, events, locales }) {
                                                 </Typography>
                                                 {head?.sortable && (
                                                     <div className="relative mt-1">
-                                                        <span className='absolute -top-3 right-0 hover:bg-blue-gray-100 rounded-sm'><IconChevronUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'asc') }} /></span>
-                                                        <span className='absolute -bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm'><IconChevronDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'desc') }} /></span>
+                                                        <span className='absolute -top-3 right-0 hover:bg-blue-gray-100 rounded-sm'><AiOutlineUp size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'asc') }} /></span>
+                                                        <span className='absolute -bottom-2 right-0 hover:bg-blue-gray-100 rounded-sm'><AiOutlineDown size={18} strokeWidth={1.5} onClick={() => { sortData(head.sortKey, 'desc') }} /></span>
                                                     </div>
                                                 )}
                                             </div>

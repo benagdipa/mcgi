@@ -6,7 +6,7 @@ import Authenticated from '@/Layouts/AuthenticatedLayout'
 import { isUserAllowed } from '@/Utils/Utils';
 import { Link, useForm, usePage } from '@inertiajs/react'
 import { Card, Typography } from '@material-tailwind/react';
-import { IconX } from '@tabler/icons-react';
+import { RiCloseLargeFill } from "react-icons/ri";
 import React, { useState } from 'react'
 
 export default function AdminIndex({ auth, locations }) {
@@ -142,7 +142,7 @@ export default function AdminIndex({ auth, locations }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-2xl font-poppins'>{modalTitle} Church Location</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeAddEditModal} />
                     </div>
                     <div className="modal-content pt-6">
                         <form onSubmit={addEditSubmit}>
@@ -199,7 +199,7 @@ export default function AdminIndex({ auth, locations }) {
                 <div className="delete-modal px-6 py-8 relative font-poppins">
                     <h1 className='font-bold text-3xl text-center'>Are you sure ?</h1>
                     <div className="absolute -top-8 -right-8 text-white cursor-pointer">
-                        <IconX strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
+                        <RiCloseLargeFill strokeWidth={1.5} size={38} onClick={closeDeleteModal} />
                     </div>
                     <div className="flex justify-center gap-2 pt-6">
                         <button className='bg-red-500 text-white px-4 py-3 font-semibold rounded' onClick={closeDeleteModal}>Cancel</button>

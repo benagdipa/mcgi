@@ -59,7 +59,12 @@ class RegisteredUserController extends Controller
                 $user->assignRole($guestRole);
             }
         }
-
+        if ($user && in_array($user->roles->pluck('name')->first(), ['guest', 'Guest']) && !$user->admin_approved) {
+            return redirect()->route('login')->withErrors([
+                'email' => 'Your account is pending approval by an admin.',
+            ]);
+        }
+        
         event(new Registered($user));
 
         Auth::login($user);

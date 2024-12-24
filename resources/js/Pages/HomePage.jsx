@@ -5,7 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "@/Components/Modal";
-import { IconPlayerPlay } from "@tabler/icons-react";
+
+import { FaPlay } from "react-icons/fa";
 import { DateTime } from "luxon";
 import WOW from "react-wow";
 
@@ -187,7 +188,7 @@ export default function HomePage({ auth, posts, events, banners }) {
                             <WOW animation="fadeIn">
                                 <div className="video-wrapper flex items-center justify-center">
                                     <div className="play-icon w-24 h-24 bg-white flex items-center justify-center rounded-full drop-shadow-md shadow-white cursor-pointer">
-                                        <IconPlayerPlay
+                                        <FaPlay
                                             color="#666B68"
                                             size={42}
                                             onClick={togglePrayModal}
