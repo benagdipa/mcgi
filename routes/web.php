@@ -42,10 +42,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::controller(BlogsController::class)->group(function () {
+    Route::get('/blogs/getAllPost', 'getAllPosts')->name('blogs.allpost');
+
+});
+
 
 Route::controller(BlogsController::class)->group(function () {
     Route::get('/blogs', 'index')->name('blogs.index');
     Route::get('/blogs/{slug}', 'show')->name('blogs.show');
+
 
     Route::middleware(['auth', 'verified', 'permission:create_blog_posts|edit_blog_posts|delete_blogs_posts'])->group(function () {
         Route::get('/dashboard/blogs', 'admin_blogs_index')->name('admin.blogs.index');
