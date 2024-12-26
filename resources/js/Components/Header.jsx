@@ -40,6 +40,9 @@ export default function Header({ user }) {
                                             <li className='font-semibold text-base font-montserrat'>
                                                 <Link href={eventHref}>Events</Link>
                                             </li>
+                                            <li className='font-semibold text-base font-montserrat'>
+                                            <Link href="/blogs">Articles</Link>
+                                            </li>
 
                                             <li className='font-semibold text-base font-montserrat'>
                                                 {user ? (
@@ -91,6 +94,7 @@ export default function Header({ user }) {
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('about')}>About Us</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={route('gallery')}>Gallery</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base'><Link href={eventHref}>Events</Link></li>
+                                            <li className='px-10 py-3 font-semibold text-base'><Link href="/blogs">Articles</Link></li>
                                             <li className='px-10 py-3 font-semibold text-base font-montserrat'>
                                                 {user ? (
                                                     <Dropdown>
