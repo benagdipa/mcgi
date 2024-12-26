@@ -1,1 +1,0 @@
-import{j as r}from"./app-CJp31ENB.js";function s({className:e="",disabled:t,children:n,...o}){return r.jsx("button",{...o,className:`inline-flex items-center border bg-yellow-700 px-5 py-1 text-white text-base text-500 rounded-md transition ease-in-out duration-150 ${t&&"opacity-25"} `+e,disabled:t,children:n})}export{s as P};
