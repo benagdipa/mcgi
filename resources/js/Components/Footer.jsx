@@ -54,7 +54,7 @@ export default function Footer() {
                                             <li className='pb-2'><Link href={route('privacy-and-policy')}>Privacy Policy</Link></li>
                                             <li className='pb-2'><Link href={route('contact')}>Contact Us</Link></li>
                                         </ul>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div className="w-full mb-6 md:w-1/3 lg:w-1/3">
                                     <div className="widget-title">
