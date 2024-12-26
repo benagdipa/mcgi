@@ -15,17 +15,18 @@ class BlogsController extends Controller
     { 
         return Inertia::render('Blogs/BlogsPage');
     }
-    public function getAllPosts(){
-       
-        $posts = Posts::with('author')->paginate(10);
-    
+    public function getAllPosts() {
+        $posts = Posts::select('id', 'created_at', 'slug', 'featured_image', 'content', 'author')  // Select required fields
+            ->with(['author' => function($query) {
+                $query->select('id', 'first_name','last_name');  // Select only the 'id' and 'name' from the author table
+            }])
+            ->paginate(10);
+            
         return response()->json([
             'posts' => $posts->items(),
-            'next_page_url' => $posts->nextPageUrl(), // URL for the next set of posts
+            'next_page_url' => $posts->nextPageUrl(),
         ]);
     }
-
-    
 
     public function show($slug)
     {
