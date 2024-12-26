@@ -13,19 +13,11 @@ class BlogsController extends Controller
 {
     public function index()
     { 
-        return Inertia::render('Blogs/BlogsPage');
-    }
-    public function getAllPosts(){
-       
-        $posts = Posts::select('id', 'created_at', 'slug', 'featured_image', 'content')  // Specify only the needed columns
-        ->paginate(10);
-        return response()->json([
-            'posts' => $posts->items(),
-            'next_page_url' => $posts->nextPageUrl(), // URL for the next set of posts
+        $posts = Posts::select('id', 'created_at', 'slug', 'featured_image', 'content')->get();
+        return Inertia::render('Blogs/BlogsPage', [
+            'posts' => $posts,
         ]);
     }
-
-    
 
     public function show($slug)
     {
