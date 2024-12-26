@@ -67,11 +67,7 @@ export default function BlogsPage({ auth,  }) {
                     </div>
                 </div>
             <>
-                {loading ? (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-                    <img src='../images/loading-effect.gif' alt='Loading........' className='spinner text-center' />
-                </div>
-            ) : (
+            
                 <div className="lg:max-w-screen-xl w-11/12 mx-auto">
                     <WOW animation='fadeIn'>
                         <div className="blog-items py-16 lg:py-32">
@@ -119,7 +115,11 @@ export default function BlogsPage({ auth,  }) {
                                     )
                                 })}
                             </div>
+                            {false &&  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <img src='../images/loading-effect.gif' alt='Loading........' className='spinner text-center' />
+                </div>}
                             <div className="flex justify-center mt-6">
+                      
         <button
           onClick={handleLoadMore}
           disabled={loading}
@@ -154,7 +154,7 @@ export default function BlogsPage({ auth,  }) {
                         </div>
                     </WOW>
                     
-                </div>)}
+                </div>
            
                 </>
             </div>
