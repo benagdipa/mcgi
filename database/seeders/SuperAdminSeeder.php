@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 
 class SuperAdminSeeder extends Seeder
@@ -20,6 +21,9 @@ class SuperAdminSeeder extends Seeder
         } else {
             $superAdminRole = Role::where('name', 'super-admin')->first();
         }
+        
+        // Ensure the super-admin role has all permissions
+        $superAdminRole->syncPermissions(Permission::all());
         
         // Super admin details
         $superAdminEmail = 'benedick.agdipa@mcgi.org.au';
@@ -51,6 +55,12 @@ class SuperAdminSeeder extends Seeder
                 'password' => Hash::make('MCGI@ustraliaAdmin123'),
             ]);
             $newUser->assignRole($superAdminRole);
+        }
+        
+        // Make sure the user has all permissions directly as well
+        $user = User::where('email', $superAdminEmail)->first();
+        if ($user) {
+            $user->syncPermissions(Permission::all());
         }
     }
 } 

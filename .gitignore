@@ -3,7 +3,8 @@
 /node_modules
 /public/hot
 /public/storage
-/public/build
+# We need to include build outputs for Siteground deployment
+# /public/build
 /storage/*.key
 /vendor
 .env
@@ -22,9 +23,10 @@ yarn-debug.log
 /.idea
 /.vscode
 .DS_Store
-composer.lock
-docker-compose.yml
-package-lock.json
+
+# Don't ignore these files which are needed for deployment and permissions
+# composer.lock
+# package-lock.json
 
 # Laravel specific
 _ide_helper.php
@@ -32,9 +34,17 @@ _ide_helper_models.php
 .phpstorm.meta.php
 /.php-cs-fixer.cache
 /coverage
-/public/css
-/public/js
-/public/mix-manifest.json
+# We need to include compiled CSS/JS for Siteground deployment
+# /public/css
+# /public/js
+# /public/mix-manifest.json
+
+# Generated test/temporary files
+fix_permissions.php
+create_permissions.php
+*.sql
+test.php
+*.zip
 
 # Windows specific
 Thumbs.db
@@ -44,4 +54,6 @@ Desktop.ini
 # Logs
 *.log
 logs/
-/.github/
+
+# Don't ignore GitHub workflows
+# /.github/
