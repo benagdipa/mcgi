@@ -1,0 +1,31 @@
+@use "variables" as v;
+
+.privacy-policy-page {
+    .page-header {
+        background: rgba(0, 0, 0, 0.8) url("/public/images/bg/about-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: color;
+    }
+    .header-title {
+        border-width: 1px;
+        border-color: v.$medium-gray;
+        border-style: none solid solid;
+    }
+    .item {
+        border: 1px solid v.$medium-gray;
+        border-radius: 6px;
+    }
+    
+    .answer-content {
+        border-width: 1px 0 0 0;
+        border-color: v.$medium-gray;
+        border-style: solid;
+    }
+    .first-section,
+    .second-section{
+        border-color: #d5d8dc;
+        border-width: 1px;
+        border-style: none solid solid;
+    }
+}

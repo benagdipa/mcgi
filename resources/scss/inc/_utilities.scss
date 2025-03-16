@@ -1,0 +1,356 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+// Text utilities
+.text {
+  &-primary {
+    color: v.$primary-color !important;
+  }
+  
+  &-secondary {
+    color: v.$secondary-color !important;
+  }
+  
+  &-white {
+    color: v.$white !important;
+  }
+  
+  &-center {
+    text-align: center !important;
+  }
+  
+  &-left {
+    text-align: left !important;
+  }
+  
+  &-right {
+    text-align: right !important;
+  }
+  
+  &-bold {
+    font-weight: 700 !important;
+  }
+  
+  &-semibold {
+    font-weight: 600 !important;
+  }
+  
+  &-normal {
+    font-weight: 400 !important;
+  }
+  
+  &-light {
+    font-weight: 300 !important;
+  }
+  
+  &-uppercase {
+    text-transform: uppercase !important;
+  }
+  
+  &-capitalize {
+    text-transform: capitalize !important;
+  }
+  
+  &-small {
+    font-size: v.$font-size-sm !important;
+  }
+  
+  &-large {
+    font-size: v.$font-size-lg !important;
+  }
+}
+
+// Background utilities
+.bg {
+  &-primary {
+    background-color: v.$primary-color !important;
+  }
+  
+  &-secondary {
+    background-color: v.$secondary-color !important;
+  }
+  
+  &-white {
+    background-color: v.$white !important;
+  }
+  
+  &-light-gray {
+    background-color: v.$light-gray !important;
+  }
+  
+  &-medium-gray {
+    background-color: v.$medium-gray !important;
+  }
+  
+  &-dark-gray {
+    background-color: v.$dark-gray !important;
+  }
+}
+
+// Spacing utilities
+@each $name, $size in (
+  'xs': v.$spacing-xs,
+  'sm': v.$spacing-sm,
+  'md': v.$spacing-md,
+  'lg': v.$spacing-lg,
+  'xl': v.$spacing-xl,
+  '2xl': v.$spacing-2xl,
+  '3xl': v.$spacing-3xl
+) {
+  .m-#{$name} {
+    margin: $size !important;
+  }
+  
+  .mt-#{$name} {
+    margin-top: $size !important;
+  }
+  
+  .mr-#{$name} {
+    margin-right: $size !important;
+  }
+  
+  .mb-#{$name} {
+    margin-bottom: $size !important;
+  }
+  
+  .ml-#{$name} {
+    margin-left: $size !important;
+  }
+  
+  .mx-#{$name} {
+    margin-left: $size !important;
+    margin-right: $size !important;
+  }
+  
+  .my-#{$name} {
+    margin-top: $size !important;
+    margin-bottom: $size !important;
+  }
+  
+  .p-#{$name} {
+    padding: $size !important;
+  }
+  
+  .pt-#{$name} {
+    padding-top: $size !important;
+  }
+  
+  .pr-#{$name} {
+    padding-right: $size !important;
+  }
+  
+  .pb-#{$name} {
+    padding-bottom: $size !important;
+  }
+  
+  .pl-#{$name} {
+    padding-left: $size !important;
+  }
+  
+  .px-#{$name} {
+    padding-left: $size !important;
+    padding-right: $size !important;
+  }
+  
+  .py-#{$name} {
+    padding-top: $size !important;
+    padding-bottom: $size !important;
+  }
+}
+
+// Display utilities
+.d {
+  &-none {
+    display: none !important;
+  }
+  
+  &-block {
+    display: block !important;
+  }
+  
+  &-inline {
+    display: inline !important;
+  }
+  
+  &-inline-block {
+    display: inline-block !important;
+  }
+  
+  &-flex {
+    display: flex !important;
+  }
+  
+  &-grid {
+    display: grid !important;
+  }
+}
+
+// Flex utilities
+.flex {
+  &-row {
+    flex-direction: row !important;
+  }
+  
+  &-column {
+    flex-direction: column !important;
+  }
+  
+  &-wrap {
+    flex-wrap: wrap !important;
+  }
+  
+  &-nowrap {
+    flex-wrap: nowrap !important;
+  }
+  
+  &-center {
+    @include m.flex-center;
+  }
+  
+  &-between {
+    @include m.flex-between;
+  }
+  
+  &-start {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+  
+  &-end {
+    justify-content: flex-end !important;
+    align-items: flex-end !important;
+  }
+}
+
+// Position utilities
+.position {
+  &-relative {
+    position: relative !important;
+  }
+  
+  &-absolute {
+    position: absolute !important;
+  }
+  
+  &-fixed {
+    position: fixed !important;
+  }
+  
+  &-sticky {
+    position: sticky !important;
+  }
+}
+
+// Width and height utilities
+.w {
+  &-100 {
+    width: 100% !important;
+  }
+  
+  &-75 {
+    width: 75% !important;
+  }
+  
+  &-50 {
+    width: 50% !important;
+  }
+  
+  &-25 {
+    width: 25% !important;
+  }
+  
+  &-auto {
+    width: auto !important;
+  }
+}
+
+.h {
+  &-100 {
+    height: 100% !important;
+  }
+  
+  &-75 {
+    height: 75% !important;
+  }
+  
+  &-50 {
+    height: 50% !important;
+  }
+  
+  &-25 {
+    height: 25% !important;
+  }
+  
+  &-auto {
+    height: auto !important;
+  }
+}
+
+// Border utilities
+.border {
+  border: 1px solid v.$medium-gray !important;
+  
+  &-top {
+    border-top: 1px solid v.$medium-gray !important;
+  }
+  
+  &-right {
+    border-right: 1px solid v.$medium-gray !important;
+  }
+  
+  &-bottom {
+    border-bottom: 1px solid v.$medium-gray !important;
+  }
+  
+  &-left {
+    border-left: 1px solid v.$medium-gray !important;
+  }
+  
+  &-0 {
+    border: 0 !important;
+  }
+  
+  &-primary {
+    border-color: v.$primary-color !important;
+  }
+  
+  &-secondary {
+    border-color: v.$secondary-color !important;
+  }
+  
+  &-rounded {
+    border-radius: v.$border-radius-md !important;
+  }
+  
+  &-circle {
+    border-radius: 50% !important;
+  }
+}
+
+// Visibility utilities
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+// Overflow utilities
+.overflow {
+  &-auto {
+    overflow: auto !important;
+  }
+  
+  &-hidden {
+    overflow: hidden !important;
+  }
+  
+  &-visible {
+    overflow: visible !important;
+  }
+  
+  &-scroll {
+    overflow: scroll !important;
+  }
+}

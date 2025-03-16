@@ -1,0 +1,176 @@
+@use "sass:color";
+@use "variables" as v;
+
+// Flexbox mixins
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Typography mixins
+@mixin font-style($size: v.$font-size-base, $weight: normal, $line-height: 1.5, $family: v.$font-primary) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+  font-family: $family;
+}
+
+@mixin heading($size: v.$font-size-2xl, $weight: bold, $color: v.$secondary-color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  margin-bottom: v.$spacing-md;
+}
+
+@mixin section-title {
+  font-size: v.$font-size-2xl;
+  font-weight: 700;
+  margin-bottom: v.$spacing-lg;
+  position: relative;
+  font-family: v.$font-display;
+  color: v.$secondary-color;
+  
+  &:after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background-color: v.$primary-color;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+  }
+}
+
+// Button mixins
+@mixin button-base {
+  display: inline-block;
+  padding: v.$spacing-sm v.$spacing-lg;
+  border-radius: v.$border-radius-md;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all v.$transition-normal ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin primary-button {
+  @include button-base;
+  background-color: v.$primary-color;
+  color: v.$secondary-color;
+  
+  &:hover {
+    background-color: color.scale(v.$primary-color, $lightness: -10%);
+  }
+}
+
+@mixin secondary-button {
+  @include button-base;
+  background-color: v.$secondary-color;
+  color: v.$white;
+  
+  &:hover {
+    background-color: color.scale(v.$secondary-color, $lightness: 10%);
+  }
+}
+
+// Media query mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: v.$breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: v.$breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: v.$breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: v.$breakpoint-xl) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: v.$breakpoint-2xl) { @content; }
+  }
+}
+
+// Shorthand media query mixins for convenience
+@mixin sm {
+  @include respond-to(sm) { @content; }
+}
+
+@mixin md {
+  @include respond-to(md) { @content; }
+}
+
+@mixin lg {
+  @include respond-to(lg) { @content; }
+}
+
+@mixin xl {
+  @include respond-to(xl) { @content; }
+}
+
+@mixin xxl {
+  @include respond-to(2xl) { @content; }
+}
+
+// Box shadow mixins
+@mixin card-shadow {
+  box-shadow: v.$shadow-md;
+  transition: box-shadow v.$transition-normal ease;
+  
+  &:hover {
+    box-shadow: v.$shadow-lg;
+  }
+}
+
+// Background with overlay
+@mixin bg-overlay($image-url, $overlay-color: rgba(0, 0, 0, 0.7)) {
+  background: $overlay-color url($image-url);
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+// Container padding
+@mixin container-padding {
+  padding-left: v.$spacing-md;
+  padding-right: v.$spacing-md;
+  
+  @include respond-to(md) {
+    padding-left: v.$spacing-lg;
+    padding-right: v.$spacing-lg;
+  }
+  
+  @include respond-to(lg) {
+    padding-left: v.$spacing-xl;
+    padding-right: v.$spacing-xl;
+  }
+}
+
+// Section padding
+@mixin section-padding {
+  padding-top: v.$spacing-2xl;
+  padding-bottom: v.$spacing-2xl;
+  
+  @include respond-to(md) {
+    padding-top: v.$spacing-3xl;
+    padding-bottom: v.$spacing-3xl;
+  }
+}

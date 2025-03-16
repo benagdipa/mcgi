@@ -1,0 +1,34 @@
+// Use modern Sass module system
+@use "inc/variables" as v;
+@use "inc/mixins" as m;
+@use "inc/components";
+@use "inc/header";
+@use "inc/home";
+@use "inc/about";
+@use "inc/blog";
+@use "inc/contact";
+@use "inc/login";
+@use "inc/register";
+@use "inc/forget-password";
+@use "inc/privacy-policy";
+@use "inc/termsandcondition";
+@use "inc/sidebar-menu-admin";
+@use "inc/singleblogpage";
+@use "inc/utilities";
+
+// Use variables and mixins for consistent styling
+.events-page {
+    .page-header {
+        @include m.bg-overlay("/public/images/bg/contact-bg.jpg", rgba(0, 0, 0, 0.8));
+    }
+}
+
+.image-gallery-page {
+    .page-header {
+        @include m.bg-overlay("/public/images/bg/contact-bg.jpg", rgba(0, 0, 0, 0.8));
+    }
+}
+
+.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    object-fit: contain;
+}

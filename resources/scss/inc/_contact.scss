@@ -1,0 +1,87 @@
+@use "variables" as v;
+
+.contact-page {
+    .page-header {
+        background: rgba(0, 0, 0, 0.8) url("/public/images/bg/contact-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: color;
+    }
+    .location-slider {
+        .slick-arrow {
+            @media screen and (max-width: 767px) {
+                display: none !important;
+            }
+
+            &:before {
+                font-family: "FontAwesome";
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &.slick-prev {
+                left: -50px;
+                z-index: 99;
+
+                &::before {
+                    content: "\f053";
+                    background-color: rgba(#404040, 0.8);
+                }
+            }
+
+            &.slick-next {
+                right: -50px;
+                direction: rtl;
+
+                &::before {
+                    content: "\f054";
+                    background-color: rgba(#404040, 0.8);
+                }
+            }
+        }
+    }
+    .contact-form {
+        .form-row {
+            @media screen and (max-width: 767px) {
+                flex-wrap: wrap;
+                .form-group {
+                    width: 100%;
+                }
+            }
+            .form-group {
+                flex: 1;
+                margin: 3px 5px;
+            }
+        }
+    }
+    .contact-details {
+        .address-box {
+            position: relative;
+            i.fa {
+                position: absolute;
+                left: 40px;
+                font-size: 18px;
+            }
+            .address-detail {
+                background-color: rgba(v.$tertiary-color, 0.8);
+                padding: 1.4em;
+                .heading {
+                    color: v.$white;
+                }
+            }
+        }
+        .email-box {
+            position: relative;
+            .email-detail {
+                background-color: rgba(v.$tertiary-color, 0.8);
+                padding: 1.4em;
+                .heading {
+                    color: v.$white;
+                }
+            }
+        }
+    }
+}

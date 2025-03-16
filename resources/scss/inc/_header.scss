@@ -1,0 +1,59 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: v.$z-index-sticky;
+    background-color: v.$white;
+    box-shadow: v.$shadow-sm;
+    
+    .desktop-header {
+        @include m.flex-between;
+        padding: v.$spacing-md 0;
+        
+        @include m.respond-to(lg) {
+            padding: v.$spacing-lg 0;
+        }
+    }
+    
+    .logo-wrapper {
+        @media screen and (max-width: 767px) {
+            width: 200px;
+        }
+    }
+    
+    .menu-wrapper {
+        ul {
+            @include m.flex;
+            gap: v.$spacing-lg;
+            
+            li {
+                a {
+                    color: v.$secondary-color;
+                    font-family: v.$font-primary;
+                    font-weight: 600;
+                    font-size: v.$font-size-base;
+                    transition: color v.$transition-normal ease;
+                    
+                    &:hover {
+                        color: v.$primary-color;
+                    }
+                }
+                
+                &.active a {
+                    color: v.$primary-color;
+                }
+            }
+        }
+    }
+    
+    .mobile-menu-toggle {
+        @include m.flex-center;
+        cursor: pointer;
+        
+        @include m.respond-to(xl) {
+            display: none;
+        }
+    }
+}

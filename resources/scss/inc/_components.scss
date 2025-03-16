@@ -1,0 +1,219 @@
+@use "variables" as v;
+@use "mixins" as m;
+@use "sass:color";
+
+// Buttons
+.btn {
+  @include m.button-base;
+  
+  &-primary {
+    @include m.primary-button;
+  }
+  
+  &-secondary {
+    @include m.secondary-button;
+  }
+  
+  &-outline {
+    @include m.button-base;
+    background-color: transparent;
+    border: 1px solid v.$secondary-color;
+    color: v.$secondary-color;
+    
+    &:hover {
+      background-color: v.$secondary-color;
+      color: v.$white;
+    }
+  }
+  
+  &-sm {
+    padding: v.$spacing-xs v.$spacing-md;
+    font-size: v.$font-size-sm;
+  }
+  
+  &-lg {
+    padding: v.$spacing-md v.$spacing-xl;
+    font-size: v.$font-size-lg;
+  }
+}
+
+// Cards
+.card {
+  @include m.card-shadow;
+  background-color: v.$white;
+  border-radius: v.$border-radius-md;
+  overflow: hidden;
+  
+  &-header {
+    padding: v.$spacing-md;
+    border-bottom: 1px solid v.$light-gray;
+  }
+  
+  &-body {
+    padding: v.$spacing-md;
+  }
+  
+  &-footer {
+    padding: v.$spacing-md;
+    border-top: 1px solid v.$light-gray;
+  }
+}
+
+// Section headers
+.section-header {
+  @include m.section-padding;
+  @include m.md {
+    // Media query content here
+  }
+  
+  & {
+    text-align: center;
+    margin-bottom: v.$spacing-xl;
+  }
+  
+  h2 {
+    @include m.section-title;
+    display: inline-block;
+    
+    &:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: v.$tertiary-color;
+  }
+}
+
+// Form elements
+.form-group {
+  margin-bottom: v.$spacing-md;
+  
+  label {
+    display: block;
+    margin-bottom: v.$spacing-xs;
+    font-weight: 500;
+    color: v.$secondary-color;
+  }
+  
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: v.$spacing-sm;
+    border: 1px solid v.$medium-gray;
+    border-radius: v.$border-radius-md;
+    font-family: v.$font-primary;
+    
+    &:focus {
+      outline: none;
+      border-color: v.$primary-color;
+      box-shadow: 0 0 0 2px rgba(v.$primary-color, 0.2);
+    }
+  }
+  
+  .error-message {
+    color: v.$danger;
+    font-size: v.$font-size-sm;
+    margin-top: v.$spacing-xs;
+  }
+}
+
+// Alerts
+.alert {
+  padding: v.$spacing-md;
+  border-radius: v.$border-radius-md;
+  margin-bottom: v.$spacing-md;
+  
+  &-success {
+    background-color: rgba(v.$success, 0.1);
+    border: 1px solid v.$success;
+    color: color.scale(v.$success, $lightness: -10%);
+  }
+  
+  &-danger {
+    background-color: rgba(v.$danger, 0.1);
+    border: 1px solid v.$danger;
+    color: color.scale(v.$danger, $lightness: -10%);
+  }
+  
+  &-warning {
+    background-color: rgba(v.$warning, 0.1);
+    border: 1px solid v.$warning;
+    color: color.scale(v.$warning, $lightness: -10%);
+  }
+  
+  &-info {
+    background-color: rgba(v.$info, 0.1);
+    border: 1px solid v.$info;
+    color: color.scale(v.$info, $lightness: -10%);
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: v.$spacing-xs v.$spacing-sm;
+  border-radius: v.$border-radius-full;
+  font-size: v.$font-size-xs;
+  font-weight: 600;
+  
+  &-primary {
+    background-color: v.$primary-color;
+    color: v.$secondary-color;
+  }
+  
+  &-secondary {
+    background-color: v.$secondary-color;
+    color: v.$white;
+  }
+  
+  &-success {
+    background-color: v.$success;
+    color: v.$white;
+  }
+  
+  &-danger {
+    background-color: v.$danger;
+    color: v.$white;
+  }
+}
+
+// Page headers
+.page-header {
+  padding: v.$spacing-2xl 0;
+  text-align: center;
+  
+  h1 {
+    font-size: v.$font-size-4xl;
+    font-weight: 700;
+    color: v.$white;
+    margin-bottom: v.$spacing-md;
+    font-family: v.$font-display;
+  }
+  
+  .breadcrumbs {
+    @include m.flex-center;
+    gap: v.$spacing-sm;
+    
+    a {
+      color: v.$primary-color;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    
+    .separator {
+      color: v.$white;
+    }
+    
+    .current {
+      color: v.$white;
+    }
+  }
+}
+
