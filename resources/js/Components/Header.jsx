@@ -188,19 +188,17 @@ export default function Header({ user }) {
                             </div>
                             
                             {/* Mobile Header */}
-                            <div className="mobile-header xl:hidden">
-                                <div className="header-row flex justify-between items-center">
-                                    <div className="logo-wrapper">
-                                        <ApplicationLogo className="w-[150px]" />
-                                    </div>
-                                    <button onClick={() => setToggle(!toggle)} className="outline-none">
-                                        {toggle ? (
-                                            <AiOutlineClose size={24} className="text-primary" />
-                                        ) : (
-                                            <AiOutlineMenu size={24} className="text-primary" />
-                                        )}
-                                    </button>
+                            <div className="mobile-header flex justify-between items-center xl:hidden">
+                                <div className="logo-wrapper">
+                                    <ApplicationLogo className="w-[150px]" />
                                 </div>
+                                <button onClick={() => setToggle(!toggle)} className="outline-none">
+                                    {toggle ? (
+                                        <AiOutlineClose size={24} className="text-primary" />
+                                    ) : (
+                                        <AiOutlineMenu size={24} className="text-primary" />
+                                    )}
+                                </button>
                             </div>
                             
                             {/* Mobile Menu */}
@@ -211,6 +209,7 @@ export default function Header({ user }) {
                                             <Link 
                                                 href={hasRoute('home') ? getRoute('home') : '/'}
                                                 className={`block px-2 py-2 rounded-md ${currentRoute === 'home' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
+                                                onClick={() => setToggle(false)}
                                             >
                                                 Home
                                             </Link>
@@ -219,6 +218,7 @@ export default function Header({ user }) {
                                             <Link 
                                                 href={hasRoute('about') ? getRoute('about') : '/about-us'}
                                                 className={`block px-2 py-2 rounded-md ${currentRoute === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
+                                                onClick={() => setToggle(false)}
                                             >
                                                 About Us
                                             </Link>
@@ -227,6 +227,7 @@ export default function Header({ user }) {
                                             <Link 
                                                 href={eventHref}
                                                 className={`block px-2 py-2 rounded-md ${currentRoute === 'events' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
+                                                onClick={() => setToggle(false)}
                                             >
                                                 Events
                                             </Link>
@@ -235,6 +236,7 @@ export default function Header({ user }) {
                                             <Link 
                                                 href="/blogs"
                                                 className={`block px-2 py-2 rounded-md ${currentRoute === 'blogs' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
+                                                onClick={() => setToggle(false)}
                                             >
                                                 Articles
                                             </Link>
@@ -243,103 +245,93 @@ export default function Header({ user }) {
                                             <Link 
                                                 href={route('local.chapters')}
                                                 className={`block px-2 py-2 rounded-md ${currentRoute === 'local.chapters' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
+                                                onClick={() => setToggle(false)}
                                             >
                                                 Local Chapters
                                             </Link>
                                         </li>
                                         {!user && (
+                                            <li className="mt-4 pt-4 border-t">
+                                                <Link 
+                                                    href={getRoute('login')}
+                                                    className="flex items-center justify-center w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all"
+                                                    onClick={() => setToggle(false)}
+                                                >
+                                                    <AiOutlineUser size={18} />
+                                                    <span className="pl-2 font-medium">Sign In</span>
+                                                </Link>
+                                            </li>
+                                        )}
+                                        {user && (
                                             <>
-                                                <li className="font-semibold text-base">
+                                                <li className="mt-4 pt-4 border-t">
+                                                    <div className="px-2 py-2 text-gray-600">
+                                                        Signed in as <span className="font-semibold text-primary">{user.first_name}</span>
+                                                    </div>
+                                                </li>
+                                                {isMember && (
+                                                    <li>
+                                                        <Link 
+                                                            href={getRoute('dashboard')}
+                                                            className="block px-2 py-2 rounded-md hover:bg-gray-100"
+                                                            onClick={() => setToggle(false)}
+                                                        >
+                                                            Dashboard
+                                                        </Link>
+                                                    </li>
+                                                )}
+                                                <li>
                                                     <Link 
-                                                        href={getRoute('visitor.guide')}
-                                                        className="block px-2 py-2 rounded-md hover:bg-gray-100 text-primary"
+                                                        href={getRoute('profile.edit')}
+                                                        className="block px-2 py-2 rounded-md hover:bg-gray-100"
+                                                        onClick={() => setToggle(false)}
                                                     >
-                                                        Visitor Guide
+                                                        Profile
+                                                    </Link>
+                                                </li>
+                                                {!isMember && (
+                                                    <li>
+                                                        <Link 
+                                                            href={eventHref}
+                                                            className="block px-2 py-2 rounded-md hover:bg-gray-100"
+                                                            onClick={() => setToggle(false)}
+                                                        >
+                                                            My Events
+                                                        </Link>
+                                                    </li>
+                                                )}
+                                                <li>
+                                                    <Link 
+                                                        href={getRoute('logout')}
+                                                        method="post"
+                                                        as="button"
+                                                        className="w-full text-left px-2 py-2 rounded-md hover:bg-gray-100 text-red-600"
+                                                    >
+                                                        Log Out
                                                     </Link>
                                                 </li>
                                             </>
                                         )}
-                                        <li className="pt-2 border-t">
-                                            <div className="px-2">
-                                                {user ? (
-                                                    <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                                                                <AiOutlineUser size={18} />
-                                                            </div>
-                                                            <span className="ml-2 font-medium">{user?.first_name} {user?.last_name}</span>
-                                                        </div>
-                                                        <div className="space-y-1 pl-1">
-                                                            {isMember && (
-                                                                <Link 
-                                                                    href={getRoute('dashboard')}
-                                                                    className="block py-1 text-sm hover:text-primary"
-                                                                >
-                                                                    Dashboard
-                                                                </Link>
-                                                            )}
-                                                            <Link 
-                                                                href={getRoute('profile.edit')}
-                                                                className="block py-1 text-sm hover:text-primary"
-                                                            >
-                                                                Profile
-                                                            </Link>
-                                                            {!isMember && user && (
-                                                                <Link 
-                                                                    href={eventHref}
-                                                                    className="block py-1 text-sm hover:text-primary"
-                                                                >
-                                                                    My Events
-                                                                </Link>
-                                                            )}
-                                                            <Link 
-                                                                href={getRoute('logout')} 
-                                                                method="post" 
-                                                                as="button"
-                                                                className="block py-1 text-sm text-red-600 hover:text-red-700"
-                                                            >
-                                                                Log Out
-                                                            </Link>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex flex-col space-y-2">
-                                                        <Link 
-                                                            href={getRoute('login')}
-                                                            className="flex items-center justify-center bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all"
-                                                        >
-                                                            <AiOutlineUser size={18} />
-                                                            <span className="ml-2">Sign In</span>
-                                                        </Link>
-                                                        <Link 
-                                                            href={getRoute('register')}
-                                                            className="flex items-center justify-center bg-white border border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary/5 transition-all"
-                                                        >
-                                                            Join Our Community
-                                                        </Link>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </li>
-                                        
-                                        {/* Social Media Icons for Mobile */}
-                                        <li className="pt-2">
-                                            <div className="flex justify-center space-x-6 mt-2">
-                                                <a href="https://www.facebook.com/MCGI.org/" target='_blank' className="text-tertiary hover:text-[#1877F2] transition-colors">
-                                                    <FaFacebook size={22} />
-                                                </a>
-                                                <a href="https://twitter.com/mcgidotorg" target='_blank' className="text-tertiary hover:text-[#1DA1F2] transition-colors">
-                                                    <FaTwitter size={22} />
-                                                </a>
-                                                <a href="https://www.instagram.com/mcgidotorg/" target='_blank' className="text-tertiary hover:text-[#E4405F] transition-colors">
-                                                    <FaInstagram size={22} />
-                                                </a>
-                                                <a href="https://www.youtube.com/mcgichannel" target='_blank' className="text-tertiary hover:text-[#FF0000] transition-colors">
-                                                    <FaYoutube size={22} />
-                                                </a>
-                                            </div>
-                                        </li>
                                     </ul>
+                                    
+                                    {/* Social Media Icons in Mobile Menu */}
+                                    <div className="mt-6 pt-4 border-t">
+                                        <div className="px-2 mb-2 text-gray-600 font-medium">Follow Us</div>
+                                        <div className="flex gap-4 px-2">
+                                            <a href="https://www.facebook.com/MCGI.org/" target='_blank' className="text-tertiary hover:text-[#1877F2] transition-colors">
+                                                <FaFacebook size={20} />
+                                            </a>
+                                            <a href="https://twitter.com/mcgidotorg" target='_blank' className="text-tertiary hover:text-[#1DA1F2] transition-colors">
+                                                <FaTwitter size={20} />
+                                            </a>
+                                            <a href="https://www.instagram.com/mcgidotorg/" target='_blank' className="text-tertiary hover:text-[#E4405F] transition-colors">
+                                                <FaInstagram size={20} />
+                                            </a>
+                                            <a href="https://www.youtube.com/mcgichannel" target='_blank' className="text-tertiary hover:text-[#FF0000] transition-colors">
+                                                <FaYoutube size={20} />
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
