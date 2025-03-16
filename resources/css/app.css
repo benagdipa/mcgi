@@ -60,7 +60,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Enhanced Slider Responsive Styles */
+/* Enhanced Global Responsive Styles */
 @media (max-width: 768px) {
   /* Adjust slider height on mobile */
   .slider-container {
@@ -81,6 +81,47 @@
   .text-5xl {
     font-size: 2.25rem !important;
   }
+  
+  .text-6xl {
+    font-size: 2.5rem !important;
+  }
+  
+  /* Improve card grid layouts on mobile */
+  .grid {
+    gap: 1.5rem !important;
+  }
+  
+  /* Fix welcome section spacing */
+  .welcome-section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  
+  /* Fix image sizing in sections */
+  .image-content img {
+    height: 300px !important;
+  }
+  
+  /* Adjust button groups for mobile */
+  .flex.flex-wrap.gap-4 {
+    justify-content: center;
+  }
+  
+  /* Improve footer layout on mobile */
+  footer .grid {
+    row-gap: 2rem !important;
+  }
+  
+  /* Center align social icons on mobile */
+  footer .flex.flex-wrap.gap-3 {
+    justify-content: center;
+  }
+  
+  /* Fix padding in page banners */
+  .relative.pt-16.pb-12 {
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+  }
 }
 
 .form-item .react-datepicker-popper{
@@ -99,8 +140,34 @@
     .form-details a{
         @apply mr-0 mb-2
     }
+    
+    /* Improve BibleVerseBanner readability on mobile */
+    .banner-text {
+        font-size: 1.125rem !important;
+        padding: 0 1rem !important;
+        text-align: center !important;
+    }
+    
+    /* Adjust space around verse reference */
+    .banner-reference {
+        margin-top: 1rem !important;
+        font-size: 1.25rem !important;
+    }
+    
+    /* Improve card layouts in grids */
+    .card-hover {
+        width: 100% !important;
+    }
+    
+    /* Fix modal positioning on mobile */
+    .modal-content {
+        width: 90% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
+    }
 }
-@media  screen and (max-width:1023px) {
+
+@media screen and (max-width:1023px) {
     .popup_form{
         position: relative;
         top: 50px;
@@ -118,10 +185,61 @@
         color: var(--secondary-color);
         background: var(--primary-color);
     }
-    /* .page-content{
-        width: 95%;
-        margin: 0 auto;
-    } */
+    
+    /* Adjust grid columns for tablets */
+    .grid.md\:grid-cols-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+    /* Fix spacing in two column layouts */
+    .grid.md\:grid-cols-2 {
+        gap: 2rem !important;
+    }
+}
+
+/* Additional responsive fixes for extra small screens */
+@media screen and (max-width: 480px) {
+    /* Further reduce heading sizes */
+    .text-4xl {
+        font-size: 1.5rem !important;
+    }
+    
+    .text-5xl {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Stack buttons vertically on very small screens */
+    .flex.flex-wrap.gap-4 {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .flex.flex-wrap.gap-4 > a, 
+    .flex.flex-wrap.gap-4 > button {
+        width: 100%;
+        margin-bottom: 0.75rem;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* Center icons in footer */
+    footer .flex.items-start {
+        justify-content: center;
+    }
+    
+    /* Fix slider navigation buttons */
+    .slick-prev {
+        left: 5px !important;
+    }
+    
+    .slick-next {
+        right: 5px !important;
+    }
+    
+    .slick-prev, .slick-next {
+        width: 30px !important;
+        height: 30px !important;
+    }
 }
 
   .more-link a,
@@ -428,6 +546,43 @@
   
   .slick-dots {
     bottom: 20px;
+  }
+  
+  /* Ensure banner content is readable */
+  .banner-content {
+    padding: 0 2rem;
+    width: 100%;
+  }
+  
+  /* Make sure buttons are properly sized */
+  .btn-animated, 
+  .bg-primary,
+  .bg-white.border {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Fix grid layouts on homepage */
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Adjust testimonial section */
+  .testimonial-section blockquote {
+    padding: 1.5rem !important;
+  }
+  
+  /* Make footer text centered on mobile */
+  .footer-widget h3 {
+    text-align: center;
+  }
+  
+  footer .content {
+    text-align: center;
   }
 }
 
