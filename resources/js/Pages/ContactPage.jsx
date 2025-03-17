@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';

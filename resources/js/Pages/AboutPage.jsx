@@ -533,7 +533,7 @@ export default function AboutPage({ auth }) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="bg-gradient-to-r from-primary/90 to-primary/70 rounded-3xl p-12 text-center"
+                        className="bg-gradient-to-r from-primary/90 to-primary/70 rounded-3xl p-8 md:p-12 text-center"
                     >
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                             Join Our Community
@@ -543,16 +543,11 @@ export default function AboutPage({ auth }) {
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Link
-                                href={route('contact')}
+                                href={route('events.index')}
                                 className="inline-flex items-center px-8 py-4 bg-white text-primary rounded-lg hover:bg-gray-100 transition-colors"
                             >
-                                Contact Us
-                            </Link>
-                            <Link
-                                href={route('events.index')}
-                                className="inline-flex items-center px-8 py-4 bg-primary/20 text-white rounded-lg hover:bg-primary/30 transition-colors"
-                            >
                                 Upcoming Events
+                                <FaArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                             </Link>
                         </div>
                     </motion.div>

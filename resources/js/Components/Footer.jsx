@@ -33,50 +33,50 @@ export default function Footer() {
             {!hideFooter.includes(currentRoute) && (
                 <footer className="bg-[#1a1a1a]">
                     <div className="w-full">
-                        <div className="lg:max-w-screen-xl w-11/12 mx-auto py-12 sm:py-16 md:py-20 lg:py-24">
+                        <div className="lg:max-w-screen-xl w-11/12 mx-auto py-10 sm:py-12 md:py-16 lg:py-20">
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5 }}
-                                    className="space-y-6"
+                                    className="space-y-5 text-center sm:text-left"
                                 >
                                     <div className="widget-title">
-                                        <h2 className='text-white font-bold text-2xl mb-4'>Contact Us</h2>
+                                        <h2 className='text-white font-bold text-2xl mb-3'>Contact Us</h2>
                                     </div>
-                                    <div className="widget-content font-dmsans">
-                                        <ul className="space-y-4">
+                                    <div className="widget-content">
+                                        <ul className="space-y-3">
                                             <li>
                                                 <a href="mailto:info@mcgi.org.au" 
-                                                   className="flex items-start text-gray-300 hover:text-white transition-colors group"
+                                                   className="flex items-center text-gray-300 hover:text-white transition-colors group mx-auto sm:mx-0 w-fit sm:w-auto"
                                                 >
-                                                    <div className="icon-box p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
-                                                        <AiOutlineMail size={20} />
+                                                    <div className="icon-box p-1.5 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
+                                                        <AiOutlineMail size={18} />
                                                     </div>
-                                                    <div className="content pl-3 pt-1">
+                                                    <div className="content pl-3">
                                                         info@mcgi.org.au
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="tel:+61450780530" 
-                                                   className="flex items-start text-gray-300 hover:text-white transition-colors group"
+                                                   className="flex items-center text-gray-300 hover:text-white transition-colors group mx-auto sm:mx-0 w-fit sm:w-auto"
                                                 >
-                                                    <div className="icon-box p-2 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
-                                                        <FaPhoneAlt size={20} />
+                                                    <div className="icon-box p-1.5 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
+                                                        <FaPhoneAlt size={16} />
                                                     </div>
-                                                    <div className="content pl-3 pt-1">
+                                                    <div className="content pl-3">
                                                         +61 450 780 530
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <div className="flex items-start text-gray-300 group">
-                                                    <div className="icon-box p-2 rounded-lg bg-white/5">
-                                                        <FaMapMarkerAlt size={20} />
+                                                <div className="flex items-start text-gray-300 group mx-auto sm:mx-0 w-fit sm:w-auto">
+                                                    <div className="icon-box p-1.5 mt-0.5 rounded-lg bg-white/5">
+                                                        <FaMapMarkerAlt size={16} />
                                                     </div>
-                                                    <div className="content pl-3">
+                                                    <div className="content pl-3 text-center sm:text-left">
                                                         Unit 5, 230 Blackshaws Rd,<br /> 
                                                         Altona North 3025 Victoria
                                                     </div>
@@ -91,13 +91,13 @@ export default function Footer() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.1 }}
-                                    className="space-y-6"
+                                    className="space-y-5 text-center sm:text-left"
                                 >
                                     <div className="widget-title">
-                                        <h2 className='text-white font-bold text-2xl mb-4'>Quick Links</h2>
+                                        <h2 className='text-white font-bold text-2xl mb-3'>Quick Links</h2>
                                     </div>
-                                    <div className="widget-content font-dmsans">
-                                        <ul className='space-y-3'>
+                                    <div className="widget-content">
+                                        <ul className='space-y-2 flex flex-col items-center sm:items-start'>
                                             <li>
                                                 <Link 
                                                     href={hasRoute('about') ? route('about') : '/about-us'}
@@ -134,44 +134,44 @@ export default function Footer() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: 0.2 }}
-                                    className="space-y-6"
+                                    className="space-y-5 text-center sm:text-left"
                                 >
                                     <div className="widget-title">
-                                        <h2 className='text-white font-bold text-2xl mb-4'>Connect with us</h2>
+                                        <h2 className='text-white font-bold text-2xl mb-3'>Connect with us</h2>
                                     </div>
                                     <div className="widget-content">
-                                        <div className="flex flex-wrap gap-3">
+                                        <div className="flex gap-3 justify-center sm:justify-start">
                                             <a 
                                                 href="https://www.facebook.com/MCGI.org/" 
                                                 target='_blank'
-                                                className="w-11 h-11 rounded-lg bg-white/5 hover:bg-[#1877F2] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
+                                                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#1877F2] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
                                                 aria-label="Follow us on Facebook"
                                             >
-                                                <FaFacebook size={22} />
+                                                <FaFacebook size={20} />
                                             </a>
                                             <a 
                                                 href="https://twitter.com/mcgidotorg" 
                                                 target='_blank'
-                                                className="w-11 h-11 rounded-lg bg-white/5 hover:bg-[#1DA1F2] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
+                                                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#1DA1F2] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
                                                 aria-label="Follow us on Twitter"
                                             >
-                                                <FaTwitter size={22} />
+                                                <FaTwitter size={20} />
                                             </a>
                                             <a 
                                                 href="https://www.youtube.com/mcgichannel" 
                                                 target='_blank'
-                                                className="w-11 h-11 rounded-lg bg-white/5 hover:bg-[#FF0000] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
+                                                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#FF0000] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
                                                 aria-label="Subscribe to our YouTube channel"
                                             >
-                                                <FaYoutube size={22} />
+                                                <FaYoutube size={20} />
                                             </a>
                                             <a 
                                                 href="https://www.instagram.com/mcgidotorg/" 
                                                 target='_blank'
-                                                className="w-11 h-11 rounded-lg bg-white/5 hover:bg-[#E4405F] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
+                                                className="w-10 h-10 rounded-lg bg-white/5 hover:bg-[#E4405F] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300"
                                                 aria-label="Follow us on Instagram"
                                             >
-                                                <FaInstagram size={22} />
+                                                <FaInstagram size={20} />
                                             </a>
                                         </div>
                                     </div>
@@ -181,11 +181,11 @@ export default function Footer() {
                     </div>
                     <div className="border-t border-white/10">
                         <div className="lg:max-w-screen-xl w-11/12 mx-auto">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 text-center sm:text-left">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 py-4 text-center sm:text-left">
                                 <div className="text-gray-400 text-sm">
                                     &copy; {currentYear} MCGI Australia. All Rights Reserved.
                                 </div>
-                                <div className="text-gray-400 text-sm sm:text-right">
+                                <div className="text-gray-400 text-sm text-center sm:text-right">
                                     Designed & Developed by <a href="#" className="text-white hover:text-primary transition-colors">MCGI Dev Team</a>
                                 </div>
                             </div>

@@ -99,37 +99,157 @@
   
   /* Fix image sizing in sections */
   .image-content img {
-    height: 300px !important;
+    max-width: 100%;
+    height: auto;
   }
   
-  /* Adjust button groups for mobile */
+  /* Fix inline button spacing */
   .flex.flex-wrap.gap-4 {
-    justify-content: center;
+    gap: 0.75rem !important;
   }
   
-  /* Improve footer layout on mobile */
+  /* Fix footer grid on mobile */
   footer .grid {
-    row-gap: 2rem !important;
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
   }
   
-  /* Center align social icons on mobile */
+  /* Fix footer social links */
   footer .flex.flex-wrap.gap-3 {
     justify-content: center;
   }
   
-  /* Fix padding in page banners */
+  /* Fix about section spacing */
   .relative.pt-16.pb-12 {
-    padding-top: 5rem !important;
-    padding-bottom: 3rem !important;
+    padding-top: 3rem !important;
+    padding-bottom: 2rem !important;
   }
 }
 
+/* Improved specific mobile fixes */
+@media (max-width: 767px) {
+  /* Fix Bible verse banner on mobile */
+  .slider-container .slider-item {
+    min-height: 400px !important;
+    max-height: 70vh !important;
+    padding: 1.5rem !important;
+  }
+  
+  /* Center Bible verse text properly */
+  .slider-container .slider-item > div {
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    padding: 1rem !important;
+  }
+  
+  /* Adjust welcome banner size and spacing */
+  .welcome-section {
+    padding: 1.5rem 1rem !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  /* Fix yellow welcome banner text alignment */
+  .welcome-section h2, 
+  .welcome-section h1 {
+    text-align: center !important;
+    font-size: 1.75rem !important;
+    line-height: 2.25rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Fix Bible verse banner button */
+  .slider-container .contact-button {
+    margin-top: 1rem !important;
+    padding: 0.5rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Ensure header is properly fixed on mobile */
+  header.fixed-top {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+    background: white !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+  }
+  
+  /* Remove duplicate navigation on mobile */
+  .desktop-navigation {
+    display: none !important;
+  }
+  
+  /* Logo size on mobile */
+  .mobile-header .logo-wrapper img,
+  .logo-container img {
+    max-height: 40px !important;
+    width: auto !important;
+  }
+  
+  /* Mobile header spacing and alignment */
+  .mobile-header {
+    padding: 0.75rem 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  
+  /* Mobile menu button positioning */
+  .mobile-header button {
+    padding: 0.5rem !important;
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Mobile menu styling */
+  .mobile-menu {
+    padding: 1rem 0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    animation: fadeIn 0.2s ease-in-out forwards !important;
+  }
+}
+
+/* Fix for form datepickers */
 .form-item .react-datepicker-popper{
-    z-index: 9;
+  z-index: 100 !important;
 }
 .form-item .react-datepicker-wrapper{
-    @apply w-full
+  width: 100% !important;
 }
+
+/* Fix for service schedule cards and feature cards */
+.service-card, 
+.feature-card,
+.card-hover {
+  padding: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  height: auto !important;
+  min-height: unset !important;
+}
+
+.service-card h2,
+.feature-card h3 {
+  font-size: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+  line-height: 1.3 !important;
+}
+
+.service-card p,
+.feature-card p {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Fix for service schedule layout */
+.service-schedule {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 @media screen and (max-width:767px) {
     .custom-ckeditor .tox-tinymce{
         height: 400px !important;
@@ -155,8 +275,59 @@
     }
     
     /* Improve card layouts in grids */
-    .card-hover {
+    .card-hover,
+    .service-card,
+    .feature-card {
         width: 100% !important;
+        padding: 1.5rem !important;
+        height: auto !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Fix feature card content spacing */
+    .feature-card p,
+    .card-hover p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Fix service card layout */
+    .service-card > div {
+        margin-bottom: 1.25rem !important;
+    }
+    
+    /* Better card separation */
+    .grid.md\:grid-cols-3,
+    .grid.md\:grid-cols-2 {
+        display: block !important;
+    }
+    
+    /* Service info banner fixes */
+    .service-info {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .service-info > div {
+        width: 100% !important;
+        padding: 1.25rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .service-info h3 {
+        font-size: 1.25rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Fix for service info button */
+    .service-info a.bg-blue-600,
+    .service-info button.bg-blue-600 {
+        display: inline-block !important;
+        width: auto !important;
+        min-width: 150px !important;
+        padding: 0.5rem 1rem !important;
+        text-align: center !important;
     }
     
     /* Fix modal positioning on mobile */
@@ -164,6 +335,25 @@
         width: 90% !important;
         max-width: 400px !important;
         margin: 0 auto !important;
+    }
+    
+    /* Fix flex layout in service card */
+    .service-schedule {
+        flex-direction: column !important;
+    }
+    
+    .service-schedule > div {
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Ensure columns stack properly */
+    .md\:flex {
+        flex-direction: column !important;
+    }
+    
+    .md\:flex > div {
+        width: 100% !important;
     }
 }
 
@@ -194,6 +384,17 @@
     /* Fix spacing in two column layouts */
     .grid.md\:grid-cols-2 {
         gap: 2rem !important;
+    }
+    
+    /* Better service banner on tablets */
+    .service-card {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .service-card > div {
+        flex: 1 1 45% !important;
+        margin: 0.5rem !important;
     }
 }
 
@@ -239,6 +440,28 @@
     .slick-prev, .slick-next {
         width: 30px !important;
         height: 30px !important;
+    }
+    
+    /* Fix feature cards on very small screens */
+    .feature-card,
+    .service-card {
+        padding: 1.25rem !important;
+    }
+    
+    .feature-card h3,
+    .service-card h2 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Better separation between sections */
+    .service-info {
+        margin-bottom: 2rem !important;
+    }
+    
+    /* Ensure text content is readable */
+    p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
     }
 }
 
@@ -958,4 +1181,207 @@ h1, h2, h3, h4, h5, h6 {
 
 .shadow-text {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Fix for mobile top banner */
+@media (max-width: 767px) {
+  /* Ensure the welcome banner is fully visible */
+  .top-bar {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    text-align: center;
+  }
+  
+  /* Fix logo on mobile - ensure it's not too large */
+  .mobile-header .logo-wrapper img,
+  .mobile-header .logo-wrapper svg {
+    max-width: 150px;
+    height: auto;
+  }
+
+  /* Improve positioning of header elements */
+  .mobile-header {
+    padding: 0.75rem 0;
+    align-items: center;
+  }
+  
+  /* Ensure hamburger menu is properly aligned */
+  .mobile-header button {
+    margin-top: 0;
+    padding: 0.5rem;
+  }
+  
+  /* Make menu transitions smoother */
+  .mobile-menu {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Ensure slider text is readable on small screens */
+  .slider-container .slider-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  /* Give breathing room to content */
+  .slider-container .slider-item > div {
+    padding: 0 1rem;
+  }
+}
+
+/* Fix for the header when in fixed position */
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Remove duplicate navigation menus on mobile */
+@media (max-width: 767px) {
+  .desktop-navigation {
+    display: none !important;
+  }
+}
+
+/* Additional responsive fixes for the Bible verse banners */
+@media (max-width: 767px) {
+  .pattern-animation {
+    opacity: 0.5;
+  }
+  
+  /* Adjust the verse text sizing and spacing */
+  .banner-text {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Ensure the banner content is centered */
+  .banner-content {
+    width: 100%;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  
+  /* Adjust button sizing in the banner */
+  .banner-content button,
+  .banner-content a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Fix Contact Us button on the banner */
+.slider-container .contact-button {
+  margin-top: 1rem;
+  width: auto;
+  min-width: 150px;
+  text-align: center;
+}
+
+/* Hide banner images on mobile and improve footer styling */
+@media (max-width: 767px) {
+  /* Hide banner images */
+  .slider-container .banner-image,
+  .slider-container img:not(.logo) {
+    display: none !important;
+  }
+  
+  /* Make verse background occupy the entire screen */
+  .slider-container .slider-item {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  
+  .slider-container .slider-item > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 2.5rem 1.5rem !important;
+  }
+  
+  /* Footer improvements */
+  footer {
+    padding: 2rem 1rem !important;
+  }
+  
+  footer h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+  }
+  
+  /* Improve contact section spacing */
+  footer .contact-info {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  footer .contact-info > div {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 0.75rem !important;
+    justify-content: center !important;
+  }
+  
+  footer .contact-info svg,
+  footer .contact-info img {
+    margin-right: 0.5rem !important;
+  }
+  
+  /* Center Quick Links */
+  footer .quick-links {
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  footer .quick-links a {
+    padding: 0.5rem 0 !important;
+    display: inline-block !important;
+  }
+  
+  /* Fix social media icons */
+  footer .social-icons {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  footer .social-icons a {
+    background: rgba(255, 255, 255, 0.1) !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+  }
+  
+  /* Copyright section */
+  footer .copyright {
+    text-align: center !important;
+    margin-top: 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  footer .credits {
+    text-align: center !important;
+    margin-top: 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Additional fixes for super small screens */
+@media (max-width: 480px) {
+  footer h2 {
+    font-size: 1.125rem !important;
+  }
+  
+  footer .social-icons a {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
 }

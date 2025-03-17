@@ -1,22 +1,22 @@
+import React from 'react';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 
-export default function NavLink({ active = false, className = '', children, ...props }) {
+export default function NavLink({ href, active = false, children, className = '', ...props }) {
     return (
         <Link
+            href={href}
+            className={`inline-flex items-center px-4 py-2 border-b-2 text-base font-medium leading-5 transition duration-150 ease-in-out focus:outline-none focus:border-primary focus:ring focus:ring-primary/30 ${
+                active
+                    ? 'border-primary text-primary font-semibold'
+                    : 'border-transparent text-gray-900 hover:text-primary hover:border-gray-300'
+            } ${className}`}
             {...props}
-            className={
-                'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none ' +
-                (active
-                    ? 'border-indigo-400 dark:border-indigo-600 text-gray-900 dark:text-gray-100 focus:border-indigo-700 '
-                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 ') +
-                className
-            }
         >
             <motion.span
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                transition={{ duration: 0.2 }}
+                initial={{ y: -5, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
             >
                 {children}
             </motion.span>

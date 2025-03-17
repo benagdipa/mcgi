@@ -1,49 +1,88 @@
 import React from 'react';
 
-const Skeleton = ({ 
-    className = '', 
-    variant = 'rectangular', 
-    width, 
-    height, 
-    animation = 'pulse',
-    rounded = 'md',
-    count = 1
-}) => {
-    const baseClasses = `
-        bg-gray-200 dark:bg-gray-700
-        ${animation === 'pulse' ? 'animate-pulse' : animation === 'wave' ? 'animate-shimmer' : ''}
-        ${variant === 'circular' ? 'rounded-full' : `rounded-${rounded}`}
-    `;
-
-    const style = {
-        width: width,
-        height: height,
-    };
-
+// Memoize the Skeleton component to prevent unnecessary re-renders
+const Skeleton = React.memo(({ type = "text", count = 1, className = "" }) => {
+    // Generate skeleton based on type
     const renderSkeleton = () => {
-        return (
-            <div 
-                className={`${baseClasses} ${className}`}
-                style={style}
-                aria-hidden="true"
-                role="status"
-                aria-label="Loading..."
-            />
-        );
+        switch (type) {
+            case "banner":
+                return (
+                    <div className="w-full animate-pulse">
+                        <div className="bg-gray-200 h-[500px] rounded-md"></div>
+                    </div>
+                );
+            
+            case "section":
+                return (
+                    <div className="w-full animate-pulse">
+                        <div className="h-6 w-24 bg-gray-200 rounded mb-4"></div>
+                        <div className="h-10 w-64 bg-gray-200 rounded mb-8"></div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="h-64 bg-gray-200 rounded"></div>
+                            <div>
+                                <div className="h-6 bg-gray-200 rounded mb-4"></div>
+                                <div className="h-6 bg-gray-200 rounded mb-4"></div>
+                                <div className="h-6 bg-gray-200 rounded mb-4"></div>
+                                <div className="h-6 bg-gray-200 rounded mb-4 w-3/4"></div>
+                                <div className="h-10 w-32 bg-gray-200 rounded mt-8"></div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            
+            case "cards":
+                return (
+                    <div className="w-full animate-pulse">
+                        <div className="flex justify-between mb-8">
+                            <div>
+                                <div className="h-6 w-24 bg-gray-200 rounded mb-2"></div>
+                                <div className="h-10 w-48 bg-gray-200 rounded"></div>
+                            </div>
+                            <div className="h-6 w-20 bg-gray-200 rounded"></div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {[...Array(3)].map((_, i) => (
+                                <div key={i} className="rounded-lg overflow-hidden bg-white shadow">
+                                    <div className="h-48 bg-gray-200"></div>
+                                    <div className="p-4">
+                                        <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                                        <div className="h-6 bg-gray-200 rounded mb-3"></div>
+                                        <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                                        <div className="h-4 bg-gray-200 rounded mb-3 w-3/4"></div>
+                                        <div className="h-5 bg-gray-200 rounded w-1/3 mt-6"></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            
+            case "text":
+            default:
+                return (
+                    <div className="animate-pulse">
+                        {[...Array(count)].map((_, i) => (
+                            <div key={i} className={`h-4 bg-gray-200 rounded mb-2 ${i === count - 1 ? "w-3/4" : "w-full"}`}></div>
+                        ))}
+                    </div>
+                );
+        }
     };
-
-    if (count === 1) {
-        return renderSkeleton();
-    }
 
     return (
-        <div className="space-y-2">
-            {[...Array(count)].map((_, index) => (
-                <div key={index} className={`${baseClasses} ${className}`} style={style} aria-hidden="true" />
-            ))}
+        <div 
+            className={`skeleton ${className}`} 
+            role="status" 
+            aria-busy="true" 
+            aria-label="Loading content"
+        >
+            {renderSkeleton()}
+            <span className="sr-only">Loading...</span>
         </div>
     );
-};
+});
+
+Skeleton.displayName = 'Skeleton';
 
 // Predefined skeleton components
 export const TextSkeleton = ({ lines = 1, className = '', ...props }) => {

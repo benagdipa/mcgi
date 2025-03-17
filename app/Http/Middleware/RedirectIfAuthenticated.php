@@ -48,8 +48,16 @@ class RedirectIfAuthenticated
                     return $next($request);
                 }
                 
-                // For admin users, redirect to dashboard
-                return redirect(RouteServiceProvider::HOME);
+                // Redirect based on user role
+                $role = $user->roles->pluck('name')->first();
+                
+                if ($role === 'super-admin') {
+                    return redirect()->route('admin.dashboard');
+                } elseif (in_array($role, ['member', 'admin'])) {
+                    return redirect()->route('dashboard');
+                } else {
+                    return redirect()->route('home');
+                }
             }
         }
 

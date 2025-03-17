@@ -83,6 +83,12 @@ export default function Sidebar({ current, toggle, setToggle }) {
             icon: <MdDashboard size={22} className="text-gray-400 group-hover:text-white" />
         },
         { 
+            name: 'Admin Dashboard',
+            route: 'admin.dashboard',
+            icon: <MdOutlineAdminPanelSettings size={22} className="text-gray-400 group-hover:text-white" />,
+            role: 'super-admin'
+        },
+        { 
             name: 'Website',
             route: 'home',
             icon: <AiOutlineGlobal size={22} className="text-gray-400 group-hover:text-white" />,
@@ -194,6 +200,11 @@ export default function Sidebar({ current, toggle, setToggle }) {
         
         // Check permissions if needed
         if (item.permission && !isUserAllowed(permissions, item.permission.split('|'), role)) {
+            return null;
+        }
+        
+        // Check role-based access
+        if (item.role && role?.name !== item.role) {
             return null;
         }
         

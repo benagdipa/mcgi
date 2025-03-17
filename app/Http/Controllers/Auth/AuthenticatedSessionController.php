@@ -52,8 +52,13 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $role = $user->roles->pluck('name')->first();
         
-        // Guest users with approval go to homepage
-        if (in_array($role, ['guest', 'Guest'])) {
+        // Redirect based on user role
+        if ($role === 'super-admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (in_array($role, ['member', 'admin'])) {
+            return redirect()->route('dashboard');
+        } elseif (in_array($role, ['guest', 'Guest'])) {
+            // Guest users with approval go to homepage
             if (!$user->admin_approved) {
                 Auth::logout();
                 $request->session()->invalidate();
@@ -64,20 +69,11 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
             
-            // Get the intended URL from session
-            $intended = session()->pull('url.intended', route('home'));
-            
-            // If the intended URL is a dashboard URL, redirect to home page instead
-            if (str_contains($intended, '/dashboard')) {
-                return redirect()->route('home');
-            }
-            
-            // Otherwise redirect to the intended URL
-            return redirect($intended);
+            return redirect()->route('home');
         }
         
-        // Members and admins go to dashboard or their intended URL
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Default fallback 
+        return redirect()->route('home');
     }
     
     

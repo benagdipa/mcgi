@@ -150,7 +150,7 @@ class PageController extends Controller
         
         // If the user has no role, assign them the guest role as a fallback
         if (!$user->hasRole('admin') && !$user->hasRole('member') && 
-            !$user->hasAnyRole(['guest', 'Guest'])) {
+            !$user->hasRole('super-admin') && !$user->hasAnyRole(['guest', 'Guest'])) {
             $user->assignRole('guest');
         }
         
@@ -159,7 +159,12 @@ class PageController extends Controller
             return redirect()->route('home')->with('message', 'You do not have access to the dashboard area.');
         }
         
-        // Continue with dashboard data for non-guest users
+        // Redirect super-admin users to the admin dashboard
+        if ($user->hasRole('super-admin')) {
+            return redirect()->route('admin.dashboard');
+        }
+        
+        // Continue with dashboard data for members and admins
         $user_count = User::count();
         $blog_counts = Post::count();
         $attendance_summary = Event::with('attendances')->withCount('attendances')->get();
@@ -179,5 +184,40 @@ class PageController extends Controller
                 'attendance_summary' => $attendance_summary,
             ],
         ]);
+    }
+    
+    public function adminDashboard()
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+        
+        // Only allow super-admin users to access this page
+        if (!$user->hasRole('super-admin')) {
+            return redirect()->route('dashboard')->with('message', 'You do not have access to the admin dashboard.');
+        }
+        
+        // Provide expanded data for the super admin dashboard
+        $user_count = User::count();
+        $blog_counts = Post::count();
+        
+        return Inertia::render('AdminDashboard', [
+            'count' => [
+                'users' => $user_count,
+                'blogs' => $blog_counts,
+                'events' => Event::count(),
+                'albums' => Attachment::count(),
+                'attendees' => Attendance::count()
+            ],
+            'data' => [
+                'events' => Event::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+                'blogs' => Post::orderBy('id', 'desc')->select('id', 'title')->take(5)->get(),
+                'users' => User::orderBy('id', 'desc')->select('id', 'first_name', "last_name", 'email', 'phone')->take(5)->get(),
+            ],
+        ]);
+    }
+
+    public function eventsPage()
+    {
+        return Inertia::render('EventsPage');
     }
 }

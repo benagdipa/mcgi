@@ -1,1 +1,0 @@
-import{r as t,j as e}from"./app-CCsYImbS.js";const i=t.forwardRef(function({className:r="",...o},s){return e.jsx("input",{...o,type:"checkbox",className:"rounded border-gray-300 text-primary shadow-sm focus:ring focus:ring-primary/20 focus:ring-offset-0 transition duration-150 ease-in-out "+r,ref:s})});export{i as C};

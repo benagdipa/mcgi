@@ -57,6 +57,30 @@ class EventController extends Controller
             ];
         });
 
+        // Check if the new EventsPage component exists
+        if (file_exists(resource_path('js/Pages/EventsPage.jsx'))) {
+            return Inertia::render('EventsPage', [
+                'events' => $events,
+                'eventTypes' => [
+                    'internal' => Event::TYPE_INTERNAL,
+                    'external' => Event::TYPE_EXTERNAL
+                ],
+                'internalCategories' => Event::internalCategories(),
+                'externalCategories' => Event::externalCategories(),
+                'isAuthenticated' => $isAuthenticated,
+                'userData' => $user ? [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => $user->phone ?? '',
+                    'locale' => $user->locale ?? '',
+                ] : null,
+                'flash' => [
+                    'message' => session('message')
+                ]
+            ]);
+        }
+
         return Inertia::render('Events/EventsPage', [
             'events' => $events,
             'eventTypes' => [
@@ -462,5 +486,26 @@ class EventController extends Controller
         if ($form) {
             return response()->json(['success' => true]);
         }
+    }
+
+    /**
+     * Display the custom events page with hardcoded event information
+     */
+    public function customEventsPage()
+    {
+        $user = Auth::user();
+        $isAuthenticated = $user !== null;
+        
+        return Inertia::render('EventsPage', [
+            'events' => [], // We're using hardcoded events in the component
+            'isAuthenticated' => $isAuthenticated,
+            'userData' => $user ? [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone ?? '',
+                'locale' => $user->locale ?? '',
+            ] : null
+        ]);
     }
 } 

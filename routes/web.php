@@ -42,6 +42,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/terms-conditions', 'conditionPage')->name('terms-and-condition');
     Route::get('/gallery', 'gallery_page')->name('gallery');
     Route::get('/new-visitor', 'visitorGuidePage')->name('visitor.guide');
+    // Route::get('/events-page', 'eventsPage')->name('events.page');
 });
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
@@ -71,6 +72,11 @@ Route::controller(EventController::class)->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard route - accessible to members and admins
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
+
+    // Admin Dashboard route - accessible only to super-admin users
+    Route::get('/admin/dashboard', [PageController::class, 'adminDashboard'])
+        ->middleware(['auth', 'role:super-admin'])
+        ->name('admin.dashboard');
     
     // Profile routes - accessible to all authenticated users
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -219,6 +225,8 @@ Route::prefix('events')->group(function () {
 });
 
 Route::get('/local-chapters', [LocationController::class, 'localChapters'])->name('local.chapters');
+
+Route::get('/events-page', [EventController::class, 'customEventsPage'])->name('events.page');
 
 require __DIR__ . '/auth.php';
 

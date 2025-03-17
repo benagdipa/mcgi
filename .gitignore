@@ -45,6 +45,7 @@ create_permissions.php
 *.sql
 test.php
 *.zip
+/mcgi
 
 # Windows specific
 Thumbs.db

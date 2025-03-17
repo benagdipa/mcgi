@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import '../css/slider-fixes.css';
 import '../scss/styles.scss';
 import '../css/animate.css';
 

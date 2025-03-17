@@ -1,343 +1,312 @@
-import { Link, usePage } from '@inertiajs/react'
-import React, { useState, useEffect } from 'react'
-import ApplicationLogo from './ApplicationLogo'
-import { FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaChevronDown, FaSearch } from 'react-icons/fa';
-import { AiOutlineDown, AiOutlineMenu, AiOutlineUser, AiOutlineClose } from 'react-icons/ai';
-import Dropdown from './Dropdown';
+import React, { useState, useEffect } from 'react';
+import { Link, usePage } from '@inertiajs/react';
+import { FaPhone, FaEnvelope, FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaCog, FaUser } from 'react-icons/fa';
+import { AiOutlineMail } from 'react-icons/ai';
+import ApplicationLogo from './ApplicationLogo';
+import { motion } from 'framer-motion';
+import NavLink from '@/Components/NavLink';
+import Dropdown from '@/Components/Dropdown';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import ToastProvider from '@/Components/ToastProvider';
 
 export default function Header({ user }) {
-    const { role } = usePage().props.auth;
-
     const [toggle, setToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const currentRoute = route().current()
-    const hideHeader = ['login', 'register', 'password.request']
+    const { url, component } = usePage();
+    
+    // Desktop or mobile view
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Add scroll effect
+    // Handle scroll event
     useEffect(() => {
         const handleScroll = () => {
-            const isScrolled = window.scrollY > 10;
-            if (isScrolled !== scrolled) {
-                setScrolled(isScrolled);
+            const scrollTop = window.scrollY;
+            if (scrollTop > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
             }
         };
 
-        document.addEventListener('scroll', handleScroll);
-        return () => {
-            document.removeEventListener('scroll', handleScroll);
+        // Detect mobile view
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
         };
-    }, [scrolled]);
 
-    // Add safe route checks
-    const hasRoute = (name) => {
-        try {
-            return route().has(name);
-        } catch (error) {
-            console.error(`Route '${name}' not found:`, error);
-            return false;
+        // Run once on component mount
+        handleResize();
+        
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleResize);
+        
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    // Handle mobile menu toggle
+    const handleToggle = () => {
+        setToggle(!toggle);
+        // Prevent body scrolling when menu is open
+        if (!toggle) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
         }
     };
 
-    const getRoute = (name) => {
-        try {
-            return route(name);
-        } catch (error) {
-            console.error(`Error getting route '${name}':`, error);
-            return '/';
-        }
-    };
-
-    const eventHref = currentRoute === 'home' ? getRoute('events.index') : getRoute('home') + '/events'
-    
-    // Determine if user is a member or a non-member/guest
-    const isMember = user && role && role.name !== 'guest' && role.name !== 'Guest';
-    
     return (
         <React.Fragment>
-            {!hideHeader.includes(currentRoute) && (
-                <header className={`main-header ${scrolled ? 'shadow-md' : 'shadow-sm'} sticky top-0 bg-white z-50 transition-all duration-300`}>
-                    <div className="w-full max-w-screen-2xl mx-auto">
-                        {/* Welcome banner for non-authenticated users */}
-                        {!user && (
-                            <div className="bg-gradient-to-r from-primary to-primary/80 text-white py-2 px-4 text-center">
-                                <span className="text-sm font-medium">Welcome to MCGI Australia! <Link href={getRoute('register')} className="font-bold underline hover:text-secondary transition-colors ml-1">Join our community</Link> or <Link href={getRoute('login')} className="font-bold underline hover:text-secondary transition-colors">Sign in</Link></span>
+            {/* Top Bar - Only visible on desktop */}
+            {!isMobile && (
+                <div className="top-bar bg-primary text-white py-2">
+                    <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <span className="text-sm md:text-base">Welcome to MCGI Australia!</span>
                             </div>
-                        )}
-                        <div className={`py-3 px-3 lg:px-6 ${scrolled ? 'lg:py-3' : 'lg:py-6'} transition-all duration-300`}>
-                            <div className="desktop-header justify-between items-center hidden xl:flex">
-                                <div className="left-section">
-                                    <div className="logo-wrapper">
-                                        <ApplicationLogo className={`transition-all duration-300 ${scrolled ? 'w-[160px]' : 'w-[200px]'}`} />
-                                    </div>
+
+                            <div className="flex items-center space-x-6">
+                                <div className="flex items-center space-x-4">
+                                    <a href="mailto:info@mcgi.org.au" className="text-white hover:text-gray-200 transition">
+                                        <AiOutlineMail className="inline mr-1" /> info@mcgi.org.au
+                                    </a>
+                                    <a href="tel:+61450780530" className="text-white hover:text-gray-200 transition">
+                                        <FaPhone className="inline mr-1" /> +61 450 780 530
+                                    </a>
                                 </div>
-                                <div className="middle-section">
-                                    <div className="menu-wrapper flex items-center">
-                                        <ul className="hidden lg:flex items-center gap-8">
-                                            <li className='font-semibold text-base font-montserrat group relative'>
-                                                <Link 
-                                                    href={hasRoute('home') ? getRoute('home') : '/'} 
-                                                    className={`transition-colors hover:text-primary pb-2 ${currentRoute === 'home' ? 'text-primary' : ''}`}
-                                                >
-                                                    Home
-                                                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${currentRoute === 'home' ? 'w-full' : ''}`}></span>
-                                                </Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat group relative'>
-                                                <Link 
-                                                    href={hasRoute('about') ? getRoute('about') : '/about-us'} 
-                                                    className={`transition-colors hover:text-primary pb-2 ${currentRoute === 'about' ? 'text-primary' : ''}`}
-                                                >
-                                                    About Us
-                                                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${currentRoute === 'about' ? 'w-full' : ''}`}></span>
-                                                </Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat group relative'>
-                                                <Link 
-                                                    href={eventHref} 
-                                                    className={`transition-colors hover:text-primary pb-2 ${currentRoute === 'events' ? 'text-primary' : ''}`}
-                                                >
-                                                    Events
-                                                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${currentRoute === 'events' ? 'w-full' : ''}`}></span>
-                                                </Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat group relative'>
-                                                <Link 
-                                                    href="/blogs" 
-                                                    className={`transition-colors hover:text-primary pb-2 ${currentRoute === 'blogs' ? 'text-primary' : ''}`}
-                                                >
-                                                    Articles
-                                                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${currentRoute === 'blogs' ? 'w-full' : ''}`}></span>
-                                                </Link>
-                                            </li>
-                                            <li className='font-semibold text-base font-montserrat group relative'>
-                                                <Link 
-                                                    href={route('local.chapters')} 
-                                                    className={`transition-colors hover:text-primary pb-2 ${currentRoute === 'local.chapters' ? 'text-primary' : ''}`}
-                                                >
-                                                    Local Chapters
-                                                    <span className={`absolute left-0 bottom-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full ${currentRoute === 'local.chapters' ? 'w-full' : ''}`}></span>
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                        
-                                        <div className="flex items-center ml-7">
-                                            <button className="text-tertiary hover:text-primary transition-colors mr-4">
-                                                <FaSearch size={18} />
-                                            </button>
-                                            
-                                            {/* Social Media Icons */}
-                                            <div className="menu-wrapper">
-                                                <ul className='flex justify-end gap-4'>
-                                                    <li>
-                                                        <a href="https://www.facebook.com/MCGI.org/" target='_blank' className="text-tertiary hover:text-[#1877F2] transition-colors">
-                                                            <FaFacebook size={20} />
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://twitter.com/mcgidotorg" target='_blank' className="text-tertiary hover:text-[#1DA1F2] transition-colors">
-                                                            <FaTwitter size={20} />
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://www.instagram.com/mcgidotorg/" target='_blank' className="text-tertiary hover:text-[#E4405F] transition-colors">
-                                                            <FaInstagram size={20} />
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://www.youtube.com/mcgichannel" target='_blank' className="text-tertiary hover:text-[#FF0000] transition-colors">
-                                                            <FaYoutube size={20} />
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            
-                                            {/* User Profile/Login */}
-                                            <div className="ml-6 border-l pl-6">
-                                                {user ? (
-                                                    <Dropdown>
-                                                        <Dropdown.Trigger>
-                                                            <span className="flex items-center gap-1 cursor-pointer">
-                                                                <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                                                                    <AiOutlineUser size={18} />
-                                                                </div>
-                                                                <button type="button" className="text-tertiary hover:text-primary transition-colors">{user?.first_name}</button>
-                                                                <FaChevronDown size={14} className="text-gray-500" />
-                                                            </span>
-                                                        </Dropdown.Trigger>
-                                                        <Dropdown.Content>
-                                                            {isMember && <Dropdown.Link href={getRoute('dashboard')}>Dashboard</Dropdown.Link>}
-                                                            <Dropdown.Link href={getRoute('profile.edit')}>Profile</Dropdown.Link>
-                                                            {!isMember && user && (
-                                                                <Dropdown.Link href={eventHref}>My Events</Dropdown.Link>
-                                                            )}
-                                                            <Dropdown.Link href={getRoute('logout')} method="post" as="button">
-                                                                Log Out
-                                                            </Dropdown.Link>
-                                                        </Dropdown.Content>
-                                                    </Dropdown>
-                                                ) : (
-                                                    <Link href={getRoute('login')} className="flex items-center bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all">
-                                                        <AiOutlineUser size={18} />
-                                                        <span className='pl-2 font-medium'>Sign In</span>
-                                                    </Link>
+                                <div className="hidden md:flex items-center space-x-3">
+                                    <a href="https://www.facebook.com/MCGI.org/" target="_blank" aria-label="Visit our Facebook page" className="text-white hover:text-gray-200 transition">
+                                        <FaFacebook />
+                                    </a>
+                                    <a href="https://twitter.com/mcgidotorg" target="_blank" aria-label="Visit our Twitter page" className="text-white hover:text-gray-200 transition">
+                                        <FaTwitter />
+                                    </a>
+                                    <a href="https://www.youtube.com/mcgichannel" target="_blank" aria-label="Visit our YouTube channel" className="text-white hover:text-gray-200 transition">
+                                        <FaYoutube />
+                                    </a>
+                                    <a href="https://www.instagram.com/mcgidotorg/" target="_blank" aria-label="Visit our Instagram page" className="text-white hover:text-gray-200 transition">
+                                        <FaInstagram />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Main Navigation */}
+            <header className={`bg-white py-3 transition-all duration-300 relative z-50 ${scrolled ? 'shadow-md' : ''}`}>
+                <div className="lg:max-w-screen-xl w-11/12 mx-auto">
+                    {/* Desktop Navigation - Only visible on desktop */}
+                    {!isMobile ? (
+                        <nav className="flex justify-between items-center">
+                            {/* Main Logo */}
+                            <div className="logo-container">
+                                <ApplicationLogo />
+                            </div>
+
+                            {/* Desktop Navigation Links */}
+                            <div className="hidden md:flex items-center space-x-6 font-medium">
+                                <NavLink href={route('home')} active={route().current('home')}>
+                                    Home
+                                </NavLink>
+                                <NavLink href={route('about')} active={route().current('about')}>
+                                    About
+                                </NavLink>
+                                <NavLink href={route('local.chapters')} active={route().current('local.chapters')}>
+                                    Local Chapters
+                                </NavLink>
+                                <NavLink href={route('contact')} active={route().current('contact')}>
+                                    Contact Us
+                                </NavLink>
+                            </div>
+
+                            {/* User Menu - Desktop */}
+                            <div className="hidden md:flex items-center ml-6">
+                                {user ? (
+                                    <div className="ml-3 relative">
+                                        <Dropdown>
+                                            <Dropdown.Trigger>
+                                                <span className="inline-flex rounded-md">
+                                                    <button
+                                                        type="button"
+                                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                    >
+                                                        <FaUserCircle className="mr-1" size={20} />
+                                                        {user.first_name}
+                                                    </button>
+                                                </span>
+                                            </Dropdown.Trigger>
+
+                                            <Dropdown.Content>
+                                                {user.role && user.role.name === 'super-admin' && (
+                                                    <Dropdown.Link href={route('dashboard')} className="flex items-center">
+                                                        <FaCog className="mr-2" size={16} />
+                                                        Dashboard
+                                                    </Dropdown.Link>
                                                 )}
-                                            </div>
-                                        </div>
+                                                
+                                                {/* Add admin link for users with admin permissions */}
+                                                {user.permissions && (
+                                                    user.permissions.some(permission => 
+                                                        permission.includes('_blog') || 
+                                                        permission.includes('_events') || 
+                                                        permission.includes('_users') ||
+                                                        permission.includes('_albums') ||
+                                                        permission.includes('_banners') ||
+                                                        permission.includes('_locale') ||
+                                                        permission.includes('_categories') ||
+                                                        permission.includes('_tags') ||
+                                                        permission.includes('_email') ||
+                                                        permission.includes('_roles')
+                                                    ) && (
+                                                        <Dropdown.Link href={route('dashboard')} className="flex items-center">
+                                                            <FaCog className="mr-2" size={16} />
+                                                            Admin Dashboard
+                                                        </Dropdown.Link>
+                                                    )
+                                                )}
+
+                                                <Dropdown.Link href={route('profile.edit')} className="flex items-center">
+                                                    <FaUser className="mr-2" size={16} />
+                                                    Profile
+                                                </Dropdown.Link>
+
+                                                <Dropdown.Link
+                                                    href={route('logout')}
+                                                    method="post"
+                                                    as="button"
+                                                    className="flex items-center"
+                                                >
+                                                    <FaSignOutAlt className="mr-2" size={16} />
+                                                    Log Out
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </Dropdown>
                                     </div>
-                                </div>
+                                ) : (
+                                    <Link
+                                        href={route('login')}
+                                        className="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary/90 transition ease-in-out duration-150"
+                                    >
+                                        Member Login
+                                    </Link>
+                                )}
                             </div>
-                            
-                            {/* Mobile Header */}
-                            <div className="mobile-header flex justify-between items-center xl:hidden">
-                                <div className="logo-wrapper">
-                                    <ApplicationLogo className="w-[150px]" />
-                                </div>
-                                <button onClick={() => setToggle(!toggle)} className="outline-none">
-                                    {toggle ? (
-                                        <AiOutlineClose size={24} className="text-primary" />
-                                    ) : (
-                                        <AiOutlineMenu size={24} className="text-primary" />
-                                    )}
+                        </nav>
+                    ) : (
+                        // Mobile Navigation
+                        <div className="mobile-header flex justify-between items-center">
+                            {/* Mobile Logo */}
+                            <div className="logo-wrapper">
+                                <ApplicationLogo />
+                            </div>
+
+                            {/* Mobile Menu Button */}
+                            <button 
+                                onClick={handleToggle} 
+                                className="md:hidden p-3 focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
+                                aria-expanded={toggle}
+                                aria-controls="mobile-menu"
+                                aria-label={toggle ? "Close menu" : "Open menu"}
+                            >
+                                {toggle ? (
+                                    <FaTimes className="h-6 w-6 text-gray-800" />
+                                ) : (
+                                    <FaBars className="h-6 w-6 text-gray-800" />
+                                )}
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {/* Mobile Menu - Only visible when toggled */}
+                {isMobile && toggle && (
+                    <div 
+                        id="mobile-menu"
+                        className={`${toggle ? 'block' : 'hidden'} md:hidden fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${
+                            toggle ? 'translate-x-0' : 'translate-x-full'
+                        }`}
+                        aria-hidden={!toggle}
+                    >
+                        <div className="flex flex-col h-full">
+                            <div className="flex justify-between items-center p-5 border-b">
+                                <ApplicationLogo className="h-10" />
+                                <button
+                                    onClick={handleToggle}
+                                    className="p-3 focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
+                                    aria-label="Close menu"
+                                >
+                                    <FaTimes className="h-6 w-6 text-gray-800" />
                                 </button>
                             </div>
                             
-                            {/* Mobile Menu */}
-                            {toggle && (
-                                <div className="mobile-menu xl:hidden mt-4 py-4 border-t animation-fade-in">
-                                    <ul className="space-y-2">
-                                        <li className="font-semibold text-base">
-                                            <Link 
-                                                href={hasRoute('home') ? getRoute('home') : '/'}
-                                                className={`block px-2 py-2 rounded-md ${currentRoute === 'home' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
-                                                onClick={() => setToggle(false)}
-                                            >
-                                                Home
-                                            </Link>
-                                        </li>
-                                        <li className="font-semibold text-base">
-                                            <Link 
-                                                href={hasRoute('about') ? getRoute('about') : '/about-us'}
-                                                className={`block px-2 py-2 rounded-md ${currentRoute === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
-                                                onClick={() => setToggle(false)}
-                                            >
-                                                About Us
-                                            </Link>
-                                        </li>
-                                        <li className="font-semibold text-base">
-                                            <Link 
-                                                href={eventHref}
-                                                className={`block px-2 py-2 rounded-md ${currentRoute === 'events' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
-                                                onClick={() => setToggle(false)}
-                                            >
-                                                Events
-                                            </Link>
-                                        </li>
-                                        <li className="font-semibold text-base">
-                                            <Link 
-                                                href="/blogs"
-                                                className={`block px-2 py-2 rounded-md ${currentRoute === 'blogs' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
-                                                onClick={() => setToggle(false)}
-                                            >
-                                                Articles
-                                            </Link>
-                                        </li>
-                                        <li className="font-semibold text-base">
-                                            <Link 
-                                                href={route('local.chapters')}
-                                                className={`block px-2 py-2 rounded-md ${currentRoute === 'local.chapters' ? 'bg-primary/10 text-primary' : 'hover:bg-gray-100'}`}
-                                                onClick={() => setToggle(false)}
-                                            >
-                                                Local Chapters
-                                            </Link>
-                                        </li>
-                                        {!user && (
-                                            <li className="mt-4 pt-4 border-t">
-                                                <Link 
-                                                    href={getRoute('login')}
-                                                    className="flex items-center justify-center w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all"
-                                                    onClick={() => setToggle(false)}
-                                                >
-                                                    <AiOutlineUser size={18} />
-                                                    <span className="pl-2 font-medium">Sign In</span>
-                                                </Link>
-                                            </li>
-                                        )}
-                                        {user && (
-                                            <>
-                                                <li className="mt-4 pt-4 border-t">
-                                                    <div className="px-2 py-2 text-gray-600">
-                                                        Signed in as <span className="font-semibold text-primary">{user.first_name}</span>
-                                                    </div>
-                                                </li>
-                                                {isMember && (
-                                                    <li>
-                                                        <Link 
-                                                            href={getRoute('dashboard')}
-                                                            className="block px-2 py-2 rounded-md hover:bg-gray-100"
-                                                            onClick={() => setToggle(false)}
-                                                        >
-                                                            Dashboard
-                                                        </Link>
-                                                    </li>
-                                                )}
-                                                <li>
-                                                    <Link 
-                                                        href={getRoute('profile.edit')}
-                                                        className="block px-2 py-2 rounded-md hover:bg-gray-100"
-                                                        onClick={() => setToggle(false)}
-                                                    >
-                                                        Profile
-                                                    </Link>
-                                                </li>
-                                                {!isMember && (
-                                                    <li>
-                                                        <Link 
-                                                            href={eventHref}
-                                                            className="block px-2 py-2 rounded-md hover:bg-gray-100"
-                                                            onClick={() => setToggle(false)}
-                                                        >
-                                                            My Events
-                                                        </Link>
-                                                    </li>
-                                                )}
-                                                <li>
-                                                    <Link 
-                                                        href={getRoute('logout')}
-                                                        method="post"
-                                                        as="button"
-                                                        className="w-full text-left px-2 py-2 rounded-md hover:bg-gray-100 text-red-600"
-                                                    >
-                                                        Log Out
-                                                    </Link>
-                                                </li>
-                                            </>
-                                        )}
-                                    </ul>
-                                    
-                                    {/* Social Media Icons in Mobile Menu */}
-                                    <div className="mt-6 pt-4 border-t">
-                                        <div className="px-2 mb-2 text-gray-600 font-medium">Follow Us</div>
-                                        <div className="flex gap-4 px-2">
-                                            <a href="https://www.facebook.com/MCGI.org/" target='_blank' className="text-tertiary hover:text-[#1877F2] transition-colors">
-                                                <FaFacebook size={20} />
-                                            </a>
-                                            <a href="https://twitter.com/mcgidotorg" target='_blank' className="text-tertiary hover:text-[#1DA1F2] transition-colors">
-                                                <FaTwitter size={20} />
-                                            </a>
-                                            <a href="https://www.instagram.com/mcgidotorg/" target='_blank' className="text-tertiary hover:text-[#E4405F] transition-colors">
-                                                <FaInstagram size={20} />
-                                            </a>
-                                            <a href="https://www.youtube.com/mcgichannel" target='_blank' className="text-tertiary hover:text-[#FF0000] transition-colors">
-                                                <FaYoutube size={20} />
-                                            </a>
-                                        </div>
+                            <div className="flex-1 overflow-y-auto">
+                                <nav className="px-4 pt-5 pb-6">
+                                    {/* Mobile navigation links with larger touch targets */}
+                                    <div className="space-y-2">
+                                        <ResponsiveNavLink href={route('home')} active={route().current('home')} className="block px-4 py-4 text-base font-medium rounded-md">
+                                            Home
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink href={route('about')} active={route().current('about')} className="block px-4 py-4 text-base font-medium rounded-md">
+                                        About
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink href={route('local.chapters')} active={route().current('local.chapters')} className="block px-4 py-4 text-base font-medium rounded-md">
+                                        Local Chapters
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink href={route('contact')} active={route().current('contact')} className="block px-4 py-4 text-base font-medium rounded-md">
+                                        Contact Us
+                                        </ResponsiveNavLink>
                                     </div>
-                                </div>
-                            )}
+                                </nav>
+                            </div>
+                            
+                            {/* Add login/profile buttons at bottom of mobile menu */}
+                            <div className="p-5 border-t">
+                                {user ? (
+                                    <div className="flex flex-col space-y-3">
+                                        <div className="flex items-center mb-3">
+                                            <FaUserCircle className="h-8 w-8 text-gray-700 mr-2" />
+                                            <span className="font-medium text-gray-900">{user.first_name} {user.last_name}</span>
+                                        </div>
+                                        <ResponsiveNavLink href={route('profile.edit')} className="border border-gray-300">
+                                            <FaUser className="mr-2" size={16} />
+                                            Profile
+                                        </ResponsiveNavLink>
+                                        {(user.role?.name === 'super-admin' || (user.permissions && user.permissions.some(p => 
+                                            p.includes('_blog') || p.includes('_events') || p.includes('_users')
+                                        ))) && (
+                                            <ResponsiveNavLink href={route('dashboard')} className="border border-gray-300">
+                                                    <FaCog className="mr-2" size={16} />
+                                                    Dashboard
+                                                </ResponsiveNavLink>
+                                        )}
+                                                    <ResponsiveNavLink 
+                                            href={route('logout')}
+                                                method="post"
+                                                as="button"
+                                            className="bg-red-50 text-red-600 border border-red-200"
+                                            >
+                                                <FaSignOutAlt className="mr-2" size={16} />
+                                                Log Out
+                                            </ResponsiveNavLink>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        href={route('login')}
+                                        className="flex items-center justify-center w-full px-4 py-3 bg-primary text-white rounded-md font-medium transition duration-200 ease-in-out hover:bg-primary-dark"
+                                    >
+                                        <FaUserCircle className="mr-2" />
+                                        Member Login
+                                    </Link>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </header>
-            )}
+                )}
+            </header>
         </React.Fragment>
     );
 }
